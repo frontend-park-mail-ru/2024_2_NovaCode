@@ -28,6 +28,6 @@ jobs:
       - name: Run linter
         uses: sibiraj-s/action-eslint@v3
         with:
-          eslint-args: "--ignore-pattern '**/*.precompiled.js''"
+          eslint-args: "--ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)'"
           extensions: "js,jsx,ts,tsx"
           annotations: true
