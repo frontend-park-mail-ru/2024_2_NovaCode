@@ -1,0 +1,15 @@
+<div class="header_row">
+    <div class="header_left-block">
+        <div class="logo" id="header_logo">
+            <span>NovaMusic</span>
+        </div>
+    </div>
+    <div class="header_right-block" id="header_login_menu">
+        {{#if user}}
+            <button class="primary-btn btn" id="header_logout_button">Выход</button>
+        {{else}}
+            <button class="primary-btn btn" id="header_login_button">Войти</button>
+            <button class="secondary-btn btn" id="header_signup_button">Регистрация</button>
+        {{/if}}
+    </div>
+</div>
