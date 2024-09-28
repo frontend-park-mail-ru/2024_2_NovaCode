@@ -1,0 +1,8 @@
+@import "components/header/header.css";
+@import "pages/signup/signup.css";
+@import "pages/login/login.css";
+@import "pages/error/error.css";
+
+body {
+  font-family: sans-serif;
+}
