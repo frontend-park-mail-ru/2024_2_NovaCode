@@ -6,7 +6,6 @@ import { API_URL } from "../../app/config.js";
 export class HeaderView extends View {
   constructor(router) {
     super(router);
-    /** @private @type {HTMLElement} */
     this.root = document.querySelector("#header");
   }
 
@@ -20,7 +19,7 @@ export class HeaderView extends View {
 
   /**
    * Generates html template for header using Handlebars
-   * 
+   *
    * @param {Object} user - current user object
    * @returns {string} rendered html string for header
    */
@@ -31,7 +30,7 @@ export class HeaderView extends View {
 
   /**
    * Binds event listeners to buttons
-   * 
+   *
    * @private
    */
   bindEvents() {
@@ -62,7 +61,7 @@ export class HeaderView extends View {
 
   /**
    * Handles login button click event
-   * 
+   *
    * @param {Event} event - click event
    */
   loginHandler(event) {
@@ -72,7 +71,7 @@ export class HeaderView extends View {
 
   /**
    * Handles signup button click event
-   * 
+   *
    * @param {Event} event - click event
    */
   signupHandler(event) {
@@ -82,7 +81,7 @@ export class HeaderView extends View {
 
   /**
    * Handles logout button click event
-   * 
+   *
    * @param {Event} event - click event
    * @returns {Promise<void>} promise that resolves when the logout process is complete
    */

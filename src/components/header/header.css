@@ -1,55 +1,56 @@
-.header{
-    width: 100%;
-    height: 70px;
-    position: sticky;
-    top: 0;
-    background-color: var(--background-color);
+.header {
+  width: 100%;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  background-color: var(--background-color);
 }
 
-.header_row{
-    height: 50px;
-    padding: 10px;
-    width: auto;
-    display: flex;
-    justify-content: space-between;
+.header_row {
+  height: 50px;
+  padding: 10px;
+  width: auto;
+  display: flex;
+  justify-content: space-between;
 }
 
-.header_left-block{
-    width: 50%;
-    height: auto;
-    float: left;
-    display: flex;
-    gap: 10px;
+.header_left-block {
+  width: 50%;
+  height: auto;
+  float: left;
+  display: flex;
+  gap: 10px;
 }
 
-.logo{
-    font-size: 28px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    margin-right: 10px;
+.logo {
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
-.header_right-block{
-    float: right;
-    height: 100%;
-    display: flex;
-    gap: 10px;
+.header_right-block {
+  float: right;
+  height: 100%;
+  display: flex;
+  gap: 10px;
 
-    .primary-btn{
-        width: 120px;
-    }
+  .primary-btn {
+    width: 120px;
+  }
 
-    .secondary-btn{
-        width: 180px;
-    }
+  .secondary-btn {
+    width: 180px;
+  }
 }
 
 .header_button {
-    background-color: ;
+  background-color:;
 }
 
-.header_user_name{
-    margin: auto;
-    font-size: var(--focus-font-size);
+.header_user_name {
+  margin: auto;
+  font-size: var(--focus-font-size);
 }
+
