@@ -1,3 +1,5 @@
+import { ErrorView } from "../pages/error/error.js";
+
 export class Router {
   constructor() {
     this.layout = [];
