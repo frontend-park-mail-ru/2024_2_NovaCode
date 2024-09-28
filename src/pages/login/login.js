@@ -88,7 +88,7 @@ export class LoginView extends View {
             localStorage.setItem('user', JSON.stringify(user));
             this.displayMessage(messageBox, 'Login successful!', 'success');
             this.router.renderLayout();
-            this.router.navigateTo('/');
+            this.router.goTo('/');
         } else {
             this.displayMessage(messageBox, response.body.error || 'Login failed', 'error');
         }
