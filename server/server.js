@@ -11,6 +11,7 @@ const publicDirs = ["public", "src", "node_modules"];
 publicDirs.forEach((dir) => {
   app.use(express.static(path.join(__dirname, "..", dir)));
 });
+app.use(express.static(path.resolve(__dirname, "images")));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));

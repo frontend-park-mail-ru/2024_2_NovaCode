@@ -1,0 +1,20 @@
+.artist-container {
+    display: inline-block;
+    text-align: center;
+    margin: 20px;
+}
+
+.artist-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.artist-name {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+}
