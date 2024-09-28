@@ -1,5 +1,4 @@
 import { View } from '../../view.js';
-// import { HeaderView } from '../../components/header/header.js';
 import { PlaylistView } from '../../components/playlist/playlist.js';
 import { ArtistView } from '../../components/artist/artist.js';
 
@@ -66,15 +65,9 @@ const artists = [
 ];
 
 export class FeedView extends View {
-    constructor(...args) {
-        super(...args);
+    constructor(router) {
+        super(router);
         this.root = document.querySelector('#root');
-    }
-
-    getPlaylist() {
-/*         if (user) {
-
-        } */
     }
 
     render() {
@@ -85,22 +78,4 @@ export class FeedView extends View {
         const artist = new ArtistView(artistElement, artists);
         artist.render();
     }
-
-    /*     render() {
-            const template = Handlebars.templates['feed.hbs'];
-            const items = this.items.map(([key, {href, text}], index) => {
-                let className = 'menu-item';
-                if (index === 0) {
-                    className += ' heading active';
-                }
-                // if (index === 1) {
-                //     className += ' active';
-                // }
-                return {key, href, text, className};
-            });
-            this.#parent.innerHTML = template({items});
-            this.#parent.querySelectorAll('a').forEach((element) => {
-                this.state.menuElements[element.dataset.section] = element;
-            })
-        } */
 }

@@ -46,7 +46,7 @@
 }
 
 .header_button {
-  background-color:;
+  background-color: var(--background-color);
 }
 
 .header_user_name {

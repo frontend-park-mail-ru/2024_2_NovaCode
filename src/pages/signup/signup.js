@@ -1,6 +1,7 @@
 import { View } from "../../view.js";
 import { Ajax } from "../../modules/ajax.js";
 import { API_URL } from "../../app/config.js";
+import { isValidEmail, isValidPassword, isValidUsername } from "../../modules/validation.js";
 
 export class SignupView extends View {
   constructor(router) {
@@ -42,6 +43,16 @@ export class SignupView extends View {
     const formData = new FormData(event.target);
     const user = this.extractFormData(formData);
 
+    const isValidData = this.isValidData(user);
+    if (!isValidData.result) {
+      this.displayMessage(
+        messageBox,
+        isValidData.message,
+        "error",
+      );
+      return;
+    }
+
     try {
       const response = await this.signupRequest(user);
       this.handleRegistrationResponse(response, user, messageBox);
@@ -53,6 +64,19 @@ export class SignupView extends View {
       );
       console.error("Error during registration:", error);
     }
+  }
+
+  isValidData(user) {
+    if (!isValidEmail(user.email)) {
+      return {result: false, message: "Incorrect email"};
+    }
+    if (!isValidUsername(user.username)) {
+      return {result: false, message: "Incorrect username"};
+    }
+    if (!isValidPassword(user.password)) {
+      return {result: false, message: "Incorrect password"};
+    }
+    return {result: true};
   }
 
   /**

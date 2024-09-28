@@ -1,6 +1,7 @@
 import { View } from "../../view.js";
 import { Ajax } from "../../modules/ajax.js";
 import { API_URL } from "../../app/config.js";
+import { isValidUsername, isValidPassword } from "../../modules/validation.js";
 
 export class LoginView extends View {
   constructor(router) {
@@ -41,6 +42,16 @@ export class LoginView extends View {
 
     const user = this.extractFormData(event.target);
 
+    const isValidData = this.isValidData(user);
+    if (!isValidData.result) {
+      this.displayMessage(
+        messageBox,
+        isValidData.message,
+        "error",
+      );
+      return;
+    }
+
     try {
       const response = await this.loginRequest(user);
       this.handleLoginResponse(response, user, messageBox);
@@ -52,6 +63,17 @@ export class LoginView extends View {
       );
       console.error("Error during login:", error);
     }
+  }
+
+  isValidData(user) {
+    console.log(user.username, user.password)
+    if (!isValidUsername(user.username)) {
+      return {result: false, message: "Incorrect username"};
+    }
+    if (user.username.length == 0) {
+      return {result: false, message: "Empty password"};
+    }
+    return {result: true};
   }
 
   /**
