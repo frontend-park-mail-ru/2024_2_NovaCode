@@ -1,0 +1,18 @@
+<div class="navbar_row">
+    <div class="navbar_left-block">
+        <div class="logo" id="navbar_logo">
+            <span>NovaMusic</span>
+        </div>
+        <input type="text" placeholder="Поиск" class="search">
+    </div>
+    <div class="navbar_right-block" id="navbar_login_menu">
+        <button class="primary-btn btn" id="navbar_playlists_button">Плейлисты</button>
+        {{#if user}}
+            <div class="navbar_user_name" id="navbar_user_name">{{ user.nickname }}</div>
+            <button class="primary-btn btn" id="navbar_logout_button">Выход</button>
+        {{else}}
+            <button class="primary-btn btn" id="navbar_login_button">Войти</button>
+            <button class="secondary-btn btn" id="navbar_signup_button">Регистрация</button>
+        {{/if}}
+    </div>
+</div>

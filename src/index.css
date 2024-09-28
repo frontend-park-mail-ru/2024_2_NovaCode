@@ -1,0 +1,39 @@
+@import "components/header/header.css";
+@import "components/playlist/playlist.css";
+@import "components/artist/artist.css";
+@import "pages/signup/signup.css";
+@import "pages/login/login.css";
+@import "pages/error/error.css";
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#root {
+  display: block;
+
+  grid-template-areas:
+    "header"
+    "content" ;
+
+  grid-template-rows: 100px 1fr;
+  grid-template-columns: min-content 1fr;
+}
+
+main {
+  grid-area: content;
+  padding: 0 40px 40px;
+}
+
+a {
+  display: block;
+  color: #333333;
+  text-decoration: none;
+}
+
+input {
+  display: block;
+  height: 60px;
+  font-size: 40px;
+  margin-bottom: 15px;
+}
