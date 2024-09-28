@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "npm run compile:templates",
     "start": "DEBUG=* && node ./server/server.js",
-    "compile:templates": "handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js && handlebars src/components/playlist/playlist.hbs -f src/components/playlist/playlist.precompiled.js && handlebars src/components/artist/artist.hbs -f src/components/artist/artist.precompiled.js && handlebars src/pages/error/error.hbs -f src/pages/error/error.precompiled.js && handlebars src/pages/feed/feed.hbs -f src/pages/feed/feed.precompiled.js && handlebars src/pages/login/login.hbs -f src/pages/login/login.precompiled.js && handlebars src/pages/signup/signup.hbs -f src/pages/signup/signup.precompiled.js"
+    "compile:templates": "handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js && handlebars src/components/playlist/playlist.hbs -f src/components/playlist/playlist.precompiled.js && handlebars src/components/artist/artist.hbs -f src/components/artist/artist.precompiled.js && handlebars src/pages/error/error.hbs -f src/pages/error/error.precompiled.js && handlebars src/pages/feed/feed.hbs -f src/pages/feed/feed.precompiled.js && handlebars src/pages/login/login.hbs -f src/pages/login/login.precompiled.js && handlebars src/pages/signup/signup.hbs -f src/pages/signup/signup.precompiled.js",
+    "lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)'"
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +21,10 @@
     "handlebars": "^4.7.8",
     "morgan": "^1.10.0",
     "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "eslint": "^9.11.1",
+    "globals": "^15.9.0"
   }
 }

@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into directory
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Clean install
+        run: npm ci
+
+      - name: Run linter
+        uses: sibiraj-s/action-eslint@v3
+        with:
+          eslint-args: "--ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)'"
+          extensions: "js,jsx,ts,tsx"
+          annotations: true
