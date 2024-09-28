@@ -33,7 +33,7 @@ export class Ajax {
       let result;
       try {
         result = await response.json();
-      } catch (err) {
+      } catch {
         result = null;
       }
 

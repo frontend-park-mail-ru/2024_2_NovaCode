@@ -2,6 +2,8 @@ import { View } from "../../view.js";
 import { Ajax } from "../../modules/ajax.js";
 import { API_URL } from "../../app/config.js";
 
+import { Handlebars } from 'handlebars';
+
 export class SignupView extends View {
   constructor(router) {
     super(router);
