@@ -26,7 +26,7 @@ help:
 ################################################################################
 
 .PHONY: docker-build
-## Build docker container with microservice binary.
+## Build docker container static server.
 docker-build:
 	docker compose -f $(DOCKER_COMPOSE_PATH) --env-file $(ENV_FILE) build
 
@@ -45,7 +45,7 @@ docker-stop:
 	@docker compose -f $(DOCKER_COMPOSE_PATH) stop $(compose)
 
 .PHONY: docker-ash
-## Run `ash` in docker container of microservice.
+## Run `ash` in docker container of static server.
 docker-ash:
 	@docker exec -it $(SERVICE_NAME) /bin/ash
 
@@ -53,6 +53,8 @@ docker-ash:
 ## Remove containers, networks, volumes, and images created by `make docker-start`.
 docker-clean:
 	@docker compose -f $(DOCKER_COMPOSE_PATH) down
+
+version ?= latest
 
 .PHONY: build-image
 ## Build docker image of frontend static server with name.
