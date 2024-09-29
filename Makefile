@@ -59,7 +59,7 @@ version ?= latest
 .PHONY: build-image
 ## Build docker image of frontend static server with name.
 build-image:
-	@docker build -f docker/Dockerfile.dev --platform linux/amd64 -t daronenko/$(SERVICE_NAME)-frontend:$(version) .
+	@docker build -f docker/Dockerfile --platform linux/amd64 -t daronenko/$(SERVICE_NAME)-frontend:$(version) .
 
 .PHONY: push-image
 ## Push docker image of frontend static server to the docker hub.
