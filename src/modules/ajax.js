@@ -30,6 +30,10 @@ export class Ajax {
     try {
       const response = await fetch(url, requestOptions);
 
+      if (!response.ok) {
+        throw new Error(`Response error, code ${response.status}`)
+      }
+      
       let result;
       try {
         result = await response.json();
