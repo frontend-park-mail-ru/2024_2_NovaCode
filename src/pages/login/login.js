@@ -1,9 +1,8 @@
 import { View } from "../../view.js";
 import { Ajax } from "../../modules/ajax.js";
 import { API_URL } from "../../app/config.js";
-import { isValidUsername, isValidPassword } from "../../modules/validation.js";
+import { isValidUsername } from "../../modules/validation.js";
 
-import { Handlebars } from 'handlebars';
 
 export class LoginView extends View {
   constructor(router) {

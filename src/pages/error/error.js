@@ -1,7 +1,5 @@
 import { View } from "../../view.js";
 
-import { Handlebars } from 'handlebars';
-
 export class ErrorView extends View {
   constructor(router) {
     super(router);

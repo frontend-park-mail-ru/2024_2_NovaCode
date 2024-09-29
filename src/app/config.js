@@ -1,5 +1,4 @@
 import { HeaderView } from "../components/header/header.js";
-import { ErrorView } from "../pages/error/error.js";
 import { LoginView } from "../pages/login/login.js";
 import { SignupView } from "../pages/signup/signup.js";
 import { FeedView } from "../pages/feed/feed.js";

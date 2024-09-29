@@ -3,8 +3,6 @@ import { Ajax } from "../../modules/ajax.js";
 import { getCurrentUser } from "../../modules/user.js";
 import { API_URL } from "../../app/config.js";
 
-import { Handlebars } from 'handlebars';
-
 export class HeaderView extends View {
   constructor(router) {
     super(router);
