@@ -68,11 +68,7 @@ export class Router {
     if (targetRoute) {
       this.currentView = new targetRoute.view(this);
 
-      if (typeof this.currentView.render !== "function") {
-        console.error("target view does not have render method");
-      }
-
-      await this.currentView.render();
+      await this.currentView.render?.();
 
       if (targetRoute.updateLayout) {
         this.renderLayout();
