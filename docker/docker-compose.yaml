@@ -1,0 +1,11 @@
+services:
+  novamusic-frontend:
+    image: daronenko/novamusic-frontend:${VERSION}
+    container_name: novamusic-frontend
+    build:
+      dockerfile: docker/Dockerfile
+      context: ..
+    env_file: .env
+    ports:
+      - 80:${PORT}
+    restart: on-failure
