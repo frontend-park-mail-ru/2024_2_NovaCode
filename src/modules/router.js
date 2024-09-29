@@ -5,6 +5,8 @@ export class Router {
     this.layout = [];
     this.routes = [];
     this.currentView = null;
+    
+    this.onPopState = this.onPopState.bind(this);
   }
 
   /**
@@ -38,9 +40,23 @@ export class Router {
    * Sets up event listeners for navigation
    */
   listen() {
-    window.addEventListener("popstate", () => this.goToImpl());
+    window.addEventListener("popstate", this.onPopState);
     this.renderLayout();
     this.goTo(window.location.pathname);
+  }
+
+  /**
+   * Stop listening navigation events
+   */
+  stop() {
+    window.removeEventListener("popstate", this.onPopState);
+  }
+
+  /**
+   * Popstate event handler
+   */
+  async onPopState() {
+    await this.goToImpl();
   }
 
   /**
@@ -63,12 +79,12 @@ export class Router {
     const currentPath = window.location.pathname;
     const targetRoute = this.findRoute(currentPath);
 
-    this.currentView.destructor?.();
+    this.currentView?.destructor();
 
     if (targetRoute) {
       this.currentView = new targetRoute.view(this);
 
-      await this.currentView.render?.();
+      await this.currentView?.render();
 
       if (targetRoute.updateLayout) {
         this.renderLayout();
