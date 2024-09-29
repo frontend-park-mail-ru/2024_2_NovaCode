@@ -16,3 +16,10 @@ export const getCurrentUser = () => {
 export const setCurrentUser = (user) => {
   localStorage.setItem("user", JSON.stringify(user));
 };
+
+/**
+ * Removes current user from local storage
+ */
+export const removeCurrentUser = () => {
+  localStorage.removeItem("user");
+};

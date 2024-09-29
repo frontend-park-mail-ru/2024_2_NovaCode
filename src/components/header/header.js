@@ -1,6 +1,6 @@
 import { View } from "../../view.js";
 import { Ajax } from "../../modules/ajax.js";
-import { getCurrentUser } from "../../modules/user.js";
+import { getCurrentUser, removeCurrentUser } from "../../modules/user.js";
 import { API_URL } from "../../app/config.js";
 
 export class HeaderView extends View {
@@ -92,7 +92,7 @@ export class HeaderView extends View {
     const response = await Ajax.post(url);
 
     if (response.status === 200) {
-      localStorage.removeItem("user");
+      removeCurrentUser();
       this.router.renderLayout();
     } else {
       console.error("logout failed:", response.body);
