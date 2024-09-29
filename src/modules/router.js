@@ -63,9 +63,7 @@ export class Router {
     const currentPath = window.location.pathname;
     const targetRoute = this.findRoute(currentPath);
 
-    if (this.currentView && typeof this.currentView.destructor === "function") {
-      this.currentView.destructor();
-    }
+    this.currentView.destructor?.();
 
     if (targetRoute) {
       this.currentView = new targetRoute.view(this);
