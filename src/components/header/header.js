@@ -93,8 +93,7 @@ export class HeaderView extends View {
 
     if (response.status === 200) {
       localStorage.removeItem("user");
-      this.render();
-      await this.router.goTo("/");
+      this.router.renderLayout();
     } else {
       console.error("logout failed:", response.body);
     }
