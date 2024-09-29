@@ -1,6 +1,8 @@
 import { View } from '../../view.js';
 import { PlaylistView } from '../../components/playlist/playlist.js';
 import { ArtistView } from '../../components/artist/artist.js';
+import { API_URL } from '../../app/config.js';
+import { Ajax } from '../../modules/ajax.js';
 
 export class FeedView extends View {
 
