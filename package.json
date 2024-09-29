@@ -8,7 +8,7 @@
     "prestart": "npm run compile:templates",
     "start": "DEBUG=* && node ./server/server.js",
     "compile:templates": "handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js && handlebars src/components/playlist/playlist.hbs -f src/components/playlist/playlist.precompiled.js && handlebars src/components/artist/artist.hbs -f src/components/artist/artist.precompiled.js && handlebars src/pages/error/error.hbs -f src/pages/error/error.precompiled.js && handlebars src/pages/feed/feed.hbs -f src/pages/feed/feed.precompiled.js && handlebars src/pages/login/login.hbs -f src/pages/login/login.precompiled.js && handlebars src/pages/signup/signup.hbs -f src/pages/signup/signup.precompiled.js",
-    "lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)'"
+    "lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)' --config .github/linters/eslint.config.mjs"
   },
   "author": "",
   "license": "ISC",
