@@ -28,7 +28,7 @@ help:
 .PHONY: docker-build
 ## Build docker container static server.
 docker-build:
-	docker compose -f $(DOCKER_COMPOSE_PATH) --env-file $(ENV_FILE) build
+	@docker compose -f $(DOCKER_COMPOSE_PATH) --env-file $(ENV_FILE) build
 
 .PHONY: docker-start
 ## Start docker compose containers (all by default).
