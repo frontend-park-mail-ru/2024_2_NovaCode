@@ -1,56 +1,49 @@
+.header__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .header {
   width: 100%;
-  height: 70px;
   position: sticky;
   top: 0;
-  background-color: var(--background-color);
+  background-color: black;
 }
 
-.header_row {
-  height: 50px;
-  padding: 10px;
-  width: auto;
+.header__row {
   display: flex;
   justify-content: space-between;
-}
-
-.header_left-block {
-  width: 50%;
-  height: auto;
-  float: left;
-  display: flex;
-  gap: 10px;
-}
-
-.logo {
-  font-size: 28px;
-  display: flex;
   align-items: center;
-  cursor: pointer;
-  margin-right: 10px;
+  padding: 12px 224px 14px 192px;
 }
 
-.header_right-block {
-  float: right;
-  height: 100%;
-  display: flex;
-  gap: 10px;
-
-  .primary-btn {
-    width: 120px;
-  }
-
-  .secondary-btn {
-    width: 180px;
-  }
+.header__logo {
+  color: #f1f1f1;
+  font-size: 41px;
+  font-weight: 400;
 }
 
-.header_button {
-  background-color: var(--background-color);
+.header__btn_signup {
+  color: #f1f1f1;
+  font-size: 25px;
+  font-weight: 400;
+  background-color: black;
+  border: none;
+  margin-left: 45px;
 }
 
-.header_user_name {
-  margin: auto;
-  font-size: var(--focus-font-size);
+.header__btn_signup:hover {
+  opacity: 0.5;
 }
 
+.header__btn_login {
+  color: #f1f1f1;
+  font-size: 25px;
+  font-weight: 400;
+  background-color: black;
+  border: none;
+}
+
+.header__btn_login:hover {
+  opacity: 0.5;
+}

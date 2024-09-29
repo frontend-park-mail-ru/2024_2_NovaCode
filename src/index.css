@@ -1,20 +1,37 @@
-@import "components/header/header.css";
-@import "components/playlist/playlist.css";
-@import "components/artist/artist.css";
-@import "pages/signup/signup.css";
-@import "pages/login/login.css";
-@import "pages/error/error.css";
+@import 'components/header/header.css';
+@import 'components/playlist/playlist.css';
+@import 'components/artist/artist.css';
+@import 'pages/signup/signup.css';
+@import 'pages/login/login.css';
+@import 'pages/error/error.css';
 
 body {
-  font-family: sans-serif;
+  font-family: 'Sansation', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  margin: 0;
+  padding: 0;
 }
 
 #root {
   display: block;
 
   grid-template-areas:
-    "header"
-    "content" ;
+    'header'
+    'content';
 
   grid-template-rows: 100px 1fr;
   grid-template-columns: min-content 1fr;
@@ -22,18 +39,11 @@ body {
 
 main {
   grid-area: content;
-  padding: 0 40px 40px;
+  height: 100%;
 }
 
-a {
-  display: block;
-  color: #333333;
-  text-decoration: none;
-}
-
-input {
-  display: block;
-  height: 60px;
-  font-size: 40px;
-  margin-bottom: 15px;
+html,
+body {
+  height: 100%;
+  background: url('/images/backgrounds/background.jpg') center/cover no-repeat;
 }
