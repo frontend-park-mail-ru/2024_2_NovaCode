@@ -88,7 +88,12 @@
 
 .register__enter_account {
   margin-left: 23px;
+  text-decoration: none;
   font-weight: 700;
+}
+
+.register__enter_account:visited {
+  color: #f1f1f1;
 }
 
 .message-success {
