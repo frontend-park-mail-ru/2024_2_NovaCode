@@ -4,12 +4,13 @@ import { SignupView } from "../pages/signup/signup.js";
 import { FeedView } from "../pages/feed/feed.js";
 
 export const API_URL = "http://185.241.194.24";
+// export const API_URL = "localhost:3000";
 
 export const LAYOUT = [HeaderView];
 
-  /**
-   * Define pages and their views
-   */
+/**
+ * Define pages and their views
+ */
 export const PAGES = [
   {
     path: "/",
