@@ -7,6 +7,9 @@ export const API_URL = "http://localhost:8080";
 
 export const LAYOUT = [HeaderView];
 
+  /**
+   * Define pages and their views
+   */
 export const PAGES = [
   {
     path: "/",

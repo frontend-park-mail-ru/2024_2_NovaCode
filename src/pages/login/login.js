@@ -66,6 +66,13 @@ export class LoginView extends View {
     }
   }
 
+  /**
+   * Validates the user's data (username and password).
+   *
+   * @param {Object} user - The user object containing the username and password.
+   * 
+   * @returns {Object} - An object representing the validation result and error message if needed.
+   */
   isValidData(user) {
     console.log(user.username, user.password)
     if (!isValidUsername(user.username)) {

@@ -4,6 +4,12 @@ import { getCurrentUser, removeCurrentUser } from "../../modules/user.js";
 import { API_URL } from "../../app/config.js";
 
 export class HeaderView extends View {
+
+  /**
+   * Initializes the HeaderView instance with the given router.
+   * 
+   * @param {Router} router - The router instance used for navigation.
+   */
   constructor(router) {
     super(router);
     this.root = document.querySelector("#header");
