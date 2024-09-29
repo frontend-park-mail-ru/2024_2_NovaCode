@@ -1,8 +1,10 @@
 import { View } from '../../view.js';
 import { PlaylistView } from '../../components/playlist/playlist.js';
 import { ArtistView } from '../../components/artist/artist.js';
+import { Ajax } from "../../modules/ajax.js";
+import { API_URL } from "../../app/config.js";
 
-const playlists = {
+/* const playlists = {
     "playlist 1": [
         {
             name: "intro",
@@ -35,9 +37,9 @@ const playlists = {
             artist: "mc",
         },
     ],
-};
+}; */
 
-const artists = [
+/* const artists = [
     {
         src: '/273153700_118738253861831_5906416883131394354_n.jpeg',
         name: 'artist 1'
@@ -62,7 +64,7 @@ const artists = [
         src: '/16583858_168051673696142_846500378588479488_n.jpeg',
         name: 'artist 6'
     }
-];
+]; */
 
 export class FeedView extends View {
     constructor(router) {
@@ -71,11 +73,87 @@ export class FeedView extends View {
     }
 
     render() {
-        const playlist = new PlaylistView(playlists['playlist 1']);
-        playlist.render();
-        const artistElement  = document.createElement('div');
-        this.root.appendChild(artistElement);
-        const artist = new ArtistView(artistElement, artists);
-        artist.render();
+        const messageBox = document.createElement('div');
+        messageBox.id = 'message-box';
+        this.root.appendChild(messageBox);
+
+        this.renderPlaylists(messageBox);
+
+        this.renderArtists(messageBox);
     }
+
+    async renderPlaylists(messageBox) {
+        try {
+            const response = await this.playlistsRequest();
+            const playlists = this.handleLoginResponse(response, messageBox);
+            const playlist = new PlaylistView(playlists[0]);
+            playlist.render();
+        } catch (error) {
+            this.displayMessage(
+                messageBox,
+                "An error occurred during playlist loading. Please try again later.",
+                "error",
+            );
+            console.error("Error during playlist loading:", error);
+        }
+    }
+
+    async playlistsRequest() {
+        const url = `${API_URL}/api/v1/track/all`;
+        return await Ajax.get(url);
+    }
+
+    handlePlaylistsResponse(response, messageBox) {
+        if (response.status === 200) {
+            return (response.body);
+        } else {
+            this.displayMessage(
+                messageBox,
+                response.body.error || "Login failed",
+                "error",
+            );
+        }
+    }
+
+    async renderArtists(messageBox) {
+        try {
+            const response = await this.playlistsRequest();
+            const artists = this.handleLoginResponse(response, messageBox);
+            const artistElement = document.createElement('div');
+            this.root.appendChild(artistElement);
+            const artist = new ArtistView(artistElement, artists);
+            artist.render();
+        } catch (error) {
+            this.displayMessage(
+                messageBox,
+                "An error occurred during artists loading. Please try again later.",
+                "error",
+            );
+            console.error("Error during artists loading:", error);
+        }
+    }
+
+    async artistsRequest() {
+        const url = `${API_URL}/api/v1/artist/all`;
+        return await Ajax.get(url);
+    }
+
+    handleArtistsResponse(response, messageBox) {
+        if (response.status === 200) {
+            return (response.body);
+        } else {
+            this.displayMessage(
+                messageBox,
+                response.body.error || "Login failed",
+                "error",
+            );
+        }
+    }
+
+    displayMessage(messageBox, message, type) {
+        messageBox.textContent = message;
+        messageBox.className =
+            type === "success" ? "message-success" : "message-error";
+    }
+
 }
