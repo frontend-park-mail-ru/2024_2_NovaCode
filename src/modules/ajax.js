@@ -33,13 +33,8 @@ export class Ajax {
       if (!response.ok) {
         throw new Error(`Response error, code ${response.status}`)
       }
-      
-      let result;
-      try {
-        result = await response.json();
-      } catch {
-        result = null;
-      }
+
+      let result = await response.json();;
 
       return {
         status: response.status,
