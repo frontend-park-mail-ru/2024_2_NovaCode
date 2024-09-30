@@ -62,4 +62,4 @@ build-image:
 .PHONY: push-image
 ## Push docker image of frontend static server to the docker hub.
 push-image:
-	@docker push daronenko/$(SERVICE_NAME)-frontend:$(version)
+	@docker push daronenko/$(SERVICE_NAME)-frontend:$(VERSION)
