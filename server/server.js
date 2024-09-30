@@ -7,8 +7,6 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, 'images')));
-
 const publicDirs = ['public', 'src', 'node_modules'];
 publicDirs.forEach((dir) => {
 	app.use(express.static(path.join(__dirname, '..', dir)));
