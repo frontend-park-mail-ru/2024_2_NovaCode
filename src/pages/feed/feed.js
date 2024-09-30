@@ -4,190 +4,152 @@ import { ArtistView } from '../../components/artist/artist.js';
 import { API_URL } from '../../app/config.js';
 import { Ajax } from '../../modules/ajax.js';
 
-const playlists = [
-	{
-		name: 'intro',
-		artist: 'dj',
-		image: '/images/tracks/Houdini.jpeg',
-		duration: 123,
-	},
-	{
-		name: 'banger',
-		artist: 'dj',
-		image: '/images/tracks/Houdini.jpeg',
-		duration: 123,
-	},
-	{
-		name: 'outro',
-		artist: 'dj',
-		image: '/images/tracks/Houdini.jpeg',
-		duration: 123,
-	},
-];
-
-const artists = [
-	{
-		image: '/images/artists/Eminem.jpeg',
-		name: 'artist 1',
-	},
-	{
-		image: '/images/artists/Eminem.jpeg',
-		name: 'artist 2',
-	},
-	{
-		image: '/images/artists/Eminem.jpeg',
-		name: 'artist 3',
-	},
-	{
-		image: '/images/artists/Eminem.jpeg',
-		name: 'artist 4',
-	},
-];
-
 export class FeedView extends View {
-	/**
-	 * Initializes the FeedView instance with the given router.
-	 *
-	 * @param {Router} router - The router instance used for navigation.
-	 */
-	constructor(router) {
-		super(router);
-		this.root = document.querySelector('#root');
-	}
 
-	/**
-	 * Renders the feed view by displaying recommended playlist and an artists.
-	 */
-	render() {
-		const messageBox = document.createElement('div');
-		messageBox.id = 'message-box';
-		this.root.appendChild(messageBox);
+    /**
+     * Initializes the FeedView instance with the given router.
+     * 
+     * @param {Router} router - The router instance used for navigation.
+     */
+    constructor(router) {
+        super(router);
+        this.root = document.querySelector('#root');
+    }
 
-		this.renderPlaylists(messageBox);
+    /**
+     * Renders the feed view by displaying recommended playlist and an artists.
+     */
+    render() {
+        const messageBox = document.createElement('div');
+        messageBox.id = 'message-box';
+        this.root.appendChild(messageBox);
 
-		this.renderArtists(messageBox);
-	}
+        this.renderPlaylists(messageBox);
 
-	/**
-	 * Renders the playlists after retrieving them via an API request.
-	 * Displays an error message if the request fails.
-	 *
-	 * @param {HTMLElement} messageBox - The element used to display error or success messages.
-	 * @async
-	 */
-	async renderPlaylists(messageBox) {
-		try {
-			// const response = await this.playlistsRequest();
-			// const playlists = this.handleLoginResponse(response, messageBox);
-			const playlist = new PlaylistView(playlists);
-			playlist.render();
-		} catch (error) {
-			this.displayMessage(
-				messageBox,
-				'An error occurred during playlist loading. Please try again later.',
-				'error',
-			);
-			console.error('Error during playlist loading:', error);
-		}
-	}
+        this.renderArtists(messageBox);
+    }
 
-	/**
-	 * Makes an API request to retrieve playlists.
-	 *
-	 * @returns {Promise<Object>} The response from the API.
-	 * @async
-	 */
-	async playlistsRequest() {
-		const url = `${API_URL}/api/v1/track/all`;
-		return await Ajax.get(url);
-	}
+    /**
+     * Renders the playlists after retrieving them via an API request.
+     * Displays an error message if the request fails.
+     * 
+     * @param {HTMLElement} messageBox - The element used to display error or success messages.
+     * @async
+     */
+    async renderPlaylists(messageBox) {
+        try {
+            const response = await this.playlistsRequest();
+            const playlists = this.handlePlaylistsResponse(response, messageBox);
+            const playlist = new PlaylistView(playlists);
+            playlist.render();
+        } catch (error) {
+            this.displayMessage(
+                messageBox,
+                "An error occurred during playlist loading. Please try again later.",
+                "error",
+            );
+            console.error("Error during playlist loading:", error);
+        }
+    }
 
-	/**
-	 * Handles the response of the playlist API request.
-	 * Displays an error message if the response indicates failure.
-	 *
-	 * @param {Object} response - The response from the API.
-	 * @param {HTMLElement} messageBox - The element used to display error or success messages.
-	 * @returns {Object} The playlists data if the request was successful.
-	 */
-	handlePlaylistsResponse(response, messageBox) {
-		if (response.status === 200) {
-			return response.body;
-		} else {
-			this.displayMessage(
-				messageBox,
-				response.body.error || 'Login failed',
-				'error',
-			);
-		}
-	}
+    /**
+     * Makes an API request to retrieve playlists.
+     * 
+     * @returns {Promise<Object>} The response from the API.
+     * @async
+     */
+    async playlistsRequest() {
+        const url = `${API_URL}/api/v1/track/all`;
+        return await Ajax.get(url);
+    }
 
-	/**
-	 * Renders the artists after retrieving them via an API request.
-	 * Displays an error message if the request fails.
-	 *
-	 * @param {HTMLElement} messageBox - The element used to display error or success messages.
-	 * @async
-	 */
-	async renderArtists(messageBox) {
-		try {
-			// const response = await this.playlistsRequest();
-			// const artists = this.handleLoginResponse(response, messageBox);
-			const artistElement = document.createElement('div');
-			this.root.appendChild(artistElement);
-			const artist = new ArtistView(artistElement, artists);
-			artist.render();
-		} catch (error) {
-			this.displayMessage(
-				messageBox,
-				'An error occurred during artists loading. Please try again later.',
-				'error',
-			);
-			console.error('Error during artists loading:', error);
-		}
-	}
+    /**
+     * Handles the response of the playlist API request.
+     * Displays an error message if the response indicates failure.
+     * 
+     * @param {Object} response - The response from the API.
+     * @param {HTMLElement} messageBox - The element used to display error or success messages.
+     * @returns {Object} The playlists data if the request was successful.
+     */
+    handlePlaylistsResponse(response, messageBox) {
+        if (response.status === 200) {
+            return (response.body);
+        } else {
+            this.displayMessage(
+                messageBox,
+                response.body.error || "Failed to load playlists",
+                "error",
+            );
+        }
+    }
 
-	/**
-	 * Makes an API request to retrieve artists.
-	 *
-	 * @returns {Promise<Object>} The response from the API.
-	 * @async
-	 */
-	async artistsRequest() {
-		const url = `${API_URL}/api/v1/artist/all`;
-		return await Ajax.get(url);
-	}
+    /**
+     * Renders the artists after retrieving them via an API request.
+     * Displays an error message if the request fails.
+     * 
+     * @param {HTMLElement} messageBox - The element used to display error or success messages.
+     * @async
+     */
+    async renderArtists(messageBox) {
+        try {
+            const response = await this.artistsRequest();
+            const artists = this.handleArtistsResponse(response, messageBox);
+            const artistElement = document.createElement('div');
+            this.root.appendChild(artistElement);
+            const artist = new ArtistView(artistElement, artists);
+            artist.render();
+        } catch (error) {
+            this.displayMessage(
+                messageBox,
+                "An error occurred during artists loading. Please try again later.",
+                "error",
+            );
+            console.error("Error during artists loading:", error);
+        }
+    }
 
-	/**
-	 * Handles the response of the artists API request.
-	 * Displays an error message if the response indicates failure.
-	 *
-	 * @param {Object} response - The response from the API.
-	 * @param {HTMLElement} messageBox - The element used to display error or success messages.
-	 * @returns {Object} The artists data if the request was successful.
-	 */
-	handleArtistsResponse(response, messageBox) {
-		if (response.status === 200) {
-			return response.body;
-		} else {
-			this.displayMessage(
-				messageBox,
-				response.body.error || 'Login failed',
-				'error',
-			);
-		}
-	}
+    /**
+     * Makes an API request to retrieve artists.
+     * 
+     * @returns {Promise<Object>} The response from the API.
+     * @async
+     */
+    async artistsRequest() {
+        const url = `${API_URL}/api/v1/artist/all`;
+        return await Ajax.get(url);
+    }
 
-	/**
-	 * Displays a message in the message box with a success or error style.
-	 *
-	 * @param {HTMLElement} messageBox - The element used to display the message.
-	 * @param {string} message - The message content.
-	 * @param {string} type - The message type ('success' or 'error').
-	 */
-	displayMessage(messageBox, message, type) {
-		messageBox.textContent = message;
-		messageBox.className =
-			type === 'success' ? 'message-success' : 'message-error';
-	}
+    /**
+     * Handles the response of the artists API request.
+     * Displays an error message if the response indicates failure.
+     * 
+     * @param {Object} response - The response from the API.
+     * @param {HTMLElement} messageBox - The element used to display error or success messages.
+     * @returns {Object} The artists data if the request was successful.
+     */
+    handleArtistsResponse(response, messageBox) {
+        if (response.status === 200) {
+            return (response.body);
+        } else {
+            this.displayMessage(
+                messageBox,
+                response.body.error || "Failed to load artists",
+                "error",
+            );
+        }
+    }
+
+    /**
+     * Displays a message in the message box with a success or error style.
+     * 
+     * @param {HTMLElement} messageBox - The element used to display the message.
+     * @param {string} message - The message content.
+     * @param {string} type - The message type ('success' or 'error').
+     */
+    displayMessage(messageBox, message, type) {
+        messageBox.textContent = message;
+        messageBox.className =
+            type === "success" ? "message-success" : "message-error";
+    }
+
 }
