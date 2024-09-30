@@ -44,7 +44,7 @@ export class Ajax {
       console.error("request failed:", err);
       return {
         status: 500,
-        body: { error: "Network Error" },
+        body: { error: "Ошибка сервера" },
       };
     }
   }
