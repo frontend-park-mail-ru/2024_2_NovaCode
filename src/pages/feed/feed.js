@@ -39,8 +39,9 @@ export class FeedView extends View {
     async renderPlaylists(messageBox) {
         try {
             const response = await this.playlistsRequest();
-            const playlists = this.handleLoginResponse(response, messageBox);
-            const playlist = new PlaylistView(playlists[0]);
+            const playlists = this.handlePlaylistsResponse(response, messageBox);
+            console.log(playlists);
+            const playlist = new PlaylistView(playlists);
             playlist.render();
         } catch (error) {
             this.displayMessage(
@@ -77,7 +78,7 @@ export class FeedView extends View {
         } else {
             this.displayMessage(
                 messageBox,
-                response.body.error || "Login failed",
+                response.body.error || "Failed to load playlists",
                 "error",
             );
         }
@@ -92,8 +93,8 @@ export class FeedView extends View {
      */
     async renderArtists(messageBox) {
         try {
-            const response = await this.playlistsRequest();
-            const artists = this.handleLoginResponse(response, messageBox);
+            const response = await this.artistsRequest();
+            const artists = this.handleArtistsResponse(response, messageBox);
             const artistElement = document.createElement('div');
             this.root.appendChild(artistElement);
             const artist = new ArtistView(artistElement, artists);
@@ -133,7 +134,7 @@ export class FeedView extends View {
         } else {
             this.displayMessage(
                 messageBox,
-                response.body.error || "Login failed",
+                response.body.error || "Failed to load artists",
                 "error",
             );
         }

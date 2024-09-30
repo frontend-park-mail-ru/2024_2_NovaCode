@@ -39,10 +39,10 @@ export class PlaylistView extends View {
      * @returns {string} The generated HTML string.
      */
     getTemplate() {
-        const items = this.items.map(({name, artist}) => {
+        console.log(this.items);
+        const items = this.items.map(({name, artist, image}) => {
             let className = 'track-container';
-
-            return {name, artist, className};
+            return {name, artist, image, className};
         });
         const template = Handlebars.templates['playlist.hbs'];
         return template({items});
