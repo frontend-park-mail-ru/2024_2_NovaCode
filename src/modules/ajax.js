@@ -35,18 +35,18 @@ export class Ajax {
 
 			let result = await response.json();
 
-			return {
-				status: response.status,
-				body: result,
-			};
-		} catch (err) {
-			console.error('request failed:', err);
-			return {
-				status: 500,
-				body: { error: 'Network Error' },
-			};
-		}
-	}
+      return {
+        status: response.status,
+        body: result,
+      };
+    } catch (err) {
+      console.error("request failed:", err);
+      return {
+        status: 500,
+        body: { error: "Ошибка сервера" },
+      };
+    }
+  }
 
 	/**
 	 * Perform GET request

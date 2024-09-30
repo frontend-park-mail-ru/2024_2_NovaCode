@@ -118,5 +118,6 @@ export class HeaderView extends View {
     } else {
       console.error("logout failed:", response.body);
     }
+    this.router.goTo("/");
   }
 }

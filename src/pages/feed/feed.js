@@ -46,7 +46,7 @@ export class FeedView extends View {
         } catch (error) {
             this.displayMessage(
                 messageBox,
-                "An error occurred during playlist loading. Please try again later.",
+                "Возникла ошибка при загрузке плейлиста. Попробуйте позже.",
                 "error",
             );
             console.error("Error during playlist loading:", error);
@@ -78,7 +78,7 @@ export class FeedView extends View {
         } else {
             this.displayMessage(
                 messageBox,
-                response.body.error || "Failed to load playlists",
+                response.body.error || "Не удалось загрузить плейлист",
                 "error",
             );
         }
@@ -102,7 +102,7 @@ export class FeedView extends View {
         } catch (error) {
             this.displayMessage(
                 messageBox,
-                "An error occurred during artists loading. Please try again later.",
+                "Возникла ошибка при загрузке артистов. Попробуйте позже.",
                 "error",
             );
             console.error("Error during artists loading:", error);
@@ -134,7 +134,7 @@ export class FeedView extends View {
         } else {
             this.displayMessage(
                 messageBox,
-                response.body.error || "Failed to load artists",
+                response.body.error || "Не удалось загрузить артистов",
                 "error",
             );
         }
