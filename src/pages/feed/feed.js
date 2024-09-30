@@ -20,6 +20,7 @@ export class FeedView extends View {
      * Renders the feed view by displaying recommended playlist and an artists.
      */
     render() {
+        this.root.innerHTML = '';
         const messageBox = document.createElement('div');
         messageBox.id = 'message-box';
         this.root.appendChild(messageBox);

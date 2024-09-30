@@ -17,16 +17,16 @@
   padding: 12px 224px 14px 192px;
 }
 
-.header__logo a,
-.header__logo a:visited {
+.header__btn_logo {
   color: #f1f1f1;
-  text-decoration: none;
+  font-size: 25px;
+  font-weight: 400;
+  background-color: black;
+  border: none;
 }
 
-.header__logo {
-  color: #f1f1f1;
-  font-size: 41px;
-  font-weight: 400;
+.header__btn_logo:hover {
+  opacity: 0.5;
 }
 
 .header__btn_signup {
