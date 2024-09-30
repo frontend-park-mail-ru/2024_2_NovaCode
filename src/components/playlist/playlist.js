@@ -45,7 +45,6 @@ export class PlaylistView extends View {
 		this.root.innerHTML = html;
 	}
 
-<<<<<<< HEAD
 	/**
 	 * Generates the HTML template for the playlist using Handlebars.
 	 *
@@ -61,20 +60,4 @@ export class PlaylistView extends View {
 		const template = Handlebars.templates['playlist.hbs'];
 		return template({ items });
 	}
-=======
-    /**
-     * Generates the HTML template for the playlist using Handlebars.
-     * 
-     * @returns {string} The generated HTML string.
-     */
-    getTemplate() {
-        console.log(this.items);
-        const items = this.items.map(({name, artist, image}) => {
-            let className = 'track-container';
-            return {name, artist, image, className};
-        });
-        const template = Handlebars.templates['playlist.hbs'];
-        return template({items});
-    }
->>>>>>> main
 }
