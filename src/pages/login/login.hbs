@@ -1,15 +1,25 @@
-<form id="login-form">
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required />
+<div class="login">
+  <div class="login__container">
+    <div class="login__intro">
+      <h1 class="login__title">NovaMusic</h1>
+      <h2 class="login__subtitle">Добро пожаловать!</h2>
+      <div class="login__info">Переходите к прослушиванию любимой музыки</div>
+    </div>
+
+    <div class="login__form">
+      <form id="login-form">
+        <input class="login__input" type="text" id="username" name="username" placeholder="Логин" required />
+        <input class="login__input" type="password" id="password" name="password" placeholder="Пароль" required />
+        <div class="login__additional">
+          <div class="login__remember_me">
+            <input class="login__checkbox" type="checkbox" id="login_remember">
+            <label class="login__remember" for="login_remember">Запомнить меня</label> 
+          </div>
+          <a class="login__forget_password" href="#">Забыли пароль</a>
+        </div>
+        <button class="login__submit_btn" type="submit">Войти</button>
+        <div id="message-box"></div>
+      </form>
+    </div>
   </div>
-
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
-  </div>
-
-  <button type="submit">Login</button>
-
-  <div id="message-box"></div>
-</form>
+</div>

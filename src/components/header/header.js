@@ -40,9 +40,14 @@ export class HeaderView extends View {
    * @private
    */
   bindEvents() {
+    const logoButton = this.root.querySelector("#header_logo_button");
     const loginButton = this.root.querySelector("#header_login_button");
     const signupButton = this.root.querySelector("#header_signup_button");
     const logoutButton = this.root.querySelector("#header_logout_button");
+
+    if (logoButton) {
+      this.addEventListener(logoButton, "click", this.logoHandler.bind(this));
+    }
 
     if (loginButton) {
       this.addEventListener(loginButton, "click", this.loginHandler.bind(this));
@@ -63,6 +68,16 @@ export class HeaderView extends View {
         this.logoutHandler.bind(this),
       );
     }
+  }
+
+  /**
+   * Handles login button click event
+   *
+   * @param {Event} event - click event
+   */
+  logoHandler(event) {
+    event.preventDefault();
+    this.router.goTo("/");
   }
 
   /**
@@ -103,5 +118,6 @@ export class HeaderView extends View {
     } else {
       console.error("logout failed:", response.body);
     }
+    this.router.goTo("/");
   }
 }

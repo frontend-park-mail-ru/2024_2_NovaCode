@@ -59,7 +59,7 @@ export class LoginView extends View {
     } catch (error) {
       this.displayMessage(
         messageBox,
-        "An error occurred during login. Please try again.",
+        "Возникла ошибка при входе. Попробуйте позже.",
         "error",
       );
       console.error("Error during login:", error);
@@ -76,10 +76,10 @@ export class LoginView extends View {
   isValidData(user) {
     console.log(user.username, user.password)
     if (!isValidUsername(user.username)) {
-      return {result: false, message: "Incorrect username"};
+      return {result: false, message: "Неправильное имя пользователя"};
     }
     if (user.username.length == 0) {
-      return {result: false, message: "Empty password"};
+      return {result: false, message: "Пароль не может быть пустым"};
     }
     return {result: true};
   }
@@ -121,13 +121,13 @@ export class LoginView extends View {
     if (response.status === 200) {
       delete user.password;
       localStorage.setItem("user", JSON.stringify(user));
-      this.displayMessage(messageBox, "Login successful!", "success");
+      this.displayMessage(messageBox, "Вход прошел успешно", "success");
       this.router.renderLayout();
       this.router.goTo("/");
     } else {
       this.displayMessage(
         messageBox,
-        response.body.error || "Login failed",
+        response.body.error || "Не удалось войти",
         "error",
       );
     }

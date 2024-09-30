@@ -59,7 +59,7 @@ export class SignupView extends View {
     } catch (error) {
       this.displayMessage(
         messageBox,
-        "An error occurred during registration. Please try again.",
+        "Возникла ошибка при регистрации. Попробуйте позже.",
         "error",
       );
       console.error("Error during registration:", error);
@@ -75,13 +75,13 @@ export class SignupView extends View {
    */
   isValidData(user) {
     if (!isValidEmail(user.email)) {
-      return {result: false, message: "Incorrect email"};
+      return {result: false, message: "Неправильный адрес электроннойй почты"};
     }
     if (!isValidUsername(user.username)) {
-      return {result: false, message: "Incorrect username"};
+      return {result: false, message: "Неправильное имя пользователя"};
     }
     if (!isValidPassword(user.password)) {
-      return {result: false, message: "Incorrect password"};
+      return {result: false, message: "Неправильный пароль"};
     }
     return {result: true};
   }
@@ -124,13 +124,13 @@ export class SignupView extends View {
       delete user.password;
       localStorage.setItem("user", JSON.stringify(user));
 
-      this.displayMessage(messageBox, "Registration successful", "success");
+      this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
       this.router.renderLayout();
       this.router.goTo("/");
     } else {
       this.displayMessage(
         messageBox,
-        response.body.error || "Registration failed",
+        response.body.error || "Регистрация не удалась",
         "error",
       );
     }

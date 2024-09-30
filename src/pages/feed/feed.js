@@ -19,16 +19,16 @@ export class FeedView extends View {
     /**
      * Renders the feed view by displaying recommended playlist and an artists.
      */
-    render() {
+    async render() {
+        this.root.innerHTML = '';
         const messageBox = document.createElement('div');
         messageBox.id = 'message-box';
         this.root.appendChild(messageBox);
-
-        this.renderPlaylists(messageBox);
-
-        this.renderArtists(messageBox);
+    
+        await this.renderPlaylists(messageBox);
+        await this.renderArtists(messageBox);
     }
-
+    
     /**
      * Renders the playlists after retrieving them via an API request.
      * Displays an error message if the request fails.
@@ -45,7 +45,7 @@ export class FeedView extends View {
         } catch (error) {
             this.displayMessage(
                 messageBox,
-                "An error occurred during playlist loading. Please try again later.",
+                "Возникла ошибка при загрузке плейлиста. Попробуйте позже.",
                 "error",
             );
             console.error("Error during playlist loading:", error);
@@ -77,7 +77,7 @@ export class FeedView extends View {
         } else {
             this.displayMessage(
                 messageBox,
-                response.body.error || "Failed to load playlists",
+                response.body.error || "Не удалось загрузить плейлист",
                 "error",
             );
         }
@@ -95,13 +95,14 @@ export class FeedView extends View {
             const response = await this.artistsRequest();
             const artists = this.handleArtistsResponse(response, messageBox);
             const artistElement = document.createElement('div');
+            artistElement.className = 'artist';
             this.root.appendChild(artistElement);
             const artist = new ArtistView(artistElement, artists);
             artist.render();
         } catch (error) {
             this.displayMessage(
                 messageBox,
-                "An error occurred during artists loading. Please try again later.",
+                "Возникла ошибка при загрузке артистов. Попробуйте позже.",
                 "error",
             );
             console.error("Error during artists loading:", error);
@@ -133,7 +134,7 @@ export class FeedView extends View {
         } else {
             this.displayMessage(
                 messageBox,
-                response.body.error || "Failed to load artists",
+                response.body.error || "Не удалось загрузить артистов",
                 "error",
             );
         }

@@ -1,20 +1,23 @@
-<form id="signup-form">
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required />
-  </div>
+<div class="register">
+  <div class="register__container">
+    <div class="register__intro">
+      <h1 class="register__title">NovaMusic</h1>
+      <h2 class="register__subtitle">Музакальный стриминговый</h2>
+      <div class="register__info">Слушайте музыку, создавайте плейлисты с друзьями, узнавайте первыми о новинках</div>
+    </div>
+    </div>
 
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required />
-  </div>
+  <div class="register__form">
+    <form id="signup-form">
+      <input class="register__input" type="email" id="email" name="email" placeholder="Логин" required />
+      <input class="register__input" type="text" id="username" name="username" placeholder="Имя пользователя" required />
+      <input class="register__input" type="password" id="password" name="password" placeholder="Пароль" required />
+      <button class="register__submit_btn" type="submit">Регистрация</button>
+      <div class="register__additional">
+        Уже есть аккаунт? <a class="register__enter_account" href="/login">Войдите в него</span>
+      </div>
+      <div id="message-box"></div>
+    </form>
+  </div> 
+</div>
 
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
-  </div>
-
-  <button type="submit">Sign Up</button>
-
-  <div id="message-box"></div>
-</form>
