@@ -4,3 +4,19 @@
 {{!--         <div class="artist-name">{{ name }}</div> --}}
 {{!--     </div> --}}
 {{!-- {{/each}} --}}
+
+<div class="artist__container">
+    <div class="artist__block">
+        <h2 class="artist__header">Популярные артисты</h2>
+        <div class="artist__popular">
+            {{#each items}}
+                <div class="artist__item">
+                    <img src="/images/{{ image }}" class="artist__image">
+                    <div class="artist__name">
+                        <span>{{ name }}</span>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
