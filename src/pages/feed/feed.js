@@ -19,17 +19,16 @@ export class FeedView extends View {
     /**
      * Renders the feed view by displaying recommended playlist and an artists.
      */
-    render() {
+    async render() {
         this.root.innerHTML = '';
         const messageBox = document.createElement('div');
         messageBox.id = 'message-box';
         this.root.appendChild(messageBox);
-
-        this.renderPlaylists(messageBox);
-
-        this.renderArtists(messageBox);
+    
+        await this.renderPlaylists(messageBox);
+        await this.renderArtists(messageBox);
     }
-
+    
     /**
      * Renders the playlists after retrieving them via an API request.
      * Displays an error message if the request fails.
@@ -96,6 +95,7 @@ export class FeedView extends View {
             const response = await this.artistsRequest();
             const artists = this.handleArtistsResponse(response, messageBox);
             const artistElement = document.createElement('div');
+            artistElement.className = 'artist';
             this.root.appendChild(artistElement);
             const artist = new ArtistView(artistElement, artists);
             artist.render();
