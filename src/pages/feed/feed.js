@@ -40,7 +40,6 @@ export class FeedView extends View {
         try {
             const response = await this.playlistsRequest();
             const playlists = this.handlePlaylistsResponse(response, messageBox);
-            console.log(playlists);
             const playlist = new PlaylistView(playlists);
             playlist.render();
         } catch (error) {
