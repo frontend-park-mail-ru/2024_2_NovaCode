@@ -1,0 +1,35 @@
+.navbar-container {
+  white-space: nowrap;
+}
+
+.menu-item {
+  display: inline-block;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  background: transparent;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.heading {
+  color: white;
+  font-weight: bold;
+}
+
+.active {
+  color: lightblue;
+  font-weight: bold;
+}
+
+.message-success {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.message-error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
