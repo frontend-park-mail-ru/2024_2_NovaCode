@@ -47,3 +47,23 @@ body {
   height: 100%;
   background: url('/images/backgrounds/background.jpg') center/cover;
 }
+
+.message-success {
+  width: 450px;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: green;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.message-error {
+  width: 450px;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}

@@ -78,10 +78,10 @@ export class SignupView extends View {
       return {result: false, message: "Неправильный адрес электроннойй почты"};
     }
     if (!isValidUsername(user.username)) {
-      return {result: false, message: "Неправильное имя пользователя"};
+      return {result: false, message: "Имя пользователя может состоять из букв латинского алфавита, цифр и нижнего подчеркивания"};
     }
     if (!isValidPassword(user.password)) {
-      return {result: false, message: "Неправильный пароль"};
+      return {result: false, message: "Пароль может состоять из букв латинского алфавита, цифр и нижнего подчеркивания и должен быть не короче 6 символов"};
     }
     return {result: true};
   }
