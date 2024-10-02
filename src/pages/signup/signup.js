@@ -124,10 +124,10 @@ export class SignupView extends View {
       case 200:
         delete user.password;
         localStorage.setItem("user", JSON.stringify(user));
-  
         this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
         this.router.renderLayout();
         this.router.goTo("/");
+        break;
       case 400:
         this.displayMessage(messageBox, "Имя пользователя или адрес электронной почты уже заняты", "error");
         break;
@@ -139,21 +139,6 @@ export class SignupView extends View {
         );
         break;
     }
-
-    // if (response.status === 200) {
-    //   delete user.password;
-    //   localStorage.setItem("user", JSON.stringify(user));
-
-    //   this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
-    //   this.router.renderLayout();
-    //   this.router.goTo("/");
-    // } else {
-    //   this.displayMessage(
-    //     messageBox,
-    //     response.body.error || "Регистрация не удалась",
-    //     "error",
-    //   );
-    // }
   }
 
   /**
