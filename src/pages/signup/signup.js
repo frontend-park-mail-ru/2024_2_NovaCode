@@ -120,20 +120,40 @@ export class SignupView extends View {
    * @private
    */
   handleRegistrationResponse(response, user, messageBox) {
-    if (response.status === 200) {
-      delete user.password;
-      localStorage.setItem("user", JSON.stringify(user));
-
-      this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
-      this.router.renderLayout();
-      this.router.goTo("/");
-    } else {
-      this.displayMessage(
-        messageBox,
-        response.body.error || "Регистрация не удалась",
-        "error",
-      );
+    switch (response.status) {
+      case 200:
+        delete user.password;
+        localStorage.setItem("user", JSON.stringify(user));
+  
+        this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
+        this.router.renderLayout();
+        this.router.goTo("/");
+      case 400:
+        this.displayMessage(messageBox, "Имя пользователя или адрес электронной почты уже заняты", "error");
+        break;
+      default:
+        this.displayMessage(
+          messageBox,
+          response.body.error || "Регистрация не удалась",
+          "error",
+        );
+        break;
     }
+
+    // if (response.status === 200) {
+    //   delete user.password;
+    //   localStorage.setItem("user", JSON.stringify(user));
+
+    //   this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
+    //   this.router.renderLayout();
+    //   this.router.goTo("/");
+    // } else {
+    //   this.displayMessage(
+    //     messageBox,
+    //     response.body.error || "Регистрация не удалась",
+    //     "error",
+    //   );
+    // }
   }
 
   /**
