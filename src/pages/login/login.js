@@ -74,14 +74,13 @@ export class LoginView extends View {
    * @returns {Object} - An object representing the validation result and error message if needed.
    */
   isValidData(user) {
-    console.log(user.username, user.password)
     if (!isValidUsername(user.username)) {
-      return {result: false, message: "Неправильное имя пользователя"};
+      return { result: false, message: "Неправильное имя пользователя" };
     }
     if (user.username.length == 0) {
-      return {result: false, message: "Пароль не может быть пустым"};
+      return { result: false, message: "Пароль не может быть пустым" };
     }
-    return {result: true};
+    return { result: true };
   }
 
   /**
@@ -118,18 +117,24 @@ export class LoginView extends View {
    * @private
    */
   handleLoginResponse(response, user, messageBox) {
-    if (response.status === 200) {
-      delete user.password;
-      localStorage.setItem("user", JSON.stringify(user));
-      this.displayMessage(messageBox, "Вход прошел успешно", "success");
-      this.router.renderLayout();
-      this.router.goTo("/");
-    } else {
-      this.displayMessage(
-        messageBox,
-        response.body.error || "Не удалось войти",
-        "error",
-      );
+    switch (response.status) {
+      case 200:
+        delete user.password;
+        localStorage.setItem("user", JSON.stringify(user));
+        this.displayMessage(messageBox, "Вход прошел успешно", "success");
+        this.router.renderLayout();
+        this.router.goTo("/");
+        break;
+      case 401:
+        this.displayMessage(messageBox, "Неправильное имя пользователя или пароль", "error");
+        break;
+      default:
+        this.displayMessage(
+          messageBox,
+          response.body.error || "Не удалось войти",
+          "error",
+        );
+        break;
     }
   }
 

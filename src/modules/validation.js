@@ -5,7 +5,7 @@
  * @returns {boolean} Returns true if the email is valid, otherwise false.
  */
 export const isValidEmail = (email) => {
-    const emailPattern = /^[a-zA-Z0-9_.]+@[a-zA-Z0-9]+\.[a-zA-Z.]+$/;
+    const emailPattern = /^[^@]+@[^@]+$/;
     return (emailPattern.test(email));
 }
 
@@ -28,6 +28,6 @@ export const isValidUsername = (username) => {
  * @returns {boolean} Returns true if the password is valid, otherwise false.
  */
 export const isValidPassword = (password) => {
-    const passwordPattern = /^[a-zA-Z0-9_]+$/;
+    const passwordPattern = /^[a-zA-Z0-9_]{6,}$/;
     return (passwordPattern.test(password));
 }

@@ -59,7 +59,7 @@ export class FeedView extends View {
      * @async
      */
     async playlistsRequest() {
-        const url = `${API_URL}/api/v1/track/all`;
+        const url = `${API_URL}/api/v1/tracks`;
         return await Ajax.get(url);
     }
 
@@ -116,7 +116,7 @@ export class FeedView extends View {
      * @async
      */
     async artistsRequest() {
-        const url = `${API_URL}/api/v1/artist/all`;
+        const url = `${API_URL}/api/v1/artists`;
         return await Ajax.get(url);
     }
 

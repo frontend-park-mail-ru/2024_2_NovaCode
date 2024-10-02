@@ -78,10 +78,10 @@ export class SignupView extends View {
       return {result: false, message: "Неправильный адрес электроннойй почты"};
     }
     if (!isValidUsername(user.username)) {
-      return {result: false, message: "Неправильное имя пользователя"};
+      return {result: false, message: "Имя пользователя может состоять из букв латинского алфавита, цифр и нижнего подчеркивания"};
     }
     if (!isValidPassword(user.password)) {
-      return {result: false, message: "Неправильный пароль"};
+      return {result: false, message: "Пароль может состоять из букв латинского алфавита, цифр и нижнего подчеркивания и должен быть не короче 6 символов"};
     }
     return {result: true};
   }
@@ -120,19 +120,24 @@ export class SignupView extends View {
    * @private
    */
   handleRegistrationResponse(response, user, messageBox) {
-    if (response.status === 200) {
-      delete user.password;
-      localStorage.setItem("user", JSON.stringify(user));
-
-      this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
-      this.router.renderLayout();
-      this.router.goTo("/");
-    } else {
-      this.displayMessage(
-        messageBox,
-        response.body.error || "Регистрация не удалась",
-        "error",
-      );
+    switch (response.status) {
+      case 200:
+        delete user.password;
+        localStorage.setItem("user", JSON.stringify(user));
+        this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
+        this.router.renderLayout();
+        this.router.goTo("/");
+        break;
+      case 400:
+        this.displayMessage(messageBox, "Имя пользователя или адрес электронной почты уже заняты", "error");
+        break;
+      default:
+        this.displayMessage(
+          messageBox,
+          response.body.error || "Регистрация не удалась",
+          "error",
+        );
+        break;
     }
   }
 

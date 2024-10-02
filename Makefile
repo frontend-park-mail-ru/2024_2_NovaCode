@@ -63,3 +63,10 @@ build-image:
 ## Push docker image of frontend static server to the docker hub.
 push-image:
 	@docker push daronenko/$(SERVICE_NAME)-frontend:$(VERSION)
+
+.PHONY: docker-rebuild
+## Rebuild and restart the Docker containers with the latest changes.
+docker-rebuild:
+	@docker compose -f $(DOCKER_COMPOSE_PATH) --env-file $(ENV_FILE) down
+	@docker compose -f $(DOCKER_COMPOSE_PATH) --env-file $(ENV_FILE) build --no-cache
+	@docker compose -f $(DOCKER_COMPOSE_PATH) --env-file $(ENV_FILE) up -d --force-recreate

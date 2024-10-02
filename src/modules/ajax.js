@@ -29,24 +29,20 @@ export class Ajax {
 		try {
 			const response = await fetch(url, requestOptions);
 
-			if (!response.ok) {
-				throw new Error(`Response error, code ${response.status}`);
-			}
-
 			let result = await response.json();
 
-      return {
-        status: response.status,
-        body: result,
-      };
-    } catch (err) {
-      console.error("request failed:", err);
-      return {
-        status: 500,
-        body: { error: "Ошибка сервера" },
-      };
-    }
-  }
+			return {
+				status: response.status,
+				body: result,
+			};
+		} catch (err) {
+			console.error("request failed:", err);
+			return {
+				status: 500,
+				body: { error: "Ошибка сервера" },
+			};
+		}
+	}
 
 	/**
 	 * Perform GET request

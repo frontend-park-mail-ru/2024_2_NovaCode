@@ -45,5 +45,31 @@ main {
 html,
 body {
   height: 100%;
-  background: url('/images/backgrounds/background.jpg') center/cover;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(168, 72, 10, 1) 0%,
+    rgba(44, 25, 17, 1) 100%
+  );
+}
+
+.message-success {
+  width: 450px;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: green;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.message-error {
+  width: 450px;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: red;
+  margin-top: 10px;
+  text-align: center;
 }
