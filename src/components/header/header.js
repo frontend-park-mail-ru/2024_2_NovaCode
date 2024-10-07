@@ -88,6 +88,8 @@ export class HeaderView extends View {
   loginHandler(event) {
     event.preventDefault();
     this.router.goTo("/login");
+    document.getElementById("header_login_button").classList.add("active");
+    document.getElementById("header_signup_button").classList.remove("active");
   }
 
   /**
@@ -98,6 +100,8 @@ export class HeaderView extends View {
   signupHandler(event) {
     event.preventDefault();
     this.router.goTo("/signup");
+    document.getElementById("header_signup_button").classList.add("active");
+    document.getElementById("header_login_button").classList.remove("active");
   }
 
   /**

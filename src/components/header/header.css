@@ -7,21 +7,27 @@
   width: 100%;
   position: sticky;
   top: 0;
-  background-color: black;
+  background-color: #1f1f1f;
 }
 
 .header__row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 224px 14px 192px;
+  padding: 0px 224px 0px 192px;
+}
+
+.header__img_logo {
+  width: auto;
+  height: 41px;
+  vertical-align: text-bottom;
 }
 
 .header__btn_logo {
   color: #f1f1f1;
-  font-size: 25px;
+  font-size: 41px;
   font-weight: 400;
-  background-color: black;
+  background-color: #1f1f1f;
   border: none;
 }
 
@@ -33,9 +39,10 @@
   color: #f1f1f1;
   font-size: 25px;
   font-weight: 400;
-  background-color: black;
+  background-color: #1f1f1f;
   border: none;
   margin-left: 45px;
+  padding: 16px 16px;
 }
 
 .header__btn_signup:hover {
@@ -46,10 +53,15 @@
   color: #f1f1f1;
   font-size: 25px;
   font-weight: 400;
-  background-color: black;
+  background-color: #1f1f1f;
   border: none;
+  padding: 16px 16px;
 }
 
 .header__btn_login:hover {
   opacity: 0.5;
+}
+
+.active {
+  border-bottom: 3px solid #f1f1f1;
 }
