@@ -1,10 +1,9 @@
 import { View } from "../../view.js";
 import { Ajax } from "../../modules/ajax.js";
-import { getCurrentUser, removeCurrentUser } from "../../modules/user.js";
+// import { getCurrentUser, removeCurrentUser } from "../../modules/user.js";
 import { API_URL } from "../../app/config.js";
 
 export class HeaderView extends View {
-
   /**
    * Initializes the HeaderView instance with the given router.
    * 
@@ -15,11 +14,14 @@ export class HeaderView extends View {
     this.root = document.querySelector("#header");
   }
 
-  render() {
-    const user = getCurrentUser();
-    const html = this.template(user);
+  async render() {
+    // const user = getCurrentUser();
+    const response = await this.isAuthorizedRequest();
+    const isAuthorized = this.handleIsAuthorizedResponse(response);
+    const html = this.template(isAuthorized);
     this.root.innerHTML = html;
 
+    this.switchActiveNavlink();
     this.bindEvents();
   }
 
@@ -29,9 +31,9 @@ export class HeaderView extends View {
    * @param {Object} user - current user object
    * @returns {string} rendered html string for header
    */
-  template(user) {
+  template(isAuthorized) {
     const template = Handlebars.templates["header.hbs"];
-    return template({ user });
+    return template({ isAuthorized });
   }
 
   /**
@@ -40,30 +42,11 @@ export class HeaderView extends View {
    * @private
    */
   bindEvents() {
-    const logoButton = this.root.querySelector("#header_logo_button");
-    const loginButton = this.root.querySelector("#header_login_button");
-    const signupButton = this.root.querySelector("#header_signup_button");
-    const logoutButton = this.root.querySelector("#header_logout_button");
+    const logoutLink = this.root.querySelector("#header_logout_link");
 
-    if (logoButton) {
-      this.addEventListener(logoButton, "click", this.logoHandler.bind(this));
-    }
-
-    if (loginButton) {
-      this.addEventListener(loginButton, "click", this.loginHandler.bind(this));
-    }
-
-    if (signupButton) {
+    if (logoutLink) {
       this.addEventListener(
-        signupButton,
-        "click",
-        this.signupHandler.bind(this),
-      );
-    }
-
-    if (logoutButton) {
-      this.addEventListener(
-        logoutButton,
+        logoutLink,
         "click",
         this.logoutHandler.bind(this),
       );
@@ -71,57 +54,57 @@ export class HeaderView extends View {
   }
 
   /**
-   * Handles login button click event
+   * Appends class active to current navlink
    *
-   * @param {Event} event - click event
+   * @private
    */
-  logoHandler(event) {
-    event.preventDefault();
-    this.router.goTo("/");
+  switchActiveNavlink() {
+    let a = document.querySelectorAll('.header__a_navlink')
+    a.forEach((el)=>{
+      if (el.getAttribute('href') == window.location.pathname) el.classList.add('active')  
+    })
   }
 
   /**
-   * Handles login button click event
-   *
-   * @param {Event} event - click event
-   */
-  loginHandler(event) {
-    event.preventDefault();
-    this.router.goTo("/login");
-    document.getElementById("header_login_button").classList.add("active");
-    document.getElementById("header_signup_button").classList.remove("active");
-  }
-
-  /**
-   * Handles signup button click event
-   *
-   * @param {Event} event - click event
-   */
-  signupHandler(event) {
-    event.preventDefault();
-    this.router.goTo("/signup");
-    document.getElementById("header_signup_button").classList.add("active");
-    document.getElementById("header_login_button").classList.remove("active");
-  }
-
-  /**
-   * Handles logout button click event
+   * Handles logout  дштл click event
    *
    * @param {Event} event - click event
    * @returns {Promise<void>} promise that resolves when the logout process is complete
    */
   async logoutHandler(event) {
-    event.preventDefault();
-
     const url = `${API_URL}/api/v1/auth/logout`;
     const response = await Ajax.post(url);
 
-    if (response.status === 200) {
-      removeCurrentUser();
-      this.router.renderLayout();
-    } else {
+    if (!(response.status === 200)) {
       console.error("logout failed:", response.body);
     }
-    this.router.goTo("/");
+  }
+  
+  /**
+   * Sends authorization request to the server using user data
+   *
+   * @returns {Promise<Object>} response from the server
+   */
+  async isAuthorizedRequest() {
+    const url = `${API_URL}/api/v1/auth/health`;
+    return await Ajax.get(url);
+  }
+  
+  /**
+   * Handles server response from authorization request
+   *
+   * @param {Object} response - server response from login request
+   * @private
+   */
+  handleIsAuthorizedResponse(response) {
+    switch (response.status) {
+      case 200:
+        return true;
+      case 401:
+        return false;
+      default:
+        console.error('Ошибка при проверке авторизации:', response.body.error);
+        return;
+    }
   }
 }

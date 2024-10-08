@@ -23,42 +23,31 @@
   vertical-align: text-bottom;
 }
 
-.header__btn_logo {
+.header__a_logo {
   color: #f1f1f1;
+  text-decoration: none;
   font-size: 41px;
   font-weight: 400;
   background-color: #1f1f1f;
   border: none;
 }
 
-.header__btn_logo:hover {
+.header__a_logo:hover {
   opacity: 0.5;
 }
 
-.header__btn_signup {
+.header__a_navlink {
   color: #f1f1f1;
+  text-decoration: none;
   font-size: 25px;
-  font-weight: 400;
-  background-color: #1f1f1f;
-  border: none;
+	float: left;
+  display: block;
+  text-align: center;
   margin-left: 45px;
   padding: 16px 16px;
 }
 
-.header__btn_signup:hover {
-  opacity: 0.5;
-}
-
-.header__btn_login {
-  color: #f1f1f1;
-  font-size: 25px;
-  font-weight: 400;
-  background-color: #1f1f1f;
-  border: none;
-  padding: 16px 16px;
-}
-
-.header__btn_login:hover {
+.header__a_navlink:hover {
   opacity: 0.5;
 }
 

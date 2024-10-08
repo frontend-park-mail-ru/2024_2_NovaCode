@@ -75,7 +75,7 @@ export class SignupView extends View {
    */
   isValidData(user) {
     if (!isValidEmail(user.email)) {
-      return {result: false, message: "Неправильный адрес электроннойй почты"};
+      return {result: false, message: "Адрес электронной почты должен содержать символ @"};
     }
     if (!isValidUsername(user.username)) {
       return {result: false, message: "Имя пользователя может состоять из букв латинского алфавита, цифр и нижнего подчеркивания"};
@@ -123,7 +123,7 @@ export class SignupView extends View {
     switch (response.status) {
       case 200:
         delete user.password;
-        localStorage.setItem("user", JSON.stringify(user));
+        // localStorage.setItem("user", JSON.stringify(user));
         this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
         this.router.renderLayout();
         this.router.goTo("/");

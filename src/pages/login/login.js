@@ -120,10 +120,10 @@ export class LoginView extends View {
     switch (response.status) {
       case 200:
         delete user.password;
-        localStorage.setItem("user", JSON.stringify(user));
+        // localStorage.setItem("user", JSON.stringify(user));
         this.displayMessage(messageBox, "Вход прошел успешно", "success");
-        this.router.renderLayout();
         this.router.goTo("/");
+        this.router.renderLayout();
         break;
       case 401:
         this.displayMessage(messageBox, "Неправильное имя пользователя или пароль", "error");
