@@ -1,5 +1,6 @@
 import { View } from "../../view.js";
 import { Ajax } from "../../modules/ajax.js";
+import { bindLinkClickEvents } from "../../modules/linksHandling.js";
 import { API_URL } from "../../app/config.js";
 import { isValidEmail, isValidPassword, isValidUsername } from "../../modules/validation.js";
 
@@ -21,12 +22,26 @@ export class SignupView extends View {
    * @private
    */
   bindEvents() {
+    const links = document.querySelectorAll(".link");
     const form = this.root.querySelector("#signup-form");
     const messageBox = this.root.querySelector("#message-box");
+
+    bindLinkClickEvents(links, this.linkHandler.bind(this));
 
     form.addEventListener("submit", (event) =>
       this.submitHandler(event, messageBox),
     );
+  }
+
+  /**
+   * Handles navlinks click event
+   *
+   * @param {Event} event - click event
+   * @param {String} href - href to go to
+   */
+  linkHandler(event, href) {
+    event.preventDefault();
+    this.router.goTo(href);
   }
 
   /**

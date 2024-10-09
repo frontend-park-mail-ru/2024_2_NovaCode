@@ -1,5 +1,6 @@
 import { View } from "../../view.js";
 import { Ajax } from "../../modules/ajax.js";
+import { bindLinkClickEvents } from "../../modules/linksHandling.js";
 // import { getCurrentUser, removeCurrentUser } from "../../modules/user.js";
 import { API_URL } from "../../app/config.js";
 
@@ -37,12 +38,15 @@ export class HeaderView extends View {
   }
 
   /**
-   * Binds event listeners to buttons
+   * Binds event listeners to links
    *
    * @private
    */
   bindEvents() {
+    const links = document.querySelectorAll(".link");
     const logoutLink = this.root.querySelector("#header_logout_link");
+
+    bindLinkClickEvents(links, this.linkHandler.bind(this));
 
     if (logoutLink) {
       this.addEventListener(
@@ -59,25 +63,42 @@ export class HeaderView extends View {
    * @private
    */
   switchActiveNavlink() {
-    let a = document.querySelectorAll('.header__a_navlink')
-    a.forEach((el)=>{
-      if (el.getAttribute('href') == window.location.pathname) el.classList.add('active')  
+    let navlinks = document.querySelectorAll(".navlink")
+    navlinks.forEach((navlink)=>{
+      if (navlink.getAttribute("href") == window.location.pathname) navlink.classList.add("active")  
     })
   }
 
   /**
-   * Handles logout  дштл click event
+   * Handles navlinks click event
+   *
+   * @param {Event} event - click event
+   * @param {String} href - href to go to
+   */
+  linkHandler(event, href) {
+    event.preventDefault();
+    this.router.goTo(href);
+  }
+
+  /**
+   * Handles logout link click event
    *
    * @param {Event} event - click event
    * @returns {Promise<void>} promise that resolves when the logout process is complete
    */
   async logoutHandler(event) {
+    event.preventDefault();
     const url = `${API_URL}/api/v1/auth/logout`;
     const response = await Ajax.post(url);
 
-    if (!(response.status === 200)) {
+    if (response.status === 200) {
+      // removeCurrentUser();
+      this.router.renderLayout();
+    } else {
       console.error("logout failed:", response.body);
     }
+
+    this.router.goTo("/login");
   }
   
   /**
