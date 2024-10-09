@@ -19,21 +19,21 @@
 	border: none;
 }
 
-.playlist__player_btn:hover {
+/* .playlist__player_btn:hover {
 	opacity: 0.8;
-}
+} */
 
 .playlist__title {
 	margin-top: 10px;
 	color: #f1f1f1;
-	font-size: 25px;
+	font-size: 41px;
 	font-weight: 400;
 	text-align: center;
 }
 
 .playlist__info {
 	color: #f1f1f1;
-	font-size: 16px;
+	font-size: 25px;
 	font-weight: 400;
 	text-align: center;
 }

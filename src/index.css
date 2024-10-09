@@ -48,10 +48,11 @@ body {
   margin: 0;
   padding: 0;
   background: linear-gradient(
-    90deg,
+    180deg,
     rgba(168, 72, 10, 1) 0%,
     rgba(44, 25, 17, 1) 100%
   );
+  background-attachment: fixed;
 }
 
 .message-success {
