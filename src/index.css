@@ -1,12 +1,12 @@
-@import 'components/header/header.css';
-@import 'components/playlist/playlist.css';
-@import 'components/artist/artist.css';
-@import 'pages/signup/signup.css';
-@import 'pages/login/login.css';
-@import 'pages/error/error.css';
+@import "components/header/header.css";
+@import "components/playlist/playlist.css";
+@import "components/artist/artist.css";
+@import "pages/signup/signup.css";
+@import "pages/login/login.css";
+@import "pages/error/error.css";
 
 body {
-  font-family: 'Sansation', sans-serif;
+  font-family: "Sansation", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -30,8 +30,8 @@ button {
   display: block;
 
   grid-template-areas:
-    'header'
-    'content';
+    "header"
+    "content";
 
   grid-template-rows: 100px 1fr;
   grid-template-columns: min-content 1fr;
