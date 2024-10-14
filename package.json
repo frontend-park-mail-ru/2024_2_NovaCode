@@ -23,6 +23,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@feature-sliced/cli": "^1.0.0",
     "@eslint/js": "^9.11.1",
     "eslint": "^9.11.1",
     "globals": "^15.9.0"
