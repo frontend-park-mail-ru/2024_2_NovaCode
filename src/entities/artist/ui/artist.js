@@ -1,5 +1,3 @@
-import artistTemplate from './artist.hbs';
-
 export class ArtistView {
 	/**
 	 * The parent HTML element.
@@ -19,6 +17,7 @@ export class ArtistView {
 	 * Renders the artist view.
 	 */
 	render(artist) {
-		this.parent.innerHTML = artistTemplate({ artist });
+		const template = Handlebars.templates['artist.hbs'];
+		this.parent.innerHTML = template({ artist });
 	}
 }

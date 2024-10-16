@@ -1,2 +1,1 @@
-export { FeedPage } from "./ui/FeedPage";
-
+export { FeedPage } from './ui/FeedPage.js';

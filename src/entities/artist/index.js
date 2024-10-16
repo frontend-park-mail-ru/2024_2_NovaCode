@@ -1,1 +1,1 @@
-import { ArtistView } from './ui/artist';
+export { ArtistView } from './ui/artist.js';

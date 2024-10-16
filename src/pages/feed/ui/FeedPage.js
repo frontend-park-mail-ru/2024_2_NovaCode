@@ -1,4 +1,4 @@
-import { TrackListView } from '../../../widgets/trackList/index';
+import { TrackListView } from '../../../widgets/trackList/index.js';
 
 export class FeedPage {
 	/**

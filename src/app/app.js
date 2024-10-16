@@ -1,5 +1,5 @@
-import { Router } from 'shared/router';
-import { LAYOUT, PAGES } from 'routes';
+import { Router } from '../shared/lib/router.js';
+import { LAYOUT, PAGES } from './routes.js';
 
 export class App {
 	constructor() {

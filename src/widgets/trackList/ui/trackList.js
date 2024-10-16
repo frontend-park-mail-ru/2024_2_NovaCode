@@ -1,6 +1,5 @@
-import { TrackListAPI } from '../api/api';
-import trackListTemplate from './trackList.hbs';
-// import trackTemplate from './track.hbs';
+import { TrackView } from '../../../entities/track/index.js';
+import { TrackListAPI } from '../api/api.js';
 
 export class TrackListView {
 	/**
@@ -20,18 +19,23 @@ export class TrackListView {
 	/**
 	 * Renders the playlist view.
 	 */
-	render() {
+	async render() {
 		const trackListAPI = new TrackListAPI();
-		var tracks = trackListAPI.get();
-		tracks = tracks.forEach((track) => {
-			track.map(({ name, artist, image, duration }) => {
-				const minutes = Math.floor(duration / 60);
-				const seconds = duration % 60;
-				const duration = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-				return { name, artist, image, duration };
-			});
+		let tracks = await trackListAPI.get();
+		tracks = tracks.map(({ name, artist, image, duration }) => {
+			const minutes = Math.floor(duration / 60);
+			const seconds = duration % 60;
+			duration = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+			return { name, artist, image, duration };
 		});
 
-		this.parent.innerHTML = trackListTemplate(tracks);
+		const template = Handlebars.templates['trackList.hbs'];
+		this.parent.innerHTML = template(tracks);
+
+		const tracksBlock = document.getElementById('mainpage-playlist');
+		Array.from(tracks).forEach((track) => {
+			const trackView = new TrackView(tracksBlock);
+			trackView.render(track);
+		});
 	}
 }

@@ -1,5 +1,5 @@
-import { API_URL } from '../../../shared/config/index';
-import { GET } from '../../../shared/api/index';
+import { API_URL } from '../../../shared/config/index.js';
+import { GET } from '../../../shared/api/index.js';
 
 export class TrackListAPI {
 	/**
@@ -19,15 +19,16 @@ export class TrackListAPI {
 	async get() {
 		try {
 			const response = await GET(this.url);
-			if (response.status === 200) {
-				return response.body;
+			if (!response.error) {
+				return response.data;
 			} else {
 				// this.displayMessage(
 				// 	messageBox,
 				// 	response.body.error || 'Не удалось загрузить плейлист',
 				// 	'error',
 				// );
-				console.error('Error during playlist loading:', error);
+				// console.error('Error during playlist loading:', error);
+				console.log('Error during TrackList loading:');
 			}
 		} catch (error) {
 			// this.displayMessage(
@@ -35,7 +36,7 @@ export class TrackListAPI {
 			// 	'Возникла ошибка при загрузке плейлиста. Попробуйте позже.',
 			// 	'error',
 			// );
-			console.error('Error during playlist loading:', error);
+			console.error('Error during TrackList loading:');
 		}
 	}
 }

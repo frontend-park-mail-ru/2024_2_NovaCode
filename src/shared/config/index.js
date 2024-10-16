@@ -1,1 +1,1 @@
-export { API_URL } from "./backend";
+export { API_URL } from './backend.js';

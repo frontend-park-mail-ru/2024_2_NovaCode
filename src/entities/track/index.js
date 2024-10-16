@@ -1,1 +1,1 @@
-import { TrackView } from './ui/track';
+export { TrackView } from './ui/track.js';
