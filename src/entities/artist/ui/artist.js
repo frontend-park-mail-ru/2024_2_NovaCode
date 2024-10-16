@@ -1,25 +1,24 @@
-import trackTemplate from './.hbs';
+import artistTemplate from './artist.hbs';
 
-export class TrackView {
+export class ArtistView {
 	/**
-	 * Initializes the TrackView.
+	 * The parent HTML element.
+	 * @type {HTMLElement}
+	 */
+	parent;
+
+	/**
+	 * Initializes the ArtistView.
 	 *
 	 */
-	constructor() {
-		this.root = document.querySelector('#root');
+	constructor(parent) {
+		this.parent = parent ? parent : document.querySelector('#root');
 	}
 
 	/**
-	 * Renders the playlist view.
+	 * Renders the artist view.
 	 */
-	render(track) {
-		const items = track.map(({ name, artist, image, duration }) => {
-			const minutes = Math.floor(duration / 60);
-			const seconds = duration % 60;
-			const duration = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-			return { name, artist, image, duration };
-		});
-
-		this.root.innerHTML = trackTemplate({ items });
+	render(artist) {
+		this.parent.innerHTML = artistTemplate({ artist });
 	}
 }

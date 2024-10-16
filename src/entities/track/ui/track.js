@@ -2,15 +2,21 @@ import trackTemplate from './track.hbs';
 
 export class TrackView {
 	/**
+	 * The parent HTML element.
+	 * @type {HTMLElement}
+	 */
+	parent;
+
+	/**
 	 * Initializes the TrackView.
 	 *
 	 */
-	constructor() {
-		this.root = document.querySelector('#root');
+	constructor(parent) {
+		this.parent = parent ? parent : document.querySelector('#root');
 	}
 
 	/**
-	 * Renders the playlist view.
+	 * Renders the track view.
 	 */
 	render(track) {
 		const items = track.map(({ name, artist, image, duration }) => {
@@ -20,6 +26,6 @@ export class TrackView {
 			return { name, artist, image, duration };
 		});
 
-		this.root.innerHTML = trackTemplate({ items });
+		this.parent.innerHTML = trackTemplate({ items });
 	}
 }

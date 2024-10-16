@@ -1,6 +1,22 @@
-import { Page } from "shared/ui";
+import { TrackListView } from '../../../widgets/trackList/index';
 
-export class FeedPage extends Page {
-  // ...
+export class FeedPage {
+	/**
+	 * The router instance responsible for navigating between views.
+	 */
+	router;
+
+	/**
+	 * Creates an instance of the View class.
+	 *
+	 * @param {Object} router - The router instance responsible for navigating between views.
+	 */
+	constructor(router) {
+		this.router = router;
+	}
+
+	render() {
+		const trackListView = new TrackListView();
+		trackListView.render();
+	}
 }
-

@@ -1,31 +1,31 @@
 {
-  "name": "nova-music",
-  "version": "1.0.0",
-  "description": "music streaming service",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prestart": "npm run compile:templates",
-    "start": "DEBUG=* && node ./server/server.js",
-    "compile:templates": "handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js && handlebars src/components/playlist/playlist.hbs -f src/components/playlist/playlist.precompiled.js && handlebars src/components/artist/artist.hbs -f src/components/artist/artist.precompiled.js && handlebars src/pages/error/error.hbs -f src/pages/error/error.precompiled.js && handlebars src/pages/feed/feed.hbs -f src/pages/feed/feed.precompiled.js && handlebars src/pages/login/login.hbs -f src/pages/login/login.precompiled.js && handlebars src/pages/signup/signup.hbs -f src/pages/signup/signup.precompiled.js",
-    "lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)' --config .github/linters/eslint.config.mjs"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.20.3",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "debug": "^4.3.7",
-    "express": "^4.21.0",
-    "handlebars": "^4.7.8",
-    "morgan": "^1.10.0",
-    "uuid": "^10.0.0"
-  },
-  "devDependencies": {
-    "@feature-sliced/cli": "^1.0.0",
-    "@eslint/js": "^9.11.1",
-    "eslint": "^9.11.1",
-    "globals": "^15.9.0"
-  }
+	"name": "nova-music",
+	"version": "1.0.0",
+	"description": "music streaming service",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prestart": "npm run compile:templates",
+		"start": "DEBUG=* && node ./server/server.js",
+		"compile:templates": "find src/ -path '*/ui/*.hbs' -exec sh -c 'handlebars \"$0\" -f \"${0%.hbs}.precompiled.js\"' {} \\;",
+		"lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)' --config .github/linters/eslint.config.mjs"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.20.3",
+		"cookie-parser": "^1.4.6",
+		"cors": "^2.8.5",
+		"debug": "^4.3.7",
+		"express": "^4.21.0",
+		"handlebars": "^4.7.8",
+		"morgan": "^1.10.0",
+		"uuid": "^10.0.0"
+	},
+	"devDependencies": {
+		"@feature-sliced/cli": "^1.0.0",
+		"@eslint/js": "^9.11.1",
+		"eslint": "^9.11.1",
+		"globals": "^15.9.0"
+	}
 }
