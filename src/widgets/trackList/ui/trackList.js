@@ -9,7 +9,7 @@ export class TrackListView {
 	parent;
 
 	/**
-	 * Initializes the TrackView.
+	 * Initializes the TrackListView.
 	 *
 	 */
 	constructor(parent) {
@@ -17,7 +17,7 @@ export class TrackListView {
 	}
 
 	/**
-	 * Renders the playlist view.
+	 * Renders the tracklist view.
 	 */
 	async render() {
 		const trackListAPI = new TrackListAPI();

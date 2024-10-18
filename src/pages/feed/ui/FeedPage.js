@@ -1,3 +1,4 @@
+import { PlayerView } from '../../../widgets/player/index.js';
 import { TrackListView } from '../../../widgets/trackList/index.js';
 import { ArtistListView } from '../../../widgets/artistList/index.js';
 
@@ -17,9 +18,11 @@ export class FeedPage {
 	}
 
 	async render() {
+		const playerView = new PlayerView();
 		const trackListView = new TrackListView();
 		const artistListView = new ArtistListView();
 
+		await playerView.render();
 		await trackListView.render();
 		await artistListView.render();
 	}
