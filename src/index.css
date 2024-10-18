@@ -4,9 +4,9 @@
 @import './widgets/artistList/ui/artistList.css';
 
 body {
-  font-family: 'Sansation', sans-serif;
-  margin: 0;
-  padding: 0;
+	font-family: 'Sansation', sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 h1,
@@ -15,57 +15,60 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 button {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 #root {
-  display: block;
+	display: block;
 
-  grid-template-areas:
-    'header'
-    'content';
+	grid-template-areas:
+		'header'
+		'content';
 
-  grid-template-rows: 100px 1fr;
-  grid-template-columns: min-content 1fr;
+	grid-template-rows: 100px 1fr;
+	grid-template-columns: min-content 1fr;
 }
 
 main {
-  grid-area: content;
-  height: 100%;
+	grid-area: content;
+	height: 100%;
 }
 
 html,
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(90deg,
-      rgba(168, 72, 10, 1) 0%,
-      rgba(44, 25, 17, 1) 100%);
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(
+		180deg,
+		rgba(168, 72, 10, 1) 0%,
+		rgba(44, 25, 17, 1) 100%
+	);
+	background-attachment: fixed;
 }
 
 .message-success {
-  width: 450px;
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-  color: green;
-  margin-top: 10px;
-  text-align: center;
+	width: 450px;
+	display: block;
+	font-size: 12px;
+	font-weight: bold;
+	color: green;
+	margin-top: 10px;
+	text-align: center;
 }
 
 .message-error {
-  width: 450px;
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-  color: red;
-  margin-top: 10px;
-  text-align: center;
+	width: 450px;
+	display: block;
+	font-size: 12px;
+	font-weight: bold;
+	color: red;
+	margin-top: 10px;
+	text-align: center;
 }
