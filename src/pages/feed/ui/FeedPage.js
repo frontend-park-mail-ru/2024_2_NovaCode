@@ -1,4 +1,5 @@
 import { TrackListView } from '../../../widgets/trackList/index.js';
+import { ArtistListView } from '../../../widgets/artistList/index.js';
 
 export class FeedPage {
 	/**
@@ -15,8 +16,11 @@ export class FeedPage {
 		this.router = router;
 	}
 
-	render() {
+	async render() {
 		const trackListView = new TrackListView();
-		trackListView.render();
+		const artistListView = new ArtistListView();
+
+		await trackListView.render();
+		await artistListView.render();
 	}
 }

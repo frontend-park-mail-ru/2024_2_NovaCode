@@ -1,6 +1,7 @@
 @import './entities/track/ui/track.css';
 @import './entities/artist/ui/artist.css';
 @import './widgets/trackList/ui/trackList.css';
+@import './widgets/artistList/ui/artistList.css';
 
 body {
   font-family: 'Sansation', sans-serif;

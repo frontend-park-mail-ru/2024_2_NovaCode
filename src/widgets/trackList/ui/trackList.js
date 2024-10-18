@@ -30,7 +30,7 @@ export class TrackListView {
 		});
 
 		const template = Handlebars.templates['trackList.hbs'];
-		this.parent.innerHTML = template(tracks);
+		this.parent.innerHTML += template({});
 
 		const tracksBlock = document.getElementById('mainpage-playlist');
 		Array.from(tracks).forEach((track) => {

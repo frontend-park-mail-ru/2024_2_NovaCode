@@ -18,6 +18,6 @@ export class ArtistView {
 	 */
 	render(artist) {
 		const template = Handlebars.templates['artist.hbs'];
-		this.parent.innerHTML = template({ artist });
+		this.parent.innerHTML += template(artist);
 	}
 }
