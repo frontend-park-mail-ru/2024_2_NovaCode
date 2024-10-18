@@ -1,0 +1,43 @@
+.player__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.player__block {
+  margin: 0 auto;
+  padding: 10px;
+  background-color: rgba(241.39, 241.39, 241.39, 0.1);
+  border-radius: 9px;
+  margin-top: 12px;
+}
+
+.player__play_btn {
+  display: block;
+  margin: 0 auto;
+  background-color: transparent;
+  border: none;
+}
+
+.player__play_btn:hover {
+  opacity: 0.8;
+}
+
+.player__btn_img {
+  width: 250px;
+  height: 250px;
+}
+
+.player__title {
+  margin-top: 10px;
+  color: #f1f1f1;
+  font-size: 41px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.player__info {
+  color: #f1f1f1;
+  font-size: 25px;
+  font-weight: 400;
+  text-align: center;
+}
