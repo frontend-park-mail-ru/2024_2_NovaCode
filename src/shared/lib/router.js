@@ -93,7 +93,6 @@ export class Router {
         const targetRoute = this.findRoute(currentPath);
 
         this.currentView?.destructor?.();
-        console.log("destructor", this.currentView);
 
         if (targetRoute) {
             this.currentView = new targetRoute.view(this);

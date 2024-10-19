@@ -1,4 +1,4 @@
-import { API_URL } from "../config/index.js";
+import { API_URL } from "../../config/index.js";
 
 export const HTTP_STATUS = {
     OK: 200,

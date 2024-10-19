@@ -1,5 +1,4 @@
-import { STATUS_CODES } from "../../../shared/lib/index.js";
-import { eventBus } from "../../../shared/lib/index.js";
+import { HTTP_STATUS, PUBLIC_ERRORS, eventBus } from "../../../shared/lib/index.js";
 import { signInRequest, signUpRequest, signOutRequest } from "../api/api.js";
 
 class UserStore {
@@ -28,7 +27,7 @@ class UserStore {
             const response = await signInRequest(user);
             
             switch (response.status) {
-                case STATUS_CODES.OK:
+                case HTTP_STATUS.OK:
                     const userData = {
                         username: response.data.user.username,
                         email: response.data.user.email,
@@ -41,20 +40,22 @@ class UserStore {
                     eventBus.emit('signInSuccess', this.storage.user);
                     break;
     
-                case STATUS_CODES.UNAUTHORIZED:
+                case HTTP_STATUS.UNAUTHORIZED:
                     this.storage.user = {
                         isAuthorized: false,
                     };
-                    this.storage.error = response.error;
+                    this.storage.error = PUBLIC_ERRORS.INVALID_USERNAME_OR_PASSWORD;
                     eventBus.emit('signInError', this.storage.error);
                     break;
                     
                 default:
+                    this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+                    eventBus.emit('signUpError', this.storage.error);
                     console.error('undefined status code:', response.status);
             }
         } catch (error) {
-            this.storage.error = error;
-            eventBus.emit('signInError', error);
+            this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+            eventBus.emit('signInError', this.storage.error);
             console.error('unable to sign in: ', error);
         }
     };
@@ -65,7 +66,7 @@ class UserStore {
             const response = await signUpRequest(user);
             
             switch (response.status) {
-                case STATUS_CODES.OK:
+                case HTTP_STATUS.OK:
                     const userData = {
                         username: response.data.user.username,
                         email: response.data.user.email,
@@ -78,20 +79,22 @@ class UserStore {
                     eventBus.emit('signUpSuccess', this.storage.user);
                     break;
     
-                case STATUS_CODES.UNAUTHORIZED:
+                case HTTP_STATUS.BAD_REQUEST:
                     this.storage.user = {
                         isAuthorized: false,
                     };
-                    this.storage.error = response.error;
+                    this.storage.error = PUBLIC_ERRORS.USER_EXISTS;
                     eventBus.emit('signUpError', this.storage.error);
                     break;
                     
                 default:
+                    this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+                    eventBus.emit('signUpError', this.storage.error);
                     console.error('undefined status code:', response.status);
             }
         } catch (error) {
-            this.storage.error = error;
-            eventBus.emit('signUpError', error);
+            this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+            eventBus.emit('signUpError', this.storage.error);
             console.error('unable to sign up: ', error);
         }
     };
@@ -102,7 +105,7 @@ class UserStore {
             const response = await signOutRequest();
 
             switch (response.status) {
-                case STATUS_CODES.OK:
+                case HTTP_STATUS.OK:
                     this.storage.user = { isAuthorized: false };
                     this.removeUser();
                     this.storage.error = null;
@@ -110,12 +113,14 @@ class UserStore {
                     break;
                 
                 default:
+                    this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+                    eventBus.emit('signOutError', this.storage.error);
                     console.error('undefined status code:', response.status);
             }
         } catch (error) {
-            this.storage.error = error;
-            eventBus.emit('signOutError', error);
-            console.error('unable to connect to server: ', error);
+            this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+            eventBus.emit('signOutError', this.storage.error);
+            console.error('unable to sign out: ', error);
         }
     };
 };

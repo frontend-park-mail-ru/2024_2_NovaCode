@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"prestart": "npm run compile:templates",
+		"prestart": "npm run compile:templates && npm run compile:scss",
 		"start": "DEBUG=* && node ./server/server.js",
 		"compile:templates": "find src/ -path '*/ui/*.hbs' -exec sh -c 'handlebars \"$0\" -f \"${0%.hbs}.precompiled.js\"' {} \\;",
 		"compile:scss": "find src/ -path '*/ui/*.scss' -exec sh -c 'sass \"$0\":\"${0%.scss}.min.css\" --style compressed --no-source-map' {} \\;",
