@@ -1,1 +1,1 @@
-export { ErrorPage } from './ui/ErrorPage.js';
+export { ErrorPage } from './ui/Error.js';

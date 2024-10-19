@@ -1,6 +1,9 @@
 @import './entities/track/ui/track.css';
 @import './entities/artist/ui/artist.css';
 @import './widgets/trackList/ui/trackList.css';
+@import './widgets/header/ui/Header.css';
+@import './pages/sign-up/ui/SignUp.css';
+@import './pages/sign-in/ui/SignIn.css';
 
 body {
   font-family: 'Sansation', sans-serif;
