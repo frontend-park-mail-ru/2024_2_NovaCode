@@ -1,4 +1,5 @@
 import { eventBus } from "../../../shared/lib/eventbus.js";
+import { validate, VALIDATION_RULES } from "../../../shared/lib/index.js";
 import { userStore } from "../../../entities/user/model/store.js";
 
 export class SignUpPage {
@@ -39,17 +40,33 @@ export class SignUpPage {
   async handleSubmit(event) {
     event.preventDefault();
 
-    const email = document.querySelector("#email").value;
     const username = document.querySelector("#username").value;
+    const email = document.querySelector("#email").value;
     const password = document.querySelector("#password").value;
 
-    const user = { email, username, password };
+    let validationErrors = {};
 
-    if (!email || !username || !password) {
-      this.showMessage("All fields are required.", "error");
+    const usernameError = validate(username, VALIDATION_RULES.username);
+    if (usernameError) {
+      validationErrors.username = usernameError;
+    }
+
+    const emailError = validate(email, VALIDATION_RULES.email);
+    if (emailError) {
+      validationErrors.email = emailError;
+    }
+
+    const passwordError = validate(password, VALIDATION_RULES.password);
+    if (passwordError) {
+      validationErrors.password = passwordError;
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      this.handleSignUpError(validationErrors);
       return;
     }
 
+    const user = { username, email, password };
     await userStore.signUp(user);
   }
 
@@ -58,14 +75,28 @@ export class SignUpPage {
   }
 
   handleSignUpError(error) {
-    this.showMessage(`Error: ${error.message || error}`, "error");
-  }
+    document.querySelector("#register__username-error").textContent = "";
+    document.querySelector("#register__email-error").textContent = "";
+    document.querySelector("#register__password-error").textContent = "";
+    document.querySelector("#register__general-error").textContent = "";
 
-  showMessage(message, type) {
-    const messageBox = document.querySelector("#message-box");
-    if (messageBox) {
-      messageBox.textContent = message;
-      messageBox.className = `message-box ${type}`;
+    if (error.username) {
+      document.querySelector("#register__username-error").textContent =
+        error.username;
+    }
+
+    if (error.email) {
+      document.querySelector("#register__email-error").textContent =
+        error.email;
+    }
+
+    if (error.password) {
+      document.querySelector("#register__password-error").textContent =
+        error.password;
+    }
+
+    if (typeof error === "string") {
+      document.querySelector("#register__general-error").textContent = error;
     }
   }
 
