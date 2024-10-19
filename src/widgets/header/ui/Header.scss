@@ -1,0 +1,55 @@
+.header {
+	width: 100%;
+	position: sticky;
+	top: 0;
+	background-color: black;
+
+	&__container {
+		max-width: 1280px;
+		margin: 0 auto;
+	}
+
+	&__row {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		padding: 14px 0px;
+	}
+
+	&__btn_logo {
+		color: #f1f1f1;
+		font-size: 25px;
+		font-weight: 400;
+		background-color: black;
+		border: none;
+	}
+
+	&__btn_logo:hover {
+		opacity: 0.5;
+	}
+
+	&__btn_signup {
+		color: #f1f1f1;
+		font-size: 25px;
+		font-weight: 400;
+		background-color: black;
+		border: none;
+		margin-left: 45px;
+
+		&:hover {
+			opacity: 0.5;
+		}
+	}
+
+	&__btn_login {
+		color: #f1f1f1;
+		font-size: 25px;
+		font-weight: 400;
+		background-color: black;
+		border: none;
+
+		&:hover {
+			opacity: 0.5;
+		}
+	}
+}

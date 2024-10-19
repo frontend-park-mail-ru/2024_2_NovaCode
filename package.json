@@ -8,6 +8,7 @@
 		"prestart": "npm run compile:templates",
 		"start": "DEBUG=* && node ./server/server.js",
 		"compile:templates": "find src/ -path '*/ui/*.hbs' -exec sh -c 'handlebars \"$0\" -f \"${0%.hbs}.precompiled.js\"' {} \\;",
+		"compile:scss": "find src/ -path '*/ui/*.scss' -exec sh -c 'sass \"$0\":\"${0%.scss}.min.css\" --style compressed --no-source-map' {} \\;",
 		"lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)' --config .github/linters/eslint.config.mjs"
 	},
 	"author": "",
@@ -23,9 +24,10 @@
 		"uuid": "^10.0.0"
 	},
 	"devDependencies": {
-		"@feature-sliced/cli": "^1.0.0",
 		"@eslint/js": "^9.11.1",
+		"@feature-sliced/cli": "^1.0.0",
 		"eslint": "^9.11.1",
-		"globals": "^15.9.0"
+		"globals": "^15.9.0",
+		"sass": "^1.80.3"
 	}
 }

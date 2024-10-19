@@ -1,0 +1,26 @@
+.popular_artists {
+  &__container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  &__block {
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgba(241.39, 241.39, 241.39, 0.1);
+    border-radius: 9px;
+    margin-top: 12px;
+  }
+
+  &__text {
+    color: #f1f1f1;
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  &__list {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+  }
+}

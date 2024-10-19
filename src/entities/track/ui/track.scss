@@ -1,0 +1,44 @@
+.track {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+
+	&__left_side {
+		display: flex;
+		align-items: center;
+	}
+
+	&__right_side {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__img {
+		width: 90px;
+		height: 90px;
+	}
+
+	&__info {
+		margin-left: 20px;
+	}
+
+	&__name {
+		color: #1f1f1f;
+		font-size: 22px;
+		font-weight: 400;
+	}
+
+	&__artist {
+		margin-top: 5px;
+		color: #636363;
+		font-size: 20px;
+		font-weight: 400;
+	}
+}
