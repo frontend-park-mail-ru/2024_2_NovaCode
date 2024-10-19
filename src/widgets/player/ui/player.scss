@@ -1,0 +1,45 @@
+.player {
+  &__container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  &__block {
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgba(241.39, 241.39, 241.39, 0.1);
+    border-radius: 9px;
+    margin-top: 12px;
+  }
+
+  &__play_btn {
+    display: block;
+    margin: 0 auto;
+    background-color: transparent;
+    border: none;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__btn_img {
+    width: 250px;
+    height: 250px;
+  }
+
+  &__title {
+    margin-top: 10px;
+    color: #f1f1f1;
+    font-size: 41px;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  &__info {
+    color: #f1f1f1;
+    font-size: 25px;
+    font-weight: 400;
+    text-align: center;
+  }
+}
