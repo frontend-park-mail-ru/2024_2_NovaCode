@@ -16,6 +16,8 @@
           placeholder="Имя пользователя"
           required
         />
+        <div id="login__username-error" class="login__input-error"></div>
+
         <input
           class="login__input"
           type="password"
@@ -24,6 +26,8 @@
           placeholder="Пароль"
           required
         />
+        <div id="login__password-error" class="login__input-error"></div>
+
         <div class="login__additional">
           <div class="login__remember_me">
             <input
@@ -36,7 +40,8 @@
           <a class="login__forget_password" href="#">Забыли пароль</a>
         </div>
         <button class="login__submit_btn" type="submit">Войти</button>
-        <div id="message-box"></div>
+
+        <div id="login__general-error" class="login__general-error"></div>
       </form>
     </div>
   </div>

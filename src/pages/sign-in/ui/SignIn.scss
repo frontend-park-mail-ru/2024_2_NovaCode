@@ -62,6 +62,18 @@
     }
   }
 
+  &__input-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  &__general-error {
+    color: red;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
   &__submit_btn {
     margin-top: 28px;
     width: 450px;
