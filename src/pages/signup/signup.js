@@ -90,7 +90,7 @@ export class SignupView extends View {
    */
   isValidData(user) {
     if (!isValidEmail(user.email)) {
-      return {result: false, message: "Адрес электронной почты должен содержать символ @"};
+      return {result: false, message: "Адрес электронной почты должен содержать символ @ и симовлы до и после"};
     }
     if (!isValidUsername(user.username)) {
       return {result: false, message: "Имя пользователя может состоять из букв латинского алфавита, цифр и нижнего подчеркивания"};
