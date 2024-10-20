@@ -14,10 +14,13 @@ export class FeedPage {
 	 * @param {Object} router - The router instance responsible for navigating between views.
 	 */
 	constructor(router) {
+		this.parent = document.querySelector('#root');
 		this.router = router;
 	}
 
 	async render() {
+		this.parent.innerHTML = '';
+
 		const playerView = new PlayerView();
 		const trackListView = new TrackListView();
 		const artistListView = new ArtistListView();

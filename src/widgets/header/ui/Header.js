@@ -1,64 +1,83 @@
-import { eventBus } from "../../../shared/lib/index.js";
-import { userStore } from "../../../entities/user/model/store.js";
+import { eventBus } from '../../../shared/lib/index.js';
+import { userStore } from '../../../entities/user/model/store.js';
 
 export class Header {
-  parent;
+	parent;
 
-  constructor() {
-    this.parent = document.querySelector("#header");
-  }
+	constructor() {
+		this.parent = document.querySelector('#header');
+	}
 
-  render() {
-    const template = Handlebars.templates["Header.hbs"];
-    const user = userStore.getUser();
-    this.parent.innerHTML = template({ user });
+	render() {
+		this.parent.innerHTML = '';
 
-    this.bindEvents();
-    this.onEvents();
-  }
+		const template = Handlebars.templates['Header.hbs'];
+		const user = userStore.getUser();
+		this.parent.innerHTML = template({ user });
 
-  bindEvents() {
-    this.parent.addEventListener("click", (event) => {
-      if (event.target.id === "header_logout_button") {
-        this.handleSignOut();
-      } else if (event.target.id === "header_login_button") {
-        this.handleSignIn();
-      } else if (event.target.id === "header_signup_button") {
-        this.handleSignup();
-      }
-    });
-  }
+		this.bindEvents();
+		this.onEvents();
+	}
 
-  onEvents() {
-    eventBus.on("signInSuccess", this.render);
-    eventBus.on("signUpSuccess", this.render);
-    eventBus.on("signOutSuccess", this.render);
-  }
+	bindEvents() {
+		this.parent.addEventListener('click', (event) => {
+			if (event.target.id === 'header_logout_button') {
+				this.handleSignOut();
+			} else if (event.target.id === 'header_login_button') {
+				this.handleSignIn();
+			} else if (event.target.id === 'header_signup_button') {
+				this.handleSignup();
+			}
+		});
+	}
 
-  offEvents() {
-    eventBus.off("signUpSuccess", this.render);
-    eventBus.off("signUpError", this.render);
-    eventBus.off("signOutSuccess", this.render);
-  }
+	onSignInSuccess = (user) => {
+		console.log('CHECK onSignInSuccess');
+		this.render(user);
+		eventBus.emit('navigate', '/');
+	};
 
-  async handleSignOut() {
-    try {
-      await userStore.signOut();
-      eventBus.emit("navigate", "/");
-    } catch (error) {
-      console.error("unable to sign out", error);
-    }
-  }
+	onSignUpSuccess = (user) => {
+		console.log('CHECK onSignUpSuccess');
+		this.render(user);
+		eventBus.emit('navigate', '/');
+	};
 
-  handleSignIn() {
-    eventBus.emit("navigate", "/signin");
-  }
+	onSignOutSuccess = (user) => {
+		console.log('CHECK onSignOutSuccess');
+		this.render(user);
+		eventBus.emit('navigate', '/signin');
+	};
 
-  handleSignup() {
-    eventBus.emit("navigate", "/signup");
-  }
+	onEvents() {
+		eventBus.on('signInSuccess', this.onSignInSuccess);
+		eventBus.on('signUpSuccess', this.onSignUpSuccess);
+		eventBus.on('signOutSuccess', this.onSignOutSuccess);
+	}
 
-  destructor() {
-    this.offEvents();
-  }
+	offEvents() {
+		eventBus.off('signInSuccess', this.onSignInSuccess);
+		eventBus.off('signUpSuccess', this.onSignUpSuccess);
+		eventBus.off('signOutSuccess', this.onSignOutSuccess);
+	}
+
+	async handleSignOut() {
+		try {
+			await userStore.signOut();
+		} catch (error) {
+			console.error('unable to sign out', error);
+		}
+	}
+
+	handleSignIn() {
+		eventBus.emit('navigate', '/signin');
+	}
+
+	handleSignup() {
+		eventBus.emit('navigate', '/signup');
+	}
+
+	destructor() {
+		this.offEvents();
+	}
 }

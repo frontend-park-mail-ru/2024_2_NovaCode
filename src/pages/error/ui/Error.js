@@ -1,12 +1,14 @@
-import { eventBus } from "../../../shared/lib/eventbus.js";
+import { eventBus } from '../../../shared/lib/eventbus.js';
 
 export class ErrorPage {
 	constructor() {
-	  this.root = document.querySelector("#root");
+		this.parent = document.querySelector('#root');
 	}
 
-	render(message = "Что-то пошло не так") {
-	  const template = Handlebars.templates["error.hbs"];
-	  this.root.innerHTML = template({ message });
+	render(message = 'Что-то пошло не так') {
+		this.parent.innerHTML = '';
+
+		const template = Handlebars.templates['error.hbs'];
+		this.parent.innerHTML = template({ message });
 	}
-  }
+}
