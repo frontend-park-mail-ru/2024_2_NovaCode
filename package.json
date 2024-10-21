@@ -1,33 +1,33 @@
 {
-	"name": "nova-music",
-	"version": "1.0.0",
-	"description": "music streaming service",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"prestart": "npm run compile:templates && npm run compile:scss",
-		"start": "DEBUG=* && node ./server/server.js",
-		"compile:templates": "find src/ -path '*/ui/*.hbs' -exec sh -c 'handlebars \"$0\" -f \"${0%.hbs}.precompiled.js\"' {} \\;",
-		"compile:scss": "find src/ -path '*/ui/*.scss' -exec sh -c 'sass \"$0\":\"${0%.scss}.min.css\" --style compressed --no-source-map' {} \\;",
-		"lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)' --config .github/linters/eslint.config.mjs"
-	},
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"body-parser": "^1.20.3",
-		"cookie-parser": "^1.4.6",
-		"cors": "^2.8.5",
-		"debug": "^4.3.7",
-		"express": "^4.21.0",
-		"handlebars": "^4.7.8",
-		"morgan": "^1.10.0",
-		"uuid": "^10.0.0"
-	},
-	"devDependencies": {
-		"@eslint/js": "^9.11.1",
-		"@feature-sliced/cli": "^1.0.0",
-		"eslint": "^9.11.1",
-		"globals": "^15.9.0",
-		"sass": "^1.80.3"
-	}
+  "name": "nova-music",
+  "version": "1.0.0",
+  "description": "music streaming service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "npm run compile:templates && npm run compile:scss",
+    "start": "DEBUG=* && node ./server/server.js",
+    "compile:templates": "find src -path '*/ui/*.hbs' -exec sh -c 'handlebars \"$0\" -f \"${0%.hbs}.precompiled.js\"' {} \\;",
+    "compile:scss": "find src -path '*/ui/*.scss' -exec sh -c 'sass \"$0\":\"${0%.scss}.min.css\" --style compressed --no-source-map' {} \\;",
+    "lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)' --config .github/linters/eslint.config.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "debug": "^4.3.7",
+    "express": "^4.21.0",
+    "handlebars": "^4.7.8",
+    "morgan": "^1.10.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "@feature-sliced/cli": "^1.0.0",
+    "eslint": "^9.11.1",
+    "globals": "^15.9.0",
+    "sass": "^1.80.3"
+  }
 }
