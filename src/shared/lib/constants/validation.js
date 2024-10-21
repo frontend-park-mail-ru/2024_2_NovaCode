@@ -12,7 +12,7 @@ export const VALIDATION_RULES = {
   email: [
     {
       name: "Неверный формат электронной почты.",
-      pattern: /@/,
+      pattern: /.+@.+/,
     },
   ],
   password: [
