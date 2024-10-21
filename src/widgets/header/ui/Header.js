@@ -31,23 +31,22 @@ export class Header {
 		});
 	}
 
-	onSignInSuccess = (user) => {
-		console.log('CHECK onSignInSuccess');
-		this.render(user);
-		eventBus.emit('navigate', '/');
-	};
-
-	onSignUpSuccess = (user) => {
-		console.log('CHECK onSignUpSuccess');
-		this.render(user);
-		eventBus.emit('navigate', '/');
-	};
-
-	onSignOutSuccess = (user) => {
-		console.log('CHECK onSignOutSuccess');
-		this.render(user);
+	handleSignIn() {
 		eventBus.emit('navigate', '/signin');
-	};
+	}
+
+	handleSignup() {
+		eventBus.emit('navigate', '/signup');
+	}
+
+	async handleSignOut() {
+		try {
+			await userStore.signOut();
+			eventBus.emit('navigate', '/signin');
+		} catch (error) {
+			console.error('unable to sign out', error);
+		}
+	}
 
 	onEvents() {
 		eventBus.on('signInSuccess', this.onSignInSuccess);
@@ -60,22 +59,18 @@ export class Header {
 		eventBus.off('signUpSuccess', this.onSignUpSuccess);
 		eventBus.off('signOutSuccess', this.onSignOutSuccess);
 	}
+	
+	onSignInSuccess = (user) => {
+		this.render(user);
+	};
 
-	async handleSignOut() {
-		try {
-			await userStore.signOut();
-		} catch (error) {
-			console.error('unable to sign out', error);
-		}
-	}
+	onSignUpSuccess = (user) => {
+		this.render(user);
+	};
 
-	handleSignIn() {
-		eventBus.emit('navigate', '/signin');
-	}
-
-	handleSignup() {
-		eventBus.emit('navigate', '/signup');
-	}
+	onSignOutSuccess = (user) => {
+		this.render(user);
+	};
 
 	destructor() {
 		this.offEvents();

@@ -30,12 +30,12 @@ export class SignUpPage {
 	}
 
 	onEvents() {
-		// eventBus.on('signUpSuccess', this.handleSignUpSuccess);
+		eventBus.on('signUpSuccess', this.handleSignUpSuccess);
 		eventBus.on('signUpError', this.handleSignUpError);
 	}
 
 	offEvents() {
-		// eventBus.off('signUpSuccess', this.handleSignUpSuccess);
+		eventBus.off('signUpSuccess', this.handleSignUpSuccess);
 		eventBus.off('signUpError', this.handleSignUpError);
 	}
 

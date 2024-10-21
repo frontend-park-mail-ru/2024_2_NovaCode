@@ -30,12 +30,12 @@ export class SignInPage {
 	}
 
 	onEvents() {
-		// eventBus.on('signInSuccess', this.handleSignInSuccess);
+		eventBus.on('signInSuccess', this.handleSignInSuccess);
 		eventBus.on('signInError', this.handleSignInError);
 	}
 
 	offEvents() {
-		// eventBus.off('signInSuccess', this.handleSignInSuccess);
+		eventBus.off('signInSuccess', this.handleSignInSuccess);
 		eventBus.off('signInError', this.handleSignInError);
 	}
 
