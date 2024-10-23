@@ -1,11 +1,8 @@
 export class Page {
   /**
    * Creates an instance of the View class.
-   *
-   * @param {Object} router - The router instance responsible for navigating between views.
    */
-  constructor(router) {
-    this.router = router;
+  constructor() {
     this.eventListeners = [];
   }
 

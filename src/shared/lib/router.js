@@ -17,8 +17,12 @@ export class Router {
      * @param {Function} view - view constructor associated with path
      */
     registerPath(path, view) {
-        const regexPath = path.replace(/\{(\w+)\}/g, '([^/]+)');
-        this.routes.push({ path: new RegExp(`^${regexPath}$`), view: view });
+        const paramNames = [];
+        const regexPath = path.replace(/\{(\w+)\}/g, (_, paramName) => {
+            paramNames.push(paramName);
+            return '([^/]+)';
+        });
+        this.routes.push({ path: new RegExp(`^${regexPath}$`), view: view, paramNames: paramNames });
     }
 
     /**
@@ -95,7 +99,8 @@ export class Router {
         this.currentView?.destructor?.();
 
         if (targetRoute) {
-            this.currentView = new targetRoute.view(this);
+            this.currentView = new targetRoute.view(targetRoute.params);
+            await this.currentView?.render();
             await this.currentView?.render();
 
             if (targetRoute.updateLayout) {
@@ -117,7 +122,11 @@ export class Router {
         for (const route of this.routes) {
             const match = route.path.exec(path);
             if (match) {
-                const params = match.slice(1);
+                const params = match.slice(1).reduce((acc, param, index) => {
+                    const paramName = route.paramNames[index];
+                    acc[paramName] = param;
+                    return acc;
+                }, {});
                 return {
                     params: params,
                     view: route.view,

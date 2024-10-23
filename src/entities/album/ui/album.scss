@@ -1,4 +1,4 @@
-.artist {
+.album {
 	&__img {
 		width: 210px;
 		height: 210px;
@@ -13,5 +13,12 @@
 		font-size: 16px;
 		font-weight: 400;
 	}
+    &__artist {
+		margin-top: 5px;
+		display: flex;
+		justify-content: center;
+		color: #636363;
+		font-size: 16px;
+		font-weight: 400;
+	}
 }
-

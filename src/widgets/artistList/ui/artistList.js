@@ -9,7 +9,7 @@ export class ArtistListView {
 	parent;
 
 	/**
-	 * Initializes the TrackView.
+	 * Initializes the ArtistView.
 	 *
 	 */
 	constructor(parent) {
@@ -24,7 +24,9 @@ export class ArtistListView {
 		let artists = await artistListAPI.get();
 
 		const template = Handlebars.templates['artistList.hbs'];
-		this.parent.innerHTML += template({});
+		const artistListElement = document.createElement('div');
+		artistListElement.innerHTML = template({}); 
+		this.parent.appendChild(artistListElement);
 
 		const artistsBlock = document.getElementById('mainpage-popular-artists');
 		Array.from(artists).forEach((artist) => {

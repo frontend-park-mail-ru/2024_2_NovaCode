@@ -3,13 +3,13 @@ import { GET } from '../../../shared/api/index.js';
 
 export class ArtistListAPI {
 	/**
-	 * Url path to backend api which returns tracks
+	 * Url path to backend api which returns artists/
 	 *
 	 */
 	url;
 
 	/**
-	 * Initializes the TrackListAPI.
+	 * Initializes the ArtistListAPI.
 	 *
 	 */
 	constructor() {
@@ -24,10 +24,10 @@ export class ArtistListAPI {
 			} else {
 				// this.displayMessage(
 				// 	messageBox,
-				// 	response.body.error || 'Не удалось загрузить плейлист',
+				// 	response.body.error || 'Не удалось загрузить музыкантов',
 				// 	'error',
 				// );
-				// console.error('Error during playlist loading:', error);
+				// console.error('Error during artists loading:', error);
 				console.log('Error during ArtistList loading:');
 			}
 		} catch (error) {
