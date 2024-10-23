@@ -18,6 +18,8 @@ export class PlayerView {
 	 */
 	async render() {
 		const template = Handlebars.templates['player.hbs'];
-		this.parent.innerHTML += template({});
+		const playerElement = document.createElement('div');
+		playerElement.innerHTML = template({}); 
+		this.parent.appendChild(playerElement);
 	}
 }

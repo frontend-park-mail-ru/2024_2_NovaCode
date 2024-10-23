@@ -1,0 +1,18 @@
+<div class="artist_card__container">
+  <div class="artist_card__block">
+    <div class="artist_card__text">Исполнитель</div>
+    <div class="artist_card__flex_block">
+      <div class="artist_card__left_side">
+        <img src="/images/{{ artist.image }}">
+      </div>
+      <div class="artist_card__right_side">
+        <div class="artist_card__text">{{ artist.name }}</div>
+        <div class="artist_card__text">Жанры: 
+            {{#each genres}}
+              {{this.rusName}}
+            {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,17 +11,21 @@ export class TrackListView {
 	/**
 	 * Initializes the TrackListView.
 	 *
+	 * @param {HTMLElement} parent - The parent HTML element
+	 * @param {string} [artistId] - The artist ID (optional)
 	 */
-	constructor(parent) {
+	constructor(parent, artistId) {
 		this.parent = parent ? parent : document.querySelector('#root');
+		this.artistId = artistId;
 	}
 
 	/**
 	 * Renders the tracklist view.
 	 */
 	async render() {
-		const trackListAPI = new TrackListAPI();
+		const trackListAPI = new TrackListAPI(this.artistId);
 		let tracks = await trackListAPI.get();
+		
 		tracks = tracks.map(({ name, artist, image, duration }) => {
 			const minutes = Math.floor(duration / 60);
 			const seconds = duration % 60;
@@ -30,9 +34,11 @@ export class TrackListView {
 		});
 
 		const template = Handlebars.templates['trackList.hbs'];
-		this.parent.innerHTML += template({});
+		const trackListElement = document.createElement('div');
+		trackListElement.innerHTML = template({}); 
+		this.parent.appendChild(trackListElement);
 
-		const tracksBlock = document.getElementById('mainpage-playlist');
+		const tracksBlock = document.getElementById('tracks');
 		Array.from(tracks).forEach((track) => {
 			const trackView = new TrackView(tracksBlock);
 			trackView.render(track);

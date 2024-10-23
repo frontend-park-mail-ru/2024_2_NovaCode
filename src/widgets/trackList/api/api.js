@@ -11,9 +11,14 @@ export class TrackListAPI {
 	/**
 	 * Initializes the TrackListAPI.
 	 *
+	 * @param {string} [artistId] - The artist ID (optional)
 	 */
-	constructor() {
-		this.url = `${API_URL}/api/v1/tracks`;
+	constructor(artistId) {
+		if (artistId) {
+			this.url = `${API_URL}/api/v1/tracks/byArtistId/${artistId}`;
+		} else {
+			this.url = `${API_URL}/api/v1/tracks`;
+		}
 	}
 
 	async get() {

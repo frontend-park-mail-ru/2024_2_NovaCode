@@ -4,18 +4,10 @@ import { ArtistListView } from '../../../widgets/artistList/index.js';
 
 export class FeedPage {
 	/**
-	 * The router instance responsible for navigating between views.
-	 */
-	router;
-
-	/**
 	 * Creates an instance of the View class.
-	 *
-	 * @param {Object} router - The router instance responsible for navigating between views.
 	 */
-	constructor(router) {
+	constructor() {
 		this.parent = document.querySelector('#root');
-		this.router = router;
 	}
 
 	async render() {
