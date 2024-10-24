@@ -1,0 +1,51 @@
+<div class="footer_player__container">
+  <div class="footer_player__grid">
+    <div class="footer_player__track_slider track_slider">
+      <div class="track_slider__time_current">00:00</div>
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value="0"
+        class="track_slider__seek"
+      />
+      <div class="track_slider__time_total">01:23</div>
+    </div>
+
+    <div class="footer_player__buttons buttons">
+      <div class="buttons__play_track player_button">
+        <img src="./images/icons/play_footer.svg" alt="play_pause" class="footer_player__icon">
+      </div>
+      <div class="buttons__prev_track player_button">
+        <img src="./images/icons/prev.svg" alt="prev_track" class="footer_player__icon">
+      </div>
+      <div class="buttons__next_track player_button">
+        <img src="./images/icons/next.svg" alt="next_track" class="footer_player__icon">
+      </div>
+    </div>
+
+    <div class="footer_player__player_details player_details">
+      <div class="player_details__track_img">TRACK_IMG</div>
+      <div class="player_details__info">
+        <div class="player__track_name">track_name</div>
+        <div class="player__track_artist">track_artist</div>
+      </div>
+    </div>
+
+    <div class="footer_player__volume_slider volume_slider">
+      <div class="volume_slider__up">
+        <img src="./images/icons/volume_down.svg" alt="volume_down" class="footer_player__icon">
+      </div>
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value="10"
+        class="volume_slider__seek"
+      />
+      <div class="volume_slider__down">
+        <img src="./images/icons/volume_up.svg" alt="volume_up" class="footer_player__icon">
+      </div>
+    </div>
+  </div>
+</div>
