@@ -1,5 +1,6 @@
 import { eventBus } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
+import { player } from '../../../shared/player/model/store.js';
 
 export class Header {
 	parent;
@@ -42,6 +43,7 @@ export class Header {
 	async handleSignOut() {
 		try {
 			await userStore.signOut();
+			player.clearTracks();
 			eventBus.emit('navigate', '/signin');
 		} catch (error) {
 			console.error('unable to sign out', error);
@@ -59,7 +61,7 @@ export class Header {
 		eventBus.off('signUpSuccess', this.onSignUpSuccess);
 		eventBus.off('signOutSuccess', this.onSignOutSuccess);
 	}
-	
+
 	onSignInSuccess = (user) => {
 		this.render(user);
 	};

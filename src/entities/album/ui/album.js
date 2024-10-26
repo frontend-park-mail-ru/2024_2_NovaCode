@@ -18,8 +18,8 @@ export class AlbumView {
 	 */
 	render(album) {
 		const template = Handlebars.templates['album.hbs'];
-		const  albumElement = document.createElement('div');
-		albumElement.innerHTML = template(album); 
+		const albumElement = document.createElement('div');
+		albumElement.innerHTML = template(album);
 		this.parent.appendChild(albumElement);
 	}
 }

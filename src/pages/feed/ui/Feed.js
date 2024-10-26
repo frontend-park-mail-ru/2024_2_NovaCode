@@ -1,6 +1,10 @@
-import { PlayerView } from '../../../widgets/player/index.js';
+import { TrackListAPI } from '../../../widgets/trackList/index.js';
+import { ListenBlockView } from '../../../widgets/listenBlock/index.js';
 import { TrackListView } from '../../../widgets/trackList/index.js';
 import { ArtistListView } from '../../../widgets/artistList/index.js';
+import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
+import { userStore } from '../../../entities/user/model/store.js';
+import { player } from '../../../shared/player/model/store.js';
 
 export class FeedPage {
 	/**
@@ -13,12 +17,22 @@ export class FeedPage {
 	async render() {
 		this.parent.innerHTML = '';
 
-		const playerView = new PlayerView();
-		const trackListView = new TrackListView();
-		const artistListView = new ArtistListView();
+		const trackListAPI = new TrackListAPI();
+		const listenBlockView = new ListenBlockView(this.parent);
+		const trackListView = new TrackListView(this.parent);
+		const artistListView = new ArtistListView(this.parent);
+		const footPlayerView = new FooterPlayerView(this.parent);
 
-		await playerView.render();
-		await trackListView.render();
+		const tracks = await trackListAPI.get();
+		player.setTracks(tracks);
+
+		await listenBlockView.render();
+		await trackListView.render(tracks);
 		await artistListView.render();
+
+		const user = userStore.getUser();
+		if (user) {
+			await footPlayerView.render();
+		}
 	}
 }

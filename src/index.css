@@ -1,12 +1,13 @@
 @import './entities/album/ui/album.min.css';
 @import './entities/track/ui/track.min.css';
 @import './entities/artist/ui/artist.min.css';
-@import './widgets/player/ui/player.min.css';
+@import './widgets/listenBlock/ui/listenBlock.min.css';
 @import './widgets/albumList/ui/albumList.min.css';
 @import './widgets/artistCard/ui/artistCard.min.css';
 @import './widgets/trackList/ui/trackList.min.css';
 @import './widgets/artistList/ui/artistList.min.css';
 @import './widgets/header/ui/Header.min.css';
+@import './widgets/footerPlayer/ui/footerPlayer.min.css';
 @import './pages/sign-up/ui/SignUp.min.css';
 @import './pages/sign-in/ui/SignIn.min.css';
 
@@ -25,17 +26,6 @@ button {
 	padding: 0;
 }
 
-#root {
-	display: block;
-
-	grid-template-areas:
-		'header'
-		'content';
-
-	grid-template-rows: 100px 1fr;
-	grid-template-columns: min-content 1fr;
-}
-
 main {
 	grid-area: content;
 	height: 100%;
@@ -46,11 +36,7 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background: linear-gradient(
-		180deg,
-		rgba(168, 72, 10, 1) 0%,
-		rgba(44, 25, 17, 1) 100%
-	);
+	background: linear-gradient(180deg, #0f2c9f 0%, #17112c 100%);
 	background-attachment: fixed;
 	font-family: 'Sansation', sans-serif;
 	margin: 0;

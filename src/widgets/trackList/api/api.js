@@ -13,7 +13,7 @@ export class TrackListAPI {
 	 *
 	 * @param {string} [artistId] - The artist ID (optional)
 	 */
-	constructor(artistId) {
+	constructor(artistId = null) {
 		if (artistId) {
 			this.url = `${API_URL}/api/v1/tracks/byArtistId/${artistId}`;
 		} else {
