@@ -19,6 +19,7 @@ export class TrackView {
 	render(track) {
 		const template = Handlebars.templates['track.hbs'];
 		const trackElement = document.createElement('div');
+		trackElement.classList.add('track');
 		trackElement.innerHTML = template(track);
 		this.parent.appendChild(trackElement);
 	}

@@ -25,7 +25,8 @@ export class ArtistListView {
 
 		const template = Handlebars.templates['artistList.hbs'];
 		const artistListElement = document.createElement('div');
-		artistListElement.innerHTML = template({}); 
+		artistListElement.classList.add('popular_artists');
+		artistListElement.innerHTML = template({});
 		this.parent.appendChild(artistListElement);
 
 		const artistsBlock = document.getElementById('mainpage-popular-artists');

@@ -12,20 +12,17 @@
     margin-top: 12px;
   }
 
-  &__play_btn {
+  &__btn_img {
     display: block;
     margin: 0 auto;
-    background-color: transparent;
-    border: none;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-
-  &__btn_img {
     width: 250px;
     height: 250px;
+    transition: 0.5s;
+    transition-timing-function: ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   &__title {

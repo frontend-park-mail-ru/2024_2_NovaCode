@@ -24,7 +24,10 @@ export class ArtistView {
 		this.artistId = artist.id;
 		const template = Handlebars.templates['artist.hbs'];
 		const artistElement = document.createElement('div');
-		artistElement.innerHTML = template(artist); 
+		artistElement.classList.add('artist');
+		artistElement.setAttribute('data-id', this.artistId);
+
+		artistElement.innerHTML = template(artist);
 		this.parent.appendChild(artistElement);
 		this.bindEvents();
 	}

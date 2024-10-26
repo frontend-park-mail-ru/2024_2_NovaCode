@@ -31,6 +31,7 @@ export class TrackListView {
 
 		const template = Handlebars.templates['trackList.hbs'];
 		const trackListElement = document.createElement('div');
+		trackListElement.classList.add('tracks');
 		trackListElement.innerHTML = template({});
 		this.parent.appendChild(trackListElement);
 
