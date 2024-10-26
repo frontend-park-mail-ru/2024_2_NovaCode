@@ -26,7 +26,7 @@ export class AlbumListView {
 
 		const template = Handlebars.templates['albumList.hbs'];
 		const albumListElement = document.createElement('div');
-		albumListElement.innerHTML = template({}); 
+		albumListElement.innerHTML = template({});
 		this.parent.appendChild(albumListElement);
 
 		const albumsBlock = document.getElementById('albums');

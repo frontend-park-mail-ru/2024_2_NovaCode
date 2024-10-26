@@ -34,7 +34,7 @@ class PlayerStore {
 	}
 
 	loadTrack(trackID) {
-		this.currentTrack.src = this.tracks[trackID].filepath;
+		this.currentTrack.src = `/${this.tracks[trackID].filepath}`;
 		this.currentTrack.load();
 		this.currentTrack.addEventListener('ended', this.onNextTrack);
 		eventBus.emit('loadingTrack');
@@ -46,6 +46,7 @@ class PlayerStore {
 			this.currentIndex = 0;
 			this.loadTrack(this.currentIndex);
 		}
+		console.log('setTracks: ', this.tracks);
 	}
 
 	setTime(time) {
