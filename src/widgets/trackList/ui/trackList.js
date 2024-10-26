@@ -1,5 +1,4 @@
 import { TrackView } from '../../../entities/track/index.js';
-import { TrackListAPI } from '../api/api.js';
 
 export class TrackListView {
 	/**
@@ -22,10 +21,7 @@ export class TrackListView {
 	/**
 	 * Renders the tracklist view.
 	 */
-	async render() {
-		const trackListAPI = new TrackListAPI(this.artistId);
-		let tracks = await trackListAPI.get();
-		
+	async render(tracks) {
 		tracks = tracks.map(({ name, artist, image, duration }) => {
 			const minutes = Math.floor(duration / 60);
 			const seconds = duration % 60;
@@ -35,7 +31,7 @@ export class TrackListView {
 
 		const template = Handlebars.templates['trackList.hbs'];
 		const trackListElement = document.createElement('div');
-		trackListElement.innerHTML = template({}); 
+		trackListElement.innerHTML = template({});
 		this.parent.appendChild(trackListElement);
 
 		const tracksBlock = document.getElementById('tracks');
