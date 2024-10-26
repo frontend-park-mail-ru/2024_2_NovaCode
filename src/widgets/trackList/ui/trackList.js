@@ -36,8 +36,8 @@ export class TrackListView {
 		this.parent.appendChild(trackListElement);
 
 		const tracksBlock = document.getElementById('tracks');
-		Array.from(tracks).forEach((track) => {
-			const trackView = new TrackView(tracksBlock);
+		Array.from(tracks).forEach((track, index) => {
+			const trackView = new TrackView(tracksBlock, index);
 			trackView.render(track);
 		});
 	}

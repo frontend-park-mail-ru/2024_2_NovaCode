@@ -4,6 +4,7 @@ import { TrackListView } from '../../../widgets/trackList/index.js';
 import { AlbumListView } from '../../../widgets/albumList/index.js';
 import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
+import { player } from '../../../shared/player/model/store.js';
 
 export class ArtistPage {
 	/**
@@ -24,6 +25,7 @@ export class ArtistPage {
 		const footPlayerView = new FooterPlayerView(this.parent);
 
 		const tracks = await trackListAPI.get();
+		player.setTracks(tracks);
 
 		await artistCardView.render();
 		await trackListView.render(tracks);
@@ -31,7 +33,7 @@ export class ArtistPage {
 
 		const user = userStore.getUser();
 		if (user) {
-			await footPlayerView.render(tracks);
+			await footPlayerView.render();
 		}
 	}
 }

@@ -22,7 +22,7 @@ class PlayerStore {
 		this.tracks = tracks;
 		if (this.tracks.length > 0) {
 			this.currentIndex = 0;
-			this.loadTrack(this.currentIndex);
+			this.loadTrack();
 		}
 	}
 
@@ -32,18 +32,20 @@ class PlayerStore {
 
 	onEvents() {
 		eventBus.on('playPauseTrack', this.onPlayPauseTrack);
+		eventBus.on('playById', this.onPlayById);
 		eventBus.on('nextTrack', this.onNextTrack);
 		eventBus.on('prevTrack', this.onPrevTrack);
 	}
 
 	offEvents() {
 		eventBus.off('playPauseTrack', this.onPlayPauseTrack);
+		eventBus.off('playById', this.onPlayById);
 		eventBus.off('nextTrack', this.onNextTrack);
 		eventBus.off('prevTrack', this.onPrevTrack);
 	}
 
-	loadTrack(trackID) {
-		this.currentTrack.src = `/${this.tracks[trackID].filepath}`;
+	loadTrack() {
+		this.currentTrack.src = `/${this.tracks[this.currentIndex].filepath}`;
 		this.currentTrack.load();
 		this.currentTrack.addEventListener('ended', this.onNextTrack);
 		eventBus.emit('loadingTrack');
@@ -83,10 +85,18 @@ class PlayerStore {
 		}
 	};
 
+	onPlayById = (index) => {
+		this.currentTrack.pause();
+		this.currentIndex = index;
+		this.loadTrack();
+		this.currentTrack.play();
+		this.isPlaying = true;
+	};
+
 	onNextTrack = () => {
 		this.currentIndex =
 			this.currentIndex + 1 >= this.tracks.length ? 0 : this.currentIndex + 1;
-		this.loadTrack(this.currentIndex);
+		this.loadTrack();
 		this.currentTrack.play();
 		this.isPlaying = true;
 	};
@@ -96,7 +106,7 @@ class PlayerStore {
 			this.currentIndex - 1 < 0
 				? this.tracks.length - 1
 				: this.currentIndex - 1;
-		this.loadTrack(this.currentIndex);
+		this.loadTrack();
 		this.currentTrack.play();
 		this.isPlaying = true;
 	};

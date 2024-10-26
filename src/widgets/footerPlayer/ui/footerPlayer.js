@@ -22,7 +22,7 @@ export class FooterPlayerView {
 	/**
 	 * Renders the tracklist view.
 	 */
-	async render(tracks) {
+	async render() {
 		const template = Handlebars.templates['footerPlayer.hbs'];
 		const footerPlayerElement = document.createElement('div');
 		footerPlayerElement.classList.add('footer_player');
@@ -39,7 +39,7 @@ export class FooterPlayerView {
 		this.onEvents();
 		this.addEvents();
 
-		player.setTracks(tracks);
+		this.handleLoading();
 		this.seekVolumeSlider.value = player.getVolume() * 100;
 	}
 

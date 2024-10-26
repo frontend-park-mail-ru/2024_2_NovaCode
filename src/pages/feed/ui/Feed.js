@@ -4,6 +4,7 @@ import { TrackListView } from '../../../widgets/trackList/index.js';
 import { ArtistListView } from '../../../widgets/artistList/index.js';
 import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
+import { player } from '../../../shared/player/model/store.js';
 
 export class FeedPage {
 	/**
@@ -23,6 +24,7 @@ export class FeedPage {
 		const footPlayerView = new FooterPlayerView(this.parent);
 
 		const tracks = await trackListAPI.get();
+		player.setTracks(tracks);
 
 		await listenBlockView.render();
 		await trackListView.render(tracks);
@@ -30,7 +32,7 @@ export class FeedPage {
 
 		const user = userStore.getUser();
 		if (user) {
-			await footPlayerView.render(tracks);
+			await footPlayerView.render();
 		}
 	}
 }

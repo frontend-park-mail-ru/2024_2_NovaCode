@@ -1,3 +1,5 @@
+import { eventBus } from '../../../shared/lib/eventbus.js';
+
 export class TrackView {
 	/**
 	 * The parent HTML element.
@@ -9,8 +11,9 @@ export class TrackView {
 	 * Initializes the TrackView.
 	 *
 	 */
-	constructor(parent) {
+	constructor(parent, index) {
 		this.parent = parent ? parent : document.querySelector('#root');
+		this.trackIndex = index;
 	}
 
 	/**
@@ -18,9 +21,27 @@ export class TrackView {
 	 */
 	render(track) {
 		const template = Handlebars.templates['track.hbs'];
-		const trackElement = document.createElement('div');
-		trackElement.classList.add('track');
-		trackElement.innerHTML = template(track);
-		this.parent.appendChild(trackElement);
+		this.trackElement = document.createElement('div');
+		this.trackElement.classList.add('track');
+		this.trackElement.innerHTML = template(track);
+		this.parent.appendChild(this.trackElement);
+
+		this.addEvents();
+	}
+
+	addEvents() {
+		this.trackElement.addEventListener('click', this.bindTrack);
+	}
+
+	deleteEvents() {
+		this.trackElement.removeEventListener('click', this.bindTrack);
+	}
+
+	bindTrack = () => {
+		eventBus.emit('playById', this.trackIndex);
+	};
+
+	destructor() {
+		this.deleteEvents();
 	}
 }
