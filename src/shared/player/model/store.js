@@ -1,4 +1,5 @@
 import { eventBus } from '../../../shared/lib/index.js';
+import { DEFAULT_PLAYER_VOLUME } from '../../lib/constants/player.js';
 
 class PlayerStore {
 	constructor() {
@@ -7,14 +8,22 @@ class PlayerStore {
 
 		this.tracks = [];
 		this.currentTrack = document.createElement('audio');
+		this.currentTrack.volume = DEFAULT_PLAYER_VOLUME;
 
 		this.onEvents();
 	}
 
-	stop() {
+	clearTracks() {
 		this.currentTrack.pause();
-		this.currentTrack = null;
 		this.tracks = [];
+	}
+
+	setTracks(tracks) {
+		this.tracks = tracks;
+		if (this.tracks.length > 0) {
+			this.currentIndex = 0;
+			this.loadTrack(this.currentIndex);
+		}
 	}
 
 	getTrackInfo() {
@@ -40,15 +49,6 @@ class PlayerStore {
 		eventBus.emit('loadingTrack');
 	}
 
-	setTracks(tracks) {
-		this.tracks = tracks;
-		if (this.tracks.length > 0) {
-			this.currentIndex = 0;
-			this.loadTrack(this.currentIndex);
-		}
-		console.log('setTracks: ', this.tracks);
-	}
-
 	setTime(time) {
 		this.currentTrack.currentTime = time;
 	}
@@ -59,7 +59,10 @@ class PlayerStore {
 
 	setVolume(volume) {
 		this.currentTrack.volume = volume;
-		console.log(this.currentTrack.volume);
+	}
+
+	getVolume() {
+		return this.currentTrack.volume;
 	}
 
 	getDuration() {

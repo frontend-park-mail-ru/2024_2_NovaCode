@@ -40,6 +40,7 @@ export class FooterPlayerView {
 		this.addEvents();
 
 		player.setTracks(tracks);
+		this.seekVolumeSlider.value = player.getVolume() * 100;
 	}
 
 	async getElements() {
@@ -145,12 +146,10 @@ export class FooterPlayerView {
 	};
 
 	handleNextTrackBtn = () => {
-		console.log('handle nextTrack');
 		eventBus.emit('nextTrack');
 	};
 
 	handlePrevTrackBtn = () => {
-		console.log('handle prevTrack');
 		eventBus.emit('prevTrack');
 	};
 
