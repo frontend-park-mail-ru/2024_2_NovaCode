@@ -1,26 +1,35 @@
 <div class="header__container">
   <div class="header__row">
     <div class="header__left-block">
-      <button
-        class="header__btn_logo"
-        id="header_logo_button"
-      >NovaMusic</button>
+      <img class="header__img_logo" src="/images/icons/logo_light.svg">
+      <a
+        class="header__link_logo link"
+        id="header_logo_link"
+        {{#if user}} 
+        href="/"
+        {{else}}
+        href="/signin"
+        {{/if}}
+      >NovaMusic</a>
     </div>
-    <div class="header__right-block" id="header_login_menu">
+    <div class="header__right-block" id="header_signin_menu">
       {{#if user}}
-        <button
-          class="header__btn_login"
-          id="header_logout_button"
-        >Выход</button>
+        <a
+          class="header__link_signin"
+          id="header_logout_link"
+          href="/signin"
+        >Выход</a>
       {{else}}
-        <button
-          class="header__btn_login"
-          id="header_login_button"
-        >Войти</button>
-        <button
-          class="header__btn_signup"
-          id="header_signup_button"
-        >Регистрация</button>
+        <a
+          class="header__link_signin navlink link"
+          id="header_signin_link"
+          href="/signin"
+        >Войти</a>
+        <a
+          class="header__link_signup navlink link"
+          id="header_signup_link"
+          href="/signup"
+        >Регистрация</a>
       {{/if}}
     </div>
   </div>

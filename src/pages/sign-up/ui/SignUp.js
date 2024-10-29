@@ -24,19 +24,20 @@ export class SignUpPage {
 
 	bindEvents() {
 		const form = document.querySelector('#signup-form');
+		const links = this.parent.querySelectorAll('.link');
+
 		if (form) {
 			form.addEventListener('submit', this.handleSubmit);
 		}
+		links.forEach(link => {
+			link.addEventListener('click', (event) => this.handleLink(event));
+	  	});
 	}
 
-	onEvents() {
-		eventBus.on('signUpSuccess', this.handleSignUpSuccess);
-		eventBus.on('signUpError', this.handleSignUpError);
-	}
-
-	offEvents() {
-		eventBus.off('signUpSuccess', this.handleSignUpSuccess);
-		eventBus.off('signUpError', this.handleSignUpError);
+	handleLink(event) {
+		event.preventDefault();
+		const href = event.target.getAttribute('href')
+		eventBus.emit('navigate', href);
 	}
 
 	async handleSubmit(event) {
@@ -70,6 +71,16 @@ export class SignUpPage {
 
 		const user = { username, email, password };
 		await userStore.signUp(user);
+	}
+
+	onEvents() {
+		eventBus.on('signUpSuccess', this.handleSignUpSuccess);
+		eventBus.on('signUpError', this.handleSignUpError);
+	}
+
+	offEvents() {
+		eventBus.off('signUpSuccess', this.handleSignUpSuccess);
+		eventBus.off('signUpError', this.handleSignUpError);
 	}
 
 	handleSignUpSuccess() {

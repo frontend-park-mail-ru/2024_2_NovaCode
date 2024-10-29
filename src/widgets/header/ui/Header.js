@@ -18,29 +18,31 @@ export class Header {
 
 		this.bindEvents();
 		this.onEvents();
+		this.switchActiveNavlink(window.location.pathname);
 	}
 
 	bindEvents() {
-		this.parent.addEventListener('click', (event) => {
-			if (event.target.id === 'header_logout_button') {
-				this.handleSignOut();
-			} else if (event.target.id === 'header_login_button') {
-				this.handleSignIn();
-			} else if (event.target.id === 'header_signup_button') {
-				this.handleSignup();
-			}
+		const logoutLink = this.parent.querySelector('#header_logout_link');
+		const links = this.parent.querySelectorAll('.link');
+		
+		if (logoutLink) {
+			logoutLink.addEventListener('click', (event) => this.handleSignOut(event));
+		}
+		links.forEach(link => {
+		  	link.addEventListener('click', (event) => this.handleLink(event));
 		});
+
+		eventBus.on("navigate", this.handleNavigation.bind(this));
 	}
 
-	handleSignIn() {
-		eventBus.emit('navigate', '/signin');
+	handleLink(event) {
+		event.preventDefault();
+		const href = event.target.getAttribute('href')
+		eventBus.emit('navigate', href);
 	}
 
-	handleSignup() {
-		eventBus.emit('navigate', '/signup');
-	}
-
-	async handleSignOut() {
+	async handleSignOut(event) {
+		event.preventDefault();
 		try {
 			await userStore.signOut();
 			player.clearTracks();
@@ -76,5 +78,17 @@ export class Header {
 
 	destructor() {
 		this.offEvents();
+	}
+
+	handleNavigation(href) {
+		this.switchActiveNavlink(href);
+	}
+
+	switchActiveNavlink(href) {
+		let navlinks = document.querySelectorAll(".navlink")
+		navlinks.forEach((navlink)=>{
+		  	if (navlink.getAttribute("href") == href) {navlink.classList.add("active")}
+			else {navlink.classList.remove("active")}
+		})
 	}
 }
