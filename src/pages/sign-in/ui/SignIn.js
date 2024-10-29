@@ -24,19 +24,20 @@ export class SignInPage {
 
 	bindEvents() {
 		const form = document.querySelector('#login-form');
+		const links = this.parent.querySelectorAll('.link');
+
 		if (form) {
 			form.addEventListener('submit', this.handleSubmit);
 		}
+		links.forEach(link => {
+			link.addEventListener('click', (event) => this.handleLink(event));
+	  	});
 	}
 
-	onEvents() {
-		eventBus.on('signInSuccess', this.handleSignInSuccess);
-		eventBus.on('signInError', this.handleSignInError);
-	}
-
-	offEvents() {
-		eventBus.off('signInSuccess', this.handleSignInSuccess);
-		eventBus.off('signInError', this.handleSignInError);
+	handleLink(event) {
+		event.preventDefault();
+		const href = event.target.getAttribute('href')
+		eventBus.emit('navigate', href);
 	}
 
 	async handleSubmit(event) {
@@ -64,6 +65,16 @@ export class SignInPage {
 
 		const user = { username, password };
 		await userStore.signIn(user);
+	}
+
+	onEvents() {
+		eventBus.on('signInSuccess', this.handleSignInSuccess);
+		eventBus.on('signInError', this.handleSignInError);
+	}
+
+	offEvents() {
+		eventBus.off('signInSuccess', this.handleSignInSuccess);
+		eventBus.off('signInError', this.handleSignInError);
 	}
 
 	handleSignInSuccess() {
