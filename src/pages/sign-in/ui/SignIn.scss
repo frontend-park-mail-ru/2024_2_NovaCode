@@ -79,7 +79,7 @@
     width: 450px;
     height: 50px;
     padding: 10px;
-    background: #FF7936;
+    background: #FF5F0F;
     border-radius: 9px;
     border: none;
     color: #f1f1f1;
@@ -88,17 +88,11 @@
     text-align: center;
   }
 
-  &__remember_me {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   &__checkbox {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    accent-color: #FF7936;
+    accent-color: #FF5F0F;
   }
 
   &__additional {
@@ -110,18 +104,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  &__forget_password {
-    display: block;
-    color: #f1f1f1;
-    font-size: 16px;
-    font-weight: 700;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   &__register_site {
