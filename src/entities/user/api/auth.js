@@ -29,4 +29,3 @@ export const signUpRequest = async (user) => {
 export const signOutRequest = async () => {
   return await POST(API_ENDPOINTS.SIGN_OUT);
 };
-
