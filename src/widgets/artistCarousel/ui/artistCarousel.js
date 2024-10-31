@@ -16,15 +16,14 @@ export class ArtistCarouselView {
 	constructor(parent) {
 		this.parent = parent ? parent : document.querySelector('#root');
 		this.position = 0;
-		this.count = 3;
 	}
 
 	/**
 	 * Renders the playlist view.
 	 */
 	async render() {
-		/* const artistListAPI = new ArtistListAPI();
-		let artists = await artistListAPI.get(); */
+		const artistListAPI = new ArtistListAPI();
+		let artists = await artistListAPI.get();
 
 		const template = Handlebars.templates['artistCarousel.hbs'];
 		const artistCarouselElement = document.createElement('div');
@@ -32,11 +31,20 @@ export class ArtistCarouselView {
 		artistCarouselElement.innerHTML = template({});
 		this.parent.appendChild(artistCarouselElement);
 
-		/* const artistsBlock = document.getElementById('mainpage-popular-artists');
+		const artistsBlock = document.getElementById('mainpage-popular-artists');
 		Array.from(artists).forEach((artist) => {
-			const artistView = new ArtistView(artistsBlock);
+			const artistCarouselElement = document.createElement('div');
+			artistCarouselElement.classList.add('carousel__item');
+			const artistView = new ArtistView(artistCarouselElement);
 			artistView.render(artist);
-		}); */
+			artistsBlock.appendChild(artistCarouselElement);
+
+			const artistCarouselElement1 = document.createElement('div');
+			artistCarouselElement1.classList.add('carousel__item');
+			const artistView1 = new ArtistView(artistCarouselElement1);
+			artistView1.render(artist);
+			artistsBlock.appendChild(artistCarouselElement1);
+		});
 
 		await this.getElements();
 

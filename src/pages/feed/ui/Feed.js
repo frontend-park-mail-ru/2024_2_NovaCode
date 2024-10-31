@@ -30,7 +30,7 @@ export class FeedPage {
 
 		await listenBlockView.render();
 		await trackListView.render(tracks);
-		await artistListView.render();
+		// await artistListView.render();
 		await artistCarouselView.render();
 
 		const user = userStore.getUser();
