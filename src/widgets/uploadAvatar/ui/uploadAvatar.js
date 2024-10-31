@@ -66,6 +66,6 @@ export class UploadAvatarView {
 
   handleSuccess() {
     const user = userStore.loadUser();
-	  eventBus.emit('navigate', `/profiles/${user.username}`);
+    eventBus.emit("navigate", `/profiles/${user.username}`);
   }
 }

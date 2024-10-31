@@ -5,4 +5,3 @@ export const handleLink = (event) => {
   const href = event.target.getAttribute("href");
   eventBus.emit("navigate", href);
 };
-

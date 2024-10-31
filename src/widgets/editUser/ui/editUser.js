@@ -80,7 +80,7 @@ export class EditUserView {
 
   handleSuccess() {
     const user = userStore.loadUser();
-	  eventBus.emit('navigate', `/profiles/${user.username}`);
+    eventBus.emit("navigate", `/profiles/${user.username}`);
   }
 
   handleError(error) {
@@ -101,5 +101,5 @@ export class EditUserView {
     if (typeof error === "string") {
       document.querySelector("#edit-user__general-error").textContent = error;
     }
-  }  
+  }
 }
