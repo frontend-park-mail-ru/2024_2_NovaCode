@@ -4,7 +4,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname,  '..', 'src', 'index.js'),
+    entry: path.resolve(__dirname, '..', 'src', 'index.js'),
+    output: {
+        filename: '[name].[contenthash].js',
+        path: path.resolve(__dirname, '..', 'dist'),
+        clean: true
+    },
     module: {
         rules: [
             { 
@@ -31,19 +36,20 @@ module.exports = {
             }
         ]
     },
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname,  '..', 'dist'),
-        clean: true,
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname,  '..', 'public', 'index.html'),
+            template: path.resolve(__dirname, '..', 'public', 'index.html'),
             publicPath: '/'
         }),
         new MiniCssExtractPlugin({
-            filename: 'styles.css',
-        }),
+            filename: '[name].[contenthash].css',
+            chunkFilename: '[id].[contenthash].css'
+        })
     ]
 };
