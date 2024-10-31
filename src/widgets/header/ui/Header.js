@@ -1,6 +1,7 @@
 import { eventBus } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
+import { handleLink } from '../../../shared/lib/index.js';
 
 export class Header {
 	parent;
@@ -13,7 +14,7 @@ export class Header {
 		this.parent.innerHTML = '';
 
 		const template = Handlebars.templates['Header.hbs'];
-		const user = userStore.getUser();
+		const user = userStore.loadUser();
 		this.parent.innerHTML = template({ user });
 
 		this.bindEvents();
@@ -29,16 +30,10 @@ export class Header {
 			logoutLink.addEventListener('click', (event) => this.handleSignOut(event));
 		}
 		links.forEach(link => {
-		  	link.addEventListener('click', (event) => this.handleLink(event));
+		  	link.addEventListener('click', handleLink);
 		});
 
 		eventBus.on("navigate", this.handleNavigation.bind(this));
-	}
-
-	handleLink(event) {
-		event.preventDefault();
-		const href = event.target.getAttribute('href')
-		eventBus.emit('navigate', href);
 	}
 
 	async handleSignOut(event) {

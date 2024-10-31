@@ -1,0 +1,7 @@
+<div class="user_card__container">
+  <div>{{user.username}}</div>
+  <img src="http://localhost:9000{{user.image}}" width="256" height="256" />
+  {{#if isCurrentUser}}
+    <a href="/profiles/{{user.username}}/edit" class="link">Edit Avatar</a>
+  {{/if}}
+</div>

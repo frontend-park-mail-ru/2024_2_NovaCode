@@ -19,10 +19,12 @@ const request = async (method, url, options = {}) => {
     method,
     credentials: "include",
     headers: {
-      "Content-Type": "application/json; charset=utf-8",
+      ...(!(body instanceof FormData) && {
+        "Content-Type": "application/json; charset=utf-8",
+      }),
       ...headers,
     },
-    body: body ? JSON.stringify(body) : null,
+    body: body instanceof FormData ? body : body ? JSON.stringify(body) : null,
   };
 
   try {

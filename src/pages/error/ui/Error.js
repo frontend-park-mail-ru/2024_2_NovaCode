@@ -1,6 +1,6 @@
-import { eventBus } from '../../../shared/lib/eventbus.js';
-
 export class ErrorPage {
+	parent;
+
 	constructor() {
 		this.parent = document.querySelector('#root');
 	}
