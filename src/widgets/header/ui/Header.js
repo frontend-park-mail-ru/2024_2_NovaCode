@@ -1,6 +1,8 @@
 import { eventBus } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
+import template from './Header.hbs';
+import './Header.scss';
 
 export class Header {
 	parent;
@@ -12,7 +14,6 @@ export class Header {
 	render() {
 		this.parent.innerHTML = '';
 
-		const template = Handlebars.templates['Header.hbs'];
 		const user = userStore.getUser();
 		this.parent.innerHTML = template({ user });
 

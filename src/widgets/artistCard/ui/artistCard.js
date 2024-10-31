@@ -1,4 +1,6 @@
 import { ArtistCardAPI } from '../api/api.js';
+import template from './artistCard.hbs';
+import './artistCard.scss';
 
 export class ArtistCardView {
 	/**
@@ -23,7 +25,6 @@ export class ArtistCardView {
 		const artistCardAPI = new ArtistCardAPI(this.artistId);
 		let [artist, genres] = await artistCardAPI.get();
 
-		const template = Handlebars.templates['artistCard.hbs'];
 		const artistCardElement = document.createElement('div');
 		artistCardElement.innerHTML = template({artist, genres}); 
 		this.parent.appendChild(artistCardElement);

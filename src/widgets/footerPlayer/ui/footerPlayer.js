@@ -1,5 +1,7 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import { player } from '../../../shared/player/model/store.js';
+import template from './footerPlayer.hbs';
+import './footerPlayer.scss';
 
 export class FooterPlayerView {
 	/**
@@ -23,7 +25,6 @@ export class FooterPlayerView {
 	 * Renders the tracklist view.
 	 */
 	async render() {
-		const template = Handlebars.templates['footerPlayer.hbs'];
 		const footerPlayerElement = document.createElement('div');
 		footerPlayerElement.classList.add('footer_player');
 		footerPlayerElement.innerHTML = template({});

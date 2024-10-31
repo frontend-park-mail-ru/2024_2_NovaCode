@@ -1,4 +1,6 @@
 import { eventBus } from '../../../shared/lib/index.js';
+import template from './artist.hbs';
+import './artist.scss';
 
 export class ArtistView {
 	/**
@@ -22,7 +24,6 @@ export class ArtistView {
 	 */
 	render(artist) {
 		this.artistId = artist.id;
-		const template = Handlebars.templates['artist.hbs'];
 		const artistElement = document.createElement('div');
 		artistElement.classList.add('artist');
 		artistElement.setAttribute('data-id', this.artistId);

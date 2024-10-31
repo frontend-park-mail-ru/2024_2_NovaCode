@@ -1,4 +1,5 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
+import template from './Error.hbs';
 
 export class ErrorPage {
 	constructor() {
@@ -8,7 +9,6 @@ export class ErrorPage {
 	render(message = 'Что-то пошло не так') {
 		this.parent.innerHTML = '';
 
-		const template = Handlebars.templates['error.hbs'];
 		this.parent.innerHTML = template({ message });
 	}
 }

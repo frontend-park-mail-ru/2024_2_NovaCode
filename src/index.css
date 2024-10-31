@@ -1,16 +1,3 @@
-@import './entities/album/ui/album.min.css';
-@import './entities/track/ui/track.min.css';
-@import './entities/artist/ui/artist.min.css';
-@import './widgets/listenBlock/ui/listenBlock.min.css';
-@import './widgets/albumList/ui/albumList.min.css';
-@import './widgets/artistCard/ui/artistCard.min.css';
-@import './widgets/trackList/ui/trackList.min.css';
-@import './widgets/artistList/ui/artistList.min.css';
-@import './widgets/header/ui/Header.min.css';
-@import './widgets/footerPlayer/ui/footerPlayer.min.css';
-@import './pages/sign-up/ui/SignUp.min.css';
-@import './pages/sign-in/ui/SignIn.min.css';
-
 h1,
 h2,
 h3,

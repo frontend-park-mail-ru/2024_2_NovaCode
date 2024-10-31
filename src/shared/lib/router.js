@@ -1,4 +1,4 @@
-import { eventBus } from '../../../shared/lib/eventbus.js';
+import { eventBus } from './eventbus.js';
 
 export class Router {
 	constructor() {

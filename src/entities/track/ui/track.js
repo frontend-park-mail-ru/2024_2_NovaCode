@@ -1,4 +1,6 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
+import template from './track.hbs';
+import './track.scss';
 
 export class TrackView {
 	/**
@@ -20,7 +22,6 @@ export class TrackView {
 	 * Renders the track view.
 	 */
 	render(track) {
-		const template = Handlebars.templates['track.hbs'];
 		this.trackElement = document.createElement('div');
 		this.trackElement.classList.add('track');
 		this.trackElement.innerHTML = template(track);
