@@ -1,4 +1,5 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
+import { ErrorPage } from '../../pages/error/index.js';
 
 export class Router {
 	constructor() {
@@ -110,8 +111,8 @@ export class Router {
 				this.renderLayout();
 			}
 		} else {
-			// this.currentView = new ErrorView();
-			// await this.currentView.render();
+			this.currentView = new ErrorPage();
+			await this.currentView.render();
 		}
 	}
 
