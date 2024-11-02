@@ -7,6 +7,7 @@
 @import './widgets/trackList/ui/trackList.min.css';
 @import './widgets/artistList/ui/artistList.min.css';
 @import './widgets/header/ui/Header.min.css';
+@import './widgets/userCard/ui/userCard.min.css';
 @import './widgets/footerPlayer/ui/footerPlayer.min.css';
 @import './pages/sign-up/ui/SignUp.min.css';
 @import './pages/sign-in/ui/SignIn.min.css';
@@ -36,7 +37,7 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background: linear-gradient(180deg, #172B7B 0%, #020718 100%);
+	background: linear-gradient(180deg, #172b7b 0%, #020718 100%);
 	background-attachment: fixed;
 	font-family: 'Sansation', sans-serif;
 	margin: 0;
