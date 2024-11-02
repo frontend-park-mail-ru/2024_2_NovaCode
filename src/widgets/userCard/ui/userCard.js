@@ -12,12 +12,8 @@ export class UserCardView {
 
 	async render() {
 		let user = await userStore.getUser(this.username);
-		console.log(user);
-
 		const isCurrentUser = userStore.storage.user.username === this.username;
-
 		const template = Handlebars.templates['userCard.hbs'];
-
 		const userCardElement = document.createElement('div');
 		userCardElement.classList.add('user_card');
 		userCardElement.innerHTML = template({ user, isCurrentUser });

@@ -25,15 +25,18 @@ export class Header {
 	bindEvents() {
 		const logoutLink = this.parent.querySelector('#header_logout_link');
 		const links = this.parent.querySelectorAll('.link');
-		
+
 		if (logoutLink) {
-			logoutLink.addEventListener('click', (event) => this.handleSignOut(event));
+			logoutLink.addEventListener('click', (event) =>
+				this.handleSignOut(event),
+			);
 		}
-		links.forEach(link => {
-		  	link.addEventListener('click', handleLink);
+
+		links.forEach((link) => {
+			link.addEventListener('click', handleLink);
 		});
 
-		eventBus.on("navigate", this.handleNavigation.bind(this));
+		eventBus.on('navigate', this.handleNavigation.bind(this));
 	}
 
 	async handleSignOut(event) {
@@ -80,10 +83,13 @@ export class Header {
 	}
 
 	switchActiveNavlink(href) {
-		let navlinks = document.querySelectorAll(".navlink")
-		navlinks.forEach((navlink)=>{
-		  	if (navlink.getAttribute("href") == href) {navlink.classList.add("active")}
-			else {navlink.classList.remove("active")}
-		})
+		let navlinks = document.querySelectorAll('.navlink');
+		navlinks.forEach((navlink) => {
+			if (navlink.getAttribute('href') == href) {
+				navlink.classList.add('active');
+			} else {
+				navlink.classList.remove('active');
+			}
+		});
 	}
 }
