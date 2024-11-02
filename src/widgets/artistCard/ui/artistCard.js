@@ -25,7 +25,8 @@ export class ArtistCardView {
 
 		const template = Handlebars.templates['artistCard.hbs'];
 		const artistCardElement = document.createElement('div');
-		artistCardElement.innerHTML = template({artist, genres}); 
+		artistCardElement.classList.add('artist_card');
+		artistCardElement.innerHTML = template({ artist, genres });
 		this.parent.appendChild(artistCardElement);
 	}
 }
