@@ -7,6 +7,9 @@
 @import './widgets/trackList/ui/trackList.min.css';
 @import './widgets/artistList/ui/artistList.min.css';
 @import './widgets/header/ui/Header.min.css';
+@import './widgets/userCard/ui/userCard.min.css';
+@import './widgets/uploadAvatar/ui/uploadAvatar.min.css';
+@import './widgets/editUser/ui/editUser.min.css';
 @import './widgets/footerPlayer/ui/footerPlayer.min.css';
 @import './pages/sign-up/ui/SignUp.min.css';
 @import './pages/sign-in/ui/SignIn.min.css';
@@ -17,48 +20,48 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 button {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 main {
-	grid-area: content;
-	height: 100%;
+  grid-area: content;
+  height: 100%;
 }
 
 html,
 body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	background: linear-gradient(180deg, #172B7B 0%, #020718 100%);
-	background-attachment: fixed;
-	font-family: 'Sansation', sans-serif;
-	margin: 0;
-	padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #172b7b 0%, #020718 100%);
+  background-attachment: fixed;
+  font-family: 'Sansation', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .message-success {
-	width: 450px;
-	display: block;
-	font-size: 12px;
-	font-weight: bold;
-	color: green;
-	margin-top: 10px;
-	text-align: center;
+  width: 450px;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: green;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .message-error {
-	width: 450px;
-	display: block;
-	font-size: 12px;
-	font-weight: bold;
-	color: red;
-	margin-top: 10px;
-	text-align: center;
+  width: 450px;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: red;
+  margin-top: 10px;
+  text-align: center;
 }

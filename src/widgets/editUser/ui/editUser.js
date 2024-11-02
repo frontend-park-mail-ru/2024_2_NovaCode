@@ -17,7 +17,7 @@ export class EditUserView {
     const user = userStore.loadUser();
 
     const editUserElement = document.createElement("div");
-    editUserElement.classList.add("edit-user");
+    editUserElement.classList.add("edit_user");
     editUserElement.innerHTML = template({ user });
     this.parent.appendChild(editUserElement);
 
