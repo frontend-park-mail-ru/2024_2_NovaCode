@@ -30,7 +30,7 @@ export class FeedPage {
     await trackListView.render(tracks);
     await artistListView.render();
 
-    const user = userStore.loadUser();
+    const user = userStore.storage.user;
     if (user) {
       await footPlayerView.render();
     }

@@ -5,28 +5,26 @@ import {
 } from "../../../shared/lib/index.js";
 import { handleStatus } from "../../../shared/lib/status.js";
 
-import { signInRequest, signUpRequest, signOutRequest } from "../api/auth.js";
-import { getUserRequest, updateAvatarRequest, updateUserRequest } from "../api/user.js";
+import {
+  signInRequest,
+  signUpRequest,
+  signOutRequest,
+  getCSRFTokenRequest,
+} from "../api/auth.js";
+import {
+  getUserRequest,
+  updateAvatarRequest,
+  updateUserRequest,
+} from "../api/user.js";
+import { Storage } from "../../../shared/lib/storage.js";
+import { HEADERS } from "../../../shared/lib/constants/http.js";
 
 class UserStore {
   constructor() {
     this.storage = {
-      user: this.loadUser() || {},
+      user: Storage.load("user") || {},
       error: null,
     };
-  }
-
-  loadUser() {
-    const user = localStorage.getItem("user");
-    return user ? JSON.parse(user) : null;
-  }
-
-  saveUser() {
-    localStorage.setItem("user", JSON.stringify(this.storage.user));
-  }
-
-  removeUser() {
-    localStorage.removeItem("user");
   }
 
   isAuth() {
@@ -48,8 +46,11 @@ class UserStore {
             isAuthorized: true,
           };
           this.storage.user = userData;
-          this.saveUser();
           this.storage.error = null;
+          Storage.save("user", this.storage.user);
+
+          await this.getCSRFToken();
+
           eventBus.emit("signInSuccess", this.storage.user);
           break;
 
@@ -88,8 +89,11 @@ class UserStore {
             isAuthorized: true,
           };
           this.storage.user = userData;
-          this.saveUser();
           this.storage.error = null;
+          Storage.save("user", this.storage.user);
+
+          await this.getCSRFToken();
+
           eventBus.emit("signUpSuccess", this.storage.user);
           break;
 
@@ -120,8 +124,9 @@ class UserStore {
       switch (response.status) {
         case HTTP_STATUS.OK:
           this.storage.user = { isAuthorized: false };
-          this.removeUser();
           this.storage.error = null;
+          Storage.save("user", this.storage.user);
+
           eventBus.emit("signOutSuccess");
           break;
 
@@ -140,7 +145,7 @@ class UserStore {
   getUser = async (username) => {
     try {
       const response = await getUserRequest(username);
-      
+
       if (!response) {
         console.error("failed to retrieve user");
         return;
@@ -150,12 +155,12 @@ class UserStore {
         case HTTP_STATUS.OK:
           this.storage.user = { ...this.storage.user, ...response.data };
           this.storage.error = null;
-          this.saveUser();
-          eventBus.emit('getUserSuccess', this.storage.user);
+
+          eventBus.emit("getUserSuccess", this.storage.user);
           return response.data;
 
         default:
-          this.storage.error = handleStatus(response.status, 'getUserError');
+          this.storage.error = handleStatus(response.status, "getUserError");
       }
     } catch (error) {
       console.error("error retrieving user:", error);
@@ -165,7 +170,7 @@ class UserStore {
   updateAvatar = async (userID, formData) => {
     try {
       const response = await updateAvatarRequest(userID, formData);
-      
+
       if (!response) {
         console.error("failed to update user avatar");
         return;
@@ -175,12 +180,16 @@ class UserStore {
         case HTTP_STATUS.OK:
           this.storage.user.image = response.data.image;
           this.storage.error = null;
-          this.saveUser();
-          eventBus.emit('updateAvatarSuccess', this.storage.user);
+          Storage.user("user", this.storage.user);
+
+          eventBus.emit("updateAvatarSuccess", this.storage.user);
           break;
 
         default:
-          this.storage.error = handleStatus(response.status, 'updateAvatarError');
+          this.storage.error = handleStatus(
+            response.status,
+            "updateAvatarError",
+          );
       }
     } catch (error) {
       console.error("error updating user avatar:", error);
@@ -190,7 +199,7 @@ class UserStore {
   updateUser = async (user) => {
     try {
       const response = await updateUserRequest(user);
-      
+
       if (!response) {
         console.error("failed to update user fields");
         return;
@@ -204,15 +213,47 @@ class UserStore {
           };
           this.storage.user = { ...this.storage.user, ...userFields };
           this.storage.error = null;
-          this.saveUser();
-          eventBus.emit('updateUserSuccess', this.storage.user);
+          Storage.save("user", this.storage.user);
+
+          eventBus.emit("updateUserSuccess", this.storage.user);
           break;
 
         default:
-          this.storage.error = handleStatus(response.status, 'updateUserError');
+          this.storage.error = handleStatus(response.status, "updateUserError");
       }
     } catch (error) {
       console.error("Error updating user fields:", error);
+    }
+  };
+
+  getCSRFToken = async () => {
+    try {
+      const response = await getCSRFTokenRequest();
+
+      if (!response) {
+        console.error("failed to get csrf token");
+        return;
+      }
+
+      switch (response.status) {
+        case HTTP_STATUS.OK:
+          const userFields = {
+            csrfToken: response.headers.get(HEADERS.CSRF_TOKEN),
+          };
+          this.storage.user = { ...this.storage.user, ...userFields };
+          this.storage.error = null;
+          Storage.save("user", this.storage.user);
+
+          eventBus.emit("updateUserSuccess", this.storage.user);
+          break;
+        default:
+          this.storage.error = handleStatus(
+            response.status,
+            "getCSRFTokenError",
+          );
+      }
+    } catch (error) {
+      console.error("Error getting user csrf token");
     }
   };
 }

@@ -14,7 +14,7 @@ export class EditUserView {
   async render() {
     const template = Handlebars.templates["editUser.hbs"];
 
-    const user = userStore.loadUser();
+    const user = userStore.storage.user;
 
     const editUserElement = document.createElement("div");
     editUserElement.classList.add("edit-user");
@@ -73,13 +73,13 @@ export class EditUserView {
       return;
     }
 
-    const user = userStore.loadUser();
+    const user = userStore.storage.user;
     const updatedUser = { id: user.id, username, email };
     await userStore.updateUser(updatedUser);
   }
 
   handleSuccess() {
-    const user = userStore.loadUser();
+    const user = userStore.storage.user;
     eventBus.emit("navigate", `/profiles/${user.username}`);
   }
 
