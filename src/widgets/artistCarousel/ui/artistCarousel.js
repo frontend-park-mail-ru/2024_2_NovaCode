@@ -1,5 +1,5 @@
 import { ArtistView } from '../../../entities/artist/index.js';
-import { ArtistListAPI } from '../api/api.js';
+import { ArtistCarouselAPI } from '../api/api.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 
 export class ArtistCarouselView {
@@ -22,8 +22,8 @@ export class ArtistCarouselView {
 	 * Renders the playlist view.
 	 */
 	async render() {
-		const artistListAPI = new ArtistListAPI();
-		let artists = await artistListAPI.get();
+		const artistCarouselAPI = new ArtistCarouselAPI();
+		let artists = await artistCarouselAPI.get();
 
 		const template = Handlebars.templates['artistCarousel.hbs'];
 		const artistCarouselElement = document.createElement('div');
@@ -38,12 +38,6 @@ export class ArtistCarouselView {
 			const artistView = new ArtistView(artistCarouselElement);
 			artistView.render(artist);
 			artistsBlock.appendChild(artistCarouselElement);
-
-			const artistCarouselElement1 = document.createElement('div');
-			artistCarouselElement1.classList.add('carousel__item');
-			const artistView1 = new ArtistView(artistCarouselElement1);
-			artistView1.render(artist);
-			artistsBlock.appendChild(artistCarouselElement1);
 		});
 
 		await this.getElements();

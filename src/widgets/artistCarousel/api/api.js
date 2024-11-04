@@ -1,7 +1,7 @@
 import { API_URL } from '../../../shared/config/index.js';
 import { GET } from '../../../shared/api/index.js';
 
-export class ArtistListAPI {
+export class ArtistCarouselAPI {
 	/**
 	 * Url path to backend api which returns artists/
 	 *
@@ -9,7 +9,7 @@ export class ArtistListAPI {
 	url;
 
 	/**
-	 * Initializes the ArtistListAPI.
+	 * Initializes the ArtistCarouselAPI.
 	 *
 	 */
 	constructor() {
@@ -28,7 +28,7 @@ export class ArtistListAPI {
 				// 	'error',
 				// );
 				// console.error('Error during artists loading:', error);
-				console.log('Error during ArtistList loading:');
+				console.log('Error during ArtistCarousel loading:');
 			}
 		} catch (error) {
 			// this.displayMessage(
@@ -36,7 +36,7 @@ export class ArtistListAPI {
 			// 	'Возникла ошибка при загрузке плейлиста. Попробуйте позже.',
 			// 	'error',
 			// );
-			console.error('Error during ArtistList loading:');
+			console.error('Error during ArtistCarousel loading:');
 		}
 	}
 }

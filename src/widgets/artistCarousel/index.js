@@ -1,2 +1,2 @@
 export { ArtistCarouselView } from './ui/artistCarousel.js';
-export { ArtistListAPI } from './api/api.js';
+export { ArtistCarouselAPI } from './api/api.js';
