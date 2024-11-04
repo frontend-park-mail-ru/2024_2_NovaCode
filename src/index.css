@@ -13,6 +13,9 @@
 @import './widgets/footerPlayer/ui/footerPlayer.min.css';
 @import './pages/sign-up/ui/SignUp.min.css';
 @import './pages/sign-in/ui/SignIn.min.css';
+@import './pages/more-tracks/ui/MoreTracks.min.css';
+@import './pages/more-albums/ui/MoreAlbums.min.css';
+@import './pages/more-artists/ui/MoreArtists.min.css';
 
 h1,
 h2,

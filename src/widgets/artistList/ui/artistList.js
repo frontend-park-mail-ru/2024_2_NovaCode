@@ -19,14 +19,18 @@ export class ArtistListView {
 	/**
 	 * Renders the playlist view.
 	 */
-	async render() {
-		const artistListAPI = new ArtistListAPI();
-		let artists = await artistListAPI.get();
-
+	async render(artists, needsShowMoreHref = true) {
 		const template = Handlebars.templates['artistList.hbs'];
 		const artistListElement = document.createElement('div');
-		artistListElement.classList.add('popular_artists');
-		artistListElement.innerHTML = template({});
+		artistListElement.classList.add('artists');
+
+		if (needsShowMoreHref) {
+			var showMoreHref = `/more_artists/popular`;
+			artistListElement.innerHTML = template({ showMoreHref });
+		} else {
+			artistListElement.innerHTML = template({});
+		}
+		
 		this.parent.appendChild(artistListElement);
 
 		const artistsBlock = document.getElementById('mainpage-popular-artists');
