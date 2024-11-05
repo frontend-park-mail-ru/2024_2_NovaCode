@@ -1,4 +1,4 @@
-import { eventBus } from '../../../shared/lib/index.js';
+import { eventBus, S3_BUCKETS } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
 import { handleLink } from '../../../shared/lib/index.js';
@@ -15,6 +15,7 @@ export class Header {
 
 		const template = Handlebars.templates['Header.hbs'];
 		const user = userStore.loadUser();
+
 		this.parent.innerHTML = template({ user });
 
 		this.bindEvents();

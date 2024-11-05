@@ -1,5 +1,5 @@
 import { userStore } from '../../../entities/user/index.js';
-import { handleLink } from '../../../shared/lib/index.js';
+import { handleLink, S3_BUCKETS } from '../../../shared/lib/index.js';
 
 export class UserCardView {
 	parent;
@@ -12,6 +12,11 @@ export class UserCardView {
 
 	async render() {
 		let user = await userStore.getUser(this.username);
+
+		if (user.image) {
+			user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
+		}
+
 		const isCurrentUser = userStore.storage.user.username === this.username;
 		const template = Handlebars.templates['userCard.hbs'];
 		const userCardElement = document.createElement('div');
