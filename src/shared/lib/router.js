@@ -16,8 +16,9 @@ export class Router {
    *
    * @param {string} path - path pattern to register.
    * @param {Function} view - view constructor associated with path
+   * @param {boolean} updateLayout - update layout before rendering
    */
-  registerPath(path, view) {
+  registerPath(path, view, updateLayout) {
     const paramNames = [];
     const regexPath = path.replace(/\{(\w+)\}/g, (_, paramName) => {
       paramNames.push(paramName);
@@ -26,6 +27,7 @@ export class Router {
     this.routes.push({
       path: new RegExp(`^${regexPath}$`),
       view: view,
+      updateLayout: updateLayout,
       paramNames: paramNames,
     });
   }
@@ -81,7 +83,7 @@ export class Router {
     await this.goTo(path);
   }
 
-  /**
+   /**
    * Navigates to the specified path and updates browser history
    *
    * @param {string} path - path to navigate to

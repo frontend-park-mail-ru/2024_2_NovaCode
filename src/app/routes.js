@@ -31,6 +31,7 @@ export const PAGES = [
 	{
 		path: '/profiles/{username}',
 		view: ProfilePage,
+		updateLayout: true,
 	},
 	{
 		path: '/profiles/{username}/edit',

@@ -19,8 +19,8 @@ export class App {
 	 * Registers all the defined pages in the application with the router.
 	 */
 	registerRoutes() {
-		PAGES.forEach(({ path, view }) => {
-			this.router.registerPath(path, view);
+		PAGES.forEach(({ path, view, updateLayout }) => {
+			this.router.registerPath(path, view, updateLayout);
 		});
 	}
 	/**

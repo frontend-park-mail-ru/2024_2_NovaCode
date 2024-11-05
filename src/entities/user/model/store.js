@@ -4,6 +4,7 @@ import {
   eventBus,
 } from "../../../shared/lib/index.js";
 import { handleStatus } from "../../../shared/lib/status.js";
+import { S3_URL } from "../../../shared/config/api.js";
 
 import { signInRequest, signUpRequest, signOutRequest } from "../api/auth.js";
 import { getUserRequest, updateAvatarRequest, updateUserRequest } from "../api/user.js";
@@ -43,7 +44,7 @@ class UserStore {
             id: response.data.user.id,
             username: response.data.user.username,
             email: response.data.user.email,
-            image: response.data.user.image,
+            image: `${S3_URL}/avatars/${response.data.user.image}`,
             token: response.data.token,
             isAuthorized: true,
           };
@@ -83,7 +84,7 @@ class UserStore {
             id: response.data.user.id,
             username: response.data.user.username,
             email: response.data.user.email,
-            image: response.data.user.image,
+            image: `${S3_URL}/avatars/${response.data.user.image}`,
             token: response.data.token,
             isAuthorized: true,
           };
@@ -149,6 +150,7 @@ class UserStore {
       switch (response.status) {
         case HTTP_STATUS.OK:
           this.storage.user = { ...this.storage.user, ...response.data };
+          this.storage.user.image = `${S3_URL}/avatars/${response.data.image}`;
           this.storage.error = null;
           this.saveUser();
           eventBus.emit('getUserSuccess', this.storage.user);
@@ -173,7 +175,7 @@ class UserStore {
 
       switch (response.status) {
         case HTTP_STATUS.OK:
-          this.storage.user.image = response.data.image;
+          this.storage.user.image = `${S3_URL}/avatars/${response.data.image}`,
           this.storage.error = null;
           this.saveUser();
           eventBus.emit('updateAvatarSuccess', this.storage.user);

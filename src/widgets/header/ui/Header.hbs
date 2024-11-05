@@ -15,7 +15,7 @@
     <div class="header__right_block" id="header_signin_menu">
       {{#if user}}
         <div class="header__signed_block">
-          <img src="http://localhost:9000{{user.image}}" href="/profiles/{{user.username}}" class="header__profile_img link">
+          <img src="{{user.image}}" href="/profiles/{{user.username}}" class="header__profile_img link">
           <a
             class="header__link_signin"
             id="header_logout_link"
