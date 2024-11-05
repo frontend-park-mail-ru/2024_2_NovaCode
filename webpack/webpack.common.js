@@ -51,5 +51,7 @@ module.exports = {
             filename: '[name].[contenthash].css',
             chunkFilename: '[id].[contenthash].css'
         })
-    ]
+    ],
+    infrastructureLogging: { level: 'error' },
+    stats: 'errors-only',
 };
