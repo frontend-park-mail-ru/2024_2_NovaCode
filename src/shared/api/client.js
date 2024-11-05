@@ -1,8 +1,8 @@
 const HTTP_METHODS = {
-	GET: 'GET',
-	POST: 'POST',
-	PUT: 'PUT',
-	DELETE: 'DELETE',
+  GET: "GET",
+  POST: "POST",
+  PUT: "PUT",
+  DELETE: "DELETE",
 };
 
 /**
@@ -13,43 +13,43 @@ const HTTP_METHODS = {
  * @returns {Object} - The response containing data or error.
  */
 const request = async (method, url, options = {}) => {
-	const { body = null, headers = {} } = options;
+  const { body = null, headers = {} } = options;
 
-	const requestOptions = {
-		method,
-		credentials: 'include',
-		headers: {
-			...(!(body instanceof FormData) && {
-				'Content-Type': 'application/json; charset=utf-8',
-			}),
-			...headers,
-		},
-		body: body instanceof FormData ? body : body ? JSON.stringify(body) : null,
-	};
+  const requestOptions = {
+    method,
+    credentials: "include",
+    headers: {
+      ...(!(body instanceof FormData) && {
+        "Content-Type": "application/json; charset=utf-8",
+      }),
+      ...headers,
+    },
+    body: body instanceof FormData ? body : body ? JSON.stringify(body) : null,
+  };
 
-	try {
-		const response = await fetch(url, requestOptions);
+  try {
+    const response = await fetch(url, requestOptions);
 
-		let data = null;
-		try {
-			data = await response.json();
-		} catch (e) {
-			data = null;
-		}
+    let data = null;
+    try {
+      data = await response.json();
+    } catch (e) {
+      data = null;
+    }
 
-		if (!response.ok) {
-			return {
-				status: response.status,
-				data: null,
-				error: data || { message: 'unknown error' },
-			};
-		}
+    if (!response.ok) {
+      return {
+        status: response.status,
+        data: null,
+        error: data || { message: "unknown error" },
+      };
+    }
 
-		return { status: data.statusCode, data: data.body, error: null };
-	} catch (err) {
-		console.error('request failed:', err);
-		return { status: 500, data: null, error: { message: 'server error' } };
-	}
+    return { status: data.statusCode, data, error: null };
+  } catch (err) {
+    console.error("request failed:", err);
+    return { status: 500, data: null, error: { message: "server error" } };
+  }
 };
 
 /**
@@ -59,7 +59,7 @@ const request = async (method, url, options = {}) => {
  * @returns {Object} - The response containing data or error.
  */
 export const GET = async (url, options = {}) =>
-	request(HTTP_METHODS.GET, url, options);
+  request(HTTP_METHODS.GET, url, options);
 
 /**
  * Perform POST request.
@@ -68,7 +68,7 @@ export const GET = async (url, options = {}) =>
  * @returns {Object} - The response containing data or error.
  */
 export const POST = async (url, options = {}) =>
-	request(HTTP_METHODS.POST, url, options);
+  request(HTTP_METHODS.POST, url, options);
 
 /**
  * Perform PUT request.
@@ -77,7 +77,7 @@ export const POST = async (url, options = {}) =>
  * @returns {Object} - The response containing data or error.
  */
 export const PUT = async (url, options = {}) =>
-	request(HTTP_METHODS.PUT, url, options);
+  request(HTTP_METHODS.PUT, url, options);
 
 /**
  * Perform DELETE request.
@@ -86,4 +86,4 @@ export const PUT = async (url, options = {}) =>
  * @returns {Object} - The response containing data or error.
  */
 export const DELETE = async (url, options = {}) =>
-	request(HTTP_METHODS.DELETE, url, options);
+  request(HTTP_METHODS.DELETE, url, options);
