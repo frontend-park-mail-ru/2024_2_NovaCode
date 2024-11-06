@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-import { eventBus } from '../../../shared/lib/index.js';
-import { userStore } from '../../../entities/user/model/store.js';
-import { player } from '../../../shared/player/model/store.js';
-import template from './Header.hbs';
-import './Header.scss';
-=======
 import { eventBus } from "../../../shared/lib/index.js";
 import { userStore } from "../../../entities/user/model/store.js";
 import { player } from "../../../shared/player/model/store.js";
 import { handleLink, S3_BUCKETS } from "../../../shared/lib/index.js";
->>>>>>> NM-48
+import template from './Header.hbs';
+import './Header.scss';
 
 export class Header {
   parent;
@@ -20,25 +14,19 @@ export class Header {
 
   render() {
     this.parent.innerHTML = "";
-
-    const template = Handlebars.templates["Header.hbs"];
     const user = userStore.storage.user;
 
-	if (user.image) {
-		user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
-	}
+    if (user.image) {
+      user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
+    }
 
     this.parent.innerHTML = template({ user });
 
-<<<<<<< HEAD
-		const user = userStore.getUser();
-		this.parent.innerHTML = template({ user });
-=======
     this.bindEvents();
     this.onEvents();
     this.switchActiveNavlink(window.location.pathname);
   }
->>>>>>> NM-48
+
 
   bindEvents() {
     const logoutLink = this.parent.querySelector("#header_logout_link");
