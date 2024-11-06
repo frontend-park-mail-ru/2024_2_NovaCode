@@ -1,7 +1,7 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
+import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './track.hbs';
 import './track.scss';
-import { S3_BUCKETS } from "../../../shared/lib/index.js";
 
 export class TrackView {
 	/**

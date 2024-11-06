@@ -1,10 +1,7 @@
 import { eventBus } from '../../../shared/lib/index.js';
-<<<<<<< HEAD
+import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './artist.hbs';
 import './artist.scss';
-=======
-import { S3_BUCKETS } from "../../../shared/lib/index.js";
->>>>>>> NM-48
 
 export class ArtistView {
 	/**
@@ -28,15 +25,11 @@ export class ArtistView {
 	 */
 	render(artist) {
 		this.artistId = artist.id;
-<<<<<<< HEAD
-=======
-		const template = Handlebars.templates['artist.hbs'];
 
 		if (artist.image) {
 			artist.image = `${S3_BUCKETS.ARTIST_IMAGES}/${artist.image}`;
 		}
 
->>>>>>> NM-48
 		const artistElement = document.createElement('div');
 		artistElement.classList.add('artist');
 		artistElement.setAttribute('data-id', this.artistId);
