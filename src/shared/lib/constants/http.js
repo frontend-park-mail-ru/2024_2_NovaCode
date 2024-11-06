@@ -26,3 +26,7 @@ export const S3_BUCKETS = {
   TRACK_IMAGES: `${S3_URL}/images/tracks`,
   TRACK_FILES: `${S3_URL}/tracks`,
 };
+
+export const HEADERS = {
+  CSRF_TOKEN: "X-Csrf-Token",
+};
