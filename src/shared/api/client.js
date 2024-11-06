@@ -1,3 +1,6 @@
+import { userStore } from "../../entities/user/index.js";
+import { HEADERS } from "../lib/constants/http.js";
+
 const HTTP_METHODS = {
   GET: "GET",
   POST: "POST",
@@ -15,14 +18,21 @@ const HTTP_METHODS = {
 const request = async (method, url, options = {}) => {
   const { body = null, headers = {} } = options;
 
+  const csrfToken = userStore.storage.user?.csrfToken;
+  const csrfTokenHeader = HEADERS.CSRF_TOKEN;
+
   const requestOptions = {
     method,
+    mode: "cors",
     credentials: "include",
     headers: {
-      "Content-Type": "application/json; charset=utf-8",
+      ...(!(body instanceof FormData) && {
+        "Content-Type": "application/json; charset=utf-8",
+      }),
+      ...(csrfToken && { [csrfTokenHeader]: csrfToken }),
       ...headers,
     },
-    body: body ? JSON.stringify(body) : null,
+    body: body instanceof FormData ? body : body ? JSON.stringify(body) : null,
   };
 
   try {

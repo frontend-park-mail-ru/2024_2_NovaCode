@@ -1,6 +1,7 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import template from './track.hbs';
 import './track.scss';
+import { S3_BUCKETS } from "../../../shared/lib/index.js";
 
 export class TrackView {
 	/**
@@ -22,6 +23,10 @@ export class TrackView {
 	 * Renders the track view.
 	 */
 	render(track) {
+		if (track.image) {
+			track.image = `${S3_BUCKETS.TRACK_IMAGES}/${track.image}`;
+		}
+
 		this.trackElement = document.createElement('div');
 		this.trackElement.classList.add('track');
 		this.trackElement.innerHTML = template(track);

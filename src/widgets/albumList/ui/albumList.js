@@ -1,5 +1,4 @@
 import { AlbumView } from '../../../entities/album/index.js';
-import { AlbumListAPI } from '../api/api.js';
 import template from './albumList.hbs';
 import './albumList.scss';
 
@@ -14,7 +13,7 @@ export class AlbumListView {
 	 * Initializes the AlbumListView.
 	 *
 	 */
-	constructor(parent, artistId) {
+	constructor(parent, artistId = null) {
 		this.parent = parent ? parent : document.querySelector('#root');
 		this.artistId = artistId;
 	}
@@ -22,18 +21,28 @@ export class AlbumListView {
 	/**
 	 * Renders the album view.
 	 */
-	async render() {
-		const albumListAPI = new AlbumListAPI(this.artistId);
-		let albums = await albumListAPI.get();
-
+	async render(albums, needsShowMoreHref = true) {
 		const albumListElement = document.createElement('div');
-		albumListElement.innerHTML = template({});
+		albumListElement.classList.add('albums');
+
+		if (needsShowMoreHref) {
+			var showMoreHref;
+			if (this.artistId) {
+				showMoreHref = `/more_albums/${"artist"}/${this.artistId}`;
+			} else {
+				showMoreHref = `/more_albums/popular`;
+			}
+			albumListElement.innerHTML = template({showMoreHref });
+		} else {
+			albumListElement.innerHTML = template({});
+		}
+
 		this.parent.appendChild(albumListElement);
 
 		const albumsBlock = document.getElementById('albums');
-		Array.from(albums).forEach((albums) => {
+		Array.from(albums).forEach((album) => {
 			const albumView = new AlbumView(albumsBlock);
-			albumView.render(albums);
+			albumView.render(album);
 		});
 	}
 }

@@ -1,5 +1,6 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import { player } from '../../../shared/player/model/store.js';
+import { S3_BUCKETS } from '../../../shared/lib/index.js';
 import template from './footerPlayer.hbs';
 import './footerPlayer.scss';
 
@@ -126,7 +127,7 @@ export class FooterPlayerView {
 
 	handleLoading = () => {
 		const trackInfo = player.getTrackInfo();
-		this.trackInfoTrackImg.setAttribute('src', `/images/${trackInfo.image}`);
+		this.trackInfoTrackImg.setAttribute('src', `${S3_BUCKETS.TRACK_IMAGES}/${trackInfo.image}`);
 		this.trackInfoTrackName.textContent = trackInfo.name;
 		this.trackInfoTrackArtist.textContent = trackInfo.artist;
 

@@ -1,5 +1,4 @@
 import { ArtistView } from '../../../entities/artist/index.js';
-import { ArtistListAPI } from '../api/api.js';
 import template from './artistList.hbs';
 import './artistList.scss';
 
@@ -21,13 +20,17 @@ export class ArtistListView {
 	/**
 	 * Renders the playlist view.
 	 */
-	async render() {
-		const artistListAPI = new ArtistListAPI();
-		let artists = await artistListAPI.get();
-
+	async render(artists, needsShowMoreHref = true) {
 		const artistListElement = document.createElement('div');
-		artistListElement.classList.add('popular_artists');
-		artistListElement.innerHTML = template({});
+		artistListElement.classList.add('artists');
+
+		if (needsShowMoreHref) {
+			var showMoreHref = `/more_artists/popular`;
+			artistListElement.innerHTML = template({ showMoreHref });
+		} else {
+			artistListElement.innerHTML = template({});
+		}
+		
 		this.parent.appendChild(artistListElement);
 
 		const artistsBlock = document.getElementById('mainpage-popular-artists');

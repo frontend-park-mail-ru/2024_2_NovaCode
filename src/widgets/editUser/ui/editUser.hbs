@@ -1,0 +1,29 @@
+<div class="edit_user__container">
+  <div class="edit_user__block">
+    <div class="edit_user__text">Редактирование профиля</div>
+    <form class="edit_user__form" id="edit-user-form">
+      <input
+        class="edit_user__input"
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Имя пользователя"
+        value="{{user.username}}"
+        required
+      />
+      <div id="edit-user__username-error" class="edit_user__input_error"></div>
+      <input
+        class="edit_user__input"
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Адрес электронной почты"
+        value="{{user.email}}"
+        required
+      />
+      <div id="edit-user__email-error" class="edit_user__input_error"></div>
+      <button class="edit_user__submit_btn" type="submit">Сохранить</button>
+      <div id="edit-user__general-error" class="edit_user__general_error"></div>
+    </form>
+  </div>
+</div>

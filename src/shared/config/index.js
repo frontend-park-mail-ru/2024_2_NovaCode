@@ -1,1 +1,1 @@
-export { API_URL } from './api.js';
+export { API_URL, S3_URL } from "./api.js";

@@ -1,7 +1,8 @@
-import { eventBus } from '../../../shared/lib/eventbus.js';
 import template from './Error.hbs';
 
 export class ErrorPage {
+	parent;
+
 	constructor() {
 		this.parent = document.querySelector('#root');
 	}
