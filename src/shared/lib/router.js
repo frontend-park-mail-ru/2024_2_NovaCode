@@ -1,4 +1,4 @@
-import { eventBus } from "../../../shared/lib/eventbus.js";
+import { eventBus } from "./eventbus.js";
 import { ErrorPage } from "../../pages/error/index.js";
 
 export class Router {

@@ -16,8 +16,6 @@ import {
   updateUserRequest,
 } from "../api/user.js";
 import { Storage } from "../../../shared/lib/storage.js";
-import { S3_URL } from "../../../shared/config/api.js";
-import { HEADERS } from "../../../shared/lib/constants/http.js";
 
 class UserStore {
   constructor() {

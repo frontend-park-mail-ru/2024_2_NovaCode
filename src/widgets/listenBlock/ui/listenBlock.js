@@ -1,4 +1,6 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
+import template from './listenBlock.hbs';
+import './listenBlock.scss';
 
 export class ListenBlockView {
 	/**
@@ -19,7 +21,6 @@ export class ListenBlockView {
 	 * Renders the listen block view.
 	 */
 	async render() {
-		const template = Handlebars.templates['listenBlock.hbs'];
 		const listenBlockElement = document.createElement('div');
 		listenBlockElement.classList.add('listen');
 		listenBlockElement.innerHTML = template({});

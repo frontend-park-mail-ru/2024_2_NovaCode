@@ -2,6 +2,8 @@ import { eventBus } from "../../../shared/lib/index.js";
 import { userStore } from "../../../entities/user/model/store.js";
 import { player } from "../../../shared/player/model/store.js";
 import { handleLink, S3_BUCKETS } from "../../../shared/lib/index.js";
+import template from './Header.hbs';
+import './Header.scss';
 
 export class Header {
   parent;
@@ -12,13 +14,11 @@ export class Header {
 
   render() {
     this.parent.innerHTML = "";
-
-    const template = Handlebars.templates["Header.hbs"];
     const user = userStore.storage.user;
 
-	if (user.image) {
-		user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
-	}
+    if (user.image) {
+      user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
+    }
 
     this.parent.innerHTML = template({ user });
 
@@ -26,6 +26,7 @@ export class Header {
     this.onEvents();
     this.switchActiveNavlink(window.location.pathname);
   }
+
 
   bindEvents() {
     const logoutLink = this.parent.querySelector("#header_logout_link");

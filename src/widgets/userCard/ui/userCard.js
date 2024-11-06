@@ -1,5 +1,6 @@
 import { userStore } from "../../../entities/user/index.js";
 import { handleLink, S3_BUCKETS } from "../../../shared/lib/index.js";
+import template from './userCard.hbs';
 
 export class UserCardView {
   parent;
@@ -18,7 +19,6 @@ export class UserCardView {
     }
 
     const isCurrentUser = userStore.storage.user.username === this.username;
-    const template = Handlebars.templates["userCard.hbs"];
     const userCardElement = document.createElement("div");
     userCardElement.classList.add("user_card");
     userCardElement.innerHTML = template({ user, isCurrentUser });
