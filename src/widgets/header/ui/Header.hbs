@@ -5,7 +5,7 @@
       <a
         class="header__link_logo link"
         id="header_logo_link"
-        {{#if user}} 
+        {{#if user.isAuthorized}} 
         href="/"
         {{else}}
         href="/signin"
@@ -13,9 +13,9 @@
       >NovaMusic</a>
     </div>
     <div class="header__right_block" id="header_signin_menu">
-      {{#if user}}
+      {{#if user.isAuthorized}}
         <div class="header__signed_block">
-          <img src="http://localhost:9000{{user.image}}" href="/profiles/{{user.username}}" class="header__profile_img link">
+          <img src="{{user.image}}" href="/profiles/{{user.username}}" class="header__profile_img link">
           <a
             class="header__link_signin"
             id="header_logout_link"
