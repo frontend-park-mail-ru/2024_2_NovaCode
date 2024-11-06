@@ -2,7 +2,7 @@ import { ArtistView } from '../../../entities/artist/index.js';
 import { ArtistCarouselAPI } from '../api/api.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import template from './artistCarousel.hbs';
-import '.artistCarousel.scss';
+import './artistCarousel.scss';
 
 export class ArtistCarouselView {
 	/**

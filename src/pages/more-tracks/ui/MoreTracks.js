@@ -3,6 +3,8 @@ import { TrackListView } from "../../../widgets/trackList/index.js";
 import { FooterPlayerView } from "../../../widgets/footerPlayer/index.js";
 import { userStore } from "../../../entities/user/model/store.js";
 import { player } from "../../../shared/player/model/store.js";
+import template from './MoreTracks.hbs';
+import './MoreTracks.scss';
 
 export class MoreTracksPage {
     /**
@@ -21,7 +23,6 @@ export class MoreTracksPage {
             this.albumId = this.entityId;
         }
 
-        const template = Handlebars.templates['MoreTracks.hbs'];
         this.parent.innerHTML = template();
 
         const trackListAPI = new TrackListAPI(this.artistId, this.albumId);
@@ -32,7 +33,7 @@ export class MoreTracksPage {
         player.setTracks(tracks);
 
         const footPlayerView = new FooterPlayerView(this.parent);
-        const user = userStore.loadUser();
+        const user = userStore.storage.user;
         if (user) {
           await footPlayerView.render();
         }

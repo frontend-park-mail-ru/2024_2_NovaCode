@@ -4,6 +4,8 @@ import { ArtistListView } from "../../../widgets/artistList/index.js";
 import { FooterPlayerView } from "../../../widgets/footerPlayer/index.js";
 import { userStore } from "../../../entities/user/model/store.js";
 import { player } from "../../../shared/player/model/store.js";
+import template from './MoreArtists.hbs';
+import './MoreArtists.scss';
 
 export class MoreArtistsPage {
     /**
@@ -14,7 +16,6 @@ export class MoreArtistsPage {
     }
 
     async render() {
-        const template = Handlebars.templates['MoreArtists.hbs'];
         this.parent.innerHTML = template();
 
         const artistListAPI = new ArtistListAPI();
@@ -27,7 +28,7 @@ export class MoreArtistsPage {
         player.setTracks(tracks);
 
         const footPlayerView = new FooterPlayerView(this.parent);
-        const user = userStore.loadUser();
+        const user = userStore.storage.user;
         if (user) {
           await footPlayerView.render();
         }

@@ -1,5 +1,4 @@
 import { ArtistCardAPI } from '../api/api.js';
-import { ArtistCardAPI } from "../api/api.js";
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './artistCard.hbs';
 import './artistCard.scss';

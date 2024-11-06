@@ -4,6 +4,8 @@ import { AlbumListView } from "../../../widgets/albumList/index.js";
 import { FooterPlayerView } from "../../../widgets/footerPlayer/index.js";
 import { userStore } from "../../../entities/user/model/store.js";
 import { player } from "../../../shared/player/model/store.js";
+import template from './MoreAlbums.hbs';
+import './MoreAlbums.scss';
 
 export class MoreAlbumsPage {
     /**
@@ -20,7 +22,6 @@ export class MoreAlbumsPage {
             this.artistId = this.entityId;
         }
         
-        const template = Handlebars.templates['MoreAlbums.hbs'];
         this.parent.innerHTML = template();
 
         const albumListAPI = new AlbumListAPI(this.artistId);
@@ -33,7 +34,7 @@ export class MoreAlbumsPage {
         player.setTracks(tracks);
 
         const footPlayerView = new FooterPlayerView(this.parent);
-        const user = userStore.loadUser();
+        const user = userStore.storage.user;
         if (user) {
           await footPlayerView.render();
         }

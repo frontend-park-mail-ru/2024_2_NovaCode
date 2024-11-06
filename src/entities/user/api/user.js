@@ -1,6 +1,5 @@
 import { API_ENDPOINTS } from "../../../shared/lib/index.js";
 import { GET, POST, PUT } from "../../../shared/api/index.js";
-import { API_URL } from "../../../shared/config/index.js";
 
 /**
  * Fetches user data from the server for the specified username.

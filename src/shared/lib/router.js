@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { eventBus } from './eventbus.js';
-=======
-import { eventBus } from "../../../shared/lib/eventbus.js";
+import { eventBus } from "./eventbus.js";
 import { ErrorPage } from "../../pages/error/index.js";
->>>>>>> NM-48
 
 export class Router {
   constructor() {

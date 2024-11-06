@@ -1,6 +1,7 @@
 import { userStore } from "../../../entities/user/model/store.js";
 import { eventBus } from "../../../shared/lib/index.js";
 import { validate, VALIDATION_RULES } from "../../../shared/lib/index.js";
+import template from './editUser.hbs';
 
 export class EditUserView {
   parent;
@@ -12,8 +13,6 @@ export class EditUserView {
   }
 
   async render() {
-    const template = Handlebars.templates["editUser.hbs"];
-
     const user = userStore.storage.user;
 
     const editUserElement = document.createElement("div");
