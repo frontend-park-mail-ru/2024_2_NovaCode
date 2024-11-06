@@ -32,7 +32,7 @@ export class ArtistPage {
     const albumListAPI = new AlbumListAPI(this.artistId);
     const albumListView = new AlbumListView(this.parent, this.artistId);
     const albums = await albumListAPI.get();
-    await albumListView.render(albums);
+    await albumListView.render(albums.slice(0, 5));
 
     const footPlayerView = new FooterPlayerView(this.parent);
     const user = userStore.storage.user;

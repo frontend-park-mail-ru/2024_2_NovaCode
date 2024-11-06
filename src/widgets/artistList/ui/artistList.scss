@@ -13,6 +13,9 @@
   }
 
   &__text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #f1f1f1;
     font-size: 24px;
     font-weight: 400;

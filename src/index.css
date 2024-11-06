@@ -5,6 +5,7 @@
 @import './widgets/albumList/ui/albumList.min.css';
 @import './widgets/artistCard/ui/artistCard.min.css';
 @import './widgets/trackList/ui/trackList.min.css';
+@import './widgets/artistList/ui/artistList.min.css';
 @import './widgets/artistCarousel/ui/artistCarousel.min.css';
 @import './widgets/header/ui/Header.min.css';
 @import './widgets/userCard/ui/userCard.min.css';

@@ -28,7 +28,8 @@ export class ArtistCarouselView {
 		const template = Handlebars.templates['artistCarousel.hbs'];
 		const artistCarouselElement = document.createElement('div');
 		artistCarouselElement.classList.add('popular_artists');
-		artistCarouselElement.innerHTML = template({});
+		var showMoreHref = `/more_artists/popular`;
+		artistCarouselElement.innerHTML = template({ showMoreHref });
 		this.parent.appendChild(artistCarouselElement);
 
 		const artistsBlock = document.getElementById('mainpage-popular-artists');
