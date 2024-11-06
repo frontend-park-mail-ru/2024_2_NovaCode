@@ -1,5 +1,8 @@
+import { ArtistCardAPI } from '../api/api.js';
 import { ArtistCardAPI } from "../api/api.js";
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
+import template from './artistCard.hbs';
+import './artistCard.scss';
 
 export class ArtistCardView {
   /**
@@ -28,7 +31,6 @@ export class ArtistCardView {
       artist.image = `${S3_BUCKETS.ARTIST_IMAGES}/${artist.image}`;
     }
 
-    const template = Handlebars.templates["artistCard.hbs"];
     const artistCardElement = document.createElement("div");
     artistCardElement.classList.add("artist_card");
     artistCardElement.innerHTML = template({ artist, genres });

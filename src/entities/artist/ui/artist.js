@@ -1,5 +1,7 @@
 import { eventBus } from '../../../shared/lib/index.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
+import template from './artist.hbs';
+import './artist.scss';
 
 export class ArtistView {
 	/**
@@ -23,7 +25,6 @@ export class ArtistView {
 	 */
 	render(artist) {
 		this.artistId = artist.id;
-		const template = Handlebars.templates['artist.hbs'];
 
 		if (artist.image) {
 			artist.image = `${S3_BUCKETS.ARTIST_IMAGES}/${artist.image}`;

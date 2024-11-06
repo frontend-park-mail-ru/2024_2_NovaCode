@@ -1,6 +1,8 @@
 import { ArtistView } from '../../../entities/artist/index.js';
 import { ArtistCarouselAPI } from '../api/api.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
+import template from './artistCarousel.hbs';
+import '.artistCarousel.scss';
 
 export class ArtistCarouselView {
 	/**
@@ -25,7 +27,6 @@ export class ArtistCarouselView {
 		const artistCarouselAPI = new ArtistCarouselAPI();
 		let artists = await artistCarouselAPI.get();
 
-		const template = Handlebars.templates['artistCarousel.hbs'];
 		const artistCarouselElement = document.createElement('div');
 		artistCarouselElement.classList.add('popular_artists');
 		var showMoreHref = `/more_artists/popular`;

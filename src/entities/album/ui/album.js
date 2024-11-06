@@ -1,4 +1,6 @@
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
+import template from './album.hbs';
+import './album.scss';
 
 export class AlbumView {
 	/**
@@ -23,7 +25,6 @@ export class AlbumView {
 			album.image = `${S3_BUCKETS.ALBUM_IMAGES}/${album.image}`;
 		}
 
-		const template = Handlebars.templates['album.hbs'];
 		const albumElement = document.createElement('div');
 		albumElement.classList.add('album');
 		albumElement.innerHTML = template(album);

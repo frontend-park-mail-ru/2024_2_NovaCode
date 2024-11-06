@@ -1,5 +1,7 @@
 import { TrackView } from '../../../entities/track/index.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
+import template from './trackList.hbs';
+import './trackList.scss';
 
 export class TrackListView {
 	/**
@@ -32,7 +34,6 @@ export class TrackListView {
 			return { name, artist, image, duration };
 		});
 
-		const template = Handlebars.templates['trackList.hbs'];
 		const trackListElement = document.createElement('div');
 		trackListElement.classList.add('tracks');
 		

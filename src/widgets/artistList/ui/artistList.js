@@ -1,5 +1,6 @@
 import { ArtistView } from '../../../entities/artist/index.js';
-import { ArtistListAPI } from '../api/api.js';
+import template from './artistList.hbs';
+import './artistList.scss';
 
 export class ArtistListView {
 	/**
@@ -20,7 +21,6 @@ export class ArtistListView {
 	 * Renders the playlist view.
 	 */
 	async render(artists, needsShowMoreHref = true) {
-		const template = Handlebars.templates['artistList.hbs'];
 		const artistListElement = document.createElement('div');
 		artistListElement.classList.add('artists');
 

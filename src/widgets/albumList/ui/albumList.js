@@ -1,5 +1,6 @@
 import { AlbumView } from '../../../entities/album/index.js';
-import { AlbumListAPI } from '../api/api.js';
+import template from './albumList.hbs';
+import './albumList.scss';
 
 export class AlbumListView {
 	/**
@@ -21,7 +22,6 @@ export class AlbumListView {
 	 * Renders the album view.
 	 */
 	async render(albums, needsShowMoreHref = true) {
-		const template = Handlebars.templates['albumList.hbs'];
 		const albumListElement = document.createElement('div');
 		albumListElement.classList.add('albums');
 
