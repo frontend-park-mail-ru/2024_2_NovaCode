@@ -2,12 +2,12 @@
   <div class="artist_card__block">
     <div class="artist_card__text">Исполнитель</div>
     <div class="artist_card__wrapper">
-      <img src="/images/{{ artist.image }}" class="artist_card__img">
+      <img src="{{artist.image}}" class="artist_card__img" />
       <div class="artist_card__aside">
         <div class="artist_card__info artist_info">
-          <div class="artist_info__name"> {{ artist.name }} </div>
+          <div class="artist_info__name"> {{artist.name}} </div>
           <div class="artist_info__genres">
-            Жанры: 
+            Жанры:
             {{#each genres}}
               {{this.rusName}}
             {{/each}}
@@ -17,11 +17,11 @@
         </div>
         <div class="artist_info__buttons buttons">
           <div class="buttons__subscribe">
-            <img src="/images/icons/sub.svg" class="buttons__icon">
+            <img src="/images/icons/sub.svg" class="buttons__icon" />
             Подписаться
           </div>
           <div class="buttons__listen">
-            <img src="/images/icons/listen.svg" class="buttons__icon">
+            <img src="/images/icons/listen.svg" class="buttons__icon" />
             Слушать
           </div>
         </div>

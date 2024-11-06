@@ -22,7 +22,7 @@ export class EditProfilePage {
 			return;
 		}
 
-		const user = userStore.loadUser();
+    const user = userStore.storage.user;
 
 		if (user.username != this.username) {
 			console.error(PUBLIC_ERRORS.FORBIDDEN);

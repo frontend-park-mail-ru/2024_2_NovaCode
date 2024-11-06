@@ -1,5 +1,5 @@
 import { API_ENDPOINTS } from "../../../shared/lib/index.js";
-import { POST } from "../../../shared/api/index.js";
+import { GET, POST } from "../../../shared/api/index.js";
 
 /**
  * Sends sign in request to the server using user data
@@ -28,4 +28,8 @@ export const signUpRequest = async (user) => {
  */
 export const signOutRequest = async () => {
   return await POST(API_ENDPOINTS.SIGN_OUT);
+};
+
+export const getCSRFTokenRequest = async () => {
+  return await GET(API_ENDPOINTS.GET_CSRF_TOKEN);
 };

@@ -31,7 +31,7 @@ export class ArtistPage {
     await trackListView.render(tracks);
     await albumListView.render();
 
-    const user = userStore.loadUser();
+    const user = userStore.storage.user;
     if (user) {
       await footPlayerView.render();
     }
