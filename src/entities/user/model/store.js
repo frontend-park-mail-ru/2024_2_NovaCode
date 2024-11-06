@@ -1,10 +1,9 @@
 import {
-	HTTP_STATUS,
-	PUBLIC_ERRORS,
-	eventBus,
-} from '../../../shared/lib/index.js';
-import { handleStatus } from '../../../shared/lib/status.js';
-
+  HTTP_STATUS,
+  PUBLIC_ERRORS,
+  eventBus,
+} from "../../../shared/lib/index.js";
+import { handleStatus } from "../../../shared/lib/status.js";
 import {
 	signInRequest,
 	signUpRequest,
@@ -17,6 +16,7 @@ import {
 	updateUserRequest,
 } from '../api/user.js';
 import { Storage } from '../../../shared/lib/storage.js';
+import { S3_URL } from "../../../shared/config/api.js";
 import { HEADERS } from '../../../shared/lib/constants/http.js';
 
 class UserStore {

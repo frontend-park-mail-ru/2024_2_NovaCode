@@ -14,7 +14,7 @@ export class UploadAvatarView {
     const template = Handlebars.templates["uploadAvatar.hbs"];
 
     const uploadAvatarElement = document.createElement("div");
-    uploadAvatarElement.classList.add("upload-avatar");
+    uploadAvatarElement.classList.add("upload_avatar");
     uploadAvatarElement.innerHTML = template({});
     this.parent.appendChild(uploadAvatarElement);
 

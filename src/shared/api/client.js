@@ -52,11 +52,11 @@ const request = async (method, url, options = {}) => {
 			};
 		}
 
-		return { status: response.status, data, error: null };
-	} catch (err) {
-		console.error('request failed:', err);
-		return { status: 500, data: null, error: { message: 'server error' } };
-	}
+    return { status: data.statusCode, data, error: null };
+  } catch (err) {
+    console.error("request failed:", err);
+    return { status: 500, data: null, error: { message: "server error" } };
+  }
 };
 
 /**

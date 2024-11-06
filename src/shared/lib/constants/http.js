@@ -1,4 +1,4 @@
-import { API_URL } from "../../config/index.js";
+import { API_URL, S3_URL } from "../../config/index.js";
 
 export const HTTP_STATUS = {
   OK: 200,
@@ -19,6 +19,10 @@ export const API_ENDPOINTS = {
   UPLOAD_AVATAR: (userID) => `${API_URL}/api/v1/users/${userID}/image`,
 };
 
-export const HEADERS = {
-  CSRF_TOKEN: `X-Csrf-Token`,
+export const S3_BUCKETS = {
+  AVATAR_IMAGES: `${S3_URL}/avatars`,
+  ARTIST_IMAGES: `${S3_URL}/images/artists`,
+  ALBUM_IMAGES: `${S3_URL}/images/albums`,
+  TRACK_IMAGES: `${S3_URL}/images/tracks`,
+  TRACK_FILES: `${S3_URL}/tracks`,
 };

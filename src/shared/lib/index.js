@@ -1,4 +1,4 @@
-export { HTTP_STATUS, API_ENDPOINTS } from './constants/http.js';
+export { HTTP_STATUS, API_ENDPOINTS, S3_BUCKETS } from './constants/http.js';
 export { PUBLIC_ERRORS } from './constants/errors.js';
 export { VALIDATION_RULES } from './constants/validation.js';
 export { validate } from './validator.js';

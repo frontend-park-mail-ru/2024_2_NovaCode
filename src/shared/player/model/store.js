@@ -1,5 +1,6 @@
 import { eventBus } from '../../../shared/lib/index.js';
 import { DEFAULT_PLAYER_VOLUME } from '../../lib/constants/player.js';
+import { S3_BUCKETS } from '../../../shared/lib/index.js';
 
 class PlayerStore {
 	constructor() {
@@ -45,7 +46,7 @@ class PlayerStore {
 	}
 
 	loadTrack() {
-		this.currentTrack.src = `/${this.tracks[this.currentIndex].filepath}`;
+		this.currentTrack.src = `${S3_BUCKETS.TRACK_FILES}/${this.tracks[this.currentIndex].filepath}`;
 		this.currentTrack.load();
 		this.currentTrack.addEventListener('ended', this.onNextTrack);
 		eventBus.emit('loadingTrack');
