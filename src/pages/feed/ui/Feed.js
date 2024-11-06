@@ -17,18 +17,18 @@ export class FeedPage {
   async render() {
     this.parent.innerHTML = "";
 
-	const trackListAPI = new TrackListAPI();
-	const listenBlockView = new ListenBlockView(this.parent);
-	const trackListView = new TrackListView(this.parent);
-	const artistCarouselView = new ArtistCarouselView(this.parent);
-	const footPlayerView = new FooterPlayerView(this.parent);
+    const trackListAPI = new TrackListAPI();
+    const listenBlockView = new ListenBlockView(this.parent);
+    const trackListView = new TrackListView(this.parent);
+    const artistCarouselView = new ArtistCarouselView(this.parent);
+    const footPlayerView = new FooterPlayerView(this.parent);
 
     const tracks = await trackListAPI.get();
     player.setTracks(tracks);
 
-	await listenBlockView.render();
-	await trackListView.render(tracks);
-	await artistCarouselView.render();
+    await listenBlockView.render();
+    await trackListView.render(tracks);
+    await artistCarouselView.render();
 
     const user = userStore.storage.user;
     if (user) {
