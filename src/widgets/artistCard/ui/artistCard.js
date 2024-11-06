@@ -1,3 +1,4 @@
+import { eventBus } from '../../../shared/lib/eventbus.js';
 import { ArtistCardAPI } from '../api/api.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './artistCard.hbs';
@@ -34,5 +35,24 @@ export class ArtistCardView {
     artistCardElement.classList.add("artist_card");
     artistCardElement.innerHTML = template({ artist, genres });
     this.parent.appendChild(artistCardElement);
+
+    this.playPauseBtn = document.querySelector('.buttons__listen');
+		this.addEvents();
   }
+
+  addEvents() {
+		this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
+	}
+
+	deleteEvents() {
+		this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
+	}
+
+	handlePlayPauseBtn() {
+		eventBus.emit('playPauseTrack');
+	}
+
+	destructor() {
+		this.deleteEvents();
+	}
 }
