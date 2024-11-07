@@ -32,10 +32,11 @@ class UserStore {
   signIn = async (user) => {
     try {
       const response = await signInRequest(user);
+      let userData;
 
       switch (response.status) {
         case HTTP_STATUS.OK:
-          const userData = {
+          userData = {
             id: response.data.user.id,
             username: response.data.user.username,
             email: response.data.user.email,
@@ -75,10 +76,11 @@ class UserStore {
   signUp = async (user) => {
     try {
       const response = await signUpRequest(user);
+      let userData;
 
       switch (response.status) {
         case HTTP_STATUS.OK:
-          const userData = {
+          userData = {
             id: response.data.user.id,
             username: response.data.user.username,
             email: response.data.user.email,
@@ -202,10 +204,12 @@ class UserStore {
         console.error("failed to update user fields");
         return;
       }
+      
+      let userFields;
 
       switch (response.status) {
         case HTTP_STATUS.OK:
-          const userFields = {
+          userFields = {
             username: response.data.username,
             email: response.data.email,
           };
@@ -233,9 +237,11 @@ class UserStore {
         return;
       }
 
+      let userFields;
+
       switch (response.status) {
         case HTTP_STATUS.OK:
-          const userFields = {
+          userFields = {
             csrfToken: response.data.csrf,
           };
           this.storage.user = { ...this.storage.user, ...userFields };
@@ -251,7 +257,7 @@ class UserStore {
           );
       }
     } catch (error) {
-      console.error("Error getting user csrf token");
+      console.error("Error getting user csrf token:", error);
     }
   };
 }

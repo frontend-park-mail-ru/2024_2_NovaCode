@@ -29,7 +29,7 @@ export class ArtistCarouselView {
 
 		const artistCarouselElement = document.createElement('div');
 		artistCarouselElement.classList.add('popular_artists');
-		var showMoreHref = `/more_artists/popular`;
+		let showMoreHref = `/more_artists/popular`;
 		artistCarouselElement.innerHTML = template({ showMoreHref });
 		this.parent.appendChild(artistCarouselElement);
 

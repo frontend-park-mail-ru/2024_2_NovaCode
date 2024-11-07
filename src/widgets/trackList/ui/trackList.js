@@ -38,7 +38,7 @@ export class TrackListView {
 		trackListElement.classList.add('tracks');
 		
 		if (needsShowMoreHref) {
-			var showMoreHref;
+			let showMoreHref;
 			if (this.artistId) {
 				showMoreHref = `/more_tracks/${"artist"}/${this.artistId}`;
 			} else if (this.albumId) {

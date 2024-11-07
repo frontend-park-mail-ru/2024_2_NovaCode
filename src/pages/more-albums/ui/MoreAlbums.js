@@ -18,7 +18,7 @@ export class MoreAlbumsPage {
     }
 
     async render() {
-        if (this.entity = "artist") {
+        if (this.entity === "artist") {
             this.artistId = this.entityId;
         }
         

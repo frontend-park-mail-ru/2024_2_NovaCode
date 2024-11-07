@@ -25,7 +25,7 @@ export class ArtistListView {
 		artistListElement.classList.add('artists');
 
 		if (needsShowMoreHref) {
-			var showMoreHref = `/more_artists/popular`;
+			let showMoreHref = `/more_artists/popular`;
 			artistListElement.innerHTML = template({ showMoreHref });
 		} else {
 			artistListElement.innerHTML = template({});

@@ -44,7 +44,7 @@ export class TrackListAPI {
 			// 	'Возникла ошибка при загрузке плейлиста. Попробуйте позже.',
 			// 	'error',
 			// );
-			console.error('Error during TrackList loading:');
+			console.error(error);
 		}
 	}
 }

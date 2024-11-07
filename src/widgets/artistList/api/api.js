@@ -36,7 +36,7 @@ export class ArtistListAPI {
 			// 	'Возникла ошибка при загрузке плейлиста. Попробуйте позже.',
 			// 	'error',
 			// );
-			console.error('Error during ArtistList loading:');
+			console.error(error);
 		}
 	}
 }

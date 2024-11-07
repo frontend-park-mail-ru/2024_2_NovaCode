@@ -41,7 +41,7 @@ export class AlbumListAPI {
 			// 	'Возникла ошибка при загрузке альбомов. Попробуйте позже.',
 			// 	'error',
 			// );
-			console.error('Error during AlbumList loading:');
+			console.error(error);
 		}
 	}
 }

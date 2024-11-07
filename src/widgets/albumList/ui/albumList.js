@@ -26,7 +26,7 @@ export class AlbumListView {
 		albumListElement.classList.add('albums');
 
 		if (needsShowMoreHref) {
-			var showMoreHref;
+			let showMoreHref;
 			if (this.artistId) {
 				showMoreHref = `/more_albums/${"artist"}/${this.artistId}`;
 			} else {

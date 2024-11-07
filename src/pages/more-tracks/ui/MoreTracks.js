@@ -17,9 +17,9 @@ export class MoreTracksPage {
     }
 
     async render() {
-        if (this.entity = "artist") {
+        if (this.entity === "artist") {
             this.artistId = this.entityId;
-        } else if (this.entity = "album") {
+        } else if (this.entity === "album") {
             this.albumId = this.entityId;
         }
 

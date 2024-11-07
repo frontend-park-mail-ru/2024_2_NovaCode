@@ -42,7 +42,7 @@ export class ArtistCardAPI {
 			// 	'Возникла ошибка при загрузке карточки артиста. Попробуйте позже.',
 			// 	'error',
 			// );
-			console.error('Error during ArtistCard loading:', error);
+			console.error(error);
 		}
 	}
 }
