@@ -1,37 +1,39 @@
-import { userStore } from "../../../entities/user/index.js";
-import { handleLink, S3_BUCKETS } from "../../../shared/lib/index.js";
+import { userStore } from '../../../entities/user/index.js';
+import { handleLink, S3_BUCKETS } from '../../../shared/lib/index.js';
 import template from './userCard.hbs';
-import './userCard.scss'
+import './userCard.scss';
 
 export class UserCardView {
-  parent;
-  username;
+	parent;
+	username;
 
-  constructor(parent, username) {
-    this.parent = parent ? parent : document.querySelector("#root");
-    this.username = username;
-  }
+	constructor(parent, username) {
+		this.parent = parent ? parent : document.querySelector('#root');
+		this.username = username;
+	}
 
-  async render() {
-    let user = await userStore.getUser(this.username);
+	async render() {
+		let user = await userStore.getUser(this.username);
 
-    if (user.image) {
-      user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
-    }
+		if (user.image) {
+			user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
+		}
 
-    const isCurrentUser = userStore.storage.user.username === this.username;
-    const userCardElement = document.createElement("div");
-    userCardElement.classList.add("user_card");
-    userCardElement.innerHTML = template({ user, isCurrentUser });
-    this.parent.appendChild(userCardElement);
+		const currentUser = JSON.parse(localStorage.user);
+		const isCurrentUser = currentUser.username === this.username;
+		console.log(this.username, currentUser.username, isCurrentUser);
+		const userCardElement = document.createElement('div');
+		userCardElement.classList.add('user_card');
+		userCardElement.innerHTML = template({ user, isCurrentUser });
+		this.parent.appendChild(userCardElement);
 
-    this.bindEvents();
-  }
+		this.bindEvents();
+	}
 
-  bindEvents() {
-    const links = this.parent.querySelectorAll(".link");
-    links.forEach((link) => {
-      link.addEventListener("click", handleLink);
-    });
-  }
+	bindEvents() {
+		const links = this.parent.querySelectorAll('.link');
+		links.forEach((link) => {
+			link.addEventListener('click', handleLink);
+		});
+	}
 }
