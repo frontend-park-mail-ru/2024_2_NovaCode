@@ -36,13 +36,13 @@ export class TrackListView {
 
 		const trackListElement = document.createElement('div');
 		trackListElement.classList.add('tracks');
-		
+
 		if (needsShowMoreHref) {
 			let showMoreHref;
 			if (this.artistId) {
-				showMoreHref = `/more_tracks/${"artist"}/${this.artistId}`;
+				showMoreHref = `/more_tracks/${'artist'}/${this.artistId}`;
 			} else if (this.albumId) {
-				showMoreHref = `/more_tracks/${"album"}/${this.albumId}`;
+				showMoreHref = `/more_tracks/${'album'}/${this.albumId}`;
 			} else {
 				showMoreHref = `/more_tracks/popular`;
 			}
@@ -63,16 +63,27 @@ export class TrackListView {
 	}
 
 	bindEvents() {
-		const links = this.parent.querySelectorAll('.link');
+		const links = this.parent.querySelectorAll('.link_more_tracks');
 
-		links.forEach(link => {
+		links.forEach((link) => {
 			link.addEventListener('click', (event) => this.handleLink(event));
-	  	});
+		});
+	}
+
+	deleteEvents() {
+		const links = this.parent.querySelectorAll('.link');
+		links.forEach((link) => {
+			link.removeEventListener('click', (event) => this.handleLink(event));
+		});
 	}
 
 	handleLink(event) {
 		event.preventDefault();
-		const href = event.target.getAttribute('href')
+		const href = event.target.getAttribute('href');
 		eventBus.emit('navigate', href);
+	}
+
+	destructor() {
+		this.deleteEvents();
 	}
 }

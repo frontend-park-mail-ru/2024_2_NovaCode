@@ -127,7 +127,10 @@ export class FooterPlayerView {
 
 	handleLoading = () => {
 		const trackInfo = player.getTrackInfo();
-		this.trackInfoTrackImg.setAttribute('src', `${S3_BUCKETS.TRACK_IMAGES}/${trackInfo.image}`);
+		this.trackInfoTrackImg.setAttribute(
+			'src',
+			`${S3_BUCKETS.TRACK_IMAGES}/${trackInfo.image}`,
+		);
 		this.trackInfoTrackName.textContent = trackInfo.name;
 		this.trackInfoTrackArtist.textContent = trackInfo.artist;
 

@@ -1,41 +1,47 @@
-import { TrackListAPI } from "../../../widgets/trackList/index.js";
-import { TrackListView } from "../../../widgets/trackList/index.js";
-import { FooterPlayerView } from "../../../widgets/footerPlayer/index.js";
-import { userStore } from "../../../entities/user/model/store.js";
-import { player } from "../../../shared/player/model/store.js";
+import { TrackListAPI } from '../../../widgets/trackList/index.js';
+import { TrackListView } from '../../../widgets/trackList/index.js';
+import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
+import { userStore } from '../../../entities/user/model/store.js';
+import { player } from '../../../shared/player/model/store.js';
 import template from './MoreTracks.hbs';
 import './MoreTracks.scss';
 
 export class MoreTracksPage {
-    /**
-     * Creates an instance of the View class.
-     */
-    constructor(params) {
-        this.parent = document.querySelector("#root");
-        this.entity = params["entity"];
-        this.entityId = params["id"];
-    }
+	/**
+	 * Creates an instance of the View class.
+	 */
+	constructor(params) {
+		this.parent = document.querySelector('#root');
+		this.entity = params['entity'];
+		this.entityId = params['id'];
+	}
 
-    async render() {
-        if (this.entity === "artist") {
-            this.artistId = this.entityId;
-        } else if (this.entity === "album") {
-            this.albumId = this.entityId;
-        }
+	async render() {
+		this.parent.innerHTML = '';
 
-        this.parent.innerHTML = template();
+		if (this.entity === 'artist') {
+			this.artistId = this.entityId;
+		} else if (this.entity === 'album') {
+			this.albumId = this.entityId;
+		}
 
-        const trackListAPI = new TrackListAPI(this.artistId, this.albumId);
-        const trackListView = new TrackListView(this.parent, this.artistId, this.albumId);
-        const tracks = await trackListAPI.get();
-        await trackListView.render(tracks, false);
+		this.parent.innerHTML = template();
 
-        player.setTracks(tracks);
+		const trackListAPI = new TrackListAPI(this.artistId, this.albumId);
+		const trackListView = new TrackListView(
+			this.parent,
+			this.artistId,
+			this.albumId,
+		);
+		const tracks = await trackListAPI.get();
+		await trackListView.render(tracks, false);
 
-        const footPlayerView = new FooterPlayerView(this.parent);
-        const user = userStore.storage.user;
-        if (user) {
-          await footPlayerView.render();
-        }
-    }
+		player.setTracks(tracks);
+
+		const footPlayerView = new FooterPlayerView(this.parent);
+		const user = userStore.storage.user;
+		if (user) {
+			await footPlayerView.render();
+		}
+	}
 }
