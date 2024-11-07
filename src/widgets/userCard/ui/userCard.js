@@ -1,6 +1,7 @@
 import { userStore } from "../../../entities/user/index.js";
 import { handleLink, S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './userCard.hbs';
+import './userCard.scss'
 
 export class UserCardView {
   parent;

@@ -1,6 +1,7 @@
 import { userStore } from "../../../entities/user/model/store.js";
 import { eventBus } from "../../../shared/lib/index.js";
 import template from './uploadAvatar.hbs';
+import './uploadAvatar.scss'
 
 
 export class UploadAvatarView {
