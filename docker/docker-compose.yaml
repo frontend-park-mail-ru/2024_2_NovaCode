@@ -7,5 +7,7 @@ services:
       context: ..
     env_file: .env
     ports:
-      - 80:${PORT}
+      - 443:${PORT}
     restart: on-failure
+    volumes:
+      - /etc/ssl/nova-music.ru:/etc/ssl/nova-music.ru
