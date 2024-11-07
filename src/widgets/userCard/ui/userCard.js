@@ -21,7 +21,6 @@ export class UserCardView {
 
 		const currentUser = JSON.parse(localStorage.user);
 		const isCurrentUser = currentUser.username === this.username;
-		console.log(this.username, currentUser.username, isCurrentUser);
 		const userCardElement = document.createElement('div');
 		userCardElement.classList.add('user_card');
 		userCardElement.innerHTML = template({ user, isCurrentUser });
