@@ -19,7 +19,7 @@ export class UserCardView {
 			user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
 		}
 
-		const currentUser = JSON.parse(localStorage.user);
+		const currentUser = userStore.storage.user;
 		const isCurrentUser = currentUser.username === this.username;
 		const userCardElement = document.createElement('div');
 		userCardElement.classList.add('user_card');
