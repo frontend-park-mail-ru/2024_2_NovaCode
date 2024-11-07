@@ -3,7 +3,7 @@ import { HTTP_STATUS } from "./constants/http.js";
 import { eventBus } from "./eventbus.js";
 
 export const handleStatus = (status, errorEvent) => {
-  const message = null;
+  let message = null;
   switch (status) {
     case HTTP_STATUS.UNAUTHORIZED:
       message = PUBLIC_ERRORS.UNAUTHORIZED;
@@ -19,4 +19,3 @@ export const handleStatus = (status, errorEvent) => {
       break;
   }
 };
-

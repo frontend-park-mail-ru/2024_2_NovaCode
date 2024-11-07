@@ -1,6 +1,8 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import { validate, VALIDATION_RULES } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
+import template from './SignUp.hbs';
+import './SignUp.scss';
 
 export class SignUpPage {
 	parent;
@@ -16,7 +18,6 @@ export class SignUpPage {
 	render() {
 		this.parent.innerHTML = '';
 
-		const template = Handlebars.templates['SignUp.hbs'];
 		this.parent.innerHTML = template();
 		this.bindEvents();
 		this.onEvents();

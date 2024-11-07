@@ -1,99 +1,99 @@
-import { eventBus } from "../../../shared/lib/index.js";
-import { userStore } from "../../../entities/user/model/store.js";
-import { player } from "../../../shared/player/model/store.js";
-import { handleLink, S3_BUCKETS } from "../../../shared/lib/index.js";
+import { eventBus } from '../../../shared/lib/index.js';
+import { userStore } from '../../../entities/user/model/store.js';
+import { player } from '../../../shared/player/model/store.js';
+import { handleLink, S3_BUCKETS } from '../../../shared/lib/index.js';
+import template from './Header.hbs';
+import './Header.scss';
 
 export class Header {
-  parent;
+	parent;
 
-  constructor() {
-    this.parent = document.querySelector("#header");
-  }
-
-  render() {
-    this.parent.innerHTML = "";
-
-    const template = Handlebars.templates["Header.hbs"];
-    const user = userStore.storage.user;
-
-	if (user.image) {
-		user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
+	constructor() {
+		this.parent = document.querySelector('#header');
 	}
 
-    this.parent.innerHTML = template({ user });
+	render() {
+		this.parent.innerHTML = '';
+		const user = userStore.storage.user;
 
-    this.bindEvents();
-    this.onEvents();
-    this.switchActiveNavlink(window.location.pathname);
-  }
+		if (user.image && !user.image.startsWith(`${S3_BUCKETS.AVATAR_IMAGES}`)) {
+			user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
+		}
 
-  bindEvents() {
-    const logoutLink = this.parent.querySelector("#header_logout_link");
-    const links = this.parent.querySelectorAll(".link");
+		this.parent.innerHTML = template({ user });
 
-    if (logoutLink) {
-      logoutLink.addEventListener("click", (event) =>
-        this.handleSignOut(event),
-      );
-    }
-    links.forEach((link) => {
-      link.addEventListener("click", handleLink);
-    });
+		this.bindEvents();
+		this.onEvents();
+		this.switchActiveNavlink(window.location.pathname);
+	}
 
-    eventBus.on("navigate", this.handleNavigation.bind(this));
-  }
+	bindEvents() {
+		const logoutLink = this.parent.querySelector('#header_logout_link');
+		const links = this.parent.querySelectorAll('.link');
 
-  async handleSignOut(event) {
-    event.preventDefault();
-    try {
-      await userStore.signOut();
-      player.clearTracks();
-      eventBus.emit("navigate", "/signin");
-    } catch (error) {
-      console.error("unable to sign out", error);
-    }
-  }
+		if (logoutLink) {
+			logoutLink.addEventListener('click', (event) =>
+				this.handleSignOut(event),
+			);
+		}
+		links.forEach((link) => {
+			link.addEventListener('click', handleLink);
+		});
 
-  onEvents() {
-    eventBus.on("signInSuccess", this.onSignInSuccess);
-    eventBus.on("signUpSuccess", this.onSignUpSuccess);
-    eventBus.on("signOutSuccess", this.onSignOutSuccess);
-  }
+		eventBus.on('navigate', this.handleNavigation.bind(this));
+	}
 
-  offEvents() {
-    eventBus.off("signInSuccess", this.onSignInSuccess);
-    eventBus.off("signUpSuccess", this.onSignUpSuccess);
-    eventBus.off("signOutSuccess", this.onSignOutSuccess);
-  }
+	async handleSignOut(event) {
+		event.preventDefault();
+		try {
+			await userStore.signOut();
+			player.clearTracks();
+			eventBus.emit('navigate', '/signin');
+		} catch (error) {
+			console.error('unable to sign out', error);
+		}
+	}
 
-  onSignInSuccess = (user) => {
-    this.render(user);
-  };
+	onEvents() {
+		eventBus.on('signInSuccess', this.onSignInSuccess);
+		eventBus.on('signUpSuccess', this.onSignUpSuccess);
+		eventBus.on('signOutSuccess', this.onSignOutSuccess);
+	}
 
-  onSignUpSuccess = (user) => {
-    this.render(user);
-  };
+	offEvents() {
+		eventBus.off('signInSuccess', this.onSignInSuccess);
+		eventBus.off('signUpSuccess', this.onSignUpSuccess);
+		eventBus.off('signOutSuccess', this.onSignOutSuccess);
+	}
 
-  onSignOutSuccess = (user) => {
-    this.render(user);
-  };
+	onSignInSuccess = (user) => {
+		this.render(user);
+	};
 
-  destructor() {
-    this.offEvents();
-  }
+	onSignUpSuccess = (user) => {
+		this.render(user);
+	};
 
-  handleNavigation(href) {
-    this.switchActiveNavlink(href);
-  }
+	onSignOutSuccess = (user) => {
+		this.render(user);
+	};
 
-  switchActiveNavlink(href) {
-    let navlinks = document.querySelectorAll(".navlink");
-    navlinks.forEach((navlink) => {
-      if (navlink.getAttribute("href") == href) {
-        navlink.classList.add("active");
-      } else {
-        navlink.classList.remove("active");
-      }
-    });
-  }
+	destructor() {
+		this.offEvents();
+	}
+
+	handleNavigation(href) {
+		this.switchActiveNavlink(href);
+	}
+
+	switchActiveNavlink(href) {
+		let navlinks = document.querySelectorAll('.navlink');
+		navlinks.forEach((navlink) => {
+			if (navlink.getAttribute('href') == href) {
+				navlink.classList.add('active');
+			} else {
+				navlink.classList.remove('active');
+			}
+		});
+	}
 }

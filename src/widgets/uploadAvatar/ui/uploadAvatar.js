@@ -1,5 +1,8 @@
 import { userStore } from "../../../entities/user/model/store.js";
 import { eventBus } from "../../../shared/lib/index.js";
+import template from './uploadAvatar.hbs';
+import './uploadAvatar.scss'
+
 
 export class UploadAvatarView {
   parent;
@@ -11,8 +14,6 @@ export class UploadAvatarView {
   }
 
   async render() {
-    const template = Handlebars.templates["uploadAvatar.hbs"];
-
     const uploadAvatarElement = document.createElement("div");
     uploadAvatarElement.classList.add("upload_avatar");
     uploadAvatarElement.innerHTML = template({});

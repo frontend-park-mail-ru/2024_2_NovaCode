@@ -12,10 +12,13 @@ export class TrackListAPI {
 	 * Initializes the TrackListAPI.
 	 *
 	 * @param {string} [artistId] - The artist ID (optional)
+	 * @param {string} [albumId] - The album ID (optional)
 	 */
-	constructor(artistId = null) {
+	constructor(artistId = null, albumId = null) {
 		if (artistId) {
 			this.url = `${API_URL}/api/v1/tracks/byArtistId/${artistId}`;
+		} else if (albumId) {
+			this.url = `${API_URL}/api/v1/tracks/byAlbumId/${albumId}`;
 		} else {
 			this.url = `${API_URL}/api/v1/tracks`;
 		}
@@ -41,7 +44,7 @@ export class TrackListAPI {
 			// 	'Возникла ошибка при загрузке плейлиста. Попробуйте позже.',
 			// 	'error',
 			// );
-			console.error('Error during TrackList loading:');
+			console.error(error);
 		}
 	}
 }

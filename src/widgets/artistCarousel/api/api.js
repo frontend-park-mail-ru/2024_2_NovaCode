@@ -36,7 +36,7 @@ export class ArtistCarouselAPI {
 			// 	'Возникла ошибка при загрузке плейлиста. Попробуйте позже.',
 			// 	'error',
 			// );
-			console.error('Error during ArtistCarousel loading:');
+			console.error(error);
 		}
 	}
 }
