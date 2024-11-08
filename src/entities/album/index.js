@@ -1,0 +1,1 @@
+export { AlbumView } from './ui/album.js';

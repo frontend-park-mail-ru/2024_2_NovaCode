@@ -1,0 +1,42 @@
+.listen {
+  &__container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  &__block {
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgba(241.39, 241.39, 241.39, 0.1);
+    border-radius: 9px;
+    margin-top: 12px;
+  }
+
+  &__btn_img {
+    display: block;
+    margin: 0 auto;
+    width: 250px;
+    height: 250px;
+    transition: 0.5s;
+    transition-timing-function: ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__title {
+    margin-top: 10px;
+    color: #f1f1f1;
+    font-size: 41px;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  &__info {
+    color: #f1f1f1;
+    font-size: 25px;
+    font-weight: 400;
+    text-align: center;
+  }
+}

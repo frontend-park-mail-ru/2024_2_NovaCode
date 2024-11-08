@@ -1,0 +1,22 @@
+.artist {
+	&__img {
+		width: 210px;
+		height: 210px;
+		border-radius: 6px;
+		transition-duration: 0.5s;
+		transition-timing-function: ease;
+
+		&:hover {
+			transform: scale(1.1);
+		}
+	}
+
+	&__name {
+		margin-top: 5px;
+		display: flex;
+		justify-content: center;
+		color: #f1f1f1;
+		font-size: 16px;
+		font-weight: 400;
+	}
+}

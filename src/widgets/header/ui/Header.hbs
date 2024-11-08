@@ -1,0 +1,39 @@
+<div class="header__container">
+  <div class="header__row">
+    <div class="header__left_block">
+      <img class="header__img_logo" src="/images/icons/logo_light.svg">
+      <a
+        class="header__link_logo link"
+        id="header_logo_link"
+        {{#if user.isAuthorized}} 
+        href="/"
+        {{else}}
+        href="/signin"
+        {{/if}}
+      >NovaMusic</a>
+    </div>
+    <div class="header__right_block" id="header_signin_menu">
+      {{#if user.isAuthorized}}
+        <div class="header__signed_block">
+          <img src="{{user.image}}" href="/profiles/{{user.username}}" class="header__profile_img link">
+          <a
+            class="header__link_signin"
+            id="header_logout_link"
+            href="/signin"
+          >Выход</a>
+        </div>
+      {{else}}
+        <a
+          class="header__link_signin navlink link"
+          id="header_signin_link"
+          href="/signin"
+        >Войти</a>
+        <a
+          class="header__link_signup navlink link"
+          id="header_signup_link"
+          href="/signup"
+        >Регистрация</a>
+      {{/if}}
+    </div>
+  </div>
+</div>

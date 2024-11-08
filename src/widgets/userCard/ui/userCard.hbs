@@ -1,0 +1,15 @@
+<div class="user_card__container">
+  <div class="user_card__block">
+    <div class="user_card__wrapper">
+      <div class="user_card__public_info">
+        <div class="user_card__name">{{user.username}}</div>
+        <img src="{{user.image}}" class="user_card__avatar">
+      </div>
+      {{#if isCurrentUser}}
+        <div class="user_card__edit">
+          <a href="/profiles/{{user.username}}/edit" class="user_card__link link">Настройки профиля</a>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

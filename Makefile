@@ -1,7 +1,7 @@
 ENV_FILE = ./docker/.env
 include $(ENV_FILE)
 
-DOCKER_COMPOSE_PATH = ./docker/docker-compose.yaml
+DOCKER_COMPOSE_PATH = ./docker/docker-compose.$(ENV).yaml
 
 # use `gawk` on mac os
 AWK := awk
