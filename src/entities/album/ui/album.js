@@ -14,7 +14,7 @@ export class AlbumView {
 	 *
 	 */
 	constructor(parent) {
-		this.parent = parent ? parent : document.querySelector('#root');
+		this.parent = parent ?? document.querySelector('#root');
 	}
 
 	/**

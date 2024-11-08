@@ -27,20 +27,9 @@ export class AlbumListAPI {
 			if (!response.error) {
 				return response.data;
 			} else {
-				// this.displayMessage(
-				// 	messageBox,
-				// 	response.body.error || 'Не удалось загрузить альбомы',
-				// 	'error',
-				// );
-				// console.error('Error during albums loading:', error);
 				console.log('Error during AlbumList loading:');
 			}
 		} catch (error) {
-			// this.displayMessage(
-			// 	messageBox,
-			// 	'Возникла ошибка при загрузке альбомов. Попробуйте позже.',
-			// 	'error',
-			// );
 			console.error(error);
 		}
 	}

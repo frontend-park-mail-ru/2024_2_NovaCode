@@ -29,19 +29,9 @@ export class ArtistCardAPI {
 			if (!artistResponse.error && !genresResponse.error) {
 				return [artistResponse.data, genresResponse.data];
 			} else {
-				// this.displayMessage(
-				// 	messageBox,
-				// 	artistResponse.error || genresResponse.error || 'Не удалось загрузить данные артиста',
-				// 	'error',
-				// );
 				console.error('Error during ArtistCard loading:', artistResponse.error || genresResponse.error);
 			}
 		} catch (error) {
-			// this.displayMessage(
-			// 	messageBox,
-			// 	'Возникла ошибка при загрузке карточки артиста. Попробуйте позже.',
-			// 	'error',
-			// );
 			console.error(error);
 		}
 	}

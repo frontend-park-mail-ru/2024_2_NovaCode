@@ -47,17 +47,7 @@ export class SignInPage {
 		const username = document.querySelector('#username').value;
 		const password = document.querySelector('#password').value;
 
-		let validationErrors = {};
-
-		const usernameError = validate(username, VALIDATION_RULES.username);
-		if (usernameError) {
-			validationErrors.username = usernameError;
-		}
-
-		const passwordError = validate(password, VALIDATION_RULES.password);
-		if (passwordError) {
-			validationErrors.password = passwordError;
-		}
+		let validationErrors = this.inputValidation(username, password);
 
 		if (Object.keys(validationErrors).length > 0) {
 			this.handleSignInError(validationErrors);
@@ -100,6 +90,22 @@ export class SignInPage {
 		if (typeof error === 'string') {
 			document.querySelector('#login__general-error').textContent = error;
 		}
+	}
+
+	inputValidation(username, password) {
+		let errors = {};
+
+		const usernameError = validate(username, VALIDATION_RULES.username);
+		if (usernameError) {
+			validationErrors.username = usernameError;
+		}
+
+		const passwordError = validate(password, VALIDATION_RULES.password);
+		if (passwordError) {
+			validationErrors.password = passwordError;
+		}
+
+		return errors;
 	}
 
 	destructor() {

@@ -36,8 +36,9 @@ export class ArtistPage {
 
 		const footPlayerView = new FooterPlayerView(this.parent);
 		const user = userStore.storage.user;
-		if (user) {
-			await footPlayerView.render();
+		if (!user) {
+			return;
 		}
+		await footPlayerView.render();
 	}
 }

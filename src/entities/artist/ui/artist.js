@@ -40,9 +40,7 @@ export class ArtistView {
 
 	bindEvents() {
 		const artist = this.parent.querySelector(`[data-id="${this.artistId}"]`);
-		if (artist) {
-			artist.addEventListener('click', this.handleArtistClick);
-		}
+		artist?.addEventListener('click', this.handleArtistClick);
 	}
 
 	handleArtistClick() {
