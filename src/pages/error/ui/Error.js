@@ -1,4 +1,5 @@
 import template from './Error.hbs';
+import './Error.scss';
 
 export class ErrorPage {
 	parent;
