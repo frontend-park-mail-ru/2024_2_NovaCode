@@ -4,54 +4,50 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, '..', 'src', 'index.js'),
-    output: {
-        filename: '[name].[contenthash].js',
-        path: path.resolve(__dirname, '..', 'dist'),
-        clean: true
-    },
-    module: {
-        rules: [
-            { 
-                test: /\.hbs$/, 
-                loader: 'handlebars-loader' 
-            },
-            {
-                test: /\.(scss|css)$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'sass-loader',
-                ],
-            },
-            {
-                test: /\.(js)$/, 
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
-            }
-        ]
-    },
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-        },
-    },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '..', 'public', 'index.html'),
-            publicPath: '/'
-        }),
-        new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].css',
-            chunkFilename: '[id].[contenthash].css'
-        })
-    ],
-    infrastructureLogging: { level: 'error' },
-    stats: 'errors-only',
+	entry: path.resolve(__dirname, '..', 'src', 'index.js'),
+	output: {
+		filename: '[name].[contenthash].js',
+		path: path.resolve(__dirname, '..', 'dist'),
+		clean: true,
+	},
+	module: {
+		rules: [
+			{
+				test: /\.hbs$/,
+				loader: 'handlebars-loader',
+			},
+			{
+				test: /\.(scss|css)$/,
+				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+			},
+			{
+				test: /\.(js)$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env'],
+					},
+				},
+			},
+		],
+	},
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+		},
+	},
+	plugins: [
+		new CleanWebpackPlugin(),
+		new HtmlWebpackPlugin({
+			template: path.resolve(__dirname, '..', 'public', 'index.html'),
+			publicPath: '/',
+		}),
+		new MiniCssExtractPlugin({
+			filename: '[name].[contenthash].css',
+			chunkFilename: '[id].[contenthash].css',
+		}),
+	],
+	infrastructureLogging: { level: 'error' },
+	stats: 'errors-only',
 };
