@@ -4,15 +4,10 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const https = require("https");
+const http = require("http");
 
-const PORT = process.env.PORT || 443;
-
-const sslOptions = {
-  key: fs.readFileSync("/etc/ssl/nova-music.ru/privkey.pem"),
-  cert: fs.readFileSync("/etc/ssl/nova-music.ru/fullchain.pem"),
-};
-
-console.log(sslOptions);
+const PORT = 3000;
+const ENV = process.env.ENV;
 
 const app = express();
 
@@ -25,11 +20,27 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
 });
 
-https
-  .createServer(sslOptions, app)
-  .listen(PORT, () => {
-    console.log(`https server is running and listening on port ${PORT}`);
-  })
-  .on("error", (err) => {
-    console.error(`failed to start server: ${err.message}`);
-  });
+if (ENV === "prod") {
+  const sslOptions = {
+    key: fs.readFileSync(`${process.env.SSL_PATH}/${process.env.PRIVATE_KEY}`),
+    cert: fs.readFileSync(`${process.env.SSL_PATH}/${process.env.PUBLIC_KEY}`),
+  };
+
+  https
+    .createServer(sslOptions, app)
+    .listen(PORT, () => {
+      console.log(`https server is running in production mode and listening on port ${PORT}`);
+    })
+    .on("error", (err) => {
+      console.error(`failed to start https server: ${err.message}`);
+    });
+} else {
+  http
+    .createServer(app)
+    .listen(PORT, () => {
+      console.log(`http server is running in development mode and listening on port ${PORT}`);
+    })
+    .on("error", (err) => {
+      console.error(`failed to start http server: ${err.message}`);
+    });
+}
