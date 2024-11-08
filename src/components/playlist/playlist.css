@@ -1,0 +1,104 @@
+.playlist__container {
+	max-width: 1280px;
+	margin: 0 auto;
+}
+
+.playlist__block {
+	margin: 0 auto;
+	padding: 10px;
+	background-color: rgba(241.39, 241.39, 241.39, 0.1);
+	border-radius: 9px;
+	width: 80%;
+	margin-top: 12px;
+}
+
+.playlist__player_btn {
+	display: block;
+	margin: 0 auto;
+	background-color: transparent;
+	border: none;
+}
+
+/* .playlist__player_btn:hover {
+	opacity: 0.8;
+} */
+
+.playlist__title {
+	margin-top: 10px;
+	color: #f1f1f1;
+	font-size: 41px;
+	font-weight: 400;
+	text-align: center;
+}
+
+.playlist__info {
+	color: #f1f1f1;
+	font-size: 25px;
+	font-weight: 400;
+	text-align: center;
+}
+
+.playlist__recommend_text {
+	color: #f1f1f1;
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.playlist__item {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+}
+
+.playlist__item_left {
+	display: flex;
+	align-items: center;
+}
+
+.playlist__item_right {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	justify-content: center;
+	align-items: center;
+}
+
+.playlist__item_img {
+	width: 90px;
+	height: 90px;
+}
+
+.playlist__item_info {
+	margin-left: 20px;
+}
+
+.playlist__item_name {
+	color: #1f1f1f;
+	font-size: 22px;
+	font-weight: 400;
+}
+
+.playlist__item_artist {
+	margin-top: 5px;
+	color: #636363;
+	font-size: 20px;
+	font-weight: 400;
+}
+
+/* WAS BEFORE */
+.track-name {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+	display: block;
+}
+
+.artist-name {
+	font-size: 16px;
+	color: #666;
+	margin-top: 5px;
+}
