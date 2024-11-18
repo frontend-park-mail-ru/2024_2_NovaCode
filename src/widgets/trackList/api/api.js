@@ -22,6 +22,7 @@ export class TrackListAPI {
 		} else {
 			this.url = `${API_URL}/api/v1/tracks`;
 		}
+		this.favoriteURL = `${API_URL}/api/v1/tracks/favorite`;
 	}
 
 	async get() {
@@ -30,20 +31,22 @@ export class TrackListAPI {
 			if (!response.error) {
 				return response.data;
 			} else {
-				// this.displayMessage(
-				// 	messageBox,
-				// 	response.body.error || 'Не удалось загрузить плейлист',
-				// 	'error',
-				// );
-				// console.error('Error during playlist loading:', error);
 				console.log('Error during TrackList loading:');
 			}
 		} catch (error) {
-			// this.displayMessage(
-			// 	messageBox,
-			// 	'Возникла ошибка при загрузке плейлиста. Попробуйте позже.',
-			// 	'error',
-			// );
+			console.error(error);
+		}
+	}
+
+	async getFavorite() {
+		try {
+			const response = await GET(this.favoriteURL);
+			if (!response.error) {
+				return response.data;
+			} else {
+				console.log('Error during loading favorite tracks:');
+			}
+		} catch (error) {
 			console.error(error);
 		}
 	}
