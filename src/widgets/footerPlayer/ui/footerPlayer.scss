@@ -26,10 +26,10 @@
   }
 
   &__buttons {
-    margin-left: 25px;
+    margin-left: 10px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     grid-row: 2;
     grid-column: 1 / 2;
   }
@@ -87,4 +87,12 @@
 
 .spacer {
   height: 200px;
+}
+
+.liked_footer_player {
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 0.5;
+  }
 }

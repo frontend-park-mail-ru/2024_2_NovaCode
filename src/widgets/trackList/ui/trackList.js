@@ -60,6 +60,12 @@ export class TrackListView {
 		});
 
 		this.bindEvents();
+		this.setTitle('Популярные треки');
+	}
+
+	setTitle(titleText) {
+		const title = document.querySelector('.tracks__recommend_text');
+		title.textContent = titleText;
 	}
 
 	bindEvents() {
