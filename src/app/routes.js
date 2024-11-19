@@ -3,6 +3,7 @@ import { FeedPage } from '../pages/feed/index.js';
 import { SignUpPage } from '../pages/sign-up/index.js';
 import { SignInPage } from '../pages/sign-in/index.js';
 import { ArtistPage } from '../pages/artist/index.js';
+import { AlbumPage } from '../pages/album/index.js';
 import { ProfilePage } from '../pages/profile/index.js';
 import { EditProfilePage } from '../pages/edit-profile/index.js';
 import { MoreTracksPage } from '../pages/more-tracks/index.js';
@@ -33,6 +34,10 @@ export const PAGES = [
 		view: ArtistPage,
 	},
 	{
+		path: '/album/{albumId}',
+		view: AlbumPage,
+	},
+	{
 		path: '/profiles/{username}',
 		view: ProfilePage,
 		updateLayout: true,
@@ -42,7 +47,7 @@ export const PAGES = [
 		view: EditProfilePage,
 	},
 	{
-		path: '/more_tracks/popular',
+		path: '/more_tracks/{type}',
 		view: MoreTracksPage,
 	},
 	{
@@ -50,7 +55,7 @@ export const PAGES = [
 		view: MoreTracksPage,
 	},
 	{
-		path: '/more_albums/popular',
+		path: '/more_albums/{type}',
 		view: MoreAlbumsPage,
 	},
 	{
@@ -58,7 +63,7 @@ export const PAGES = [
 		view: MoreAlbumsPage,
 	},
 	{
-		path: '/more_artists/popular',
+		path: '/more_artists/{type}',
 		view: MoreArtistsPage,
 	},
 	{

@@ -20,9 +20,9 @@ export class ProfilePage {
 		const userCardView = new UserCardView(this.parent, this.username);
 		await userCardView.render();
 
-		const trackListAPI = new TrackListAPI();
-		const trackListView = new TrackListView(this.parent);
-		const tracks = await trackListAPI.getFavorite();
+		const trackListAPI = new TrackListAPI(null, null, true);
+		const trackListView = new TrackListView(this.parent, null, null, true);
+		const tracks = await trackListAPI.get();
 
 		if (tracks.length > 0) {
 			await trackListView.render(tracks.slice(0, 5));
