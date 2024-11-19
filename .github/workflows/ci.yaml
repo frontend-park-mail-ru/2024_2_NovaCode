@@ -2,10 +2,15 @@ name: CI
 
 on:
   pull_request:
+    branches:
+      - main
+      - develop
+      - NM-*
   push:
     branches:
       - main
       - develop
+      - NM-*
 
 jobs:
   lint:
