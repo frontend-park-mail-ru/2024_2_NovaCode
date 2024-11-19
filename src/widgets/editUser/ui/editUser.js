@@ -2,7 +2,7 @@ import { userStore } from "../../../entities/user/model/store.js";
 import { eventBus } from "../../../shared/lib/index.js";
 import { validate, VALIDATION_RULES } from "../../../shared/lib/index.js";
 import template from './editUser.hbs';
-import './editUser.scss'
+import './editUser.scss';
 
 export class EditUserView {
   parent;
