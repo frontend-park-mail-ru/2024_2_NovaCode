@@ -9,6 +9,7 @@ import { EditProfilePage } from '../pages/edit-profile/index.js';
 import { MoreTracksPage } from '../pages/more-tracks/index.js';
 import { MoreAlbumsPage } from '../pages/more-albums/index.js';
 import { MoreArtistsPage } from '../pages/more-artists/index.js';
+import { SearchPage } from '../pages/search/index.js';
 
 export const LAYOUT = [Header];
 
@@ -64,5 +65,9 @@ export const PAGES = [
 	{
 		path: '/more_artists/{type}',
 		view: MoreArtistsPage,
+	},
+	{
+		path: '/search',
+		view: SearchPage,
 	},
 ];
