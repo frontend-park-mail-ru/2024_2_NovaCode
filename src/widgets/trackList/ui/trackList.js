@@ -16,11 +16,13 @@ export class TrackListView {
 	 * @param {HTMLElement} parent - The parent HTML element
 	 * @param {string} [artistId] - The artist ID (optional)
 	 * @param {string} [albumId] - The album ID (optional)
+	 * @param {boolean} [favorite] - Are the tracks favorite (optional)
 	 */
-	constructor(parent, artistId = null, albumId = null) {
+	constructor(parent, artistId = null, albumId = null, favorite = false) {
 		this.parent = parent ? parent : document.querySelector('#root');
 		this.artistId = artistId;
 		this.albumId = albumId;
+		this.favorite = favorite;
 	}
 
 	/**
@@ -37,15 +39,23 @@ export class TrackListView {
 		const trackListElement = document.createElement('div');
 		trackListElement.classList.add('tracks');
 
+		let titleText;
+		let showMoreHref;
+		if (this.artistId) {
+			showMoreHref = `/more_tracks/${'artist'}/${this.artistId}`;
+			titleText = "Треки исполнителя";
+		} else if (this.albumId) {
+			showMoreHref = `/more_tracks/${'album'}/${this.albumId}`;
+			titleText = "Треки альбома";
+		} else if (this.favorite) {
+			showMoreHref = `/more_tracks/favorite`;
+			titleText = "Любимые треки";
+		} else {
+			showMoreHref = `/more_tracks/popular`;
+			titleText = "Популярные треки";
+		}
+		
 		if (needsShowMoreHref) {
-			let showMoreHref;
-			if (this.artistId) {
-				showMoreHref = `/more_tracks/${'artist'}/${this.artistId}`;
-			} else if (this.albumId) {
-				showMoreHref = `/more_tracks/${'album'}/${this.albumId}`;
-			} else {
-				showMoreHref = `/more_tracks/popular`;
-			}
 			trackListElement.innerHTML = template({ showMoreHref });
 		} else {
 			trackListElement.innerHTML = template({});
@@ -60,7 +70,7 @@ export class TrackListView {
 		});
 
 		this.bindEvents();
-		this.setTitle('Популярные треки');
+		this.setTitle(titleText);
 	}
 
 	setTitle(titleText) {

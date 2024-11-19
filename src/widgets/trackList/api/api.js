@@ -13,16 +13,18 @@ export class TrackListAPI {
 	 *
 	 * @param {string} [artistId] - The artist ID (optional)
 	 * @param {string} [albumId] - The album ID (optional)
+	 * @param {boolean} [favorite] - Are the tracks favorite (optional)
 	 */
-	constructor(artistId = null, albumId = null) {
+	constructor(artistId = null, albumId = null, favorite = false) {
 		if (artistId) {
 			this.url = `${API_URL}/api/v1/tracks/byArtistId/${artistId}`;
 		} else if (albumId) {
 			this.url = `${API_URL}/api/v1/tracks/byAlbumId/${albumId}`;
+		} else if (favorite) {
+			this.url = `${API_URL}/api/v1/tracks/favorite`;
 		} else {
 			this.url = `${API_URL}/api/v1/tracks`;
 		}
-		this.favoriteURL = `${API_URL}/api/v1/tracks/favorite`;
 	}
 
 	async get() {
@@ -32,19 +34,6 @@ export class TrackListAPI {
 				return response.data;
 			} else {
 				console.log('Error during TrackList loading:');
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	}
-
-	async getFavorite() {
-		try {
-			const response = await GET(this.favoriteURL);
-			if (!response.error) {
-				return response.data;
-			} else {
-				console.log('Error during loading favorite tracks:');
 			}
 		} catch (error) {
 			console.error(error);

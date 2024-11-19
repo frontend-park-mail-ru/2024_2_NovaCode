@@ -46,7 +46,7 @@ export const PAGES = [
 		view: EditProfilePage,
 	},
 	{
-		path: '/more_tracks/popular',
+		path: '/more_tracks/{type}',
 		view: MoreTracksPage,
 	},
 	{
@@ -54,7 +54,7 @@ export const PAGES = [
 		view: MoreTracksPage,
 	},
 	{
-		path: '/more_albums/popular',
+		path: '/more_albums/{type}',
 		view: MoreAlbumsPage,
 	},
 	{
@@ -62,7 +62,7 @@ export const PAGES = [
 		view: MoreAlbumsPage,
 	},
 	{
-		path: '/more_artists/popular',
+		path: '/more_artists/{type}',
 		view: MoreArtistsPage,
 	},
 ];
