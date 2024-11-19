@@ -1,7 +1,5 @@
 import { AlbumListAPI } from '../../../widgets/albumList/index.js';
 import { AlbumListView } from '../../../widgets/albumList/index.js';
-import template from './MoreAlbums.hbs';
-import './MoreAlbums.scss';
 
 export class MoreAlbumsPage {
 	/**
@@ -14,11 +12,11 @@ export class MoreAlbumsPage {
 	}
 
 	async render() {
+		this.parent.innerHTML = '';
+
 		if (this.entity === 'artist') {
 			this.artistId = this.entityId;
 		}
-
-		this.parent.innerHTML = template();
 
 		const albumListAPI = new AlbumListAPI(this.artistId);
 		const albums = await albumListAPI.get();
