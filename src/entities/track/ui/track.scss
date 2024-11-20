@@ -1,50 +1,120 @@
 .track {
-	display: flex;
-	justify-content: space-between;
-	padding: 10px;
-	margin: 5px 0;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	background-color: #f9f9f9;
-	transition-duration: 0.5s;
-	transition-timing-function: ease;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
 
-	&__left_side {
-		display: flex;
-		align-items: center;
-	}
+  &__left_side {
+    display: flex;
+    align-items: center;
+  }
 
-	&__right_side {
-		display: flex;
-		flex-direction: row;
-		gap: 10px;
-		justify-content: center;
-		align-items: center;
-	}
+  &__right_side {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-size: 21px;
+    justify-content: center;
+    align-items: center;
+  }
 
-	&__img {
-		width: 90px;
-		height: 90px;
-	}
+  &__img {
+    width: 90px;
+    height: 90px;
+  }
 
-	&__info {
-		margin-left: 20px;
-	}
+  &__duration_icon {
+    width: 25px;
+    height: 25px;
+  }
 
-	&__name {
-		color: #1f1f1f;
-		font-size: 22px;
-		font-weight: 400;
-	}
+  &__info {
+    margin-left: 20px;
+  }
 
-	&__artist {
-		margin-top: 5px;
-		color: #636363;
-		font-size: 20px;
-		font-weight: 400;
-	}
+  &__name {
+    color: #1f1f1f;
+    font-size: 22px;
+    font-weight: 400;
+  }
 
-	&:hover {
-		transform: translateX(-20px);
-	}
+  &__artist {
+    margin-top: 5px;
+    color: #636363;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  &:hover {
+    transform: translateX(-20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .track {
+    padding: 8px;
+
+    &__img {
+      width: 75px;
+      height: 75px;
+    }
+
+    &__duration_icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    &__name {
+      font-size: 20px;
+    }
+
+    &__artist {
+      font-size: 18px;
+    }
+
+    &__right_side {
+      font-size: 18px;
+    }
+
+    &:hover {
+      transform: translateX(-16px);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .track {
+    padding: 5px;
+
+    &__img {
+      width: 50px;
+      height: 50px;
+    }
+
+    &__duration_icon {
+      width: 19px;
+      height: 19px;
+    }
+
+    &__name {
+      font-size: 16px;
+    }
+
+    &__artist {
+      font-size: 14px;
+    }
+
+    &__right_side {
+      font-size: 14px;
+    }
+
+    &:hover {
+      transform: translateX(-12px);
+    }
+  }
 }
