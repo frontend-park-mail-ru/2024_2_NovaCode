@@ -1,57 +1,122 @@
 .user_card {
-	&__container {
-		max-width: 1280px;
-		margin: 0 auto;
-	}
+  &__container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
 
-	&__block {
-		margin: 0 auto;
-		padding: 10px;
-		background-color: rgba(241.39, 241.39, 241.39, 0.1);
-		border-radius: 9px;
-		margin-top: 12px;
-	}
+  &__block {
+    margin: 0 auto;
+    padding: 25px 10px;
+    background-color: rgba(241.39, 241.39, 241.39, 0.1);
+    border-radius: 9px;
+    margin-top: 12px;
+  }
 
-	&__wrapper {
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-	}
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+  }
 
-	&__public_info {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
+  &__public_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-	&__name {
-		color: #f1f1f1;
-		font-size: 41px;
-		font-weight: 400;
-		margin-bottom: 10px;
-	}
+  &__name {
+    color: #f1f1f1;
+    font-size: 41px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
 
-	&__avatar {
-		display: block;
-		border-radius: 100%;
-		width: 250px;
-		height: 250px;
-	}
+  &__avatar {
+    display: block;
+    border-radius: 100%;
+    width: 250px;
+    height: 250px;
+  }
 
-	&__link {
-		display: block;
-		margin: 0 auto;
-		padding: 10px;
-		background: rgba(241.39, 241.39, 241.39, 0.25);
-		border-radius: 9px;
-		color: #f1f1f1;
-		font-size: 41px;
-		font-weight: 400;
-		text-decoration: none;
-		text-align: center;
+  &__link {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    background: rgba(241.39, 241.39, 241.39, 0.25);
+    border-radius: 9px;
+    color: #f1f1f1;
+    font-size: 41px;
+    font-weight: 400;
+    text-decoration: none;
+    text-align: center;
 
-		&:hover {
-			opacity: 0.8;
-		}
-	}
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+@media (max-width: 1380px) {
+  .user_card {
+    &__block {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .user_card {
+    &__name {
+      font-size: 32px;
+    }
+
+    &__avatar {
+      height: 210px;
+      width: 210px;
+    }
+
+    &__link {
+      font-size: 32px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .user_card {
+    &__name {
+      font-size: 24px;
+    }
+
+    &__wrapper {
+      gap: 25px;
+    }
+
+    &__avatar {
+      height: 160px;
+      width: 160px;
+    }
+
+    &__link {
+      font-size: 24px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .user_card {
+    &__name {
+      font-size: 20px;
+    }
+
+    &__avatar {
+      height: 145px;
+      width: 145px;
+    }
+
+    &__link {
+      padding: 8px;
+      font-size: 20px;
+    }
+  }
 }
