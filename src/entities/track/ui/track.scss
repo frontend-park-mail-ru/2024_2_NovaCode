@@ -82,6 +82,10 @@
     }
 
     &:hover {
+      transform: none;
+    }
+
+    &:active {
       transform: translateX(-16px);
     }
   }
@@ -113,7 +117,7 @@
       font-size: 14px;
     }
 
-    &:hover {
+    &:active {
       transform: translateX(-12px);
     }
   }
