@@ -31,7 +31,6 @@
   }
 
   &__info {
-    margin-bottom: 35px;
     color: #f1f1f1;
     font-size: 16px;
     font-weight: 400;
@@ -72,10 +71,11 @@
     color: red;
     font-size: 16px;
     margin-top: 15px;
+    text-align: center;
   }
 
   &__submit_btn {
-    margin-top: 28px;
+    margin-top: 25px;
     width: 450px;
     height: 50px;
     padding: 10px;
@@ -83,7 +83,7 @@
     border-radius: 9px;
     border: none;
     color: #f1f1f1;
-    font-size: 24px;
+    font-size: 25px;
     font-weight: 400;
     text-align: center;
   }
@@ -102,6 +102,7 @@
   &__enter_account {
     text-decoration: none;
     font-weight: 700;
+    color: #f1f1f1;
 
     &:visited {
       color: #f1f1f1;
@@ -109,6 +110,60 @@
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  @media (pointer: coarse) {
+    &__enter_account {
+      text-decoration: underline;
+    }
+  } 
+
+  @media (max-width: 768px) {
+    &__input {
+      width: calc(60vw - 20px);
+    }
+  
+    &__submit_btn {
+      width: 60vw;
+    }
+ 
+    &__additional {
+      margin-top: 25px;
+      flex-direction: column;
+      row-gap: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    &__form {
+      margin-top: 41px;
+    }
+
+    &__intro {
+      min-height: 100px;
+    }
+
+    &__title {
+      font-size: 24px;
+    }
+
+    &__subtitle {
+      font-size: 18px;
+    }
+
+    &__info {
+      font-size: 14px;
+    }
+
+    &__input {
+      width: calc(100% - 20px);
+      font-size: 16px;
+    }
+  
+    &__submit_btn {
+      width: 100%;
+      font-size: 18px;
     }
   }
 }
