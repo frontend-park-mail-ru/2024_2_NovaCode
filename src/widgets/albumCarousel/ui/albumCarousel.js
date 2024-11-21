@@ -1,10 +1,10 @@
-import { ArtistView } from '../../../entities/artist/index.js';
-import { ArtistCarouselAPI } from '../api/api.js';
+import { AlbumView } from '../../../entities/album/index.js';
+import { AlbumCarouselAPI } from '../api/api.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
-import template from './artistCarousel.hbs';
-import './artistCarousel.scss';
+import template from './albumCarousel.hbs';
+import './albumCarousel.scss';
 
-export class ArtistCarouselView {
+export class AlbumCarouselView {
 	/**
 	 * The parent HTML element.
 	 * @type {HTMLElement}
@@ -12,40 +12,57 @@ export class ArtistCarouselView {
 	parent;
 
 	/**
-	 * Initializes the ArtistView.
+	 * Initializes the AlbumView.
 	 *
 	 */
-	constructor(parent) {
+	constructor(parent, artistId = null) {
 		this.parent = parent ? parent : document.querySelector('#root');
 		this.position = 0;
+		this.artistId = artistId;
 	}
 
 	/**
 	 * Renders the playlist view.
 	 */
 	async render() {
-		const artistCarouselAPI = new ArtistCarouselAPI();
-		let artists = await artistCarouselAPI.get();
+		const albumCarouselAPI = new AlbumCarouselAPI(this.artistId);
+		let albums = await albumCarouselAPI.get();
 
-		const artistCarouselElement = document.createElement('div');
-		artistCarouselElement.classList.add('popular_artists');
-		let showMoreHref = `/more_artists/popular`;
-		artistCarouselElement.innerHTML = template({ showMoreHref });
-		this.parent.appendChild(artistCarouselElement);
+		const albumCarouselElement = document.createElement('div');
+		albumCarouselElement.classList.add('albums');
 
-		const artistsBlock = document.getElementById('mainpage-popular-artists');
-		Array.from(artists).forEach((artist) => {
-			const artistCarouselElement = document.createElement('div');
-			artistCarouselElement.classList.add('carousel__item');
-			const artistView = new ArtistView(artistCarouselElement);
-			artistView.render(artist);
-			artistsBlock.appendChild(artistCarouselElement);
+		let titleText;
+		let showMoreHref;
+		if (this.artistId) {
+			showMoreHref = `/more_albums/${"artist"}/${this.artistId}`;
+			titleText = "Альбомы исполнителя";
+		} else {
+			showMoreHref = `/more_albums/popular`;
+			titleText = "Популярные альбомы";
+		}
+		
+		albumCarouselElement.innerHTML = template({ showMoreHref });
+		this.parent.appendChild(albumCarouselElement);
+
+		const albumsBlock = document.getElementById('albums-carousel');
+		Array.from(albums).forEach((album) => {
+			const albumCarouselElement = document.createElement('div');
+			albumCarouselElement.classList.add('carousel__item');
+			const albumView = new AlbumView(albumCarouselElement);
+			albumView.render(album);
+			albumsBlock.appendChild(albumCarouselElement);
 		});
 
 		await this.getElements();
 
 		this.onEvents();
 		this.addEvents();
+		this.setTitle(titleText);
+	}
+
+	setTitle(titleText) {
+		const title = document.querySelector('.albums__recommend_text');
+		title.textContent = titleText;
 	}
 
 	onEvents() {
@@ -62,7 +79,7 @@ export class ArtistCarouselView {
 		this.nextBtn.addEventListener('click', this.handleNextBtn);
 		this.prevBtn.addEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll('.link_more_artists');
+		const links = this.parent.querySelectorAll('.link_more_albums');
 		links.forEach((link) => {
 			link.addEventListener('click', (event) => this.handleLink(event));
 		});
@@ -72,7 +89,7 @@ export class ArtistCarouselView {
 		this.nextBtn.removeEventListener('click', this.handleNextBtn);
 		this.prevBtn.removeEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll('.link_more_artists');
+		const links = this.parent.querySelectorAll('.link_more_albums');
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});

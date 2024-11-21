@@ -12,7 +12,7 @@
 		margin-top: 12px;
 	}
 
-	&__text {
+	&__recommend_text {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -21,23 +21,10 @@
 		font-weight: 400;
 	}
 
-	&__show_more {
-		text-decoration: none;
-		color: #f1f1f1;
-
-		&:visited {
-			color: #f1f1f1;
-		}
-
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-
 	&__list {
 		margin-top: 10px;
 		display: flex;
-		justify-content: flex-start;
+		justify-content: space-around;
 		flex-wrap: wrap;
 		gap: 15px;
 	}

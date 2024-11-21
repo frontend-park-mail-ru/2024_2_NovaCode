@@ -4,8 +4,12 @@ import { GET } from '../../../shared/api/index.js';
 export class AlbumListAPI {
 	url;
 
-	constructor() {
-		this.url = `${API_URL}/api/v1/albums`;
+	constructor(artistId = null) {
+		if (artistId) {
+			this.url = `${API_URL}/api/v1/albums/byArtistId/${artistId}`;
+		} else {
+			this.url = `${API_URL}/api/v1/albums`;
+		}
 	}
 
 	async get() {

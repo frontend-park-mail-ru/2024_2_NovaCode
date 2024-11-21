@@ -87,7 +87,7 @@ export class TrackListView {
 	}
 
 	deleteEvents() {
-		const links = this.parent.querySelectorAll('.link');
+		const links = this.parent.querySelectorAll('.link_more_tracks');
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});

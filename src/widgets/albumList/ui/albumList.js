@@ -21,21 +21,18 @@ export class AlbumListView {
 	/**
 	 * Renders the album view.
 	 */
-	async render(albums, needsShowMoreHref = true) {
+	async render(albums) {
 		const albumListElement = document.createElement('div');
 		albumListElement.classList.add('albums');
 
-		if (needsShowMoreHref) {
-			let showMoreHref;
-			if (this.artistId) {
-				showMoreHref = `/more_albums/${"artist"}/${this.artistId}`;
-			} else {
-				showMoreHref = `/more_albums/popular`;
-			}
-			albumListElement.innerHTML = template({showMoreHref });
+		let titleText;
+		if (this.artistId) {
+			titleText = "Альбомы исполнителя";
 		} else {
-			albumListElement.innerHTML = template({});
+			titleText = "Популярные альбомы";
 		}
+
+		albumListElement.innerHTML = template({});
 
 		this.parent.appendChild(albumListElement);
 
@@ -44,5 +41,12 @@ export class AlbumListView {
 			const albumView = new AlbumView(albumsBlock);
 			albumView.render(album);
 		});
+
+		this.setTitle(titleText);
+	}
+
+	setTitle(titleText) {
+		const title = document.querySelector('.albums__recommend_text');
+		title.textContent = titleText;
 	}
 }

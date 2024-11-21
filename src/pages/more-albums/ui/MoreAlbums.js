@@ -21,6 +21,6 @@ export class MoreAlbumsPage {
 		const albumListAPI = new AlbumListAPI(this.artistId);
 		const albums = await albumListAPI.get();
 		const albumListView = new AlbumListView(this.parent, this.artistId);
-		await albumListView.render(albums, false);
+		await albumListView.render(albums);
 	}
 }
