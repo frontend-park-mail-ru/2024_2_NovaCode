@@ -41,3 +41,33 @@
     margin-top: 12px;
   }
 }
+
+@media (max-width: 1380px) {
+  .tracks {
+    &__block {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .tracks {
+    &__block {
+      width: 90%;
+    }
+
+    &__recommend_text,
+    &__show_more {
+      font-size: 19px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .tracks {
+    &__recommend_text,
+    &__show_more {
+      font-size: 16px;
+    }
+  }
+}
