@@ -4,6 +4,7 @@ import { S3_BUCKETS } from '../../../shared/lib/index.js';
 import template from './footerPlayer.hbs';
 import './footerPlayer.scss';
 import { FooterPlayerAPI } from '../api/api.js';
+import { userStore } from '../../../entities/user/index.js';
 
 export class FooterPlayerView {
   /**
@@ -145,8 +146,13 @@ export class FooterPlayerView {
     secs = secs < 10 ? `0${secs}` : `${secs}`;
     this.trackInfoTrackDuration.textContent = `${mins}:${secs}`;
 
-    const isFavorite = await this.api.isFavorite(trackInfo.id);
-    if (isFavorite) {
+    const user = userStore.storage.user;
+    let isFavorite = null;
+    if (user.isAuthorized) {
+      isFavorite = await this.api.isFavorite(trackInfo.id);
+    }
+  
+    if (user.isAuthorized && isFavorite) {
       this.likeTrackBtn.classList.add('liked_footer_player');
     } else {
       this.likeTrackBtn.classList.remove('liked_footer_player');
@@ -171,13 +177,19 @@ export class FooterPlayerView {
 
   handleLikeTrackBtn = async () => {
     const trackInfo = player.getTrackInfo();
+    const user = userStore.storage.user;
+    if (!user.isAuthorized) {
+      eventBus.emit('navigate', '/signin');
+      return;
+    }
+    
     const isFavorite = await this.api.isFavorite(trackInfo.id);
-    if (!isFavorite) {
-      this.api.addFavorite(trackInfo.id);
-      this.likeTrackBtn.classList.add('liked_footer_player');
-    } else {
+    if (user.isAuthorized && isFavorite) {
       this.api.deleteFavorite(trackInfo.id);
       this.likeTrackBtn.classList.remove('liked_footer_player');
+    } else {
+      this.api.addFavorite(trackInfo.id);
+      this.likeTrackBtn.classList.add('liked_footer_player');
     }
   };
 
