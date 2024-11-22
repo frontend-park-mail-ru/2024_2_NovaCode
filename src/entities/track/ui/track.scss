@@ -42,6 +42,19 @@
 		color: #636363;
 		font-size: 20px;
 		font-weight: 400;
+
+		&__artist_link {
+			text-decoration: none;
+			color: #636363;
+		
+			&:visited {
+				color: #636363;
+			}
+		
+			&:hover {
+			  text-decoration: underline;
+			}
+		}
 	}
 
 	&:hover {

@@ -48,6 +48,7 @@ export class SignInPage {
 		const password = document.querySelector('#password').value;
 
 		let validationErrors = this.inputValidation(username, password);
+		console.log(validationErrors);
 
 		if (Object.keys(validationErrors).length > 0) {
 			this.handleSignInError(validationErrors);
@@ -76,13 +77,17 @@ export class SignInPage {
 		document.querySelector('#login__username-error').textContent = '';
 		document.querySelector('#login__password-error').textContent = '';
 		document.querySelector('#login__general-error').textContent = '';
+		document.querySelector('#username').classList.remove('login__input_error');
+		document.querySelector('#password').classList.remove('login__input_error');
 
 		if (error.username) {
+			document.querySelector('#username').classList.add('login__input_error');
 			document.querySelector('#login__username-error').textContent =
 				error.username;
 		}
 
 		if (error.password) {
+			document.querySelector('#password').classList.add('login__input_error');
 			document.querySelector('#login__password-error').textContent =
 				error.password;
 		}
@@ -93,7 +98,7 @@ export class SignInPage {
 	}
 
 	inputValidation(username, password) {
-		let errors = {};
+		let validationErrors = {};
 
 		const usernameError = validate(username, VALIDATION_RULES.username);
 		if (usernameError) {
@@ -105,7 +110,8 @@ export class SignInPage {
 			validationErrors.password = passwordError;
 		}
 
-		return errors;
+		console.log(validationErrors);
+		return validationErrors;
 	}
 
 	destructor() {

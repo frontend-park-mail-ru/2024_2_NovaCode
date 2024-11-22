@@ -93,18 +93,24 @@ export class SignUpPage {
 		document.querySelector('#register__email-error').textContent = '';
 		document.querySelector('#register__password-error').textContent = '';
 		document.querySelector('#register__general-error').textContent = '';
+		document.querySelector('#username').classList.remove('register__input_error');
+		document.querySelector('#email').classList.remove('register__input_error');
+		document.querySelector('#password').classList.remove('register__input_error');
 
 		if (error.username) {
+			document.querySelector('#username').classList.add('register__input_error');
 			document.querySelector('#register__username-error').textContent =
 				error.username;
 		}
 
 		if (error.email) {
+			document.querySelector('#email').classList.add('register__input_error');
 			document.querySelector('#register__email-error').textContent =
 				error.email;
 		}
 
 		if (error.password) {
+			document.querySelector('#password').classList.add('register__input_error');
 			document.querySelector('#register__password-error').textContent =
 				error.password;
 		}

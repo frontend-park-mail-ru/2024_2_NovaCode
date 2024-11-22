@@ -2,10 +2,16 @@
     <img class="track__img" src="{{ image }}">
     <div class="track__info">
         <div class="track__name">{{ name }} </div>
-        <div class="track__artist">{{ artist }} </div>
+        <div class="track__artist">
+            <a class="track__artist__artist_link link"
+                href="/artist/{{ artistID }}">
+                {{ artistName }}
+            </a> 
+        </div>
     </div>
 </div> 
 <div class="track__right_side">
     {{ duration }}
     <img src="/images/icons/music.svg">
 </div>
+

@@ -37,15 +37,32 @@ export class TrackView {
 
 	addEvents() {
 		this.trackElement.addEventListener('click', this.bindTrack);
+
+		const links = this.trackElement.querySelectorAll('.link');
+		links.forEach(link => {
+			link.addEventListener('click', (event) => this.handleLink(event));
+		});
 	}
 
 	deleteEvents() {
 		this.trackElement.removeEventListener('click', this.bindTrack);
+
+		const links = this.trackElement.querySelectorAll('.link');
+		links.forEach((link) => {
+			link.removeEventListener('click', (event) => this.handleLink(event));
+		});
 	}
 
 	bindTrack = () => {
 		eventBus.emit('playById', this.trackIndex);
 	};
+
+	handleLink(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		const href = event.target.getAttribute('href')
+		eventBus.emit('navigate', href);
+	}
 
 	destructor() {
 		this.deleteEvents();

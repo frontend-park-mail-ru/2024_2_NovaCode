@@ -35,7 +35,7 @@ export class ListenBlockView {
 	}
 
 	deleteEvents() {
-		this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
+		this.playPauseBtn.removeEventListener('click', this.handlePlayPauseBtn);
 	}
 
 	handlePlayPauseBtn() {
