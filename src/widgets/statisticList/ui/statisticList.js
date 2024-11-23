@@ -1,4 +1,4 @@
-import { eventBus } from '../../../shared/lib/eventbus.js';
+import { StatisticListAPI } from '../api/api.js';
 import template from './statisticList.hbs';
 import './statisticList.scss';
 
@@ -21,26 +21,48 @@ export class StatisticListView {
    * Renders the playlist view.
    */
   async render() {
-    // const statisticListAPI = new StatisticListAPI();
+    const statisticListAPI = new StatisticListAPI();
+    const statisticsResponse = await statisticListAPI.get();
 
-    // let stats = await statisticListAPI.get();
-    let stats = [
-        {topic: "Общие", score: 5},
-        {topic: "Особые", score: 4.5}
-    ]
+    let statistics = [];
+    let prev = {topic: null, topicStat: []};
+    let topicStats = [];
+    let topic;
+    statisticsResponse.forEach((response, i) => {
+        topic = response.topic;
+        if (prev.topic != topic && i != 0) {
+            statistics.push({
+                topic: topic,
+                topic_stat: topicStats
+            });
+            topicStats = [];
+        }
+        topicStats.push({
+            question: response.question,
+            average_score: response.average_score
+
+        });
+        prev = response;
+    });
+    statistics.push({
+        topic: topic,
+        topic_stat: topicStats
+    });
 
     const statisticListElement = document.createElement("div");
     statisticListElement.classList.add("statistic_list");
-    statisticListElement.innerHTML = template({ stats });
+    statisticListElement.innerHTML = template({ statistics });
     this.parent.appendChild(statisticListElement);
-
-    const ratingContainers = statisticListElement.querySelectorAll('.rating__container');
-    stats.forEach((stat, index) => {
-      this.updateRating(stat.score, ratingContainers[index]);
+    
+    const stats = statisticListElement.querySelectorAll('.statistic__stats');
+    
+    stats.forEach((stat) => {
+        let ratingContainers = stat.querySelectorAll('.rating__container');
+        let questionStats = stat.querySelectorAll('.statistic__question_stat');
+        questionStats.forEach((questionStat, i) => {
+            this.updateRating(questionStat.dataset.averageScore, ratingContainers[i]);
+        });
     });
-
-    // this.playPauseBtn = document.querySelector('.buttons__listen');
-	// 	this.addEvents();
   }
 
   updateRating(rating, ratingContainer) {
@@ -51,23 +73,6 @@ export class StatisticListView {
       } else {
         block.classList.remove('rating__block_active');
       }
-      block.textContent = block.dataset.value;
     });
   }
-
-//   addEvents() {
-// 		this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
-// 	}
-
-// 	deleteEvents() {
-// 		this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
-// 	}
-
-// 	handlePlayPauseBtn() {
-// 		eventBus.emit('playPauseTrack');
-// 	}
-
-// 	destructor() {
-// 		this.deleteEvents();
-// 	}
 }

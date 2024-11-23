@@ -11,8 +11,8 @@ export class StatisticListAPI {
 	 * Initializes the StatisticListAPI.
 	 *
 	 */
-	constructor(statisticId) {
-		this.statisticUrl = `${API_URL}/api/v1/statistics/${statisticId}`;
+	constructor() {
+		this.statisticUrl = `${API_URL}/api/v1/csat/stat`;
 	}
 
 	async get() {

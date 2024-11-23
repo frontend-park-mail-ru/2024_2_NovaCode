@@ -13,21 +13,33 @@
         margin-top: 12px;
     }
 
-    &__statistic_item {
+    &__stats {
+        margin-left: 40px;
         color: #f1f1f1;
         font-size: 22px;
         font-weight: 400;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    &__question_stats {
+        color: #f1f1f1;
         margin: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    &__question_stat {
         display: flex;
         flex-direction: row;
         align-content: center;
         align-items: center;
         justify-content: space-between;
-        gap: 20px;
-    }
-
-    &__topic {
-        margin-left: 30px;
+        gap: 30px;
     }
 }
 
@@ -35,7 +47,7 @@
     &__container {
         display: flex;
         flex-direction: row;
-        margin-right: 30px;
+        margin-right: 40px;
         gap: 5px;
     }
 
