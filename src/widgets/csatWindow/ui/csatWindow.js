@@ -9,30 +9,36 @@ export class CSATWindow {
 		this.text = 'text';
 		this.api = new CSATWindowAPI();
 		this.current_question = -1;
+		this.csatWindowIframe = null;
+		this.iframeDoc = null;
 	}
 
 	async render() {
-		this.csatWindowIframe = document.createElement('iframe');
-		this.csatWindowIframe.classList.add('csat-iframe');
-		this.parent.appendChild(this.csatWindowIframe);
+		if (!this.csatWindowIframe) {
+			this.csatWindowIframe = document.createElement('iframe');
+			this.csatWindowIframe.classList.add('csat-iframe');
+			this.parent.appendChild(this.csatWindowIframe);
 
-		this.iframeDoc = this.csatWindowIframe.contentWindow.document;
+			this.iframeDoc = this.csatWindowIframe.contentWindow.document;
 
-		const style = this.iframeDoc.createElement('style');
-		style.innerHTML = styles;
-		this.iframeDoc.head.appendChild(style);
+			const style = this.iframeDoc.createElement('style');
+			style.innerHTML = styles;
+			this.iframeDoc.head.appendChild(style);
+		}
 
-		if (this.current_question == -1) {
+		if (this.current_question === -1) {
 			await this.getQuestions();
 		}
-		
-		const div = document.createElement('div');
+
+		const div = this.iframeDoc.createElement('div');
 		div.classList.add('csat_window');
 		div.innerHTML = template({ question: this.questions[this.current_question].question });
 
+		this.iframeDoc.body.innerHTML = '';
 		this.iframeDoc.body.appendChild(div);
-		
+
 		this.bindEvents();
+		this.addEvents();
 	}
 
 	async getQuestions() {
@@ -53,7 +59,6 @@ export class CSATWindow {
 	handleRatingClick(event) {
 		this.selectedScore = parseInt(event.target.dataset.value);
 		this.highlightSelectedRating();
-		console.log('clicked');
 	}
 
 	highlightSelectedRating() {
@@ -74,15 +79,35 @@ export class CSATWindow {
 			return;
 		}
 
-		const questionID = this.questions[this.current_question].id;
+		if (this.questions[this.current_question]) {
+			const questionID = this.questions[this.current_question].id;
+			await this.api.addScore(questionID, this.selectedScore);
 
-		await this.api.addScore(questionID, this.selectedScore);
+			this.current_question++;
 
-		this.current_question++;
-
-		if (this.current_question < this.questions.length) {
-
-			this.render();
+			if (this.current_question < this.questions.length) {
+				this.render();
+			}
+		} else {
+			this.csatWindowIframe.remove();
 		}
 	}
+
+	handleClose() {
+        this.csatWindowIframe.remove();
+    }
+
+	addEvents() {
+        const btnClose = this.iframeDoc.body.querySelector('.csat_window__btn_close');
+        btnClose.addEventListener('click', this.handleClose.bind(this));
+    }
+
+    removeEvents() {
+        const btnClose = this.iframeDoc.body.querySelector('.csat_window__btn_close');
+        btnClose.removeEventListener('click', this.handleClose);
+    }
+
+    destructor() {
+        this.removeEvents();
+    }
 }
