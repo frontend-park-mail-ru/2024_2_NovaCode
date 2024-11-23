@@ -38,13 +38,47 @@ export class CSATWindow {
 	}
 
 	bindEvents() {
-		const csat_buttons = this.iframeDoc.body.querySelectorAll(".rating_cast__block");
-		csat_buttons.forEach((btn) => {
-			btn.addEventListener("click", this.handleSubmit.bind(this));
+		const csatButtons = this.iframeDoc.body.querySelectorAll(".rating_cast__block");
+		csatButtons.forEach((btn) => {
+			btn.addEventListener("click", this.handleRatingClick.bind(this));
 		});
+
+		const submitButton = this.iframeDoc.body.querySelector(".csat_window__submit");
+		submitButton.addEventListener("click", this.handleSubmit.bind(this));
+	}
+
+	handleRatingClick(event) {
+		this.selectedScore = parseInt(event.target.dataset.value);
+		this.highlightSelectedRating();
+		console.log('clicked');
+	}
+
+	highlightSelectedRating() {
+		const csatButtons = this.iframeDoc.body.querySelectorAll(".rating_cast__block");
+		csatButtons.forEach((btn) => {
+			btn.classList.remove("rating_cast__block_active");
+		});
+
+		if (this.selectedScore) {
+			const selectedButton = Array.from(csatButtons).find(btn => parseInt(btn.dataset.value) === this.selectedScore);
+			selectedButton.classList.add("rating_cast__block_active");
+		}
 	}
 
 	async handleSubmit() {
-		console.log('clicked');
+		if (!this.selectedScore) {
+			alert("Перед ответом нужно выбрать оценку!");
+			return;
+		}
+
+		const questionID = this.questions[this.current_question].id;
+
+		await this.api.addScore(questionID, this.selectedScore);
+
+		this.current_question++;
+
+		if (this.current_question < this.questions.length) {
+			this.render();
+		}
 	}
 }

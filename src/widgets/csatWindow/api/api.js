@@ -26,9 +26,9 @@ export class CSATWindowAPI {
 		}
 	}
 
-	async addScore(questionID) {
+	async addScore(questionID, score) {
 		try {
-			const response = await POST(`${this.url}/${questionID}/submit`);
+			const response = await POST(`${this.url}/${questionID}/submit`, { body: { score: score } });
 			if (response.error) {
 				console.log('Error during add favorite track:');
 			}
