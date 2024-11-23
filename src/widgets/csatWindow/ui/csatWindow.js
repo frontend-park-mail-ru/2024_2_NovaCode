@@ -1,11 +1,13 @@
 import template from './csatWindow.hbs';
 import './csatWindow.scss';
 import styles from './csatWindow.scss?inline';
+import { CSATWindowAPI } from '../api/api';
 
 export class CSATWindow {
 	constructor(parent) {
 		this.parent = parent ? parent : document.querySelector('#root');
 		this.text = 'text';
+		this.api = new CSATWindowAPI();
 	}
 
 	render() {
@@ -24,15 +26,5 @@ export class CSATWindow {
 		div.innerHTML = template({ text: this.text });
 
 		this.iframeDoc.body.appendChild(div);
-
-		const btnNo = this.iframeDoc.documentElement.querySelector(
-			'.csat-window__btn_no',
-		);
-		btnNo.addEventListener('click', () => alert('no works!'));
-
-		const btnYes = this.iframeDoc.documentElement.querySelector(
-			'.csat-window__btn_yes',
-		);
-		btnYes.addEventListener('click', () => alert('yes works!'));
 	}
 }

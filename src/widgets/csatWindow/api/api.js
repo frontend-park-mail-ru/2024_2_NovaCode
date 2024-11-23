@@ -1,7 +1,7 @@
 import { API_URL } from '../../../shared/config/index.js';
 import { GET, POST } from '../../../shared/api/index.js';
 
-export class TrackListAPI {
+export class CSATWindowAPI {
 	/**
 	 * Url path to backend api which returns tracks
 	 *
