@@ -18,7 +18,15 @@ module.exports = {
 			},
 			{
 				test: /\.(scss|css)$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+				oneOf: [
+					{
+						resourceQuery: /inline/, // Matches imports like 'styles.scss?inline'
+						use: ['to-string-loader', 'css-loader', 'sass-loader'], // Inline CSS as string
+					},
+					{
+						use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'], // Extract CSS for global styles
+					},
+				],
 			},
 			{
 				test: /\.(js)$/,
