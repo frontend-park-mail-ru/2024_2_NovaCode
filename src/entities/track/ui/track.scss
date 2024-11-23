@@ -102,19 +102,10 @@
     }
 
     &:hover {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 38497d5 (Done album and artist pages)
       transform: none;
     }
 
     &:active {
-<<<<<<< HEAD
->>>>>>> develop
-=======
->>>>>>> 38497d5 (Done album and artist pages)
       transform: translateX(-16px);
     }
   }
@@ -146,15 +137,11 @@
       font-size: 14px;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    &:hover {
-=======
+    &:hover{
+      transform: translateX(-12px);
+    }
+    
     &:active {
->>>>>>> develop
-=======
-    &:active {
->>>>>>> 38497d5 (Done album and artist pages)
       transform: translateX(-12px);
     }
   }
