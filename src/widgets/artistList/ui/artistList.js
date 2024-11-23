@@ -20,16 +20,11 @@ export class ArtistListView {
 	/**
 	 * Renders the playlist view.
 	 */
-	async render(artists, needsShowMoreHref = true) {
+	async render(artists) {
 		const artistListElement = document.createElement('div');
 		artistListElement.classList.add('artists');
-
-		if (needsShowMoreHref) {
-			let showMoreHref = `/more_artists/popular`;
-			artistListElement.innerHTML = template({ showMoreHref });
-		} else {
-			artistListElement.innerHTML = template({});
-		}
+	
+		artistListElement.innerHTML = template({});
 		
 		this.parent.appendChild(artistListElement);
 

@@ -12,14 +12,22 @@
     margin-top: 12px;
   }
 
-  &__text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #f1f1f1;
-    font-size: 24px;
-    font-weight: 400;
-  }
+	&__recommend_text {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: #f1f1f1;
+		font-size: 24px;
+		font-weight: 400;
+	}
+
+	&__list {
+		margin-top: 10px;
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		gap: 15px;
+	}
 
   &__show_more {
     text-decoration: none;
@@ -32,14 +40,6 @@
     &:hover {
       text-decoration: underline;
     }
-  }
-
-  &__list {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 15px;
   }
 }
 

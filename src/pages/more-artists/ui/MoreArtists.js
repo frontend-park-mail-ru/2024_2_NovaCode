@@ -15,6 +15,6 @@ export class MoreArtistsPage {
 		const artistListAPI = new ArtistListAPI();
 		const artists = await artistListAPI.get();
 		const artistListView = new ArtistListView(this.parent);
-		await artistListView.render(artists, false);
+		await artistListView.render(artists);
 	}
 }

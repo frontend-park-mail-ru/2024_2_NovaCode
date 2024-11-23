@@ -34,13 +34,39 @@
 }
 
 .avatar_form {
-  &__label {
+  &__input {
+    margin-top: 15px;
+    width: 150px;
     color: #f1f1f1;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 400;
+
+    &::file-selector-button {
+      display: none;
+    }
+  }
+
+  &__input_btn {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px;
+    background: rgba(241, 241, 241, 0.25);;
+    border-radius: 9px;
+    border: none;
+    color: #f1f1f1;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    transition: 0.5s;
+    transition-timing-function: ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   &__submit_btn {
+    margin-top: 30px;
     padding: 10px;
     margin-top: 20px;
     background: #ff5f0f;

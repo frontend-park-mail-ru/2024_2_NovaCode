@@ -32,10 +32,10 @@ export class AlbumCardView {
       album.image = `${S3_BUCKETS.ALBUM_IMAGES}/${album.image}`;
     }
 
-    const albumCardElement = document.createElement("div");
-    albumCardElement.classList.add("album_card");
-    albumCardElement.innerHTML = template({ album });
-    this.parent.appendChild(albumCardElement);
+    this.albumCardElement = document.createElement("div");
+    this.albumCardElement.classList.add("album_card");
+    this.albumCardElement.innerHTML = template({ album });
+    this.parent.appendChild(this.albumCardElement);
 
     this.playPauseBtn = document.querySelector('.buttons__listen');
 		this.addEvents();
@@ -44,14 +44,19 @@ export class AlbumCardView {
   addEvents() {
 		this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
 
-    const links = this.parent.querySelectorAll('.link');
+    const links = this.albumCardElement.querySelectorAll('.link');
     links.forEach(link => {
 			link.addEventListener('click', (event) => this.handleLink(event));
 	  });
 	}
 
 	deleteEvents() {
-		this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
+		this.playPauseBtn.removeEventListener('click', this.handlePlayPauseBtn);
+
+    const links = this.parent.querySelectorAll('.link');
+		links.forEach((link) => {
+			link.removeEventListener('click', (event) => this.handleLink(event));
+		});
 	}
 
 	handlePlayPauseBtn() {

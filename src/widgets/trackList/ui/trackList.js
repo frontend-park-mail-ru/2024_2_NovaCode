@@ -29,11 +29,11 @@ export class TrackListView {
 	 * Renders the tracklist view.
 	 */
 	async render(tracks, needsShowMoreHref = true) {
-		tracks = tracks.map(({ name, artist, image, duration }) => {
+		tracks = tracks.map(({ name, artistName, artistID, image, duration }) => {
 			const minutes = Math.floor(duration / 60);
 			const seconds = duration % 60;
 			duration = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-			return { name, artist, image, duration };
+			return { name, artistName, artistID, image, duration };
 		});
 
 		const trackListElement = document.createElement('div');
@@ -87,7 +87,7 @@ export class TrackListView {
 	}
 
 	deleteEvents() {
-		const links = this.parent.querySelectorAll('.link');
+		const links = this.parent.querySelectorAll('.link_more_tracks');
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});

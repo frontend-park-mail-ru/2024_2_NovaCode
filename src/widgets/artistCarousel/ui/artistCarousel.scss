@@ -12,6 +12,12 @@
     margin-top: 12px;
   }
 
+	&__upper_wrapper {
+		padding: 0 10px;
+		display: flex;
+		justify-content: space-between;
+	}
+
   &__text {
     display: flex;
     justify-content: space-between;
@@ -22,9 +28,16 @@
     padding: 0 5px;
   }
 
-  &__show_more {
-    text-decoration: none;
-    color: #f1f1f1;
+	&__upper_wrapper {
+		padding: 0 10px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__show_more {
+		text-decoration: none;
+		color: #f1f1f1;
+		font-size: 24px;
 
     &:visited {
       color: #f1f1f1;

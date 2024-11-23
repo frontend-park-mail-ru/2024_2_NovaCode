@@ -44,7 +44,7 @@ export class SearchPage {
 		}
 
 		const artistListView = new ArtistListView(this.parent);
-		await artistListView.render(artists, false);
+		await artistListView.render(artists);
 	}
 
 	async handleFoundAlbums(albums) {
@@ -58,7 +58,7 @@ export class SearchPage {
 		}
 
 		const albumListView = new AlbumListView(this.parent);
-		await albumListView.render(albums, false);
+		await albumListView.render(albums);
 	}
 
 	async handleFoundTracks(tracks) {

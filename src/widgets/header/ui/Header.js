@@ -2,6 +2,7 @@ import { eventBus } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
 import { handleLink, S3_BUCKETS } from '../../../shared/lib/index.js';
+import { ModalConfirmView } from '../../../widgets/modalConfirm/index.js';
 import template from './Header.hbs';
 import './Header.scss';
 
@@ -10,6 +11,8 @@ export class Header {
 
 	constructor() {
 		this.parent = document.querySelector('#header');
+		// this.eventBus = eventBus;
+		// this.userStore = userStore;
 	}
 
 	render() {
@@ -33,7 +36,7 @@ export class Header {
 
 		if (logoutLink) {
 			logoutLink.addEventListener('click', (event) =>
-				this.handleSignOut(event),
+				this.handleSignOutBtn(event),
 			);
 		}
 		links.forEach((link) => {
@@ -43,8 +46,17 @@ export class Header {
 		eventBus.on('navigate', this.handleNavigation.bind(this));
 	}
 
-	async handleSignOut(event) {
+	handleSignOutBtn(event) {
 		event.preventDefault();
+        const modalConfirmView = new ModalConfirmView(
+			null, 
+			'Вы уверены, что хотите выйти?', 
+			this.handleSignOut
+		);
+        modalConfirmView.render();
+	}
+
+	async handleSignOut() {
 		try {
 			await userStore.signOut();
 			player.clearTracks();
