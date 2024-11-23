@@ -37,6 +37,7 @@
     margin-left: 20px;
   }
 
+<<<<<<< HEAD
 	&__artist {
 		margin-top: 5px;
 		color: #636363;
@@ -63,6 +64,14 @@
     font-weight: 400;
   }
 
+=======
+  &__name {
+    color: #1f1f1f;
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+>>>>>>> develop
   &__artist {
     margin-top: 5px;
     color: #636363;
@@ -102,6 +111,13 @@
     }
 
     &:hover {
+<<<<<<< HEAD
+=======
+      transform: none;
+    }
+
+    &:active {
+>>>>>>> develop
       transform: translateX(-16px);
     }
   }
@@ -133,7 +149,11 @@
       font-size: 14px;
     }
 
+<<<<<<< HEAD
     &:hover {
+=======
+    &:active {
+>>>>>>> develop
       transform: translateX(-12px);
     }
   }
