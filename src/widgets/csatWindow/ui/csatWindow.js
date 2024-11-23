@@ -22,7 +22,6 @@ export class CSATWindow {
 		this.iframeDoc.head.appendChild(style);
 		
 		await this.getQuestions();
-		console.log(this.questions);
 
 		const div = document.createElement('div');
 		div.classList.add('csat_window');
@@ -30,10 +29,22 @@ export class CSATWindow {
 
 		this.iframeDoc.body.appendChild(div);
 
+		this.bindEvents();
 	}
 
 	async getQuestions() {
 		this.current_question = 0;
 		this.questions = await this.api.getQuestions();
+	}
+
+	bindEvents() {
+		const csat_buttons = this.iframeDoc.body.querySelectorAll(".rating_cast__block");
+		csat_buttons.forEach((btn) => {
+			btn.addEventListener("click", this.handleSubmit.bind(this));
+		});
+	}
+
+	async handleSubmit() {
+		console.log('clicked');
 	}
 }
