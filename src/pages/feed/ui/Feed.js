@@ -5,7 +5,8 @@ import { ArtistCarouselView } from '../../../widgets/artistCarousel/index.js';
 import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
-import { ModalConfirmView } from '../../../widgets/csatWindow/index.js';
+import { C } from '../../../widgets/csatWindow/index.js';
+import { CSATWindow } from '../../../widgets/csatWindow/ui/csatWindow.js';
 
 export class FeedPage {
 	/**
@@ -18,7 +19,7 @@ export class FeedPage {
 	async render() {
 		this.parent.innerHTML = '';
 
-		const iframe = new ModalConfirmView();
+		const iframe = new CSATWindow();
 		await iframe.render();
 
 		const listenBlockView = new ListenBlockView(this.parent);

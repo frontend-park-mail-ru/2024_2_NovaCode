@@ -2,25 +2,25 @@ import template from './csatWindow.hbs';
 import './csatWindow.scss';
 import styles from './csatWindow.scss?inline';
 
-export class ModalConfirmView {
+export class CSATWindow {
     constructor(parent) {
         this.parent = parent ? parent : document.querySelector("#root");
         this.text = 'text';
     }
 
     render() {
-        this.modalConfirmIframe = document.createElement("iframe");
-        this.parent.appendChild(this.modalConfirmIframe);
-        this.modalConfirmIframe.style.width = '100%';
-        this.modalConfirmIframe.style.height = '100%';
-        this.modalConfirmIframe.style.border = 'none';
-        this.modalConfirmIframe.style.position = 'fixed';
-        this.modalConfirmIframe.style.top = '0';
-        this.modalConfirmIframe.style.left = '0';
-        this.modalConfirmIframe.style.zIndex = '9999';
+        this.csatWindowIframe = document.createElement("iframe");
+        this.parent.appendChild(this.csatWindowIframe);
+        this.csatWindowIframe.style.width = 1024;
+        this.csatWindowIframe.style.height = 768;
+        this.csatWindowIframe.style += "-webkit-transform:scale(0.5);-moz-transform-scale(0.5)";
+        this.csatWindowIframe.style.position = 'fixed';
+/*         this.csatWindowIframe.style.top = '0';
+        this.csatWindowIframe.style.left = '0'; */
+        this.csatWindowIframe.style.zIndex = '9999';
 
-        this.modalConfirmIframe = document.querySelector('iframe');
-        this.iframeDoc = this.modalConfirmIframe.contentWindow.document;
+        this.csatWindowIframe = document.querySelector('iframe');
+        this.iframeDoc = this.csatWindowIframe.contentWindow.document;
 
         console.log(styles);
         const style = this.iframeDoc.createElement('style');
