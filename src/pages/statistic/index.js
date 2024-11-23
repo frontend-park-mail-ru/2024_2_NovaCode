@@ -1,0 +1,1 @@
+export { StatisticPage } from "./ui/Statistic.js";
