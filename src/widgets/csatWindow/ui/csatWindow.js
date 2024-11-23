@@ -10,16 +10,9 @@ export class CSATWindow {
 
     render() {
         this.csatWindowIframe = document.createElement("iframe");
+        this.csatWindowIframe.classList.add('csat-iframe');
         this.parent.appendChild(this.csatWindowIframe);
-        this.csatWindowIframe.style.width = 1024;
-        this.csatWindowIframe.style.height = 768;
-        this.csatWindowIframe.style += "-webkit-transform:scale(0.5);-moz-transform-scale(0.5)";
-        this.csatWindowIframe.style.position = 'fixed';
-/*         this.csatWindowIframe.style.top = '0';
-        this.csatWindowIframe.style.left = '0'; */
-        this.csatWindowIframe.style.zIndex = '9999';
 
-        this.csatWindowIframe = document.querySelector('iframe');
         this.iframeDoc = this.csatWindowIframe.contentWindow.document;
 
         console.log(styles);
@@ -28,8 +21,12 @@ export class CSATWindow {
         this.iframeDoc.head.appendChild(style);
 
         const div = document.createElement('div');
-        div.classList.add("modal_confirm");
+        div.classList.add("csat-window");
         div.innerHTML = template({ text: this.text });
+
+        /* const btn = this.iframeDoc.querySelector('.csat-window__btn_no');
+        btn.addEventListener('click', () => alert("btn works!")); */
+
         this.iframeDoc.body.appendChild(div);
     }
 }
