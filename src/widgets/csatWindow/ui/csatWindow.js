@@ -24,9 +24,12 @@ export class CSATWindow {
         div.classList.add("csat-window");
         div.innerHTML = template({ text: this.text });
 
-        /* const btn = this.iframeDoc.querySelector('.csat-window__btn_no');
-        btn.addEventListener('click', () => alert("btn works!")); */
-
         this.iframeDoc.body.appendChild(div);
+
+        const btnNo = this.iframeDoc.documentElement.querySelector('.csat-window__btn_no');
+        btnNo.addEventListener('click', () => alert("no works!"));
+
+        const btnYes = this.iframeDoc.documentElement.querySelector('.csat-window__btn_yes');
+        btnYes.addEventListener('click', () => alert("yes works!"));
     }
 }
