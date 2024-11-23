@@ -20,11 +20,5 @@ export class StatisticPage {
 
         const statisticListView = new StatisticListView();
         await statisticListView.render();
-
-		// const footPlayerView = new FooterPlayerView(this.parent);
-		// const user = userStore.storage.user;
-		// if (user) {
-		// 	await footPlayerView.render();
-		// }
 	}
 }
