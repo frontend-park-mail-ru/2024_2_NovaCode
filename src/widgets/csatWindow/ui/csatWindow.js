@@ -26,7 +26,7 @@ export class CSATWindow {
 
 		const div = document.createElement('div');
 		div.classList.add('csat_window');
-		div.innerHTML = template({ text: this.questions[this.current_question] });
+		div.innerHTML = template({ question: this.questions[this.current_question].question });
 
 		this.iframeDoc.body.appendChild(div);
 
