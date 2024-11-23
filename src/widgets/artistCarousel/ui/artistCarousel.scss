@@ -28,6 +28,12 @@
     padding: 0 5px;
   }
 
+	&__upper_wrapper {
+		padding: 0 10px;
+		display: flex;
+		justify-content: space-between;
+	}
+
 	&__show_more {
 		text-decoration: none;
 		color: #f1f1f1;
