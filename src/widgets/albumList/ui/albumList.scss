@@ -44,42 +44,27 @@
 }
 
 @media (max-width: 1380px) {
-  .albums {
-    &__block {
-      width: 90%;
-    }
-  }
+	.albums {
+	  	&__block {
+			width: 90%;
+	  	}
+	}
 }
-
+  
 @media (max-width: 768px) {
-  .albums {
-    &__text {
-      font-size: 19px;
-    }
-  }
+	.albums {
+		&__recommend_text,
+		&__show_more {
+			font-size: 19px;
+		}
+	}
 }
 
 @media (max-width: 480px) {
-  .albums {
-    &__text {
-      font-size: 16px;
-    }
-
-    &__recommend_text {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #f1f1f1;
-      font-size: 24px;
-      font-weight: 400;
-    }
-
-    &__list {
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-  }
+	.albums {
+		&__recommend_text,
+		&__show_more {
+			font-size: 16px;
+		}
+	}
 }

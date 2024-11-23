@@ -29,7 +29,7 @@ export class AlbumCarouselView {
 		let albums = await albumCarouselAPI.get();
 
 		const albumCarouselElement = document.createElement('div');
-		albumCarouselElement.classList.add('albums');
+		albumCarouselElement.classList.add('album_carousel');
 
 		let titleText;
 		let showMoreHref;
@@ -61,7 +61,7 @@ export class AlbumCarouselView {
 	}
 
 	setTitle(titleText) {
-		const title = document.querySelector('.albums__recommend_text');
+		const title = document.querySelector('.album_carousel__recommend_text');
 		title.textContent = titleText;
 	}
 
