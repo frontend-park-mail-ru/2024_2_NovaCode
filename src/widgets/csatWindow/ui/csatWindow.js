@@ -8,12 +8,15 @@ export class CSATWindow {
 		this.parent = parent ? parent : document.querySelector('#root');
 		this.text = 'text';
 		this.api = new CSATWindowAPI();
+		this.getQuestions();
 	}
 
 	async render() {
-		this.csatWindowIframe = document.createElement('iframe');
-		this.csatWindowIframe.classList.add('csat-iframe');
-		this.parent.appendChild(this.csatWindowIframe);
+		if (!this.csatWindowIframe) {
+			this.csatWindowIframe = document.createElement('iframe');
+			this.csatWindowIframe.classList.add('csat-iframe');
+			this.parent.appendChild(this.csatWindowIframe);
+		}
 
 		this.iframeDoc = this.csatWindowIframe.contentWindow.document;
 
@@ -21,8 +24,6 @@ export class CSATWindow {
 		style.innerHTML = styles;
 		this.iframeDoc.head.appendChild(style);
 		
-		await this.getQuestions();
-
 		const div = document.createElement('div');
 		div.classList.add('csat_window');
 		div.innerHTML = template({ question: this.questions[this.current_question].question });
@@ -78,6 +79,7 @@ export class CSATWindow {
 		this.current_question++;
 
 		if (this.current_question < this.questions.length) {
+
 			this.render();
 		}
 	}
