@@ -10,7 +10,7 @@ export class CSATWindow {
 		this.api = new CSATWindowAPI();
 	}
 
-	render() {
+	async render() {
 		this.csatWindowIframe = document.createElement('iframe');
 		this.csatWindowIframe.classList.add('csat-iframe');
 		this.parent.appendChild(this.csatWindowIframe);
@@ -20,11 +20,20 @@ export class CSATWindow {
 		const style = this.iframeDoc.createElement('style');
 		style.innerHTML = styles;
 		this.iframeDoc.head.appendChild(style);
+		
+		await this.getQuestions();
+		console.log(this.questions);
 
 		const div = document.createElement('div');
-		div.classList.add('csat-window');
-		div.innerHTML = template({ text: this.text });
+		div.classList.add('csat_window');
+		div.innerHTML = template({ text: this.questions[this.current_question] });
 
 		this.iframeDoc.body.appendChild(div);
+
+	}
+
+	async getQuestions() {
+		this.current_question = 0;
+		this.questions = await this.api.getQuestions();
 	}
 }

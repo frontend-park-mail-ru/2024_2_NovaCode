@@ -14,7 +14,7 @@ export class CSATWindowAPI {
 
 	async getQuestions() {
 		try {
-			const response = await GET(this.url);
+			const response = await GET(this.url + '?topic=Общие');
 			if (!response.error) {
 				return response.data;
 			} else {
