@@ -8,34 +8,36 @@ export class CSATWindow {
 		this.parent = parent ? parent : document.querySelector('#root');
 		this.text = 'text';
 		this.api = new CSATWindowAPI();
-		this.getQuestions();
+		this.current_question = -1;
 	}
 
 	async render() {
-		if (!this.csatWindowIframe) {
-			this.csatWindowIframe = document.createElement('iframe');
-			this.csatWindowIframe.classList.add('csat-iframe');
-			this.parent.appendChild(this.csatWindowIframe);
-		}
+		this.csatWindowIframe = document.createElement('iframe');
+		this.csatWindowIframe.classList.add('csat-iframe');
+		this.parent.appendChild(this.csatWindowIframe);
 
 		this.iframeDoc = this.csatWindowIframe.contentWindow.document;
 
 		const style = this.iframeDoc.createElement('style');
 		style.innerHTML = styles;
 		this.iframeDoc.head.appendChild(style);
+
+		if (this.current_question == -1) {
+			await this.getQuestions();
+		}
 		
 		const div = document.createElement('div');
 		div.classList.add('csat_window');
 		div.innerHTML = template({ question: this.questions[this.current_question].question });
 
 		this.iframeDoc.body.appendChild(div);
-
+		
 		this.bindEvents();
 	}
 
 	async getQuestions() {
-		this.current_question = 0;
 		this.questions = await this.api.getQuestions();
+		this.current_question = 0;
 	}
 
 	bindEvents() {
