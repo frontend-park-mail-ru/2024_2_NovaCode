@@ -11,6 +11,8 @@ import { MoreAlbumsPage } from '../pages/more-albums/index.js';
 import { MoreArtistsPage } from '../pages/more-artists/index.js';
 import { SearchPage } from '../pages/search/index.js';
 import { StatisticPage } from '../pages/statistic/index.js';
+import { MorePlaylistsPage } from '../pages/more-playlists/index.js';
+import { PlaylistPage } from '../pages/playlist/index.js';
 
 export const LAYOUT = [Header];
 
@@ -37,6 +39,10 @@ export const PAGES = [
 	{
 		path: '/album/{albumId}',
 		view: AlbumPage,
+	},
+	{
+		path: '/playlist/{playlistId}',
+		view: PlaylistPage,
 	},
 	{
 		path: '/profiles/{username}',
@@ -74,5 +80,9 @@ export const PAGES = [
 	{
 		path: '/statistic',
 		view: StatisticPage,
+	},
+	{
+		path: '/more_playlists/popular',
+		view: MorePlaylistsPage,
 	},
 ];

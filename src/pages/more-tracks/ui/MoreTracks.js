@@ -26,12 +26,17 @@ export class MoreTracksPage {
 			this.favorite = true;
 		}
 
-		const trackListAPI = new TrackListAPI(this.artistId, this.albumId, this.favorite);
+
+		this.parent.innerHTML = template();
+
+		const trackListAPI = new TrackListAPI({artistId: this.artistId, albumId: this.albumId});
 		const trackListView = new TrackListView(
 			this.parent,
-			this.artistId,
-			this.albumId,
-			this.favorite,
+			{
+				artistId: this.artistId, 
+				albumId: this.albumId,
+				favorite: this.favorite,
+			},
 		);
 		const tracks = await trackListAPI.get();
 		await trackListView.render(tracks, false);

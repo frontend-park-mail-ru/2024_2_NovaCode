@@ -1,5 +1,7 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
+import { TrackInPlaylistAPI, TrackInPlaylistModal } from '../../../widgets/trackInPlaylist/index.js';
+import { userStore } from '../../user/index.js';
 import template from './track.hbs';
 import './track.scss';
 
@@ -22,15 +24,23 @@ export class TrackView {
 	/**
 	 * Renders the track view.
 	 */
-	render(track) {
+	render(track, myPlaylistId = null) {
+		this.myPlaylistId = myPlaylistId;
+		this.track = track;
 		if (track.image) {
 			track.image = `${S3_BUCKETS.TRACK_IMAGES}/${track.image}`;
 		}
 
+		const user = userStore.storage.user;
+
 		this.trackElement = document.createElement('div');
 		this.trackElement.classList.add('track');
-		this.trackElement.innerHTML = template(track);
+		this.trackElement.setAttribute('data-track-id', track.id);
+		this.trackElement.innerHTML = template({ track, user, isMyPlaylist: (this.myPlaylistId ? true : false) });
 		this.parent.appendChild(this.trackElement);
+
+		this.addBtns = this.trackElement.getElementsByClassName('track__add-btn');
+		this.deleteBtns = this.trackElement.getElementsByClassName('track__delete-btn');
 
 		this.addEvents();
 	}
@@ -42,6 +52,26 @@ export class TrackView {
 		links.forEach(link => {
 			link.addEventListener('click', (event) => this.handleLink(event));
 		});
+		if (this.addBtns.length > 0) {
+			this.addBtns[0].addEventListener('click', this.handleTrackAdd.bind(this));
+		}
+
+		if (this.deleteBtns.length > 0) {
+			this.deleteBtns[0].addEventListener('click', this.handleTrackDelete.bind(this));
+		}
+	}
+
+	handleTrackAdd = (event) => {
+		const trackInPlaylistModal = new TrackInPlaylistModal(this.parent, this.track.id);
+		trackInPlaylistModal.render()
+		event.stopPropagation();
+	}
+
+	handleTrackDelete = (event) => {
+		const trackInPlaylistAPI = new TrackInPlaylistAPI(this.myPlaylistId);
+		trackInPlaylistAPI.deleteTrack(this.track.id);
+		this.trackElement.remove();
+		event.stopPropagation();
 	}
 
 	deleteEvents() {
@@ -51,6 +81,13 @@ export class TrackView {
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});
+		if (this.addBtns.length > 0) {
+			this.addBtns[0].removeEventListener('click', this.handleTrackAdd.bind(this));
+		}
+
+		if (deleteBtns.length > 0) {
+			deleteBtns[0].removeEventListener('click', this.handleTrackDelete.bind(this));
+		}
 	}
 
 	bindTrack = () => {

@@ -4,6 +4,7 @@ import { TrackListView } from '../../../widgets/trackList/index.js';
 import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
+import { UserPlaylistsView } from "../../../widgets/userPlaylists/index.js";
 
 export class ProfilePage {
 	parent;
@@ -20,8 +21,12 @@ export class ProfilePage {
 		const userCardView = new UserCardView(this.parent, this.username);
 		await userCardView.render();
 
-		const trackListAPI = new TrackListAPI(null, null, true);
-		const trackListView = new TrackListView(this.parent, null, null, true);
+		this.user = await userStore.getUser(this.username);
+		const myPlaylistsView = new UserPlaylistsView(this.parent, this.user.id);
+		await myPlaylistsView.render();
+
+		const trackListAPI = new TrackListAPI({ favorite: true });
+		const trackListView = new TrackListView(this.parent, { favorite: true });
 		const tracks = await trackListAPI.get();
 
 		if (tracks.length > 0) {

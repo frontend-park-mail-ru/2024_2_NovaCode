@@ -1,0 +1,13 @@
+<div class="track-in-playlist-modal">
+    <div class="track-in-playlist-modal__header">
+        <h2>Select Playlist</h2>
+        <button class="track-in-playlist-modal__close-btn">×</button>
+    </div>
+    <div class="track-in-playlist-modal__body">
+        {{#each playlists}}
+        <a href="#" class="track-in-playlist-modal__playlist-link" data-id="{{this.id}}">
+            {{this.name}}
+        </a>
+        {{/each}}
+    </div>
+</div>
