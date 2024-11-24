@@ -2,7 +2,9 @@ import { TrackListAPI } from '../../../widgets/trackList/index.js';
 import { ListenBlockView } from '../../../widgets/listenBlock/index.js';
 import { TrackListView } from '../../../widgets/trackList/index.js';
 import { ArtistCarouselView } from '../../../widgets/artistCarousel/index.js';
+import { PlaylistListAPI, PlaylistListView } from '../../../widgets/playlistList/index.js';
 import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
+
 import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
 
@@ -29,6 +31,11 @@ export class FeedPage {
 
     const artistCarouselView = new ArtistCarouselView(this.parent);
     await artistCarouselView.render();
+
+    const playlistListAPI = new PlaylistListAPI();
+    const playlistListView = new PlaylistListView(this.parent)
+    const playlists = await playlistListAPI.get();
+    await playlistListView.render(playlists.slice(0, 5));
 
     const footPlayerView = new FooterPlayerView(this.parent);
 

@@ -14,12 +14,14 @@ export class TrackListAPI {
 	 * @param {string} [artistId] - The artist ID (optional)
 	 * @param {string} [albumId] - The album ID (optional)
 	 */
-	constructor(artistId = null, albumId = null) {
-		if (artistId) {
-			this.url = `${API_URL}/api/v1/tracks/byArtistId/${artistId}`;
-		} else if (albumId) {
-			this.url = `${API_URL}/api/v1/tracks/byAlbumId/${albumId}`;
-		} else {
+	constructor(args = {}) {
+		if (args.artistId !== undefined) {
+			this.url = `${API_URL}/api/v1/tracks/byArtistId/${args.artistId}`;
+		} else if (args.albumId !== undefined) {
+			this.url = `${API_URL}/api/v1/tracks/byAlbumId/${args.albumId}`;
+		} else if (args.playlistId !== undefined) {
+			this.url = `${API_URL}/api/v1/playlists/${args.playlistId}/tracks`;
+		}else {
 			this.url = `${API_URL}/api/v1/tracks`;
 		}
 	}

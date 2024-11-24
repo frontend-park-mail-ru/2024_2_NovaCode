@@ -22,9 +22,9 @@ export class ArtistPage {
 		const artistCardView = new ArtistCardView(this.parent, this.artistId);
 		await artistCardView.render();
 
-		const trackListAPI = new TrackListAPI(this.artistId);
+		const trackListAPI = new TrackListAPI({artistId: this.artistId});
 		const tracks = await trackListAPI.get();
-		const trackListView = new TrackListView(this.parent, this.artistId);
+		const trackListView = new TrackListView(this.parent, {artistId: this.artistId});
 		await trackListView.render(tracks.slice(0, 5));
 
 		player.setTracks(tracks);

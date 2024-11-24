@@ -1,0 +1,64 @@
+.create-playlist-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    &__content {
+        background: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        width: 400px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    &__title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    &__label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    &__input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .create-playlist-modal__submit {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .create-playlist-modal__cancel {
+            background: #dc3545;
+            color: #fff;
+        }
+    }
+}

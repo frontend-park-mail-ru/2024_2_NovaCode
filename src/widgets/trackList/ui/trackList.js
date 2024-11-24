@@ -17,21 +17,22 @@ export class TrackListView {
 	 * @param {string} [artistId] - The artist ID (optional)
 	 * @param {string} [albumId] - The album ID (optional)
 	 */
-	constructor(parent, artistId = null, albumId = null) {
-		this.parent = parent ? parent : document.querySelector('#root');
-		this.artistId = artistId;
-		this.albumId = albumId;
+	constructor(parent, args = {}) {
+		this.parent = parent ?? document.querySelector('#root');
+		this.artistId = args.artistId ?? null;
+		this.albumId = args.albumId ?? null;
+		this.myPlaylistId = args.myPlaylistId ?? false;
 	}
 
 	/**
 	 * Renders the tracklist view.
 	 */
 	async render(tracks, needsShowMoreHref = true) {
-		tracks = tracks.map(({ name, artist, image, duration }) => {
+		tracks = tracks.map(({ id, name, artist, image, duration }) => {
 			const minutes = Math.floor(duration / 60);
 			const seconds = duration % 60;
 			duration = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-			return { name, artist, image, duration };
+			return { id, name, artist, image, duration };
 		});
 
 		const trackListElement = document.createElement('div');
@@ -56,7 +57,7 @@ export class TrackListView {
 		const tracksBlock = document.getElementById('tracks');
 		Array.from(tracks).forEach((track, index) => {
 			const trackView = new TrackView(tracksBlock, index);
-			trackView.render(track);
+			trackView.render(track, this.myPlaylistId);
 		});
 
 		this.bindEvents();

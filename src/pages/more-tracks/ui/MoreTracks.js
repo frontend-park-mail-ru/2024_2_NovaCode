@@ -27,11 +27,13 @@ export class MoreTracksPage {
 
 		this.parent.innerHTML = template();
 
-		const trackListAPI = new TrackListAPI(this.artistId, this.albumId);
+		const trackListAPI = new TrackListAPI({artistId: this.artistId, albumId: this.albumId});
 		const trackListView = new TrackListView(
 			this.parent,
-			this.artistId,
-			this.albumId,
+			{
+				artistId: this.artistId, 
+				albumId: this.albumId
+			},
 		);
 		const tracks = await trackListAPI.get();
 		await trackListView.render(tracks, false);
