@@ -29,6 +29,13 @@
     border-radius: 100%;
   }
 
+  &__left_block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+
   &__img_logo {
     width: auto;
     height: 41px;
@@ -46,6 +53,18 @@
 
   &__link_logo:hover {
     opacity: 0.5;
+  }
+
+  &__link_search {
+    display: block;
+    color: #f1f1f1;
+    text-decoration: none;
+    font-size: 25px;
+    padding: 20px 20px;
+
+    &:hover {
+      opacity: 0.5;
+    }
   }
 
   &__link_signup {
