@@ -26,9 +26,6 @@ export class MoreTracksPage {
 			this.favorite = true;
 		}
 
-
-		this.parent.innerHTML = template();
-
 		const trackListAPI = new TrackListAPI({artistId: this.artistId, albumId: this.albumId});
 		const trackListView = new TrackListView(
 			this.parent,

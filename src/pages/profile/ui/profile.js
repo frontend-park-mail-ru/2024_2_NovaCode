@@ -25,6 +25,12 @@ export class ProfilePage {
 		const myPlaylistsView = new UserPlaylistsView(this.parent, this.user.id);
 		await myPlaylistsView.render();
 
+		if (this.user.id === userStore.storage.user.id) {
+			await this.renderFavorites();
+		}
+	}
+
+	async renderFavorites() {
 		const trackListAPI = new TrackListAPI({ favorite: true });
 		const trackListView = new TrackListView(this.parent, { favorite: true });
 		const tracks = await trackListAPI.get();

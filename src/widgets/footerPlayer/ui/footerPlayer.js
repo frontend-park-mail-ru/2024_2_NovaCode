@@ -137,7 +137,7 @@ export class FooterPlayerView {
       `${S3_BUCKETS.TRACK_IMAGES}/${trackInfo.image}`,
     );
     this.trackInfoTrackName.textContent = trackInfo.name;
-    this.trackInfoTrackArtist.textContent = trackInfo.artist;
+    this.trackInfoTrackArtist.textContent = trackInfo.artistName;
 
     const duration = trackInfo.duration;
     let mins = Math.floor(duration / 60);

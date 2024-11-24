@@ -1,11 +1,11 @@
 <div class="track__left_side">
     <img class="track__img" src="{{ track.image }}">
     <div class="track__info">
-        <div class="track__name">{{ name }} </div>
+        <div class="track__name">{{ track.name }} </div>
         <div class="track__artist">
             <a class="track__artist__artist_link link"
-                href="/artist/{{ artistID }}">
-                {{ artistName }}
+                href="/artist/{{ track.artistID }}">
+                {{ track.artistName }}
             </a> 
         </div>
     </div>
@@ -17,7 +17,7 @@
     {{#if user.isAuthorized}}
     <img src="/images/icons/add.svg" id="add-to-playlist" class="track__add-btn">
     {{/if}}
-    {{ duration }}
+    {{ track.duration }}
     <img class="track__duration_icon" src="/images/icons/music.svg">
 </div>
 

@@ -28,6 +28,7 @@ export const S3_BUCKETS = {
   ARTIST_IMAGES: `${S3_URL}/images/artists`,
   ALBUM_IMAGES: `${S3_URL}/images/albums`,
   TRACK_IMAGES: `${S3_URL}/images/tracks`,
+  PLAYLIST_IMAGES: `${S3_URL}/images/playlists`,
   TRACK_FILES: `${S3_URL}/tracks`,
 };
 
