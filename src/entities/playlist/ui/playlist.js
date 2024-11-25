@@ -1,7 +1,7 @@
-import { eventBus } from '../../../shared/lib/index.js';
+import { eventBus } from "../../../shared/lib/index.js";
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
-import template from './playlist.hbs';
-import './playlist.scss';
+import template from "./playlist.hbs";
+import "./playlist.scss";
 
 export class PlaylistView {
 	/**
