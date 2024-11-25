@@ -5,6 +5,7 @@ import { userStore } from '../../../entities/user/model/store.js';
 import { PlaylistCardView } from '../../../widgets/playlistCard/index.js';
 import { TrackInPlaylistAPI } from '../../../widgets/trackInPlaylist/index.js';
 import { UserPlaylistsAPI } from '../../../widgets/userPlaylists/index.js';
+import { player } from '../../../shared/player/model/store.js';
 
 export class PlaylistPage {
 	parent;
@@ -35,20 +36,16 @@ export class PlaylistPage {
 		} else {
 			args = {};
 		}
+
 		const trackListView = new TrackListView(this.parent, args);
 		await trackListView.render(tracks, false);
+
+		player.setTracks(tracks);
 
 		const footPlayerView = new FooterPlayerView(this.parent);
 		const user = userStore.storage.user;
 		if (user) {
 			await footPlayerView.render();
 		}
-
-		this.onEvents();
-	}
-
-	handleTrackDelete = (trackId) => {
-		const trackInPlaylistAPI = new TrackInPlaylistAPI(this.playlistId);
-		trackInPlaylistAPI.deleteTrack(trackId);
 	}
 }

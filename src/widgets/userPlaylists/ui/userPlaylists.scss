@@ -70,3 +70,53 @@
         }
     }
 }
+
+
+@media (max-width: 1380px) {
+	.user-playlists {
+		&__block {
+			width: 90%;
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	.buttons {
+		&__new {
+		font-size: 32px;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.user-playlists {
+
+		&__show_more,
+		&__text {
+			font-size: 19px;
+		}
+	}
+
+	.buttons {
+		&__new {
+		font-size: 24px;
+		}
+	}
+}
+
+@media (max-width: 480px) {
+	.user-playlists {
+
+		&__show_more,
+		&__text {
+			font-size: 19px;
+		}
+	}
+
+	.buttons {
+		&__new {
+			padding: 8px;
+		font-size: 20px;
+		}
+	}
+}
