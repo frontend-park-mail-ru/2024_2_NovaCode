@@ -29,7 +29,6 @@ export class PlaylistView {
 		if (!playlist.image) {
 			playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.jpeg`;
 		}
-		console.log(playlist);
 
 		const playlistElement = document.createElement('div');
 		playlistElement.classList.add('playlist');

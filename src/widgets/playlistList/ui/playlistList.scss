@@ -41,3 +41,32 @@
 		flex-wrap: wrap;
 	}
 }
+
+
+@media (max-width: 1380px) {
+	.playlists {
+		&__block {
+			width: 90%;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.playlists {
+
+		&__show_more,
+		&__text {
+			font-size: 19px;
+		}
+	}
+}
+
+@media (max-width: 480px) {
+	.playlists {
+
+		&__show_more,
+		&__text {
+			font-size: 19px;
+		}
+	}
+}

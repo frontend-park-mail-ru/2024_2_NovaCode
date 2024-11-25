@@ -20,9 +20,9 @@ export class AlbumPage {
 		const albumCardView = new AlbumCardView(this.parent, this.albumId);
 		await albumCardView.render();
 
-		const trackListAPI = new TrackListAPI(null, this.albumId);
+		const trackListAPI = new TrackListAPI({albumId: this.albumId});
 		const tracks = await trackListAPI.get();
-		const trackListView = new TrackListView(this.parent, null, this.albumId);
+		const trackListView = new TrackListView(this.parent, {albumId: this.albumId});
 		await trackListView.render(tracks);
 
 		player.setTracks(tracks);

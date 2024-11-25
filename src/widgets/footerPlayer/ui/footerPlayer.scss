@@ -61,6 +61,11 @@
   &__seek {
     width: 100%;
   }
+
+  &__time_current,
+  &__time_total {
+    font-size: 14px;
+  }
 }
 
 .player_button {
@@ -75,6 +80,7 @@
   &__info {
     display: flex;
     flex-direction: column;
+    row-gap: 5px;
   }
 
   &__track_img {
@@ -82,6 +88,24 @@
     height: 60px;
     border-radius: 5px;
     margin-bottom: 5px;
+  }
+}
+
+.player {
+  &__track_name {
+    font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+
+  &__track_artist {
+    font-size: 16px;
+    color: #636363;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 
@@ -94,5 +118,116 @@
 
   &:hover {
     opacity: 0.5;
+  }
+}
+
+@media (max-width: 1380px) {
+  .footer_player {
+
+    &__container {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .player_details {
+
+    &__track_img {
+      width: 50px;
+      height: 50px;
+      border-radius: 3px;
+      margin-bottom: 3px;
+    }
+  }
+
+  .player {
+    &__track_name,
+    &__track_artist {
+      font-size: 14px;
+    }
+  }
+
+  .footer_player {
+
+    &__player_details {
+      gap: 15px;
+    }
+    &__grid {
+      grid-template-columns: 160px 1fr 220px;
+    }
+
+    &__icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .track_slider {
+    padding: 5px 5px 0 5px;
+  
+    &__seek {
+      width: 90%;
+    }
+  
+    &__time_current,
+    &__time_total {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .player_details {
+
+    &__track_img {
+      width: 40px;
+      height: 40px;
+      border-radius: 3px;
+      margin-bottom: 3px;
+    }
+  }
+
+  .footer_player {
+
+    &__player_details {
+      gap: 10px;
+    }
+
+    &__grid {
+      grid-template-columns: 130px 1fr 180px;
+    }
+
+    &__buttons {
+      gap: 8px;
+    }
+
+    &__icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__track_slider,
+    &__volume_slider {
+      gap: 5px;
+    }
+
+    &__volume_slider {
+      margin-right: 15px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  
+  .footer_player {
+
+    &__grid {
+      grid-template-columns: 120px 1fr;
+    }
+
+    &__volume_slider {
+      display: none;
+    }
   }
 }
