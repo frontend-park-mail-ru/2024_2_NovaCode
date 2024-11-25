@@ -40,12 +40,14 @@ export class PlaylistPage {
 		const trackListView = new TrackListView(this.parent, args);
 		await trackListView.render(tracks, false);
 
-		player.setTracks(tracks);
+		if (tracks.length > 0) {
+			player.setTracks(tracks);
 
-		const footPlayerView = new FooterPlayerView(this.parent);
-		const user = userStore.storage.user;
-		if (user) {
-			await footPlayerView.render();
+			const footPlayerView = new FooterPlayerView(this.parent);
+			const user = userStore.storage.user;
+			if (user) {
+				await footPlayerView.render();
+			}
 		}
 	}
 }
