@@ -30,8 +30,10 @@ export class PlaylistCardView {
         const playlistCardAPI = new PlaylistCardAPI(this.playlistId);
         let playlist = await playlistCardAPI.get();
 
-        if (playlist?.image) {
-            playlist.image = `${S3_BUCKETS.PLAYIST_IMAGES}/${playlist.image}`;
+        if (playlist.image) {
+            playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/${playlist.image}`;
+        } else {
+            playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.jpeg`;
         }
 
         const playlistCardElement = document.createElement("div");
