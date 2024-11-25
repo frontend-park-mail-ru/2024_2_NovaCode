@@ -43,12 +43,5 @@ export class PlaylistPage {
 		if (user) {
 			await footPlayerView.render();
 		}
-
-		this.onEvents();
-	}
-
-	handleTrackDelete = (trackId) => {
-		const trackInPlaylistAPI = new TrackInPlaylistAPI(this.playlistId);
-		trackInPlaylistAPI.deleteTrack(trackId);
 	}
 }
