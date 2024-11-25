@@ -8,31 +8,87 @@
   &__container {
     max-width: 1280px;
     margin: 0 auto;
+
+    @media (max-width: 1380px) {
+      width: 90%;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0 10px;
+    }
   }
 
   &__row {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    padding: 0px 0px 0px 0px;
+    padding: 10px 0;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  &__left_block {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  &__right_block {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+      justify-content: center;
+      width: 100%;
+    }
   }
 
   &__signed_block {
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    gap: 10px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &__profile_img {
     height: 60px;
     width: 60px;
     border-radius: 100%;
+
+    @media (max-width: 1023px) {
+      height: 50px;
+      width: 50px;
+    }
+
+    @media (max-width: 768px) {
+      height: 40px;
+      width: 40px;
+    }
   }
 
   &__img_logo {
-    width: auto;
     height: 41px;
-    vertical-align: text-bottom;
+
+    @media (max-width: 1023px) {
+      height: 35px;
+    }
+
+    @media (max-width: 768px) {
+      height: 30px;
+    }
   }
 
   &__link_logo {
@@ -40,46 +96,66 @@
     text-decoration: none;
     font-size: 41px;
     font-weight: 400;
-    background-color: #1f1f1f;
-    border: none;
-  }
-
-  &__link_logo:hover {
-    opacity: 0.5;
-  }
-
-  &__link_signup {
-    display: block;
-    color: #f1f1f1;
-    text-decoration: none;
-    font-size: 25px;
-    float: left;
-    display: block;
-    text-align: center;
-    margin-left: 45px;
-    padding: 20px 20px;
 
     &:hover {
       opacity: 0.5;
     }
+
+    @media (max-width: 1023px) {
+      font-size: 35px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
   }
 
-  &__link_signin {
+  &__link_search {
+    display: block;
     color: #f1f1f1;
     text-decoration: none;
     font-size: 25px;
-    float: left;
-    display: block;
-    text-align: center;
-    margin-left: 45px;
-    padding: 20px 20px;
 
     &:hover {
       opacity: 0.5;
+    }
+
+    @media (max-width: 1023px) {
+      font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+    }
+  }
+
+  &__link_signup,
+  &__link_signin {
+    display: block;
+    color: #f1f1f1;
+    text-decoration: none;
+    font-size: 25px;
+    padding: 10px 15px;
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    @media (max-width: 1023px) {
+      font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+      padding: 8px 10px;
     }
   }
 }
 
 .active {
   border-bottom: 3px solid #f1f1f1;
+
+  @media (max-width: 768px) {
+    border-bottom: 2px solid #f1f1f1;
+  }
 }

@@ -72,7 +72,7 @@ export class ArtistCarouselView {
 		this.nextBtn.removeEventListener('click', this.handleNextBtn);
 		this.prevBtn.removeEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll('.link');
+		const links = this.parent.querySelectorAll('.link_more_artists');
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});

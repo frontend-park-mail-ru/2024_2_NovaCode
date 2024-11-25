@@ -1,11 +1,13 @@
 <div class="tracks__container">
   <div class="tracks__block">
-    {{#if showMoreHref}}
+    <div class="tracks__upper_wrapper">
       <div class="tracks__recommend_text">
-        Популярные аудиозаписи
-        <a href="{{ showMoreHref }}" class="tracks__show_more link_more_tracks">Показать еще</a>
+        Треки
       </div>
-    {{/if}}
+      {{#if showMoreHref}}
+      <a href="{{ showMoreHref }}" class="tracks__show_more link_more_tracks">Показать еще</a>
+      {{/if}}
+    </div>
     <div class="tracks__tracks" id="tracks">
     
     </div>

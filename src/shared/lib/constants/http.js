@@ -17,12 +17,17 @@ export const API_ENDPOINTS = {
   GET_USER: (username) => `${API_URL}/api/v1/users/${username}`,
   UPDATE_USER: (userID) => `${API_URL}/api/v1/users/${userID}`,
   UPLOAD_AVATAR: (userID) => `${API_URL}/api/v1/users/${userID}/image`,
+  GET_ALBUM: (artistID) => `${API_URL}/api/v1/albums/byArtistId/${artistID}`,
+  FIND_ARTISTS: (query) => `${API_URL}/api/v1/artists/search?query=${query}`,
+  FIND_ALBUMS: (query) => `${API_URL}/api/v1/albums/search?query=${query}`,
+  FIND_TRACKS: (query) => `${API_URL}/api/v1/tracks/search?query=${query}`,
 };
 
 export const S3_BUCKETS = {
   AVATAR_IMAGES: `${S3_URL}/avatars`,
   ARTIST_IMAGES: `${S3_URL}/images/artists`,
   ALBUM_IMAGES: `${S3_URL}/images/albums`,
+  PLAYLIST_IMAGES: `${S3_URL}/playlists`,
   TRACK_IMAGES: `${S3_URL}/images/tracks`,
   TRACK_FILES: `${S3_URL}/tracks`,
 };

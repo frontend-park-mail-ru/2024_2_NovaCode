@@ -3,8 +3,6 @@ import { TrackListView } from '../../../widgets/trackList/index.js';
 import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
-import template from './MoreTracks.hbs';
-import './MoreTracks.scss';
 
 export class MoreTracksPage {
 	/**
@@ -12,6 +10,7 @@ export class MoreTracksPage {
 	 */
 	constructor(params) {
 		this.parent = document.querySelector('#root');
+		this.type = params['type']
 		this.entity = params['entity'];
 		this.entityId = params['id'];
 	}
@@ -23,15 +22,18 @@ export class MoreTracksPage {
 			this.artistId = this.entityId;
 		} else if (this.entity === 'album') {
 			this.albumId = this.entityId;
+		} else if (this.type === 'favorite') {
+			this.favorite = true;
 		}
 
-		this.parent.innerHTML = template();
-
-		const trackListAPI = new TrackListAPI(this.artistId, this.albumId);
+		const trackListAPI = new TrackListAPI({artistId: this.artistId, albumId: this.albumId});
 		const trackListView = new TrackListView(
 			this.parent,
-			this.artistId,
-			this.albumId,
+			{
+				artistId: this.artistId, 
+				albumId: this.albumId,
+				favorite: this.favorite,
+			},
 		);
 		const tracks = await trackListAPI.get();
 		await trackListView.render(tracks, false);

@@ -1,8 +1,7 @@
 import { TrackListAPI } from '../../../widgets/trackList/index.js';
-import { AlbumListAPI } from '../../../widgets/albumList/index.js';
 import { ArtistCardView } from '../../../widgets/artistCard/index.js';
 import { TrackListView } from '../../../widgets/trackList/index.js';
-import { AlbumListView } from '../../../widgets/albumList/index.js';
+import { AlbumCarouselView } from '../../../widgets/albumCarousel/index.js';
 import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
@@ -22,17 +21,15 @@ export class ArtistPage {
 		const artistCardView = new ArtistCardView(this.parent, this.artistId);
 		await artistCardView.render();
 
-		const trackListAPI = new TrackListAPI(this.artistId);
+		const trackListAPI = new TrackListAPI({artistId: this.artistId});
 		const tracks = await trackListAPI.get();
-		const trackListView = new TrackListView(this.parent, this.artistId);
+		const trackListView = new TrackListView(this.parent, {artistId: this.artistId});
 		await trackListView.render(tracks.slice(0, 5));
 
 		player.setTracks(tracks);
 
-		const albumListAPI = new AlbumListAPI(this.artistId);
-		const albumListView = new AlbumListView(this.parent, this.artistId);
-		const albums = await albumListAPI.get();
-		await albumListView.render(albums.slice(0, 5));
+		const albumCarouselView = new AlbumCarouselView(this.parent, this.artistId);
+		await albumCarouselView.render();
 
 		const footPlayerView = new FooterPlayerView(this.parent);
 		const user = userStore.storage.user;

@@ -16,36 +16,47 @@ export class TrackListView {
 	 * @param {HTMLElement} parent - The parent HTML element
 	 * @param {string} [artistId] - The artist ID (optional)
 	 * @param {string} [albumId] - The album ID (optional)
+	 * @param {boolean} [favorite] - Are the tracks favorite (optional)
 	 */
-	constructor(parent, artistId = null, albumId = null) {
-		this.parent = parent ? parent : document.querySelector('#root');
-		this.artistId = artistId;
-		this.albumId = albumId;
+	constructor(parent, args = {}) {
+		this.parent = parent ?? document.querySelector('#root');
+		this.artistId = args.artistId ?? null;
+		this.albumId = args.albumId ?? null;
+		this.favorite = arguments.favorite ?? null;
+		this.myPlaylistId = args.myPlaylistId ?? false;
 	}
 
 	/**
 	 * Renders the tracklist view.
 	 */
 	async render(tracks, needsShowMoreHref = true) {
-		tracks = tracks.map(({ name, artist, image, duration }) => {
+		tracks = tracks.map(({ id, name, artistName, artistID, image, duration }) => {
 			const minutes = Math.floor(duration / 60);
 			const seconds = duration % 60;
 			duration = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-			return { name, artist, image, duration };
+			return { id, name, artistName, artistID, image, duration };
 		});
 
 		const trackListElement = document.createElement('div');
 		trackListElement.classList.add('tracks');
 
+		let titleText;
+		let showMoreHref;
+		if (this.artistId) {
+			showMoreHref = `/more_tracks/${'artist'}/${this.artistId}`;
+			titleText = "Треки исполнителя";
+		} else if (this.albumId) {
+			showMoreHref = `/more_tracks/${'album'}/${this.albumId}`;
+			titleText = "Треки альбома";
+		} else if (this.favorite) {
+			showMoreHref = `/more_tracks/favorite`;
+			titleText = "Любимые треки";
+		} else {
+			showMoreHref = `/more_tracks/popular`;
+			titleText = "Популярные треки";
+		}
+		
 		if (needsShowMoreHref) {
-			let showMoreHref;
-			if (this.artistId) {
-				showMoreHref = `/more_tracks/${'artist'}/${this.artistId}`;
-			} else if (this.albumId) {
-				showMoreHref = `/more_tracks/${'album'}/${this.albumId}`;
-			} else {
-				showMoreHref = `/more_tracks/popular`;
-			}
 			trackListElement.innerHTML = template({ showMoreHref });
 		} else {
 			trackListElement.innerHTML = template({});
@@ -56,10 +67,16 @@ export class TrackListView {
 		const tracksBlock = document.getElementById('tracks');
 		Array.from(tracks).forEach((track, index) => {
 			const trackView = new TrackView(tracksBlock, index);
-			trackView.render(track);
+			trackView.render(track, this.myPlaylistId);
 		});
 
 		this.bindEvents();
+		this.setTitle(titleText);
+	}
+
+	setTitle(titleText) {
+		const title = document.querySelector('.tracks__recommend_text');
+		title.textContent = titleText;
 	}
 
 	bindEvents() {
@@ -71,7 +88,7 @@ export class TrackListView {
 	}
 
 	deleteEvents() {
-		const links = this.parent.querySelectorAll('.link');
+		const links = this.parent.querySelectorAll('.link_more_tracks');
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});

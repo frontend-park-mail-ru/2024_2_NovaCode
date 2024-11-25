@@ -40,3 +40,45 @@
     text-align: center;
   }
 }
+
+@media (max-width: 1380px) {
+  .listen {
+    &__block {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .listen {
+    &__btn_img {
+      width: 175px;
+      height: 175px;
+    }
+
+    &__title {
+      font-size: 31px;
+    }
+
+    &__info {
+      font-size: 21px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .listen {
+    &__btn_img {
+      width: 130px;
+      height: 130px;
+    }
+
+    &__title {
+      font-size: 26px;
+    }
+
+    &__info {
+      font-size: 18px;
+    }
+  }
+}
