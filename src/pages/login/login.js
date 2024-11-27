@@ -1,18 +1,17 @@
-import { View } from "../../view.js";
-import { Ajax } from "../../modules/ajax.js";
-import { bindLinkClickEvents } from "../../modules/linksHandling.js";
-import { API_URL } from "../../app/config.js";
-import { isValidUsername } from "../../modules/validation.js";
-
+import { View } from '../../view.js';
+import { Ajax } from '../../modules/ajax.js';
+import { bindLinkClickEvents } from '../../modules/linksHandling.js';
+import { isValidUsername } from '../../modules/validation.js';
+import { API_ENDPOINTS } from '../../shared/lib/index.js';
 
 export class LoginView extends View {
   constructor(router) {
     super(router);
-    this.root = document.querySelector("#root");
+    this.root = document.querySelector('#root');
   }
 
   render() {
-    const template = Handlebars.templates["login.hbs"];
+    const template = Handlebars.templates['login.hbs'];
     this.root.innerHTML = template();
     this.bindEvents();
   }
@@ -23,13 +22,13 @@ export class LoginView extends View {
    * @private
    */
   bindEvents() {
-    const links = document.querySelectorAll(".link");
-    const form = this.root.querySelector("#login-form");
-    const messageBox = this.root.querySelector("#message-box");
+    const links = document.querySelectorAll('.link');
+    const form = this.root.querySelector('#login-form');
+    const messageBox = this.root.querySelector('#message-box');
 
     bindLinkClickEvents(links, this.linkHandler.bind(this));
 
-    form.addEventListener("submit", (event) =>
+    form.addEventListener('submit', (event) =>
       this.submitHandler(event, messageBox),
     );
   }
@@ -41,7 +40,7 @@ export class LoginView extends View {
    * @param {String} href - href to go to
    */
   linkHandler(event, href) {
-     event.preventDefault();
+    event.preventDefault();
     this.router.goTo(href);
   }
 
@@ -54,17 +53,13 @@ export class LoginView extends View {
    */
   async submitHandler(event, messageBox) {
     event.preventDefault();
-    messageBox.innerHTML = "";
+    messageBox.innerHTML = '';
 
     const user = this.extractFormData(event.target);
 
     const isValidData = this.isValidData(user);
     if (!isValidData.result) {
-      this.displayMessage(
-        messageBox,
-        isValidData.message,
-        "error",
-      );
+      this.displayMessage(messageBox, isValidData.message, 'error');
       return;
     }
 
@@ -74,10 +69,10 @@ export class LoginView extends View {
     } catch (error) {
       this.displayMessage(
         messageBox,
-        "Возникла ошибка при входе. Попробуйте позже.",
-        "error",
+        'Возникла ошибка при входе. Попробуйте позже.',
+        'error',
       );
-      console.error("Error during login:", error);
+      console.error('Error during login:', error);
     }
   }
 
@@ -85,15 +80,15 @@ export class LoginView extends View {
    * Validates the user's data (username and password).
    *
    * @param {Object} user - The user object containing the username and password.
-   * 
+   *
    * @returns {Object} - An object representing the validation result and error message if needed.
    */
   isValidData(user) {
     if (!isValidUsername(user.username)) {
-      return { result: false, message: "Неправильное имя пользователя" };
+      return { result: false, message: 'Неправильное имя пользователя' };
     }
     if (user.username.length == 0) {
-      return { result: false, message: "Пароль не может быть пустым" };
+      return { result: false, message: 'Пароль не может быть пустым' };
     }
     return { result: true };
   }
@@ -107,8 +102,8 @@ export class LoginView extends View {
   extractFormData(form) {
     const formData = new FormData(form);
     return {
-      username: formData.get("username"),
-      password: formData.get("password"),
+      username: formData.get('username'),
+      password: formData.get('password'),
     };
   }
 
@@ -119,7 +114,7 @@ export class LoginView extends View {
    * @returns {Promise<Object>} response from the server
    */
   async loginRequest(user) {
-    const url = `${API_URL}/api/v1/auth/login`;
+    const url = API_ENDPOINTS.SIGN_IN;
     return await Ajax.post(url, user);
   }
 
@@ -136,18 +131,22 @@ export class LoginView extends View {
       case 200:
         delete user.password;
         // localStorage.setItem("user", JSON.stringify(user));
-        this.displayMessage(messageBox, "Вход прошел успешно", "success");
-        this.router.goTo("/");
+        this.displayMessage(messageBox, 'Вход прошел успешно', 'success');
+        this.router.goTo('/');
         this.router.renderLayout();
         break;
       case 401:
-        this.displayMessage(messageBox, "Неправильное имя пользователя или пароль", "error");
+        this.displayMessage(
+          messageBox,
+          'Неправильное имя пользователя или пароль',
+          'error',
+        );
         break;
       default:
         this.displayMessage(
           messageBox,
-          response.body.error || "Не удалось войти",
-          "error",
+          response.body.error || 'Не удалось войти',
+          'error',
         );
         break;
     }
@@ -163,6 +162,6 @@ export class LoginView extends View {
   displayMessage(messageBox, message, type) {
     messageBox.textContent = message;
     messageBox.className =
-      type === "success" ? "message-success" : "message-error";
+      type === 'success' ? 'message-success' : 'message-error';
   }
 }

@@ -1,17 +1,21 @@
-import { View } from "../../view.js";
-import { Ajax } from "../../modules/ajax.js";
-import { bindLinkClickEvents } from "../../modules/linksHandling.js";
-import { API_URL } from "../../app/config.js";
-import { isValidEmail, isValidPassword, isValidUsername } from "../../modules/validation.js";
+import { View } from '../../view.js';
+import { Ajax } from '../../modules/ajax.js';
+import { bindLinkClickEvents } from '../../modules/linksHandling.js';
+import {
+  isValidEmail,
+  isValidPassword,
+  isValidUsername,
+} from '../../modules/validation.js';
+import { API_ENDPOINTS } from '../../shared/lib/index.js';
 
 export class SignupView extends View {
   constructor(router) {
     super(router);
-    this.root = document.querySelector("#root");
+    this.root = document.querySelector('#root');
   }
 
   render() {
-    const template = Handlebars.templates["signup.hbs"];
+    const template = Handlebars.templates['signup.hbs'];
     this.root.innerHTML = template();
     this.bindEvents();
   }
@@ -22,13 +26,13 @@ export class SignupView extends View {
    * @private
    */
   bindEvents() {
-    const links = document.querySelectorAll(".link");
-    const form = this.root.querySelector("#signup-form");
-    const messageBox = this.root.querySelector("#message-box");
+    const links = document.querySelectorAll('.link');
+    const form = this.root.querySelector('#signup-form');
+    const messageBox = this.root.querySelector('#message-box');
 
     bindLinkClickEvents(links, this.linkHandler.bind(this));
 
-    form.addEventListener("submit", (event) =>
+    form.addEventListener('submit', (event) =>
       this.submitHandler(event, messageBox),
     );
   }
@@ -53,18 +57,14 @@ export class SignupView extends View {
    */
   async submitHandler(event, messageBox) {
     event.preventDefault();
-    messageBox.innerHTML = "";
+    messageBox.innerHTML = '';
 
     const formData = new FormData(event.target);
     const user = this.extractFormData(formData);
 
     const isValidData = this.isValidData(user);
     if (!isValidData.result) {
-      this.displayMessage(
-        messageBox,
-        isValidData.message,
-        "error",
-      );
+      this.displayMessage(messageBox, isValidData.message, 'error');
       return;
     }
 
@@ -74,10 +74,10 @@ export class SignupView extends View {
     } catch (error) {
       this.displayMessage(
         messageBox,
-        "Возникла ошибка при регистрации. Попробуйте позже.",
-        "error",
+        'Возникла ошибка при регистрации. Попробуйте позже.',
+        'error',
       );
-      console.error("Error during registration:", error);
+      console.error('Error during registration:', error);
     }
   }
 
@@ -85,20 +85,32 @@ export class SignupView extends View {
    * Validates the user's data (username and password).
    *
    * @param {Object} user - The user object containing the username and password.
-   * 
+   *
    * @returns {Object} - An object representing the validation result and error message if needed.
    */
   isValidData(user) {
     if (!isValidEmail(user.email)) {
-      return {result: false, message: "Адрес электронной почты должен содержать символ @ и символы до и после"};
+      return {
+        result: false,
+        message:
+          'Адрес электронной почты должен содержать символ @ и символы до и после',
+      };
     }
     if (!isValidUsername(user.username)) {
-      return {result: false, message: "Имя пользователя может состоять из букв латинского алфавита, цифр и нижнего подчеркивания"};
+      return {
+        result: false,
+        message:
+          'Имя пользователя может состоять из букв латинского алфавита, цифр и нижнего подчеркивания',
+      };
     }
     if (!isValidPassword(user.password)) {
-      return {result: false, message: "Пароль может состоять из букв латинского алфавита, цифр и нижнего подчеркивания и должен быть не короче 6 символов"};
+      return {
+        result: false,
+        message:
+          'Пароль может состоять из букв латинского алфавита, цифр и нижнего подчеркивания и должен быть не короче 6 символов',
+      };
     }
-    return {result: true};
+    return { result: true };
   }
 
   /**
@@ -109,9 +121,9 @@ export class SignupView extends View {
    */
   extractFormData(form) {
     return {
-      email: form.get("email"),
-      username: form.get("username"),
-      password: form.get("password"),
+      email: form.get('email'),
+      username: form.get('username'),
+      password: form.get('password'),
     };
   }
 
@@ -122,7 +134,7 @@ export class SignupView extends View {
    * @returns {Promise<Object>} response from the server
    */
   async signupRequest(user) {
-    const url = `${API_URL}/api/v1/auth/register`;
+    const url = API_ENDPOINTS.SIGN_UP;
     return await Ajax.post(url, user);
   }
 
@@ -139,18 +151,26 @@ export class SignupView extends View {
       case 200:
         delete user.password;
         // localStorage.setItem("user", JSON.stringify(user));
-        this.displayMessage(messageBox, "Регистрация прошла успешно", "success");
+        this.displayMessage(
+          messageBox,
+          'Регистрация прошла успешно',
+          'success',
+        );
         this.router.renderLayout();
-        this.router.goTo("/");
+        this.router.goTo('/');
         break;
       case 400:
-        this.displayMessage(messageBox, "Имя пользователя или адрес электронной почты уже заняты", "error");
+        this.displayMessage(
+          messageBox,
+          'Имя пользователя или адрес электронной почты уже заняты',
+          'error',
+        );
         break;
       default:
         this.displayMessage(
           messageBox,
-          response.body.error || "Регистрация не удалась",
-          "error",
+          response.body.error || 'Регистрация не удалась',
+          'error',
         );
         break;
     }
@@ -166,6 +186,6 @@ export class SignupView extends View {
   displayMessage(messageBox, message, type) {
     messageBox.textContent = message;
     messageBox.className =
-      type === "success" ? "message-success" : "message-error";
+      type === 'success' ? 'message-success' : 'message-error';
   }
 }

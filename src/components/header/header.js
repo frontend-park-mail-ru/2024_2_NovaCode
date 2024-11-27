@@ -1,18 +1,18 @@
-import { View } from "../../view.js";
-import { Ajax } from "../../modules/ajax.js";
-import { bindLinkClickEvents } from "../../modules/linksHandling.js";
+import { View } from '../../view.js';
+import { Ajax } from '../../modules/ajax.js';
+import { bindLinkClickEvents } from '../../modules/linksHandling.js';
 // import { getCurrentUser, removeCurrentUser } from "../../modules/user.js";
-import { API_URL } from "../../app/config.js";
+import { API_ENDPOINTS } from '../../shared/lib/index.js';
 
 export class HeaderView extends View {
   /**
    * Initializes the HeaderView instance with the given router.
-   * 
+   *
    * @param {Router} router - The router instance used for navigation.
    */
   constructor(router) {
     super(router);
-    this.root = document.querySelector("#header");
+    this.root = document.querySelector('#header');
   }
 
   async render() {
@@ -33,7 +33,7 @@ export class HeaderView extends View {
    * @returns {string} rendered html string for header
    */
   template(isAuthorized) {
-    const template = Handlebars.templates["header.hbs"];
+    const template = Handlebars.templates['header.hbs'];
     return template({ isAuthorized });
   }
 
@@ -43,17 +43,13 @@ export class HeaderView extends View {
    * @private
    */
   bindEvents() {
-    const links = document.querySelectorAll(".link");
-    const logoutLink = this.root.querySelector("#header_logout_link");
+    const links = document.querySelectorAll('.link');
+    const logoutLink = this.root.querySelector('#header_logout_link');
 
     bindLinkClickEvents(links, this.linkHandler.bind(this));
 
     if (logoutLink) {
-      this.addEventListener(
-        logoutLink,
-        "click",
-        this.logoutHandler.bind(this),
-      );
+      this.addEventListener(logoutLink, 'click', this.logoutHandler.bind(this));
     }
   }
 
@@ -63,10 +59,11 @@ export class HeaderView extends View {
    * @private
    */
   switchActiveNavlink() {
-    let navlinks = document.querySelectorAll(".navlink")
-    navlinks.forEach((navlink)=>{
-      if (navlink.getAttribute("href") == window.location.pathname) navlink.classList.add("active")  
-    })
+    let navlinks = document.querySelectorAll('.navlink');
+    navlinks.forEach((navlink) => {
+      if (navlink.getAttribute('href') == window.location.pathname)
+        navlink.classList.add('active');
+    });
   }
 
   /**
@@ -88,29 +85,29 @@ export class HeaderView extends View {
    */
   async logoutHandler(event) {
     event.preventDefault();
-    const url = `${API_URL}/api/v1/auth/logout`;
+    const url = API_ENDPOINTS.SIGN_OUT;
     const response = await Ajax.post(url);
 
     if (response.status === 200) {
       // removeCurrentUser();
       this.router.renderLayout();
     } else {
-      console.error("logout failed:", response.body);
+      console.error('logout failed:', response.body);
     }
 
-    this.router.goTo("/login");
+    this.router.goTo('/login');
   }
-  
+
   /**
    * Sends authorization request to the server using user data
    *
    * @returns {Promise<Object>} response from the server
    */
   async isAuthorizedRequest() {
-    const url = `${API_URL}/api/v1/auth/health`;
+    const url = API_ENDPOINTS.IS_AUTH;
     return await Ajax.get(url);
   }
-  
+
   /**
    * Handles server response from authorization request
    *
