@@ -5,120 +5,121 @@ import template from './SignIn.hbs';
 import './SignIn.scss';
 
 export class SignInPage {
-	parent;
+  parent;
 
-	constructor() {
-		this.parent = document.querySelector('#root');
+  constructor() {
+    this.parent = document.querySelector('#root');
 
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleSignInSuccess = this.handleSignInSuccess.bind(this);
-		this.handleSignInError = this.handleSignInError.bind(this);
-	}
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignInSuccess = this.handleSignInSuccess.bind(this);
+    this.handleSignInError = this.handleSignInError.bind(this);
+  }
 
-	render() {
-		this.parent.innerHTML = '';
+  render() {
+    this.parent.innerHTML = '';
 
-		this.parent.innerHTML = template();
-		this.bindEvents();
-		this.onEvents();
-	}
+    this.parent.innerHTML = template();
+    this.bindEvents();
+    this.onEvents();
+    eventBus.emit('hidePlayer');
+  }
 
-	bindEvents() {
-		const form = document.querySelector('#login-form');
-		const links = this.parent.querySelectorAll('.link');
+  bindEvents() {
+    const form = document.querySelector('#login-form');
+    const links = this.parent.querySelectorAll('.link');
 
-		if (form) {
-			form.addEventListener('submit', this.handleSubmit);
-		}
-		links.forEach(link => {
-			link.addEventListener('click', (event) => this.handleLink(event));
-	  	});
-	}
+    if (form) {
+      form.addEventListener('submit', this.handleSubmit);
+    }
+    links.forEach((link) => {
+      link.addEventListener('click', (event) => this.handleLink(event));
+    });
+  }
 
-	handleLink(event) {
-		event.preventDefault();
-		const href = event.target.getAttribute('href')
-		eventBus.emit('navigate', href);
-	}
+  handleLink(event) {
+    event.preventDefault();
+    const href = event.target.getAttribute('href');
+    eventBus.emit('navigate', href);
+  }
 
-	async handleSubmit(event) {
-		event.preventDefault();
+  async handleSubmit(event) {
+    event.preventDefault();
 
-		const username = document.querySelector('#username').value;
-		const password = document.querySelector('#password').value;
+    const username = document.querySelector('#username').value;
+    const password = document.querySelector('#password').value;
 
-		let validationErrors = this.inputValidation(username, password);
-		console.log(validationErrors);
+    let validationErrors = this.inputValidation(username, password);
+    console.log(validationErrors);
 
-		if (Object.keys(validationErrors).length > 0) {
-			this.handleSignInError(validationErrors);
-			return;
-		}
+    if (Object.keys(validationErrors).length > 0) {
+      this.handleSignInError(validationErrors);
+      return;
+    }
 
-		const user = { username, password };
-		await userStore.signIn(user);
-	}
+    const user = { username, password };
+    await userStore.signIn(user);
+  }
 
-	onEvents() {
-		eventBus.on('signInSuccess', this.handleSignInSuccess);
-		eventBus.on('signInError', this.handleSignInError);
-	}
+  onEvents() {
+    eventBus.on('signInSuccess', this.handleSignInSuccess);
+    eventBus.on('signInError', this.handleSignInError);
+  }
 
-	offEvents() {
-		eventBus.off('signInSuccess', this.handleSignInSuccess);
-		eventBus.off('signInError', this.handleSignInError);
-	}
+  offEvents() {
+    eventBus.off('signInSuccess', this.handleSignInSuccess);
+    eventBus.off('signInError', this.handleSignInError);
+  }
 
-	handleSignInSuccess() {
-		eventBus.emit('navigate', '/');
-	}
+  handleSignInSuccess() {
+    eventBus.emit('navigate', '/');
+  }
 
-	handleSignInError(error) {
-		document.querySelector('#login__username-error').textContent = '';
-		document.querySelector('#login__password-error').textContent = '';
-		document.querySelector('#login__general-error').textContent = '';
-		document.querySelector('#username').classList.remove('login__input_error');
-		document.querySelector('#password').classList.remove('login__input_error');
+  handleSignInError(error) {
+    document.querySelector('#login__username-error').textContent = '';
+    document.querySelector('#login__password-error').textContent = '';
+    document.querySelector('#login__general-error').textContent = '';
+    document.querySelector('#username').classList.remove('login__input_error');
+    document.querySelector('#password').classList.remove('login__input_error');
 
-		if (error.username) {
-			document.querySelector('#username').classList.add('login__input_error');
-			document.querySelector('#login__username-error').textContent =
-				error.username;
-		}
+    if (error.username) {
+      document.querySelector('#username').classList.add('login__input_error');
+      document.querySelector('#login__username-error').textContent =
+        error.username;
+    }
 
-		if (error.password) {
-			document.querySelector('#password').classList.add('login__input_error');
-			document.querySelector('#login__password-error').textContent =
-				error.password;
-		}
+    if (error.password) {
+      document.querySelector('#password').classList.add('login__input_error');
+      document.querySelector('#login__password-error').textContent =
+        error.password;
+    }
 
-		if (typeof error === 'string') {
-			document.querySelector('#login__general-error').textContent = error;
-		}
-	}
+    if (typeof error === 'string') {
+      document.querySelector('#login__general-error').textContent = error;
+    }
+  }
 
-	inputValidation(username, password) {
-		let validationErrors = {};
+  inputValidation(username, password) {
+    let validationErrors = {};
 
-		const usernameError = validate(username, VALIDATION_RULES.username);
-		if (usernameError) {
-			validationErrors.username = usernameError;
-		}
+    const usernameError = validate(username, VALIDATION_RULES.username);
+    if (usernameError) {
+      validationErrors.username = usernameError;
+    }
 
-		const passwordError = validate(password, VALIDATION_RULES.password);
-		if (passwordError) {
-			validationErrors.password = passwordError;
-		}
+    const passwordError = validate(password, VALIDATION_RULES.password);
+    if (passwordError) {
+      validationErrors.password = passwordError;
+    }
 
-		console.log(validationErrors);
-		return validationErrors;
-	}
+    console.log(validationErrors);
+    return validationErrors;
+  }
 
-	destructor() {
-		this.offEvents();
-		const form = document.querySelector('#login-form');
-		if (form) {
-			form.removeEventListener('submit', this.handleSubmit);
-		}
-	}
+  destructor() {
+    this.offEvents();
+    const form = document.querySelector('#login-form');
+    if (form) {
+      form.removeEventListener('submit', this.handleSubmit);
+    }
+  }
 }

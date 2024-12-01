@@ -1,16 +1,19 @@
+import { eventBus } from '../../../shared/lib';
 import template from './Error.hbs';
 import './Error.scss';
 
 export class ErrorPage {
-	parent;
+  parent;
 
-	constructor() {
-		this.parent = document.querySelector('#root');
-	}
+  constructor() {
+    this.parent = document.querySelector('#root');
+  }
 
-	render(message = 'Что-то пошло не так') {
-		this.parent.innerHTML = '';
+  render(message = 'Что-то пошло не так') {
+    this.parent.innerHTML = '';
 
-		this.parent.innerHTML = template({ message });
-	}
+    this.parent.innerHTML = template({ message });
+
+    eventBus.emit('hidePlayer');
+  }
 }
