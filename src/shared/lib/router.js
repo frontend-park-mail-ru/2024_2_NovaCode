@@ -113,7 +113,7 @@ export class Router {
         this.renderLayout();
       }
     } else {
-      this.currentView = new ErrorPage();
+      this.currentView = new ErrorPage('Ошибка', 'Такой страницы не существует.');
       await this.currentView.render();
     }
   }

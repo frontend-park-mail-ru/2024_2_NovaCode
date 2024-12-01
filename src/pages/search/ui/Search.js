@@ -3,6 +3,7 @@ import { SearchLineView } from '../../../widgets/searchLine/index.js';
 import { ArtistListView } from '../../../widgets/artistList/index.js';
 import { TrackListView } from '../../../widgets/trackList/index.js';
 import { AlbumListView } from '../../../widgets/albumList/index.js';
+import { ErrorView } from '../../../widgets/error/index.js';
 
 export class SearchPage {
   /**
@@ -26,15 +27,22 @@ export class SearchPage {
     eventBus.on('foundArtists', this.handleFoundArtists.bind(this));
     eventBus.on('foundAlbums', this.handleFoundAlbums.bind(this));
     eventBus.on('foundTracks', this.handleFoundTracks.bind(this));
+    eventBus.on('emptySearchResult', this.handleNotFound.bind(this));
   }
 
   offEvents() {
     eventBus.off('foundArtists', this.handleFoundArtists.bind(this));
     eventBus.off('foundAlbums', this.handleFoundAlbums.bind(this));
     eventBus.off('foundTracks', this.handleFoundTracks.bind(this));
+    eventBus.off('emptySearchResult', this.handleNotFound.bind(this));
   }
 
   async handleFoundArtists(artists) {
+    const errorElement = document.querySelector('.error');
+    if (errorElement) {
+      errorElement.remove();
+    }
+
     const artistsElement = document.querySelector('.artists');
     if (artistsElement) {
       artistsElement.remove();
@@ -49,6 +57,11 @@ export class SearchPage {
   }
 
   async handleFoundAlbums(albums) {
+    const errorElement = document.querySelector('.error');
+    if (errorElement) {
+      errorElement.remove();
+    }
+  
     const albumsElement = document.querySelector('.albums');
     if (albumsElement) {
       albumsElement.remove();
@@ -63,6 +76,11 @@ export class SearchPage {
   }
 
   async handleFoundTracks(tracks) {
+    const errorElement = document.querySelector('.error');
+    if (errorElement) {
+      errorElement.remove();
+    }
+
     const tracksElement = document.querySelector('.tracks');
     if (tracksElement) {
       tracksElement.remove();
@@ -74,6 +92,16 @@ export class SearchPage {
 
     const trackListView = new TrackListView(this.parent);
     await trackListView.render(tracks, false);
+  }
+
+  async handleNotFound() {
+    const errorElement = document.querySelector('.error');
+    if (errorElement) {
+      errorElement.remove();
+    }
+
+    const errorView = new ErrorView(null, 'Ничего не найдено', 'Попробуйте поискать что-то другое.');
+    await errorView.render();
   }
 
   destructor() {
