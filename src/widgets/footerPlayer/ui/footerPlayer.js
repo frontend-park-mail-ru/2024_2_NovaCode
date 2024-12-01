@@ -18,8 +18,8 @@ export class FooterPlayerView {
    *
    * @param {HTMLElement} parent - The parent HTML element
    */
-  constructor(parent) {
-    this.parent = parent ? parent : document.querySelector('#root');
+  constructor() {
+    this.parent = document.querySelector('#player');
     this.api = new FooterPlayerAPI();
     this.trackTimer = null;
   }
@@ -31,11 +31,6 @@ export class FooterPlayerView {
     const footerPlayerElement = document.createElement('div');
     footerPlayerElement.classList.add('footer_player');
     footerPlayerElement.innerHTML = template({});
-
-    const spacer = document.createElement('div');
-    spacer.classList.add('spacer');
-
-    this.parent.appendChild(spacer);
     this.parent.appendChild(footerPlayerElement);
 
     await this.getElements();
@@ -43,11 +38,11 @@ export class FooterPlayerView {
     this.onEvents();
     this.addEvents();
 
-    this.handleLoading();
     this.seekVolumeSlider.value = player.getVolume() * 100;
   }
 
   async getElements() {
+    this.footerPlayer = document.querySelector('#player');
     this.trackTime = document.querySelector('.track_slider__time_current');
 
     this.playPauseBtn = document.querySelector('.buttons_player__play_track');
@@ -70,10 +65,14 @@ export class FooterPlayerView {
 
   onEvents() {
     eventBus.on('loadingTrack', this.handleLoading);
+    eventBus.on('hidePlayer', this.hidePlayer);
+    eventBus.on('showPlayer', this.showPlayer);
   }
 
   offEvents() {
     eventBus.off('loadingTrack', this.handleLoading);
+    eventBus.off('hidePlayer', this.hidePlayer);
+    eventBus.off('showPlayer', this.showPlayer);
   }
 
   addEvents() {
@@ -130,6 +129,19 @@ export class FooterPlayerView {
     player.setVolume(this.seekVolumeSlider.value / 100);
   };
 
+  hidePlayer = async () => {
+    if (!this.footerPlayer.classList.contains('hidden')) {
+      this.footerPlayer.classList.add('hidden');
+      player.clearTracks();
+    }
+  };
+
+  showPlayer = async () => {
+    if (this.footerPlayer.classList.contains('hidden')) {
+      this.footerPlayer.classList.remove('hidden');
+    }
+  };
+
   handleLoading = async () => {
     const trackInfo = player.getTrackInfo();
     this.trackInfoTrackImg.setAttribute(
@@ -151,7 +163,7 @@ export class FooterPlayerView {
     if (user.isAuthorized) {
       isFavorite = await this.api.isFavorite(trackInfo.id);
     }
-  
+
     if (user.isAuthorized && isFavorite) {
       this.likeTrackBtn.classList.add('liked_footer_player');
     } else {
@@ -182,7 +194,7 @@ export class FooterPlayerView {
       eventBus.emit('navigate', '/signin');
       return;
     }
-    
+
     const isFavorite = await this.api.isFavorite(trackInfo.id);
     if (user.isAuthorized && isFavorite) {
       this.api.deleteFavorite(trackInfo.id);

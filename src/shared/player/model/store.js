@@ -3,118 +3,138 @@ import { DEFAULT_PLAYER_VOLUME } from '../../lib/constants/player.js';
 import { S3_BUCKETS } from '../../../shared/lib/index.js';
 
 class PlayerStore {
-	constructor() {
-		this.currentIndex = -1;
-		this.isPlaying = false;
+  constructor() {
+    this.currentIndex = -1;
+    this.isPlaying = false;
+    this.isLoaded = false;
 
-		this.tracks = [];
-		this.currentTrack = document.createElement('audio');
-		this.currentTrack.volume = DEFAULT_PLAYER_VOLUME;
+    this.queue = [];
+    this.tracks = [];
+    this.currentTrack = document.createElement('audio');
+    this.currentTrack.volume = DEFAULT_PLAYER_VOLUME;
 
-		this.onEvents();
-	}
+    this.onEvents();
+  }
 
-	clearTracks() {
-		this.currentTrack.pause();
-		this.tracks = [];
-	}
+  clearTracks() {
+    this.currentTrack.pause();
+    this.tracks = [];
+  }
 
-	setTracks(tracks) {
-		this.tracks = tracks;
-		if (this.tracks.length > 0) {
-			this.currentIndex = 0;
-			this.loadTrack();
-		}
-	}
+  addTracks(tracks) {
+    this.isLoaded = false;
+    if (this.tracks.length == 0) {
+      this.tracks = tracks;
+      this.setTracks();
+    } else {
+      this.queue = tracks;
+    }
+  }
 
-	getTrackInfo() {
-		return this.tracks[this.currentIndex];
-	}
+  setTracks() {
+    this.currentIndex = 0;
+    this.loadTrack();
+  }
 
-	onEvents() {
-		eventBus.on('playPauseTrack', this.onPlayPauseTrack);
-		eventBus.on('playById', this.onPlayById);
-		eventBus.on('nextTrack', this.onNextTrack);
-		eventBus.on('prevTrack', this.onPrevTrack);
-	}
+  getTrackInfo() {
+    return this.tracks[this.currentIndex];
+  }
 
-	offEvents() {
-		eventBus.off('playPauseTrack', this.onPlayPauseTrack);
-		eventBus.off('playById', this.onPlayById);
-		eventBus.off('nextTrack', this.onNextTrack);
-		eventBus.off('prevTrack', this.onPrevTrack);
-	}
+  onEvents() {
+    eventBus.on('playPauseTrack', this.onPlayPauseTrack);
+    eventBus.on('playById', this.onPlayById);
+    eventBus.on('nextTrack', this.onNextTrack);
+    eventBus.on('prevTrack', this.onPrevTrack);
+    eventBus.on('reloadTracks', this.onReloadTracks);
+  }
 
-	loadTrack() {
-		this.currentTrack.src = `${S3_BUCKETS.TRACK_FILES}/${this.tracks[this.currentIndex].filepath}`;
-		this.currentTrack.load();
-		this.currentTrack.addEventListener('ended', this.onNextTrack);
-		eventBus.emit('loadingTrack');
-	}
+  offEvents() {
+    eventBus.off('playPauseTrack', this.onPlayPauseTrack);
+    eventBus.off('playById', this.onPlayById);
+    eventBus.off('nextTrack', this.onNextTrack);
+    eventBus.off('prevTrack', this.onPrevTrack);
+    eventBus.off('reloadTracks', this.onReloadTracks);
+  }
 
-	setTime(time) {
-		this.currentTrack.currentTime = time;
-	}
+  loadTrack() {
+    this.currentTrack.src = `${S3_BUCKETS.TRACK_FILES}/${this.tracks[this.currentIndex].filepath}`;
+    this.currentTrack.load();
+    this.currentTrack.addEventListener('ended', this.onNextTrack);
+    eventBus.emit('loadingTrack');
+  }
 
-	getTime() {
-		return this.currentTrack.currentTime;
-	}
+  setTime(time) {
+    this.currentTrack.currentTime = time;
+  }
 
-	setVolume(volume) {
-		this.currentTrack.volume = volume;
-	}
+  getTime() {
+    return this.currentTrack.currentTime;
+  }
 
-	getVolume() {
-		return this.currentTrack.volume;
-	}
+  setVolume(volume) {
+    this.currentTrack.volume = volume;
+  }
 
-	getDuration() {
-		return this.currentTrack.duration;
-	}
+  getVolume() {
+    return this.currentTrack.volume;
+  }
 
-	isPaused() {
-		return this.currentTrack.paused;
-	}
+  getDuration() {
+    return this.currentTrack.duration;
+  }
 
-	onPlayPauseTrack = () => {
-		if (this.isPlaying) {
-			this.currentTrack.pause();
-			this.isPlaying = false;
-		} else {
-			this.currentTrack.play();
-			this.isPlaying = true;
-		}
-	};
+  isPaused() {
+    return this.currentTrack.paused;
+  }
 
-	onPlayById = (index) => {
-		this.currentTrack.pause();
-		this.currentIndex = index;
-		this.loadTrack();
-		this.currentTrack.play();
-		this.isPlaying = true;
-	};
+  onReloadTracks = () => {
+    if (!this.isLoaded && this.queue.length > 0) {
+      this.clearTracks();
+      this.tracks = this.queue;
+      this.queue = [];
+      this.isLoaded = true;
+    }
+  };
 
-	onNextTrack = () => {
-		this.currentIndex =
-			this.currentIndex + 1 >= this.tracks.length ? 0 : this.currentIndex + 1;
-		this.loadTrack();
-		this.currentTrack.play();
-		this.isPlaying = true;
-	};
+  onPlayPauseTrack = () => {
+    if (this.isPlaying) {
+      this.currentTrack.pause();
+      this.isPlaying = false;
+    } else {
+      this.currentTrack.play();
+      this.isPlaying = true;
+    }
+  };
 
-	onPrevTrack = () => {
-		this.currentIndex =
-			this.currentIndex - 1 < 0
-				? this.tracks.length - 1
-				: this.currentIndex - 1;
-		this.loadTrack();
-		this.currentTrack.play();
-		this.isPlaying = true;
-	};
+  onPlayById = (index) => {
+    this.currentTrack.pause();
+    this.currentIndex = index;
+    this.loadTrack();
+    this.currentTrack.play();
+    this.isPlaying = true;
+  };
 
-	destructor() {
-		this.offEvents();
-	}
+  onNextTrack = () => {
+    this.currentIndex =
+      this.currentIndex + 1 >= this.tracks.length ? 0 : this.currentIndex + 1;
+    this.loadTrack();
+    this.currentTrack.play();
+    this.isPlaying = true;
+  };
+
+  onPrevTrack = () => {
+    this.currentIndex =
+      this.currentIndex - 1 < 0
+        ? this.tracks.length - 1
+        : this.currentIndex - 1;
+    this.loadTrack();
+    this.currentTrack.play();
+    this.isPlaying = true;
+  };
+
+  destructor() {
+    this.offEvents();
+  }
 }
 
 export const player = new PlayerStore();
