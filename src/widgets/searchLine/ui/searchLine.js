@@ -46,5 +46,9 @@ export class SearchLineView {
 
     const tracks = await SearchLineAPI.findTracks(query);
     eventBus.emit("foundTracks", tracks);
+
+    if (!artists && !albums && !tracks) {
+      eventBus.emit("emptySearchResult");
+    }
   }
 }
