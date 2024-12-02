@@ -1,6 +1,11 @@
-import { eventBus } from '../../../shared/lib/index.js';
-import { DEFAULT_PLAYER_VOLUME } from '../../lib/constants/player.js';
-import { S3_BUCKETS } from '../../../shared/lib/index.js';
+import { eventBus } from "../../../shared/lib/index.js";
+import { DEFAULT_PLAYER_VOLUME } from "../../lib/constants/player.js";
+import { S3_BUCKETS } from "../../../shared/lib/index.js";
+import {
+  PLAYER_PAUSED_STATE,
+  PLAYER_PLAYING_STATE,
+  PLAYER_STATE,
+} from "../../lib/constants/player.js";
 
 class PlayerStore {
   constructor() {
@@ -8,12 +13,15 @@ class PlayerStore {
     this.isPlaying = false;
     this.isLoaded = false;
 
+    this.sessionID = `session_${Date.now()}_${Math.random().toString(36).substring(2)}`;
     this.queue = [];
     this.tracks = [];
-    this.currentTrack = document.createElement('audio');
+    this.currentTrack = document.createElement("audio");
     this.currentTrack.volume = DEFAULT_PLAYER_VOLUME;
 
     this.onEvents();
+    window.addEventListener("storage", this.storageHandler);
+    window.addEventListener("beforeunload", this.beforeUnloadHandler);
   }
 
   clearTracks() {
@@ -41,26 +49,26 @@ class PlayerStore {
   }
 
   onEvents() {
-    eventBus.on('playPauseTrack', this.onPlayPauseTrack);
-    eventBus.on('playById', this.onPlayById);
-    eventBus.on('nextTrack', this.onNextTrack);
-    eventBus.on('prevTrack', this.onPrevTrack);
-    eventBus.on('reloadTracks', this.onReloadTracks);
+    eventBus.on("playPauseTrack", this.onPlayPauseTrack);
+    eventBus.on("playById", this.onPlayById);
+    eventBus.on("nextTrack", this.onNextTrack);
+    eventBus.on("prevTrack", this.onPrevTrack);
+    eventBus.on("reloadTracks", this.onReloadTracks);
   }
 
   offEvents() {
-    eventBus.off('playPauseTrack', this.onPlayPauseTrack);
-    eventBus.off('playById', this.onPlayById);
-    eventBus.off('nextTrack', this.onNextTrack);
-    eventBus.off('prevTrack', this.onPrevTrack);
-    eventBus.off('reloadTracks', this.onReloadTracks);
+    eventBus.off("playPauseTrack", this.onPlayPauseTrack);
+    eventBus.off("playById", this.onPlayById);
+    eventBus.off("nextTrack", this.onNextTrack);
+    eventBus.off("prevTrack", this.onPrevTrack);
+    eventBus.off("reloadTracks", this.onReloadTracks);
   }
 
   loadTrack() {
     this.currentTrack.src = `${S3_BUCKETS.TRACK_FILES}/${this.tracks[this.currentIndex].filepath}`;
     this.currentTrack.load();
-    this.currentTrack.addEventListener('ended', this.onNextTrack);
-    eventBus.emit('loadingTrack');
+    this.currentTrack.addEventListener("ended", this.onNextTrack);
+    eventBus.emit("loadingTrack");
   }
 
   setTime(time) {
@@ -104,6 +112,7 @@ class PlayerStore {
       this.currentTrack.play();
       this.isPlaying = true;
     }
+    this.onChangeState();
   };
 
   onPlayById = (index) => {
@@ -112,6 +121,7 @@ class PlayerStore {
     this.loadTrack();
     this.currentTrack.play();
     this.isPlaying = true;
+    this.onChangeState();
   };
 
   onNextTrack = () => {
@@ -120,6 +130,7 @@ class PlayerStore {
     this.loadTrack();
     this.currentTrack.play();
     this.isPlaying = true;
+    this.onChangeState();
   };
 
   onPrevTrack = () => {
@@ -130,10 +141,41 @@ class PlayerStore {
     this.loadTrack();
     this.currentTrack.play();
     this.isPlaying = true;
+    this.onChangeState();
+  };
+
+  onChangeState = () => {
+    const state = {
+      sessionID: this.sessionID,
+      status: this.isPaused() ? PLAYER_PAUSED_STATE : PLAYER_PLAYING_STATE,
+    };
+    localStorage.setItem(PLAYER_STATE, JSON.stringify(state));
+  };
+
+  storageHandler = (event) => {
+    console.log("storageEvent");
+    if (event.key === PLAYER_STATE) {
+      const state = JSON.parse(event.newValue);
+      if (
+        state &&
+        state.sessionID !== this.sessionID &&
+        state.status === PLAYER_PLAYING_STATE &&
+        this.isPlaying
+      ) {
+        this.currentTrack.pause();
+        this.isPlaying = false;
+      }
+    }
+  };
+
+  beforeUnloadHandler = () => {
+    localStorage.removeItem(PLAYER_STATE);
   };
 
   destructor() {
     this.offEvents();
+    window.removeEventListener("storage", this.storageHandler);
+    window.removeEventListener("beforeunload", this.beforeUnloadHandler);
   }
 }
 
