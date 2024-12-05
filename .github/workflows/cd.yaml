@@ -1,16 +1,18 @@
 name: CD
 
 on:
-  workflow_run:
-    workflows: ["CI"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - develop
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
     steps:
       - name: Install node.js
         uses: actions/setup-node@v4
