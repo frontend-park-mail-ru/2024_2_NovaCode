@@ -4,10 +4,10 @@
 	"description": "music streaming service",
 	"main": "index.js",
 	"scripts": {
-		"build": "webpack --config webpack/webpack.dev.js && node ./server/server.js",
+		"build": "webpack --config webpack/webpack.dev.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)' --config .github/linters/eslint.config.mjs",
-		"start": "webpack serve --config webpack/webpack.dev.js"
+		"start": "node ./server/server.js"
 	},
 	"author": "",
 	"license": "ISC",
