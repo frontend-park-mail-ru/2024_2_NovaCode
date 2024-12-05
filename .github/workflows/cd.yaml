@@ -7,7 +7,7 @@ on:
       - develop
   pull_request:
     branches:
-      - develop
+      - develop  # TODO: remove after test
 
 jobs:
   build:
