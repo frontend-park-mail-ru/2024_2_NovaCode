@@ -2,21 +2,21 @@ import { TrackListAPI } from '../../../widgets/trackList/index.js';
 import { ArtistCardView } from '../../../widgets/artistCard/index.js';
 import { TrackListView } from '../../../widgets/trackList/index.js';
 import { AlbumCarouselView } from '../../../widgets/albumCarousel/index.js';
-import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
-import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
+import { eventBus } from '../../../shared/lib/eventbus.js';
+import { userStore } from '../../../entities/user/index.js';
 
 export class ArtistPage {
-	/**
-	 * Creates an instance of the View class.
-	 */
-	constructor(params) {
-		this.parent = document.querySelector('#root');
-		this.artistId = params['artistId'];
-	}
+  /**
+   * Creates an instance of the View class.
+   */
+  constructor(params) {
+    this.parent = document.querySelector('#root');
+    this.artistId = params['artistId'];
+  }
 
-	async render() {
-		this.parent.innerHTML = '';
+  async render() {
+    this.parent.innerHTML = '';
 
 		this.pageContent = document.createElement('div');
 		this.pageContent.classList.add('page_content');
@@ -30,16 +30,14 @@ export class ArtistPage {
 		const trackListView = new TrackListView(this.pageContent, {artistId: this.artistId});
 		await trackListView.render(tracks.slice(0, 5));
 
-		player.setTracks(tracks);
+    player.addTracks(tracks);
+    if (userStore.storage.user.isAuthorized) {
+      eventBus.emit('showPlayer');
+    } else {
+      eventBus.emit('hidePlayer');
+    }
 
-		const albumCarouselView = new AlbumCarouselView(this.pageContent, this.artistId);
-		await albumCarouselView.render();
-
-		const footPlayerView = new FooterPlayerView(this.parent);
-		const user = userStore.storage.user;
-		if (!user) {
-			return;
-		}
-		await footPlayerView.render();
-	}
+    const albumCarouselView = new AlbumCarouselView(this.pageContent, this.artistId);
+    await albumCarouselView.render();
+  }
 }

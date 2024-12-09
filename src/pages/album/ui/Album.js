@@ -1,21 +1,21 @@
 import { TrackListAPI } from '../../../widgets/trackList/index.js';
 import { AlbumCardView } from '../../../widgets/albumCard/index.js';
 import { TrackListView } from '../../../widgets/trackList/index.js';
-import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
-import { userStore } from '../../../entities/user/model/store.js';
 import { player } from '../../../shared/player/model/store.js';
+import { userStore } from '../../../entities/user/index.js';
+import { eventBus } from '../../../shared/lib/eventbus.js';
 
 export class AlbumPage {
-	/**
-	 * Creates an instance of the View class.
-	 */
-	constructor(params) {
-		this.parent = document.querySelector('#root');
-		this.albumId = params['albumId'];
-	}
+  /**
+   * Creates an instance of the View class.
+   */
+  constructor(params) {
+    this.parent = document.querySelector('#root');
+    this.albumId = params['albumId'];
+  }
 
-	async render() {
-		this.parent.innerHTML = '';
+  async render() {
+    this.parent.innerHTML = '';
 
 		this.pageContent = document.createElement('div');
 		this.pageContent.classList.add('page_content');
@@ -29,13 +29,11 @@ export class AlbumPage {
 		const trackListView = new TrackListView(this.pageContent, {albumId: this.albumId});
 		await trackListView.render(tracks);
 
-		player.setTracks(tracks);
-
-		const footPlayerView = new FooterPlayerView(this.parent);
-		const user = userStore.storage.user;
-		if (!user) {
-			return;
-		}
-		await footPlayerView.render();
-	}
+    player.addTracks(tracks);
+    if (userStore.storage.user.isAuthorized) {
+      eventBus.emit('showPlayer');
+    } else {
+      eventBus.emit('hidePlayer');
+    }
+  }
 }

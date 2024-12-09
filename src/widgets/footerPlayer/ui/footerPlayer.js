@@ -19,8 +19,8 @@ export class FooterPlayerView {
    *
    * @param {HTMLElement} parent - The parent HTML element
    */
-  constructor(parent) {
-    this.parent = parent ?? document.querySelector('#root');
+  constructor() {
+    this.parent = document.querySelector("#player");
     this.api = new FooterPlayerAPI();
     this.trackTimer = null;
   }
@@ -29,14 +29,9 @@ export class FooterPlayerView {
    * Renders the tracklist view.
    */
   async render() {
-    const footerPlayerElement = document.createElement('div');
-    footerPlayerElement.classList.add('footer_player');
+    const footerPlayerElement = document.createElement("div");
+    footerPlayerElement.classList.add("footer_player");
     footerPlayerElement.innerHTML = template({ isPlaying: player.isPlaying });
-
-    const spacer = document.createElement('div');
-    spacer.classList.add('spacer');
-
-    this.parent.appendChild(spacer);
     this.parent.appendChild(footerPlayerElement);
 
     await this.getElements();
@@ -44,12 +39,12 @@ export class FooterPlayerView {
     this.onEvents();
     this.addEvents();
 
-    this.handleLoading();
     this.seekVolumeSlider.value = player.getVolume() * 100;
   }
 
   async getElements() {
-    this.trackTime = document.querySelector('.track_slider__time_current');
+    this.footerPlayer = document.querySelector("#player");
+    this.trackTime = document.querySelector(".track_slider__time_current");
 
     this.playPauseBtn = document.querySelector('.buttons_player__play_track');
     this.playPauseBtnIcon = this.playPauseBtn.querySelector('img');
@@ -58,25 +53,29 @@ export class FooterPlayerView {
     this.likeTrackBtn = document.querySelector('.buttons_player__like_track');
     this.addTrackBtn = document.querySelector('.buttons_player__add_track');
 
-    this.seekTimerSlider = document.querySelector('.track_slider__seek');
-    this.seekVolumeSlider = document.querySelector('.volume_slider__seek');
+    this.seekTimerSlider = document.querySelector(".track_slider__seek");
+    this.seekVolumeSlider = document.querySelector(".volume_slider__seek");
 
     this.trackInfoTrackImg = document.querySelector(
-      '.player_details__track_img',
+      ".player_details__track_img",
     );
-    this.trackInfoTrackName = document.querySelector('.player__track_name');
-    this.trackInfoTrackArtist = document.querySelector('.player__track_artist');
+    this.trackInfoTrackName = document.querySelector(".player__track_name");
+    this.trackInfoTrackArtist = document.querySelector(".player__track_artist");
     this.trackInfoTrackDuration = document.querySelector(
-      '.track_slider__time_total',
+      ".track_slider__time_total",
     );
   }
 
   onEvents() {
-    eventBus.on('loadingTrack', this.handleLoading);
+    eventBus.on("loadingTrack", this.handleLoading);
+    eventBus.on("hidePlayer", this.hidePlayer);
+    eventBus.on("showPlayer", this.showPlayer);
   }
 
   offEvents() {
-    eventBus.off('loadingTrack', this.handleLoading);
+    eventBus.off("loadingTrack", this.handleLoading);
+    eventBus.off("hidePlayer", this.hidePlayer);
+    eventBus.off("showPlayer", this.showPlayer);
   }
 
   addEvents() {
@@ -97,13 +96,13 @@ export class FooterPlayerView {
     this.addTrackBtn.removeEventListener('click', this.handleAddTrackBtn);
     this.seekTimerSlider.removeEventListener('change', this.handleTimerSlider);
     this.seekVolumeSlider.removeEventListener(
-      'change',
+      "change",
       this.handleVolumeSlider,
     );
   }
 
   resetValues = async () => {
-    this.trackTime.textContent = '00:00';
+    this.trackTime.textContent = "00:00";
     this.seekTimerSlider.value = 0;
   };
 
@@ -135,11 +134,24 @@ export class FooterPlayerView {
     player.setVolume(this.seekVolumeSlider.value / 100);
   };
 
+  hidePlayer = async () => {
+    if (!this.footerPlayer.classList.contains("hidden")) {
+      this.footerPlayer.classList.add("hidden");
+      player.clearTracks();
+    }
+  };
+
+  showPlayer = async () => {
+    if (this.footerPlayer.classList.contains("hidden")) {
+      this.footerPlayer.classList.remove("hidden");
+    }
+  };
+
   handleLoading = async () => {
     const trackInfo = player.getTrackInfo();
     console.log(trackInfo);
     this.trackInfoTrackImg.setAttribute(
-      'src',
+      "src",
       `${S3_BUCKETS.TRACK_IMAGES}/${trackInfo.image}`,
     );
     this.trackInfoTrackName.textContent = trackInfo.name;
@@ -157,11 +169,11 @@ export class FooterPlayerView {
     if (user.isAuthorized) {
       isFavorite = await this.api.isFavorite(trackInfo.id);
     }
-  
+
     if (user.isAuthorized && isFavorite) {
-      this.likeTrackBtn.classList.add('liked_footer_player');
+      this.likeTrackBtn.classList.add("liked_footer_player");
     } else {
-      this.likeTrackBtn.classList.remove('liked_footer_player');
+      this.likeTrackBtn.classList.remove("liked_footer_player");
     }
 
     clearInterval(this.trackTimer);
@@ -179,28 +191,28 @@ export class FooterPlayerView {
   };
 
   handleNextTrackBtn = async () => {
-    eventBus.emit('nextTrack');
+    eventBus.emit("nextTrack");
   };
 
   handlePrevTrackBtn = async () => {
-    eventBus.emit('prevTrack');
+    eventBus.emit("prevTrack");
   };
 
   handleLikeTrackBtn = async () => {
     const trackInfo = player.getTrackInfo();
     const user = userStore.storage.user;
     if (!user.isAuthorized) {
-      eventBus.emit('navigate', '/signin');
+      eventBus.emit("navigate", "/signin");
       return;
     }
-    
+
     const isFavorite = await this.api.isFavorite(trackInfo.id);
     if (user.isAuthorized && isFavorite) {
       this.api.deleteFavorite(trackInfo.id);
-      this.likeTrackBtn.classList.remove('liked_footer_player');
+      this.likeTrackBtn.classList.remove("liked_footer_player");
     } else {
       this.api.addFavorite(trackInfo.id);
-      this.likeTrackBtn.classList.add('liked_footer_player');
+      this.likeTrackBtn.classList.add("liked_footer_player");
     }
   };
 

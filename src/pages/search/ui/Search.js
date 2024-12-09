@@ -1,85 +1,114 @@
-import { eventBus } from "../../../shared/lib/index.js";
+import { eventBus } from '../../../shared/lib/index.js';
 import { SearchLineView } from '../../../widgets/searchLine/index.js';
 import { ArtistListView } from '../../../widgets/artistList/index.js';
 import { TrackListView } from '../../../widgets/trackList/index.js';
 import { AlbumListView } from '../../../widgets/albumList/index.js';
+import { ErrorView } from '../../../widgets/error/index.js';
 
 export class SearchPage {
-	/**
-	 * Creates an instance of the View class.
-	 */
-	constructor() {
-		this.parent = document.querySelector("#root");
-	}
+  /**
+   * Creates an instance of the View class.
+   */
+  constructor() {
+    this.parent = document.querySelector('#root');
+  }
 
-	async render() {
-		this.parent.innerHTML = "";
+  async render() {
+    this.parent.innerHTML = '';
 
 		this.pageContent = document.createElement('div');
 		this.pageContent.classList.add('page_content');
 		this.parent.appendChild(this.pageContent);
 
 		const searchLine = new SearchLineView(this.pageContent);
-        await searchLine.render();
+    await searchLine.render();
 
-		this.onEvents();
-	}
+    this.onEvents();
+    eventBus.emit('hidePlayer');
+  }
 
-	onEvents() {
-		eventBus.on("foundArtists", this.handleFoundArtists.bind(this));
-		eventBus.on("foundAlbums", this.handleFoundAlbums.bind(this));
-		eventBus.on("foundTracks", this.handleFoundTracks.bind(this));
-	}
+  onEvents() {
+    eventBus.on('foundArtists', this.handleFoundArtists.bind(this));
+    eventBus.on('foundAlbums', this.handleFoundAlbums.bind(this));
+    eventBus.on('foundTracks', this.handleFoundTracks.bind(this));
+    eventBus.on('emptySearchResult', this.handleNotFound.bind(this));
+  }
 
-	offEvents() {
-		eventBus.off("foundArtists", this.handleFoundArtists.bind(this));
-		eventBus.off("foundAlbums", this.handleFoundAlbums.bind(this));
-		eventBus.off("foundTracks", this.handleFoundTracks.bind(this));
-	}
+  offEvents() {
+    eventBus.off('foundArtists', this.handleFoundArtists.bind(this));
+    eventBus.off('foundAlbums', this.handleFoundAlbums.bind(this));
+    eventBus.off('foundTracks', this.handleFoundTracks.bind(this));
+    eventBus.off('emptySearchResult', this.handleNotFound.bind(this));
+  }
 
-	async handleFoundArtists(artists) {
-		const artistsElement = document.querySelector(".artists");
-		if (artistsElement) {
-			artistsElement.remove();
-		}
+  async handleFoundArtists(artists) {
+    const errorElement = document.querySelector('.error');
+    if (errorElement) {
+      errorElement.remove();
+    }
 
-		if (!artists) {
-			return;
-		}
+    const artistsElement = document.querySelector('.artists');
+    if (artistsElement) {
+      artistsElement.remove();
+    }
 
-		const artistListView = new ArtistListView(this.pageContent);
-		await artistListView.render(artists);
-	}
+    if (!artists) {
+      return;
+    }
 
-	async handleFoundAlbums(albums) {
-		const albumsElement = document.querySelector(".albums");
-		if (albumsElement) {
-			albumsElement.remove();
-		}
+    const artistListView = new ArtistListView(this.pageContent);
+    await artistListView.render(artists);
+  }
 
-		if (!albums) {
-			return;
-		}
+  async handleFoundAlbums(albums) {
+    const errorElement = document.querySelector('.error');
+    if (errorElement) {
+      errorElement.remove();
+    }
+  
+    const albumsElement = document.querySelector('.albums');
+    if (albumsElement) {
+      albumsElement.remove();
+    }
 
-		const albumListView = new AlbumListView(this.pageContent);
-		await albumListView.render(albums);
-	}
+    if (!albums) {
+      return;
+    }
 
-	async handleFoundTracks(tracks) {
-		const tracksElement = document.querySelector(".tracks");
-		if (tracksElement) {
-			tracksElement.remove();
-		}
+    const albumListView = new AlbumListView(this.pageContent);
+    await albumListView.render(albums);
+  }
 
-		if (!tracks) {
-			return;
-		}
+  async handleFoundTracks(tracks) {
+    const errorElement = document.querySelector('.error');
+    if (errorElement) {
+      errorElement.remove();
+    }
 
-		const trackListView = new TrackListView(this.pageContent);
-		await trackListView.render(tracks, false);
-	}
+    const tracksElement = document.querySelector('.tracks');
+    if (tracksElement) {
+      tracksElement.remove();
+    }
 
-	destructor() {
-		this.offEvents();
-	}
+    if (!tracks) {
+      return;
+    }
+
+    const trackListView = new TrackListView(this.parent);
+    await trackListView.render(tracks, false);
+  }
+
+  async handleNotFound() {
+    const errorElement = document.querySelector('.error');
+    if (errorElement) {
+      errorElement.remove();
+    }
+
+    const errorView = new ErrorView(null, 'Ничего не найдено', 'Попробуйте поискать что-то другое.');
+    await errorView.render();
+  }
+
+  destructor() {
+    this.offEvents();
+  }
 }

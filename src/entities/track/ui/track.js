@@ -7,11 +7,11 @@ import template from './track.hbs';
 import './track.scss';
 
 export class TrackView {
-	/**
-	 * The parent HTML element.
-	 * @type {HTMLElement}
-	 */
-	parent;
+  /**
+   * The parent HTML element.
+   * @type {HTMLElement}
+   */
+  parent;
 
 	/**
 	 * Initializes the TrackView.
@@ -33,7 +33,7 @@ export class TrackView {
 			track.image = `${S3_BUCKETS.TRACK_IMAGES}/${track.image}`;
 		}
 
-		const user = userStore.storage.user;
+    const user = userStore.storage.user;
 
 		this.trackElement = document.createElement('div');
 		this.trackElement.classList.add('track');
@@ -47,11 +47,11 @@ export class TrackView {
 		this.deleteBtn = this.trackElement.querySelector('track__delete-btn');
 		this.likeBtn = this.trackElement.querySelector('.track__like-btn');
 
-		this.addEvents();
-	}
+    this.addEvents();
+  }
 
-	addEvents() {
-		this.trackElement.addEventListener('click', this.bindTrack);
+  addEvents() {
+    this.trackElement.addEventListener('click', this.bindTrack);
 
 		const links = this.trackElement.querySelectorAll('.link');
 		links.forEach(link => {
@@ -63,18 +63,21 @@ export class TrackView {
 		this.likeBtn.addEventListener('click', this.handleLikeTrackBtn);
 	}
 
-	handleTrackAdd = (event) => {
-		const trackInPlaylistModal = new TrackInPlaylistModal(this.parent, this.track.id);
-		trackInPlaylistModal.render()
-		event.stopPropagation();
-	}
+  handleTrackAdd = (event) => {
+    const trackInPlaylistModal = new TrackInPlaylistModal(
+      this.parent,
+      this.track.id,
+    );
+    trackInPlaylistModal.render();
+    event.stopPropagation();
+  };
 
-	handleTrackDelete = (event) => {
-		const trackInPlaylistAPI = new TrackInPlaylistAPI(this.myPlaylistId);
-		trackInPlaylistAPI.deleteTrack(this.track.id);
-		this.trackElement.remove();
-		event.stopPropagation();
-	}
+  handleTrackDelete = (event) => {
+    const trackInPlaylistAPI = new TrackInPlaylistAPI(this.myPlaylistId);
+    trackInPlaylistAPI.deleteTrack(this.track.id);
+    this.trackElement.remove();
+    event.stopPropagation();
+  };
 
 	handleLikeTrackBtn = async (event) => {
 		event.stopPropagation();
@@ -106,18 +109,19 @@ export class TrackView {
 		this.likeBtn.removeEventListener('click', this.handleLikeTrackBtn);
 	}
 
-	bindTrack = () => {
-		eventBus.emit('playById', this.trackIndex);
-	};
+  bindTrack = () => {
+    eventBus.emit('reloadTracks');
+    eventBus.emit('playById', this.trackIndex);
+  };
 
-	handleLink(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		const href = event.target.getAttribute('href')
-		eventBus.emit('navigate', href);
-	}
+  handleLink(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const href = event.target.getAttribute('href');
+    eventBus.emit('navigate', href);
+  }
 
-	destructor() {
-		this.deleteEvents();
-	}
+  destructor() {
+    this.deleteEvents();
+  }
 }

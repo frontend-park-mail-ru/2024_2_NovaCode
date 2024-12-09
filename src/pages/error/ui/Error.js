@@ -1,15 +1,17 @@
-import template from './Error.hbs';
-import './Error.scss';
+import { eventBus } from '../../../shared/lib/index.js';
+import { ErrorView } from '../../../widgets/error/index.js';
 
 export class ErrorPage {
-	parent;
+  parent;
 
-	constructor() {
-		this.parent = document.querySelector('#root');
-	}
+  constructor(title = 'Ошибка', message = 'Что-то пошло не так...') {
+    this.parent = document.querySelector('#root');
+    this.title = title;;
+    this.message = message;
+  }
 
-	render(message = 'Что-то пошло не так') {
-		this.parent.innerHTML = '';
+  async render() {
+    this.parent.innerHTML = '';
 
 		this.pageContent = document.createElement('div');
 		this.pageContent.classList.add('page_content');
@@ -20,5 +22,7 @@ export class ErrorPage {
 		this.pageContent.appendChild(errorBlock);
 
 		errorBlock.innerHTML = template({ message });
+
+    eventBus.emit('hidePlayer');
 	}
 }
