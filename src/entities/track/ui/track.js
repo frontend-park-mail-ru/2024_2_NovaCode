@@ -1,5 +1,6 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
+import { FooterPlayerAPI } from '../../../widgets/footerPlayer/api/api.js';
 import { TrackInPlaylistAPI, TrackInPlaylistModal } from '../../../widgets/trackInPlaylist/index.js';
 import { userStore } from '../../user/index.js';
 import template from './track.hbs';
@@ -19,12 +20,13 @@ export class TrackView {
 	constructor(parent, index) {
 		this.parent = parent ? parent : document.querySelector('#root');
 		this.trackIndex = index;
+		this.footerPlayerAPI = new FooterPlayerAPI();
 	}
 
 	/**
 	 * Renders the track view.
 	 */
-	render(track, myPlaylistId = null) {
+	async render(track, myPlaylistId = null) {
 		this.myPlaylistId = myPlaylistId;
 		this.track = track;
 		if (track.image) {
@@ -35,12 +37,15 @@ export class TrackView {
 
 		this.trackElement = document.createElement('div');
 		this.trackElement.classList.add('track');
-		this.trackElement.setAttribute('data-track-id', track.id);
-		this.trackElement.innerHTML = template({ track, user, isMyPlaylist: (this.myPlaylistId ? true : false) });
+		this.trackElement.setAttribute('data-track-id', this.track.id);
+		let isMyPlaylist = (this.myPlaylistId ? true : false);
+		let isFavorite = await this.footerPlayerAPI.isFavorite(this.track.id);
+		this.trackElement.innerHTML = template({ track, user, isMyPlaylist, isFavorite });
 		this.parent.appendChild(this.trackElement);
 
-		this.addBtns = this.trackElement.getElementsByClassName('track__add-btn');
-		this.deleteBtns = this.trackElement.getElementsByClassName('track__delete-btn');
+		this.addBtn = this.trackElement.querySelector('track__add-btn');
+		this.deleteBtn = this.trackElement.querySelector('track__delete-btn');
+		this.likeBtn = this.trackElement.querySelector('.track__like-btn');
 
 		this.addEvents();
 	}
@@ -52,13 +57,10 @@ export class TrackView {
 		links.forEach(link => {
 			link.addEventListener('click', (event) => this.handleLink(event));
 		});
-		if (this.addBtns.length > 0) {
-			this.addBtns[0].addEventListener('click', this.handleTrackAdd.bind(this));
-		}
-
-		if (this.deleteBtns.length > 0) {
-			this.deleteBtns[0].addEventListener('click', this.handleTrackDelete.bind(this));
-		}
+		
+		this.addBtn.addEventListener('click', this.handleTrackAdd);
+		this.deleteBtn.addEventListener('click', this.handleTrackDelete);
+		this.likeBtn.addEventListener('click', this.handleLikeTrackBtn);
 	}
 
 	handleTrackAdd = (event) => {
@@ -74,6 +76,24 @@ export class TrackView {
 		event.stopPropagation();
 	}
 
+	handleLikeTrackBtn = async (event) => {
+		event.stopPropagation();
+		const user = userStore.storage.user;
+		if (!user.isAuthorized) {
+		  eventBus.emit('navigate', '/signin');
+		  return;
+		}
+		
+		const isFavorite = await this.footerPlayerAPI.isFavorite(this.track.id);
+		if (user.isAuthorized && isFavorite) {
+		  this.footerPlayerAPI.deleteFavorite(this.track.id);
+		  this.likeBtn.classList.remove('track__liked');
+		} else {
+		  this.footerPlayerAPI.addFavorite(this.track.id);
+		  this.likeBtn.classList.add('track__liked');
+		}
+	  };
+
 	deleteEvents() {
 		this.trackElement.removeEventListener('click', this.bindTrack);
 
@@ -81,13 +101,9 @@ export class TrackView {
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});
-		if (this.addBtns.length > 0) {
-			this.addBtns[0].removeEventListener('click', this.handleTrackAdd.bind(this));
-		}
-
-		if (deleteBtns.length > 0) {
-			deleteBtns[0].removeEventListener('click', this.handleTrackDelete.bind(this));
-		}
+		this.addBtn.removeEventListener('click', this.handleTrackAdd);
+		this.deleteBtn.removeEventListener('click', this.handleTrackDelete);
+		this.likeBtn.removeEventListener('click', this.handleLikeTrackBtn);
 	}
 
 	bindTrack = () => {

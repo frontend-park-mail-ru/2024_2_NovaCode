@@ -1,3 +1,5 @@
+@import "/src/colors.scss";
+
 .artist_card {
   &__container {
     max-width: 1280px;
@@ -31,8 +33,6 @@
   &__img {
     display: block;
     border-radius: 100%;
-    width: 250px;
-    height: 250px;
   }
 
   &__aside {
@@ -76,37 +76,7 @@
   }
 }
 
-.buttons {
-  display: flex;
-  gap: 10px;
-
-  &__subscribe,
-  &__listen {
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
-    gap: 5px;
-    padding: 10px;
-    background: rgba(241.39, 241.39, 241.39, 0.25);
-    border-radius: 9px;
-    color: #f1f1f1;
-    font-size: 25px;
-    font-weight: 400;
-    transition: 0.5s;
-    transition-timing-function: ease;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-
-  &__icon {
-    width: 30px;
-    height: 30px;
-  }
-}
-
-@media (max-width: 1380px) {
+/* @media (max-width: 1380px) {
   .artist_card {
     &__block {
       width: 90%;
@@ -306,3 +276,4 @@
     }
   }
 }
+ */

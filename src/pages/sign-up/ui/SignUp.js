@@ -18,7 +18,19 @@ export class SignUpPage {
 	render() {
 		this.parent.innerHTML = '';
 
-		this.parent.innerHTML = template();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const registerBlock = document.createElement('div');
+		registerBlock.classList.add('register');
+		registerBlock.innerHTML = template();
+		this.pageContent.appendChild(registerBlock);
+
+		const flexAfter = document.createElement('div');
+		flexAfter.classList.add('flex:after');
+		this.pageContent.appendChild(flexAfter);
+
 		this.bindEvents();
 		this.onEvents();
 	}

@@ -17,12 +17,16 @@ export class AlbumPage {
 	async render() {
 		this.parent.innerHTML = '';
 
-		const albumCardView = new AlbumCardView(this.parent, this.albumId);
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const albumCardView = new AlbumCardView(this.pageContent, this.albumId);
 		await albumCardView.render();
 
 		const trackListAPI = new TrackListAPI({albumId: this.albumId});
 		const tracks = await trackListAPI.get();
-		const trackListView = new TrackListView(this.parent, {albumId: this.albumId});
+		const trackListView = new TrackListView(this.pageContent, {albumId: this.albumId});
 		await trackListView.render(tracks);
 
 		player.setTracks(tracks);

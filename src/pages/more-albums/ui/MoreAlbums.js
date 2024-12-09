@@ -18,9 +18,13 @@ export class MoreAlbumsPage {
 			this.artistId = this.entityId;
 		}
 
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
 		const albumListAPI = new AlbumListAPI(this.artistId);
 		const albums = await albumListAPI.get();
-		const albumListView = new AlbumListView(this.parent, this.artistId);
+		const albumListView = new AlbumListView(this.pageContent, this.artistId);
 		await albumListView.render(albums);
 	}
 }

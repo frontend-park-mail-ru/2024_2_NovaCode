@@ -18,11 +18,15 @@ export class ProfilePage {
 	async render() {
 		this.parent.innerHTML = '';
 
-		const userCardView = new UserCardView(this.parent, this.username);
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const userCardView = new UserCardView(this.pageContent, this.username);
 		await userCardView.render();
 
 		this.user = await userStore.getUser(this.username);
-		const myPlaylistsView = new UserPlaylistsView(this.parent, this.user.id);
+		const myPlaylistsView = new UserPlaylistsView(this.pageContent, this.user.id);
 		await myPlaylistsView.render();
 
 		if (this.user.id === userStore.storage.user.id) {
@@ -32,7 +36,7 @@ export class ProfilePage {
 
 	async renderFavorites() {
 		const trackListAPI = new TrackListAPI({ favorite: true });
-		const trackListView = new TrackListView(this.parent, { favorite: true });
+		const trackListView = new TrackListView(this.pageContent, { favorite: true });
 		const tracks = await trackListAPI.get();
 
 		if (tracks.length > 0) {

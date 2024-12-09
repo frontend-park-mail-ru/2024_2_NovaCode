@@ -1,21 +1,8 @@
+@use "/src/colors.scss";
+
 .album_card {
-  &__container {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-
-  &__block {
-    margin: 0 auto;
-    padding: 10px;
-    background-color: hsla(0, 0%, 94.662745098%, 0.1);
-    border-radius: 9px;
-    margin-top: 12px;
-  }
-
   &__text {
-    color: #f1f1f1;
-    font-size: 24px;
-    font-weight: 400;
+    color: colors.$white;
     margin-bottom: 10px;
   }
 
@@ -29,9 +16,7 @@
 
   &__img {
     display: block;
-    border-radius: 6px;
-    width: 250px;
-    height: 250px;
+    border-radius: 5px;
   }
 
   &__aside {
@@ -42,53 +27,29 @@
 }
 
 .album_info {
+  color: colors.$white;
+  
   &__name {
-    color: #f1f1f1;
-    font-size: 41px;
-    font-weight: 400;
     margin-bottom: 20px;
   }
 
   &__artist_release {
-    color: #f1f1f1;
-    font-size: 25px;
-    font-weight: 400;
     margin-bottom: 15px;
-
-    &__artist_link {
-      text-decoration: none;
-      color: #f1f1f1;
-
-      &:visited {
-        color: #f1f1f1;
-      }
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 
   &__likes,
   &__listen {
-    color: #f1f1f1;
     margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: 400;
-  }
-
-  &__listen {
-    margin-bottom: 40px;
   }
 
   &__buttons {
     display: flex;
     justify-content: space-around;
-    flex-direction: rows;
+    flex-direction: row;
   }
 }
 
-.buttons {
+/* .buttons {
   display: flex;
   gap: 10px;
 
@@ -99,26 +60,19 @@
     align-content: center;
     gap: 5px;
     padding: 10px;
-    background: rgba(241.39, 241.39, 241.39, 0.25);
+    background: $button-background;
     border-radius: 9px;
-    color: #f1f1f1;
-    font-size: 25px;
-    font-weight: 400;
-    transition: 0.5s;
+    color: $white;
+    transition: 0.2s;
     transition-timing-function: ease;
 
     &:hover {
       transform: scale(1.1);
     }
   }
+} */
 
-  &__icon {
-    width: 30px;
-    height: 30px;
-  }
-}
-
-@media (max-width: 1380px) {
+/* @media (max-width: 1380px) {
   .album_card {
     &__block {
       width: 90%;
@@ -317,3 +271,4 @@
     }
   }
 }
+ */

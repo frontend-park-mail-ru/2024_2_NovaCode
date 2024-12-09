@@ -26,9 +26,13 @@ export class MoreTracksPage {
 			this.favorite = true;
 		}
 
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
 		const trackListAPI = new TrackListAPI({artistId: this.artistId, albumId: this.albumId});
 		const trackListView = new TrackListView(
-			this.parent,
+			this.pageContent,
 			{
 				artistId: this.artistId, 
 				albumId: this.albumId,

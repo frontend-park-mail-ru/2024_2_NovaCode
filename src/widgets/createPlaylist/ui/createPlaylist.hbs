@@ -1,18 +1,25 @@
-<div class="create-playlist-modal__content">
-    <h2 class="create-playlist-modal__title">Создать плейлист</h2>
-    <form class="create-playlist-modal__form">
-        <label for="playlist-name" class="create-playlist-modal__label">Имя плейлиста</label>
-        <input
-            type="text"
-            id="playlist-name"
-            name="playlist-name"
-            class="create-playlist-modal__input"
-            placeholder="Введите имя плейлиста"
-            required
-        />
-        <div class="create-playlist-modal__actions">
-            <button type="submit" class="create-playlist-modal__submit">Создать</button>
-            <button type="button" class="create-playlist-modal__cancel">Отмена</button>
+<div class="create-playlist-modal-container">
+    <div class="create-playlist-modal">
+        <div class="create-playlist-modal__header">
+            <h4 class="create-playlist-modal__title">Создать плейлист</h4>
+            <button class="create-playlist-modal__close-btn">×</button>
         </div>
-    </form>
+        <div class="create-playlist-modal__body">
+            <form class="create-playlist-modal__form">
+                <label for="playlist-name" class="create-playlist-modal__label"><h5>Имя плейлиста</h5></label>
+                <input
+                    type="text"
+                    id="playlist-name"
+                    name="playlist-name"
+                    class="create-playlist-modal__input"
+                    placeholder="Введите имя плейлиста"
+                    required
+                />
+                <div class="create-playlist-modal__actions">
+                    <button type="submit" class="create-playlist-modal__submit"><h4>Создать</h4></button>
+                    <button type="button" class="create-playlist-modal__cancel"><h4>Отмена</h4></button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

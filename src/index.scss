@@ -1,0 +1,174 @@
+@use "./colors.scss";
+@use "./components.scss";
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(180deg, #172b7b 0%, #020718 100%);
+	background-attachment: fixed;
+	font-family: "Comfortaa", sans-serif;
+	font-size: 18px;
+	font-weight: 300;
+	margin: 0;
+	padding: 0;
+
+	@media (max-width: 1024px) {
+		font-size: 16px;
+	}
+
+	@media (max-width: 768px) {
+		font-size: 14px;
+	}
+}
+
+main {
+	grid-area: content;
+	height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+}
+
+button,
+input {
+	font-family: inherit;
+}
+
+input {
+	font-size: 1rem;
+	font-weight: 300;
+	padding: 5px 10px;
+	border-radius: 10px;
+}
+
+h1 {
+	// logo
+	font-size: 2rem;
+	font-weight: 700;
+
+	@media (max-width: 768px) {
+		font-size: 1.75rem;
+	}
+}
+
+h2 {
+	// header links
+	font-size: 1.75rem;
+	font-weight: 300;
+
+	@media (max-width: 768px) {
+		font-size: 1.5rem;
+	}
+}
+
+h3 {
+	// titles
+	font-size: 1.5rem;
+	font-weight: 700;
+
+	@media (max-width: 768px) {
+		font-size: 1.3rem;
+	}
+}
+
+h4 {
+	// block headers, subtitles, buttons
+	font-size: 1.2rem;
+	font-weight: 700;
+}
+
+h5 {
+	// additional
+	font-size: 1.2rem;
+	font-weight: 300;
+}
+
+
+input[type="range"] {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	padding: 0;
+	cursor: pointer;
+	outline: none;
+	overflow: hidden;
+	border-radius: 16px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+	height: 15px;
+	background: #ccc;
+	border-radius: 16px;
+
+	@media (max-width: 1024px) {
+		height: 12px;
+	}
+
+	@media (max-width: 768px) {
+		height: 10px;
+	}
+}
+
+input[type="range"]::-moz-range-track {
+	height: 15px;
+	background: #ccc;
+	border-radius: 16px;
+
+	@media (max-width: 1024px) {
+		height: 12px;
+	}
+
+	@media (max-width: 768px) {
+		height: 10px;
+	}
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	height: 15px;
+	width: 15px;
+	background-color: #f1f1f1;
+	border-radius: 50%;
+	border: 2px solid #FF5F0F;
+	box-shadow: -407px 0 0 400px #FF5F0F;
+
+	@media (max-width: 1024px) {
+		height: 12px;
+		width: 12px;
+	}
+
+	@media (max-width: 768px) {
+		height: 10px;
+		width: 10px;
+	}
+}
+
+
+input[type="range"]::-moz-range-thumb {
+	height: 15px;
+	width: 15px;
+	background-color: #f1f1f1;
+	border-radius: 50%;
+	border: 1px solid #FF5F0F;
+	box-shadow: -407px 0 0 400px #FF5F0F;
+
+	@media (max-width: 1024px) {
+		height: 12px;
+		width: 12px;
+	}
+
+	@media (max-width: 768px) {
+		height: 10px;
+		width: 10px;
+	}
+}

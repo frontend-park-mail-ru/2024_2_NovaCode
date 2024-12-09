@@ -46,7 +46,8 @@ export class AlbumListView {
 	}
 
 	setTitle(titleText) {
-		const title = document.querySelector('.albums__recommend_text');
+		const titleBlock = document.querySelector('.albums__recommend_text');
+		const title = titleBlock.querySelector('h4');
 		title.textContent = titleText;
 	}
 }

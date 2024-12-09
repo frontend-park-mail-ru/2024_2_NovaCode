@@ -18,7 +18,19 @@ export class SignInPage {
 	render() {
 		this.parent.innerHTML = '';
 
-		this.parent.innerHTML = template();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const loginBlock = document.createElement('div');
+		loginBlock.classList.add('login');
+		loginBlock.innerHTML = template();
+		this.pageContent.appendChild(loginBlock);
+
+		const flexAfter = document.createElement('div');
+		flexAfter.classList.add('flex:after');
+		this.pageContent.appendChild(flexAfter);
+
 		this.bindEvents();
 		this.onEvents();
 	}

@@ -2,8 +2,6 @@ import { userStore } from '../../../entities/user/index.js';
 import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
 import { PlaylistListAPI } from '../../../widgets/playlistList/index.js';
 import { PlaylistListView } from '../../../widgets/playlistList/index.js';
-import template from './morePlaylists.hbs';
-import './morePlaylists.scss';
 
 export class MorePlaylistsPage {
 	/**
@@ -14,11 +12,15 @@ export class MorePlaylistsPage {
 	}
 
 	async render() {
-		this.parent.innerHTML = template();
+		this.parent.innerHTML = '';
+
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
 
 		const playlistListAPI = new PlaylistListAPI();
 		const playlists = await playlistListAPI.get();
-		const playlistListView = new PlaylistListView(this.parent);
+		const playlistListView = new PlaylistListView(this.pageContent);
 		await playlistListView.render(playlists, false);
 
 		const footPlayerView = new FooterPlayerView(this.parent);

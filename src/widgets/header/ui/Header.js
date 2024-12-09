@@ -25,14 +25,20 @@ export class Header {
 
 		this.parent.innerHTML = template({ user });
 
+		this.getElements();
 		this.bindEvents();
 		this.onEvents();
 		this.switchActiveNavlink(window.location.pathname);
 	}
 
+	getElements() {
+		this.mainLink = this.parent.querySelector('header__link_main');
+		this.searchLink = this.parent.querySelector('header__link_search');
+	}
+
 	bindEvents() {
 		const logoutLink = this.parent.querySelector('#header_logout_link');
-		const links = this.parent.querySelectorAll('.link');
+		const links = this.parent.querySelectorAll('.navlink');
 
 		if (logoutLink) {
 			logoutLink.addEventListener('click', (event) =>
@@ -99,6 +105,9 @@ export class Header {
 	}
 
 	switchActiveNavlink(href) {
+		//this.mainLink.classList.toggle('navlink', userStore.isAuth());
+		//this.searchLink.classList.toggle('navlink', userStore.isAuth());
+
 		let navlinks = document.querySelectorAll('.navlink');
 		navlinks.forEach((navlink) => {
 			if (navlink.getAttribute('href') == href) {

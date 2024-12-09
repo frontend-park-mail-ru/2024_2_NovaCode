@@ -1,8 +1,12 @@
+@import "/src/colors.scss";
+$header-gap: 20px;
+$header-img-size: 45px;
+
 .header {
   width: 100%;
   position: sticky;
   top: 0;
-  background-color: #1f1f1f;
+  background-color: $black;
   z-index: 1337;
 
   &__container {
@@ -32,8 +36,8 @@
 
   &__left_block {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    align-items: end;
+    gap: $header-gap;
 
     @media (max-width: 768px) {
       justify-content: center;
@@ -41,10 +45,16 @@
     }
   }
 
+  &__logo_block {
+    display: flex;
+    align-items: end;
+    gap: 5px;
+  }
+
   &__right_block {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: $header-gap;
 
     @media (max-width: 768px) {
       justify-content: center;
@@ -55,7 +65,7 @@
   &__signed_block {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: $header-gap;
 
     @media (max-width: 768px) {
       flex-direction: column;
@@ -64,9 +74,10 @@
   }
 
   &__profile_img {
-    height: 60px;
-    width: 60px;
+    height: $header-img-size;
+    width: $header-img-size;
     border-radius: 100%;
+    cursor: pointer;
 
     @media (max-width: 1023px) {
       height: 50px;
@@ -80,7 +91,7 @@
   }
 
   &__img_logo {
-    height: 41px;
+    height: $header-img-size;
 
     @media (max-width: 1023px) {
       height: 35px;
@@ -92,10 +103,8 @@
   }
 
   &__link_logo {
-    color: #f1f1f1;
+    color: $white;
     text-decoration: none;
-    font-size: 41px;
-    font-weight: 400;
 
     &:hover {
       opacity: 0.5;
@@ -110,11 +119,11 @@
     }
   }
 
-  &__link_search {
+  &__link,
+  &__link {
     display: block;
-    color: #f1f1f1;
+    color: $white;
     text-decoration: none;
-    font-size: 25px;
 
     &:hover {
       opacity: 0.5;
@@ -126,36 +135,15 @@
 
     @media (max-width: 768px) {
       font-size: 18px;
-    }
-  }
-
-  &__link_signup,
-  &__link_signin {
-    display: block;
-    color: #f1f1f1;
-    text-decoration: none;
-    font-size: 25px;
-    padding: 10px 15px;
-
-    &:hover {
-      opacity: 0.5;
-    }
-
-    @media (max-width: 1023px) {
-      font-size: 20px;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 18px;
-      padding: 8px 10px;
     }
   }
 }
 
 .active {
-  border-bottom: 3px solid #f1f1f1;
+  border-bottom: 3px solid $orange;
 
   @media (max-width: 768px) {
-    border-bottom: 2px solid #f1f1f1;
+    border-bottom: 2px solid $orange;
+    ;
   }
 }
