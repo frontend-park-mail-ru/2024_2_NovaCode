@@ -2,7 +2,7 @@ import { View } from '../../view.js';
 import { Ajax } from '../../modules/ajax.js';
 import { bindLinkClickEvents } from '../../modules/linksHandling.js';
 import { isValidUsername } from '../../modules/validation.js';
-import { API_ENDPOINTS } from '../../shared/lib/index.js';
+import { API_ENDPOINTS, eventBus } from '../../shared/lib/index.js';
 
 export class LoginView extends View {
   constructor(router) {
@@ -14,6 +14,7 @@ export class LoginView extends View {
     const template = Handlebars.templates['login.hbs'];
     this.root.innerHTML = template();
     this.bindEvents();
+    eventBus.emit('hidePlayer');
   }
 
   /**

@@ -6,7 +6,7 @@ import {
   isValidPassword,
   isValidUsername,
 } from '../../modules/validation.js';
-import { API_ENDPOINTS } from '../../shared/lib/index.js';
+import { API_ENDPOINTS, eventBus } from '../../shared/lib/index.js';
 
 export class SignupView extends View {
   constructor(router) {
@@ -18,6 +18,7 @@ export class SignupView extends View {
     const template = Handlebars.templates['signup.hbs'];
     this.root.innerHTML = template();
     this.bindEvents();
+    eventBus.emit('hidePlayer');
   }
 
   /**
