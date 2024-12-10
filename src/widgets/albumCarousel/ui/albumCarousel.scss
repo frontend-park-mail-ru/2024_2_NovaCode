@@ -98,11 +98,11 @@
 		height: 35px;
 		font-size: 18px;
 
-		&--prev {
+		&_prev {
 			left: 10px;
 		}
 
-		&--next {
+		&_next {
 			right: 10px;
 		}
 	}
@@ -134,11 +134,11 @@
 			height: 28px;
 			font-size: 16px;
 
-			&--prev {
+			&_prev {
 				left: 5px;
 			}
 
-			&--next {
+			&_next {
 				right: 5px;
 			}
 		}
@@ -167,11 +167,11 @@
 			height: 22px;
 			font-size: 12px;
 
-			&--prev {
+			&_prev {
 				left: 0px;
 			}
 
-			&--next {
+			&_next {
 				right: 0px;
 			}
 		}

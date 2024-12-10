@@ -2,7 +2,7 @@ import { eventBus } from '../../../shared/lib/eventbus.js';
 import { validate, VALIDATION_RULES } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import template from './SignUp.hbs';
-import './SignUp.scss';
+import * as styles from './SignUp.scss';
 
 export class SignUpPage {
   parent;
@@ -18,7 +18,7 @@ export class SignUpPage {
   render() {
     this.parent.innerHTML = '';
 
-    this.parent.innerHTML = template();
+    this.parent.innerHTML = template({styles});
     this.bindEvents();
     this.onEvents();
     eventBus.emit('hidePlayer');
@@ -96,8 +96,8 @@ export class SignUpPage {
     document.querySelector('#register__general-error').textContent = '';
     document
       .querySelector('#username')
-      .classList.remove('register__input_error');
-    document.querySelector('#email').classList.remove('register__input_error');
+      .classList.remove(styles['register__input_error']);
+    document.querySelector('#email').classList.remove(styles['register__input_error']);
     document
       .querySelector('#password')
       .classList.remove('register__input_error');
@@ -105,13 +105,13 @@ export class SignUpPage {
     if (error.username) {
       document
         .querySelector('#username')
-        .classList.add('register__input_error');
+        .classList.add(styles['register__input_error']);
       document.querySelector('#register__username-error').textContent =
         error.username;
     }
 
     if (error.email) {
-      document.querySelector('#email').classList.add('register__input_error');
+      document.querySelector('#email').classList.add(styles['register__input_error']);
       document.querySelector('#register__email-error').textContent =
         error.email;
     }
@@ -119,7 +119,7 @@ export class SignUpPage {
     if (error.password) {
       document
         .querySelector('#password')
-        .classList.add('register__input_error');
+        .classList.add(styles['register__input_error']);
       document.querySelector('#register__password-error').textContent =
         error.password;
     }

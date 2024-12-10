@@ -1,19 +1,19 @@
-<div class="album_carousel__container">
-    <div class="album_carousel__block">
-        <div class="album_carousel__upper_wrapper">
-            <div class="album_carousel__recommend_text">
+<div class="{{ styles.album_carousel__container }}">
+    <div class="{{ styles.album_carousel__block }}">
+        <div class="{{ styles.album_carousel__upper_wrapper }}">
+            <div class="{{ styles.album_carousel__recommend_text }}">
                 Альбомы
             </div>
-            <a href="{{ showMoreHref }}" class="album_carousel__show_more link_more_album_carousel">Показать еще</a>
+            <a href="{{ showMoreHref }}" class="{{ styles.album_carousel__show_more}}">Показать еще</a>
         </div>
-        <div class="carousel__container">
-            <button class="carousel__button carousel__button--prev">❮</button>
-            <div class="carousel__area">
-                <div class="carousel__inner" id="albums-carousel">
+        <div class="{{ styles.carousel__container }}">
+            <button class="{{ styles.carousel__button }} {{ styles.carousel__button_prev }}">❮</button>
+            <div class="{{ styles.carousel__area }}">
+                <div class="{{ styles.carousel__inner }}" id="albums-carousel">
 
                 </div>
             </div>
-            <button class="carousel__button carousel__button--next">❯</button>
+            <button class="{{ styles.carousel__button }} {{ styles.carousel__button_next }}">❯</button>
         </div>
     </div>
 </div>

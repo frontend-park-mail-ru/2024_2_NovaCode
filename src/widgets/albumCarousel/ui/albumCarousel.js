@@ -2,7 +2,7 @@ import { AlbumView } from '../../../entities/album/index.js';
 import { AlbumCarouselAPI } from '../api/api.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import template from './albumCarousel.hbs';
-import './albumCarousel.scss';
+import * as styles from './albumCarousel.scss';
 
 export class AlbumCarouselView {
 	/**
@@ -41,13 +41,13 @@ export class AlbumCarouselView {
 			titleText = "Популярные альбомы";
 		}
 		
-		albumCarouselElement.innerHTML = template({ showMoreHref });
+		albumCarouselElement.innerHTML = template({ styles, showMoreHref });
 		this.parent.appendChild(albumCarouselElement);
 
 		const albumsBlock = document.getElementById('albums-carousel');
 		Array.from(albums).forEach((album) => {
 			const albumCarouselElement = document.createElement('div');
-			albumCarouselElement.classList.add('carousel__item');
+			albumCarouselElement.classList.add(styles['carousel__item']);
 			const albumView = new AlbumView(albumCarouselElement);
 			albumView.render(album);
 			albumsBlock.appendChild(albumCarouselElement);
@@ -61,7 +61,7 @@ export class AlbumCarouselView {
 	}
 
 	setTitle(titleText) {
-		const title = document.querySelector('.album_carousel__recommend_text');
+		const title = document.querySelector(`.${styles['album_carousel__recommend_text']}`);
 		title.textContent = titleText;
 	}
 
@@ -79,7 +79,7 @@ export class AlbumCarouselView {
 		this.nextBtn.addEventListener('click', this.handleNextBtn);
 		this.prevBtn.addEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll('.link_more_albums');
+		const links = this.parent.querySelectorAll(`.${styles['album_carousel__show_more']}`);
 		links.forEach((link) => {
 			link.addEventListener('click', (event) => this.handleLink(event));
 		});
@@ -89,18 +89,18 @@ export class AlbumCarouselView {
 		this.nextBtn.removeEventListener('click', this.handleNextBtn);
 		this.prevBtn.removeEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll('.link_more_albums');
+		const links = this.parent.querySelectorAll(`.${styles['album_carousel__show_more']}`);
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});
 	}
 
 	async getElements() {
-		this.carouselInner = document.querySelector('.carousel__inner');
-		this.carouselItems = document.querySelectorAll('.carousel__item');
-		this.carouselArea = document.querySelector('.carousel__area');
-		this.nextBtn = document.querySelector('.carousel__button--next');
-		this.prevBtn = document.querySelector('.carousel__button--prev');
+		this.carouselInner = document.querySelector(`.${styles['carousel__inner']}`);
+		this.carouselItems = document.querySelectorAll(`.${styles['carousel__item']}`);
+		this.carouselArea = document.querySelector(`.${styles['carousel__area']}`);
+		this.nextBtn = document.querySelector(`.${styles['carousel__button_next']}`);
+		this.prevBtn = document.querySelector(`.${styles['carousel__button_prev']}`);
 
 		this.itemWidth = this.carouselItems[0]?.offsetWidth ?? 0;
 		this.carouselAreaWidth = this.carouselArea.offsetWidth;

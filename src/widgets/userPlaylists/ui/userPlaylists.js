@@ -4,7 +4,8 @@ import { eventBus } from '../../../shared/lib/eventbus.js';
 import { CreatePlaylistModal } from '../../createPlaylist/index.js';
 import { UserPlaylistsAPI } from '../api/api.js';
 import template from './userPlaylists.hbs'
-import './userPlaylists.scss';
+import * as styles from './userPlaylists.scss';
+import subIcon from '../../../../public/images/icons/sub.svg';
 
 export class UserPlaylistsView {
 	/**
@@ -37,7 +38,7 @@ export class UserPlaylistsView {
 			this.isMyProfile = true;
 		}
 
-		userPlaylistsElement.innerHTML = template({ isMyProfile: this.isMyProfile });
+		userPlaylistsElement.innerHTML = template({ styles, isMyProfile: this.isMyProfile, subIcon });
 
 		this.parent.appendChild(userPlaylistsElement);
 

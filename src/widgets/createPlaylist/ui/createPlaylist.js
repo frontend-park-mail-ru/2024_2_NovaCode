@@ -1,7 +1,7 @@
 import { CreatePlaylistAPI } from '../api/api.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import template from './createPlaylist.hbs';
-import './createPlaylist.scss';
+import * as styles from './createPlaylist.scss';
 
 export class CreatePlaylistModal {
     /**
@@ -22,15 +22,15 @@ export class CreatePlaylistModal {
     async render() {
         this.createPlaylistModal = document.createElement('div');
         this.createPlaylistModal.classList.add('create-playlist-modal');
-        this.createPlaylistModal.innerHTML = template();
+        this.createPlaylistModal.innerHTML = template({ styles });
         this.parent.appendChild(this.createPlaylistModal);
 
         this.addEventListeners(this.createPlaylistModal);
     }
 
     addEventListeners() {
-        const form = this.createPlaylistModal.querySelector('.create-playlist-modal__form');
-        const cancelButton = this.createPlaylistModal.querySelector('.create-playlist-modal__cancel');
+        const form = this.createPlaylistModal.querySelector('#create-playlist-modal__form');
+        const cancelButton = this.createPlaylistModal.querySelector(`.${styles['create-playlist-modal__cancel']}`);
 
         form.addEventListener('submit', this.handleFormSubmit.bind(this));
         cancelButton.addEventListener('click', this.handleCancel.bind(this));

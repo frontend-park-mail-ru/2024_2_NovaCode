@@ -2,9 +2,15 @@ import { eventBus } from "../../../shared/lib/eventbus.js";
 import { player } from "../../../shared/player/model/store.js";
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from "./footerPlayer.hbs";
-import "./footerPlayer.scss";
+import * as styles from "./footerPlayer.scss";
 import { FooterPlayerAPI } from "../api/api.js";
 import { userStore } from "../../../entities/user/index.js";
+import playFooterIcon from '../../../../public/images/icons/play_footer.svg';
+import prevIcon from '../../../../public/images/icons/prev.svg';
+import nextIcon from '../../../../public/images/icons/next.svg';
+import likeIcon from '../../../../public/images/icons/like.svg';
+import volumeDownIcon from '../../../../public/images/icons/volume_down.svg';
+import volumeUpIcon from '../../../../public/images/icons/volume_up.svg';
 
 export class FooterPlayerView {
   /**
@@ -30,7 +36,15 @@ export class FooterPlayerView {
   async render() {
     const footerPlayerElement = document.createElement("div");
     footerPlayerElement.classList.add("footer_player");
-    footerPlayerElement.innerHTML = template({});
+    footerPlayerElement.innerHTML = template({ 
+      styles, 
+      playFooterIcon, 
+      prevIcon, 
+      nextIcon, 
+      likeIcon,
+      volumeDownIcon,
+      volumeUpIcon
+    });
     this.parent.appendChild(footerPlayerElement);
 
     await this.getElements();
@@ -43,23 +57,23 @@ export class FooterPlayerView {
 
   async getElements() {
     this.footerPlayer = document.querySelector("#player");
-    this.trackTime = document.querySelector(".track_slider__time_current");
+    this.trackTime = document.querySelector(`.${styles['track_slider__time_current']}`);
 
-    this.playPauseBtn = document.querySelector(".buttons_player__play_track");
-    this.nextTrackBtn = document.querySelector(".buttons_player__next_track");
-    this.prevTrackBtn = document.querySelector(".buttons_player__prev_track");
-    this.likeTrackBtn = document.querySelector(".buttons_player__like_track");
+    this.playPauseBtn = document.querySelector('.buttons_player__play_track');
+    this.nextTrackBtn = document.querySelector('.buttons_player__next_track');
+    this.prevTrackBtn = document.querySelector('.buttons_player__prev_track');
+    this.likeTrackBtn = document.querySelector('.buttons_player__like_track');
 
-    this.seekTimerSlider = document.querySelector(".track_slider__seek");
-    this.seekVolumeSlider = document.querySelector(".volume_slider__seek");
+    this.seekTimerSlider = document.querySelector('.track_slider__seek');
+    this.seekVolumeSlider = document.querySelector('.volume_slider__seek');
 
     this.trackInfoTrackImg = document.querySelector(
-      ".player_details__track_img",
+      `.${styles['player_details__track_img']}`,
     );
-    this.trackInfoTrackName = document.querySelector(".player__track_name");
-    this.trackInfoTrackArtist = document.querySelector(".player__track_artist");
+    this.trackInfoTrackName = document.querySelector(`.${styles['player__track_name']}`);
+    this.trackInfoTrackArtist = document.querySelector(`.${styles['player__track_artist']}`);
     this.trackInfoTrackDuration = document.querySelector(
-      ".track_slider__time_total",
+      `.${styles['track_slider__time_total']}`,
     );
   }
 
@@ -165,9 +179,9 @@ export class FooterPlayerView {
     }
 
     if (user.isAuthorized && isFavorite) {
-      this.likeTrackBtn.classList.add("liked_footer_player");
+      this.likeTrackBtn.classList.add(styles['liked_footer_player']);
     } else {
-      this.likeTrackBtn.classList.remove("liked_footer_player");
+      this.likeTrackBtn.classList.remove(styles['liked_footer_player']);
     }
 
     clearInterval(this.trackTimer);
@@ -198,10 +212,10 @@ export class FooterPlayerView {
     const isFavorite = await this.api.isFavorite(trackInfo.id);
     if (user.isAuthorized && isFavorite) {
       this.api.deleteFavorite(trackInfo.id);
-      this.likeTrackBtn.classList.remove("liked_footer_player");
+      this.likeTrackBtn.classList.remove(styles['liked_footer_player']);
     } else {
       this.api.addFavorite(trackInfo.id);
-      this.likeTrackBtn.classList.add("liked_footer_player");
+      this.likeTrackBtn.classList.add(styles['liked_footer_player']);
     }
   };
 

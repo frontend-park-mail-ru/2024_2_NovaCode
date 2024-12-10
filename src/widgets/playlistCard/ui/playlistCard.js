@@ -2,9 +2,12 @@ import { eventBus } from '../../../shared/lib/eventbus.js';
 import { PlaylistCardAPI } from '../api/api.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './playlistCard.hbs';
-import './playlistCard.scss';
+import * as styles from './playlistCard.scss';
 import { UserPlaylistsAPI } from '../../userPlaylists/index.js';
 import { userStore } from '../../../entities/user/index.js';
+import heartWhiteIcon from '../../../../public/images/icons/heart_white.svg';
+import listenIcon from '../../../../public/images/icons/listen.svg';
+import trashWhiteIcon from '../../../../public/images/icons/trash_white.svg';
 
 export class PlaylistCardView {
     /**
@@ -47,11 +50,18 @@ export class PlaylistCardView {
                 this.isMyPlaylist = true;
             }
         })
-        playlistCardElement.innerHTML = template({ playlist, isMyPlaylist: this.isMyPlaylist });
+        playlistCardElement.innerHTML = template({ 
+            styles, 
+            playlist, 
+            isMyPlaylist: this.isMyPlaylist,
+            heartWhiteIcon,
+            listenIcon,
+            trashWhiteIcon
+        });
         this.parent.appendChild(playlistCardElement);
 
-        this.playPauseBtn = document.querySelector('.buttons__listen');
-        this.deleteBtn = document.querySelector('.buttons__delete');
+        this.playPauseBtn = document.querySelector(`.${styles['buttons__listen']}`);
+        this.deleteBtn = document.querySelector(`.${styles['buttons__delete']}`);
         this.addEvents();
         this.onEvents();
     }

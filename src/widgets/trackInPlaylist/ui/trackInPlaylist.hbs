@@ -1,11 +1,11 @@
-<div class="track-in-playlist-modal">
-    <div class="track-in-playlist-modal__header">
+<div class="{{ styles.track-playlist-modal }}">
+    <div class="{{ styles.track-playlist-modal__header }}">
         <h2>Выберите плейлист</h2>
-        <button class="track-in-playlist-modal__close-btn">×</button>
+        <button class="{{ styles.track-playlist-modal__close-btn }}">×</button>
     </div>
-    <div class="track-in-playlist-modal__body">
+    <div class="{{ styles.track-playlist-modal__body }}">
         {{#each playlists}}
-        <a href="#" class="track-in-playlist-modal__playlist-link" data-id="{{this.id}}">
+        <a href="#" class="{{ styles.track-playlist-modal__playlist-link }}" data-id="{{this.id}}">
             {{this.name}}
         </a>
         {{/each}}

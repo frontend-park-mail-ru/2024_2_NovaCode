@@ -1,23 +1,22 @@
-<div class="track__left_side">
-    <img class="track__img" src="{{ track.image }}">
-    <div class="track__info">
-        <div class="track__name">{{ track.name }} </div>
-        <div class="track__artist">
-            <a class="track__artist__artist_link link"
+<div class="{{ styles.track__left_side }}">
+    <img class="{{ styles.track__img }}" src="{{ track.image }}">
+    <div class="{{ styles.track__info }}">
+        <div class="{{ styles.track__name }}">{{ track.name }} </div>
+        <div class="{{ styles.track__artist }}">
+            <a class="{{ styles.track__artist__artist_link }} link"
                 href="/artist/{{ track.artistID }}">
                 {{ track.artistName }}
             </a> 
         </div>
     </div>
-</div> 
-<div class="track__right_side">
+</div>
+<div class="{{ styles.track__right_side }}">
     {{#if isMyPlaylist }}
-    <img src="/images/icons/trash.svg" id="delete-from-playlist" class="track__delete-btn">
+    <img src="{{ trashIcon }}" id="delete-from-playlist" class="track__delete-btn">
     {{/if}}
     {{#if user.isAuthorized}}
-    <img src="/images/icons/add.svg" id="add-to-playlist" class="track__add-btn">
+    <img src="{{ addIcon }}" id="add-to-playlist" class="track__add-btn">
     {{/if}}
     {{ track.duration }}
-    <img class="track__duration_icon" src="/images/icons/music.svg">
+    <img class="{{styles.track__duration_icon}}" src="{{ musicIcon }}">
 </div>
-

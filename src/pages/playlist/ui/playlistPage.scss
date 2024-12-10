@@ -1,106 +1,106 @@
-.playlist_card {
-    &__container {
-      max-width: 1280px;
-      margin: 0 auto;
-    }
+// .playlist_card {
+//     &__container {
+//       max-width: 1280px;
+//       margin: 0 auto;
+//     }
   
-    &__block {
-      margin: 0 auto;
-      padding: 10px;
-      background-color: hsla(0, 0%, 94.662745098%, 0.1);
-      border-radius: 9px;
-      margin-top: 12px;
-    }
+//     &__block {
+//       margin: 0 auto;
+//       padding: 10px;
+//       background-color: hsla(0, 0%, 94.662745098%, 0.1);
+//       border-radius: 9px;
+//       margin-top: 12px;
+//     }
   
-    &__text {
-      color: #f1f1f1;
-      font-size: 24px;
-      font-weight: 400;
-      margin-bottom: 10px;
-    }
+//     &__text {
+//       color: #f1f1f1;
+//       font-size: 24px;
+//       font-weight: 400;
+//       margin-bottom: 10px;
+//     }
   
-    &__wrapper {
-      display: flex;
-      justify-content: center;
-      align-content: center;
-      gap: 50px;
-    }
+//     &__wrapper {
+//       display: flex;
+//       justify-content: center;
+//       align-content: center;
+//       gap: 50px;
+//     }
   
-    &__img {
-      display: block;
-      border-radius: 100%;
-      width: 250px;
-      height: 250px;
-    }
+//     &__img {
+//       display: block;
+//       border-radius: 100%;
+//       width: 250px;
+//       height: 250px;
+//     }
   
-    &__aside {
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-    }
-  }
+//     &__aside {
+//       display: flex;
+//       flex-direction: column;
+//       align-content: center;
+//     }
+//   }
   
-  .playlist_info {
-    &__name {
-      color: #f1f1f1;
-      font-size: 41px;
-      font-weight: 400;
-      margin-bottom: 20px;
-    }
+//   .playlist_info {
+//     &__name {
+//       color: #f1f1f1;
+//       font-size: 41px;
+//       font-weight: 400;
+//       margin-bottom: 20px;
+//     }
   
-    &__genres {
-      color: #f1f1f1;
-      font-size: 25px;
-      font-weight: 400;
-      margin-bottom: 15px;
-    }
+//     &__genres {
+//       color: #f1f1f1;
+//       font-size: 25px;
+//       font-weight: 400;
+//       margin-bottom: 15px;
+//     }
   
-    &__likes,
-    &__listen {
-      color: #f1f1f1;
-      margin-bottom: 10px;
-      font-size: 16px;
-      font-weight: 400;
-    }
+//     &__likes,
+//     &__listen {
+//       color: #f1f1f1;
+//       margin-bottom: 10px;
+//       font-size: 16px;
+//       font-weight: 400;
+//     }
   
-    &__listen {
-      margin-bottom: 40px;
-    }
+//     &__listen {
+//       margin-bottom: 40px;
+//     }
   
-    &__buttons {
-      display: flex;
-      justify-content: space-around;
-      flex-direction: rows;
-    }
-  }
+//     &__buttons {
+//       display: flex;
+//       justify-content: space-around;
+//       flex-direction: rows;
+//     }
+//   }
   
-  .buttons {
-    display: flex;
-    gap: 10px;
+//   .buttons {
+//     display: flex;
+//     gap: 10px;
   
-    &__subscribe,
-    &__listen {
-      display: flex;
-      justify-content: space-around;
-      align-content: center;
-      gap: 5px;
-      padding: 10px;
-      background: rgba(241.39, 241.39, 241.39, 0.25);
-      border-radius: 9px;
-      color: #f1f1f1;
-      font-size: 25px;
-      font-weight: 400;
-      transition: 0.5s;
-      transition-timing-function: ease;
+//     &__subscribe,
+//     &__listen {
+//       display: flex;
+//       justify-content: space-around;
+//       align-content: center;
+//       gap: 5px;
+//       padding: 10px;
+//       background: rgba(241.39, 241.39, 241.39, 0.25);
+//       border-radius: 9px;
+//       color: #f1f1f1;
+//       font-size: 25px;
+//       font-weight: 400;
+//       transition: 0.5s;
+//       transition-timing-function: ease;
   
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
+//       &:hover {
+//         transform: scale(1.1);
+//       }
+//     }
   
-    &__icon {
-      width: 30px;
-      height: 30px;
-    }
-  }
+//     &__icon {
+//       width: 30px;
+//       height: 30px;
+//     }
+//   }
   

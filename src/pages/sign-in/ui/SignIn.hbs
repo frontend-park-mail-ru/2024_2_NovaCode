@@ -1,39 +1,39 @@
-<div class="login">
-  <div class="login__container">
-    <div class="login__intro">
-      <h1 class="login__title">NovaMusic</h1>
-      <h2 class="login__subtitle">Музыкальный стриминговый сервис</h2>
-      <div class="login__info">Переходите к прослушиванию любимой музыки</div>
+<div class="{{ styles.login }}">
+  <div class="{{ styles.login__container }}">
+    <div class="{{ styles.login__intro }}">
+      <h1 class="{{ styles.login__title }}">NovaMusic</h1>
+      <h2 class="{{ styles.login__subtitle }}">Музыкальный стриминговый сервис</h2>
+      <div class="{{ styles.login__info }}">Переходите к прослушиванию любимой музыки</div>
     </div>
 
-    <div class="login__form">
+    <div class="{{ styles.login__form }}">
       <form id="login-form">
         <input
-          class="login__input"
+          class="{{ styles.login__input }}"
           type="text"
           id="username"
           name="username"
           placeholder="Имя пользователя"
           required
         />
-        <div id="login__username-error" class="login__input-error"></div>
+        <div id="login__username-error" class="{{ styles.login__input-error }}"></div>
 
         <input
-          class="login__input"
+          class="{{ styles.login__input }}"
           type="password"
           id="password"
           name="password"
           placeholder="Пароль"
           required
         />
-        <div id="login__password-error" class="login__input-error"></div>
+        <div id="login__password-error" class="{{ styles.login__input-error }}"></div>
         
-        <button class="login__submit_btn" type="submit">Войти</button>
-        <div class="login__additional">
+        <button class="{{ styles.login__submit_btn }}" type="submit">Войти</button>
+        <div class="{{ styles.login__additional }}">
           Нет аккаунта? 
-          <a class="login__register_site link" href="/signup">Регистрация в NovaMusic</a></span>
+          <a class="{{ styles.login__register_site }} link" href="/signup">Регистрация в NovaMusic</a></span>
         </div>
-        <div id="login__general-error" class="login__general-error"></div>
+        <div id="login__general-error" class="{{ styles.login__general-error }}"></div>
       </form>
     </div>
   </div>

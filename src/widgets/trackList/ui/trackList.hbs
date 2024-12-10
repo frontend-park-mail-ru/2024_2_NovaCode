@@ -1,14 +1,14 @@
-<div class="tracks__container">
-  <div class="tracks__block">
-    <div class="tracks__upper_wrapper">
-      <div class="tracks__recommend_text">
+<div class="{{ styles.tracks__container }}">
+  <div class="{{ styles.tracks__block }}">
+    <div class="{{ styles.tracks__upper_wrapper }}">
+      <div class="{{ styles.tracks__recommend_text }}">
         Треки
       </div>
       {{#if showMoreHref}}
-      <a href="{{ showMoreHref }}" class="tracks__show_more link_more_tracks">Показать еще</a>
+      <a href="{{ showMoreHref }}" class="{{ styles.tracks__show_more }} link_more_tracks">Показать еще</a>
       {{/if}}
     </div>
-    <div class="tracks__tracks" id="tracks">
+    <div class="{{ styles.tracks__tracks }}" id="tracks">
     
     </div>
   </div>

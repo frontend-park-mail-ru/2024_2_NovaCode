@@ -6,7 +6,10 @@ import {
 } from '../../../widgets/trackInPlaylist/index.js';
 import { userStore } from '../../user/index.js';
 import template from './track.hbs';
-import './track.scss';
+import * as styles from './track.scss';
+import trashIcon from '../../../../public/images/icons/trash.svg';
+import addIcon from '../../../../public/images/icons/add.svg';
+import musicIcon from '../../../../public/images/icons/music.svg';
 
 export class TrackView {
   /**
@@ -37,12 +40,16 @@ export class TrackView {
     const user = userStore.storage.user;
 
     this.trackElement = document.createElement('div');
-    this.trackElement.classList.add('track');
+    this.trackElement.classList.add(styles['track']);
     this.trackElement.setAttribute('data-track-id', track.id);
     this.trackElement.innerHTML = template({
+      styles,
       track,
       user,
       isMyPlaylist: this.myPlaylistId ? true : false,
+      trashIcon,
+      addIcon,
+      musicIcon,
     });
     this.parent.appendChild(this.trackElement);
 

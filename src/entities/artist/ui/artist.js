@@ -1,7 +1,7 @@
 import { eventBus } from '../../../shared/lib/index.js';
 import { S3_BUCKETS } from '../../../shared/lib/index.js';
 import template from './artist.hbs';
-import './artist.scss';
+import * as styles from './artist.scss';
 
 export class ArtistView {
   /**
@@ -33,7 +33,7 @@ export class ArtistView {
     const artistElement = document.createElement('div');
     artistElement.classList.add('artist');
     artistElement.setAttribute('data-id', this.artistId);
-    artistElement.innerHTML = template(artist);
+    artistElement.innerHTML = template({styles, artist});
     this.parent.appendChild(artistElement);
     this.bindEvents();
   }

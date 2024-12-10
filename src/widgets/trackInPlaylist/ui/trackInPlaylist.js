@@ -2,7 +2,7 @@ import { userStore } from '../../../entities/user/index.js';
 import { UserPlaylistsAPI } from '../../userPlaylists/index.js';
 import { TrackInPlaylistAPI } from '../api/api.js';
 import template from './trackInPlaylist.hbs';
-import './trackInPlaylist.scss';
+import * as styles from './trackInPlaylist.scss';
 
 export class TrackInPlaylistModal {
     /**
@@ -18,13 +18,13 @@ export class TrackInPlaylistModal {
 
     async render() {
         this.modal = document.createElement('div');
-        this.modal.classList.add('track-in-playlist-modal-container');
+        this.modal.classList.add(styles['track-playlist-modal-container']);
         this.parent.appendChild(this.modal);
 
         try {
             const myPlaylistsAPI = new UserPlaylistsAPI(userStore.storage.user.id);
             const playlists = await myPlaylistsAPI.get();
-            this.modal.innerHTML = template({ playlists });
+            this.modal.innerHTML = template({ styles, playlists });
             this.addEventListeners(this.modal);
         } catch (error) {
             console.error('Failed to load playlists:', error);
@@ -34,7 +34,7 @@ export class TrackInPlaylistModal {
 
     renderBtn() {
         const button = document.createElement('button');
-        button.classList.add('track-in-playlist-button');
+        button.classList.add('track-playlist-button');
         button.textContent = 'Add to Playlist';
 
         button.addEventListener('click', () => {
@@ -46,10 +46,10 @@ export class TrackInPlaylistModal {
     }
 
     addEventListeners() {
-        const closeButton = this.modal.querySelector('.track-in-playlist-modal__close-btn');
+        const closeButton = this.modal.querySelector(`.${styles['track-playlist-modal__close-btn']}`);
         closeButton.addEventListener('click', this.handleClose.bind(this));
 
-        const playlistLinks = this.modal.querySelectorAll('.track-in-playlist-modal__playlist-link');
+        const playlistLinks = this.modal.querySelectorAll(styles['track-playlist-modal__playlist-link']);
         playlistLinks.forEach((link) => {
             link.addEventListener('click', async (event) => {
                 event.preventDefault();
@@ -76,10 +76,10 @@ export class TrackInPlaylistModal {
     }
 
     removeEventListeners() {
-        const closeButton = this.modal.querySelector('.track-in-playlist-modal__close-btn');
+        const closeButton = this.modal.querySelector(`.${styles['track-playlist-modal__close-btn']}`);
         closeButton.removeEventListener('click', this.handleClose.bind(this));
 
-        const playlistLinks = this.modal.querySelectorAll('.track-in-playlist-modal__playlist-link');
+        const playlistLinks = this.modal.querySelectorAll(styles['track-playlist-modal__playlist-link']);
         playlistLinks.forEach((link) => {
             link.removeEventListener('click', this.handleLink.bind(this));
         });
