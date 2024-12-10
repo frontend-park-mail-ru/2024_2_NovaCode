@@ -1,4 +1,6 @@
-.create-playlist-modal {
+@use "/src/colors.scss";
+
+.create-playlist-modal-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,60 +11,77 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+}
 
-    &__content {
-        background: #1f1f1f;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        padding: 20px;
-        width: 400px;
-        text-align: center;
+.create-playlist-modal {
+    background: colors.$black;
+    border-radius: 8px;
+    border: 1px solid colors.$white;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: colors.$white;
+    }
+
+    &__close-btn {
+        border: none;
+        background: none;
+        color: colors.$white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    &__body {
+        margin-top: 20px;
     }
 
     &__title {
-        font-size: 24px;
         margin-bottom: 20px;
-        color: #f1f1f1;
+        color: colors.$white;
     }
 
     &__label {
         display: block;
-        color: #ccc;
         margin-bottom: 8px;
-        font-size: 14px;
+        color: colors.$white;
     }
 
     &__input {
         width: 100%;
-        padding: 8px;
+        //padding: 8px;
         margin-bottom: 20px;
-        border: 1px solid #ccc;
-        background: #474646;
-        color: #ccc;
-        border-radius: 4px;
-        font-size: 16px;
+        border: 1px solid colors.$white;
+        background: colors.$light-gray;
+        color: colors.$white;
+        //border-radius: 4px;
+        box-sizing: border-box;
     }
 
     &__actions {
         display: flex;
         justify-content: space-between;
+        margin-top: 20px;
+    }
 
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    &__cancel,
+    &__submit {
+        padding: 10px 20px;
+        border-radius: 10px;
+        color: colors.$white;
+        cursor: pointer;
+        border: none;
+    }
 
-        .create-playlist-modal__cancel {
-            background: rgba(241, 241, 241, 0.25);
-            color: #f1f1f1
-        }
+    &__cancel {
+        background: colors.$light-gray;
+    }
 
-        .create-playlist-modal__submit {
-            background: #FF5F0F;
-            color: #f1f1f1;
-        }
+    &__submit {
+        background: colors.$orange;
     }
 }

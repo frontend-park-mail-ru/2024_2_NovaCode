@@ -32,12 +32,12 @@ export class UserPlaylistsView {
 		const userPlaylistsElement = document.createElement('div');
 		userPlaylistsElement.classList.add('user-playlists');
 
-		this.isMyProfile = false;
+		this.isCurrentUser = false;
 		if (this.userId === userStore.storage.user.id) {
-			this.isMyProfile = true;
+			this.isCurrentUser = true;
 		}
 
-		userPlaylistsElement.innerHTML = template({ isMyProfile: this.isMyProfile });
+		userPlaylistsElement.innerHTML = template({ isCurrentUser: this.isCurrentUser });
 
 		this.parent.appendChild(userPlaylistsElement);
 

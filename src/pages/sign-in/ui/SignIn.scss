@@ -1,44 +1,33 @@
-.login {
-  height: 100%;
+@use "/src/colors.scss";
 
-  &__container {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
+.login {
 
   &__intro {
-    min-height: 142px;
-    margin: 0 auto;
-    margin-top: 31px;
-    background-color: rgba(241.39, 241.39, 241.39, 0.1);
-    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   &__title {
     padding-top: 10px;
-    color: #f1f1f1;
-    font-size: 41px;
-    font-weight: 400;
+    color: colors.$white;
     text-align: center;
   }
 
   &__subtitle {
     margin-bottom: 10px;
-    color: #f1f1f1;
-    font-size: 25px;
-    font-weight: 400;
+    color: colors.$white;
     text-align: center;
   }
 
   &__info {
-    color: #f1f1f1;
-    font-size: 16px;
-    font-weight: 400;
+    color: colors.$white;
     text-align: center;
   }
 
   &__form {
-    margin-top: 71px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
   }
@@ -46,37 +35,35 @@
   &__input {
     display: block;
     width: 430px;
-    height: 30px;
+    //height: 30px;
     padding: 10px;
     margin-top: 30px;
-    background: #f1f1f1;
-    border-radius: 9px;
+    background: colors.$white;
+    //border-radius: 9px;
     border: none;
-    color: #1f1f1f;
-    font-size: 22px;
-    font-weight: 400;
+    color: colors.$black;
 
     &:first-child {
       margin-top: 0px;
     }
 
     &_error {
-      border: 3px solid #D64751;
+      border: 3px solid colors.$red;
     }
   }
 
   &__input-error {
     width: 430px;
-    color: #F46F77;
-    font-size: 16px;
+    color: colors.$red;
+    font-size: 1rem;
     font-weight: 400;
     margin-top: 5px;
   }
 
   &__general-error {
     width: 430px;
-    color: #F46F77;
-    font-size: 20px;
+    color: colors.$red;
+    font-size: 1rem;
     font-weight: 400;
     margin-top: 15px;
     text-align: center;
@@ -85,43 +72,25 @@
   &__submit_btn {
     margin-top: 25px;
     width: 450px;
-    height: 50px;
+    //height: 50px;
     padding: 10px;
-    background: #FF5F0F;
+    background: colors.$orange;
     border-radius: 9px;
     border: none;
-    color: #f1f1f1;
-    font-size: 25px;
-    font-weight: 400;
+    color: colors.$white;
     text-align: center;
   }
 
   &__additional {
     margin-top: 10px;
-    color: #f1f1f1;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 0 30px 0 30px;
+    color: colors.$white;
+    padding: 0px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  &__register_site {
-    text-decoration: none;
-    font-weight: 700;
-    color: #f1f1f1;
-
-    &:visited {
-      color: #f1f1f1;
-    }
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  @media (pointer: coarse) {
+  /* @media (pointer: coarse) {
     &__enter_account {
       text-decoration: underline;
     }
@@ -188,5 +157,5 @@
       width: 80vw;
       font-size: 18px;
     }
-  }
+  } */
 }

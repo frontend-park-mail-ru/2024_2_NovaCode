@@ -22,7 +22,7 @@ export class EditProfilePage {
       return;
     }
 
-    const user = userStore.storage.user;
+    	const user = userStore.storage.user;
 
     if (user.username != this.username) {
       console.error(PUBLIC_ERRORS.FORBIDDEN);
@@ -30,10 +30,14 @@ export class EditProfilePage {
       return;
     }
 
-    const uploadAvatarView = new UploadAvatarView(this.parent, user.id);
+    this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+    const uploadAvatarView = new UploadAvatarView(this.pageContent, user.id);
     await uploadAvatarView.render();
 
-    const editUserView = new EditUserView(this.parent, user.id);
+    const editUserView = new EditUserView(this.pageContent, user.id);
     await editUserView.render();
 
     eventBus.emit('hidePlayer');

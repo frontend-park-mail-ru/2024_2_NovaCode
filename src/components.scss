@@ -1,0 +1,213 @@
+@use "./colors.scss";
+
+.page_content {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    gap: 10px;
+    margin: 10px auto;
+    max-width: 1280px;
+
+    @media (max-width: 1380px) {
+        width: 90%;
+    }
+}
+
+.container {
+    width: auto;
+}
+
+.block {
+    padding: 10px;
+    background-color: colors.$block-background;
+    border-radius: 10px;
+}
+
+.button {
+    cursor: pointer;
+    font-family: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.button-scale {
+    transition: 0.2s;
+    transition-timing-function: ease;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.link {
+    cursor: pointer;
+    text-decoration: none;
+    color: colors.$white;
+
+    &:hover {
+        text-decoration: underline;
+        text-decoration-color: colors.$orange;
+    }
+
+    &:visited {
+        color: colors.$white;
+    }
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+
+    @media (max-width: 1024px) {
+        width: 22px;
+        height: 22px;
+    }
+
+    @media (max-width: 760px) {
+        width: 20px;
+        height: 20px;
+    }
+
+    @media (max-width: 600px) {
+        width: 18px;
+        height: 18px;
+    }
+
+    @media (max-width: 480px) {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.preview-img {
+    width: 180px;
+    height: 180px;
+
+    @media (max-width: 1024px) {
+        width: 160px;
+        height: 160px;
+    }
+
+    @media (max-width: 760px) {
+        width: 140px;
+        height: 140px;
+    }
+
+    @media (max-width: 600px) {
+        width: 130px;
+        height: 130px;
+    }
+
+    @media (max-width: 480px) {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+.card-img {
+    width: 210px;
+    height: 210px;
+
+    @media (max-width: 1024px) {
+        width: 180px;
+        height: 180px;
+    }
+
+    @media (max-width: 760px) {
+        width: 160px;
+        height: 160px;
+    }
+
+    @media (max-width: 600px) {
+        width: 150px;
+        height: 150px;
+    }
+
+    @media (max-width: 480px) {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+
+    &__button {
+        display: flex;
+        justify-content: space-around;
+        align-items: end;
+        cursor: pointer;
+        gap: 5px;
+        padding: 10px;
+        background: colors.$button-background;
+        border-radius: 9px;
+        color: colors.$white;
+    }
+
+    /* @media (max-width: 768px) {
+        &__button>h4 {
+            display: none;
+        }
+    } */
+}
+
+.carousel {
+    &__container {
+        position: relative;
+        width: 100%;
+        padding: 10px 60px;
+        /* background-color: #eee; */
+        /* border: 2px solid #ccc; */
+        border-radius: 10px;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    &__area {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 10px;
+        display: flex;
+        justify-content: start;
+    }
+
+    &__inner {
+        display: flex;
+        /* gap: 10px; */
+        transition: transform 0.5s ease;
+        text-align: left;
+    }
+
+    &__item {
+        display: flex;
+        padding: 10px;
+        flex-direction: column;
+        align-items: center;
+        /* width: 210px; */
+        height: fit-content;
+        flex-shrink: 0;
+    }
+
+    &__button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: colors.$black;
+        color: colors.$white;
+        border: none;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+
+        &--prev {
+            left: 10px;
+        }
+
+        &--next {
+            right: 10px;
+        }
+    }
+}

@@ -1,29 +1,25 @@
-<div class="album_card__container">
-  <div class="album_card__block">
-    <div class="album_card__text">Альбом</div>
+<div class="album_card__container container">
+  <div class="album_card__block block">
+    <div class="album_card__text"><h4>Альбом</h4></div>
     <div class="album_card__wrapper">
-      <img src="{{album.image}}" class="album_card__img" />
+      <img src="{{album.image}}" class="album_card__img card-img" />
       <div class="album_card__aside">
         <div class="album_card__info album_info">
-          <div class="album_info__name"> {{album.name}} </div>
+          <div class="album_info__name"> <h3>{{album.name}}</h3> </div>
           <div class="album_info__artist_release">
-            <a class="album_info__artist_release__artist_link link"
-              href="/artist/{{ album.artistID }}">
-              {{ album.artistName }}
-            </a>
-            · {{ album.release }}
+            <h4><a class="album_info__artist_link link" href="/artist/{{ album.artistID }}">{{album.artistName}}</a> · {{ album.release }}</h4>
           </div>
-          <div class="album_info__likes">123 оценок нравится</div>
-          <div class="album_info__listen">123 прослушиваний в месяц</div>
+          <div class="album_info__likes"><h5>123 оценок нравится</h5></div>
+          <div class="album_info__listen"><h5>123 прослушиваний в месяц</h5></div>
         </div>
         <div class="album_info__buttons buttons">
-          <div class="buttons__subscribe">
-            <img src="/images/icons/sub.svg" class="buttons__icon" />
-            Подписаться
+          <div class="buttons__subscribe buttons__button">
+            <img src="/images/icons/sub.svg" class="button icon" />
+            <h4>Подписаться</h4>
           </div>
-          <div class="buttons__listen">
-            <img src="/images/icons/listen.svg" class="buttons__icon" />
-            Слушать
+          <div class="buttons__listen buttons__button">
+            <img src="/images/icons/play-circle.svg" class="button icon" />
+            <h4>Слушать</h4>
           </div>
         </div>
       </div>

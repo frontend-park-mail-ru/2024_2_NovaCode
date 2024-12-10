@@ -14,14 +14,19 @@ export class MoreArtistsPage {
   async render() {
     this.parent.innerHTML = '';
 
-    const artistListAPI = new ArtistListAPI();
-    const artists = await artistListAPI.get();
-    const artistListView = new ArtistListView(this.parent);
-    await artistListView.render(artists);
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const artistListAPI = new ArtistListAPI();
+		const artists = await artistListAPI.get();
+		const artistListView = new ArtistListView(this.pageContent);
+		await artistListView.render(artists);
+
     if (userStore.storage.user.isAuthorized) {
       eventBus.emit('showPlayer');
     } else {
       eventBus.emit('hidePlayer');
     }
-  }
+	}
 }

@@ -12,18 +12,15 @@
       <div class="track_slider__time_total">01:23</div>
     </div>
 
-    <div class="footer_player__buttons buttons_player">
-      <div class="buttons_player__play_track player_button">
-        <img src="/images/icons/play_footer.svg" alt="play_pause" class="footer_player__icon">
-      </div>
+    <div class="footer_player__buttons_controls buttons_player">
       <div class="buttons_player__prev_track player_button">
-        <img src="/images/icons/prev.svg" alt="prev_track" class="footer_player__icon">
+        <img src="/images/icons/backward.svg" alt="prev_track" class="footer_player__icon">
+      </div>
+      <div class="buttons_player__play_track player_button">
+        <img src="/images/icons/{{#if isPlaying }}pause{{else}}play{{/if}}-circle-black.svg" alt="play_pause" class="footer_player__icon">
       </div>
       <div class="buttons_player__next_track player_button">
-        <img src="/images/icons/next.svg" alt="next_track" class="footer_player__icon">
-      </div>
-      <div class="buttons_player__like_track player_button">
-        <img src="/images/icons/like.svg" alt="like_track" class="footer_player__icon">
+        <img src="/images/icons/forward.svg" alt="next_track" class="footer_player__icon">
       </div>
     </div>
 
@@ -35,9 +32,18 @@
       </div>
     </div>
 
+    <div class="footer_player__buttons_actions buttons_player">
+      <div class="buttons_player__like_track player_button">
+        <img src="/images/icons/heart-black.svg" alt="like_track" class="footer_player__icon">
+      </div>
+      <div class="buttons_player__add_track player_button">
+        <img src="/images/icons/add.svg" alt="add_track" class="footer_player__icon">
+      </div>
+    </div>
+
     <div class="footer_player__volume_slider volume_slider">
       <div class="volume_slider__up">
-        <img src="/images/icons/volume_down.svg" alt="volume_down" class="footer_player__icon">
+        <img src="/images/icons/volume-low.svg" alt="volume_down" class="footer_player__icon">
       </div>
       <input
         type="range"
@@ -47,7 +53,7 @@
         class="volume_slider__seek"
       />
       <div class="volume_slider__down">
-        <img src="/images/icons/volume_up.svg" alt="volume_up" class="footer_player__icon">
+        <img src="/images/icons/volume-up.svg" alt="volume_up" class="footer_player__icon">
       </div>
     </div>
   </div>

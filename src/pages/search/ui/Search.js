@@ -16,7 +16,11 @@ export class SearchPage {
   async render() {
     this.parent.innerHTML = '';
 
-    const searchLine = new SearchLineView();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const searchLine = new SearchLineView(this.pageContent);
     await searchLine.render();
 
     this.onEvents();
@@ -52,7 +56,7 @@ export class SearchPage {
       return;
     }
 
-    const artistListView = new ArtistListView(this.parent);
+    const artistListView = new ArtistListView(this.pageContent);
     await artistListView.render(artists);
   }
 
@@ -71,7 +75,7 @@ export class SearchPage {
       return;
     }
 
-    const albumListView = new AlbumListView(this.parent);
+    const albumListView = new AlbumListView(this.pageContent);
     await albumListView.render(albums);
   }
 
