@@ -143,15 +143,13 @@
         background: colors.$button-background;
         border-radius: 9px;
         color: colors.$white;
-        /* font-size: 25px;
-	  font-weight: 400; */
-        /* transition: 0.5s;
-	  transition-timing-function: ease;
-  
-	  &:hover {
-		transform: scale(1.1);
-	  } */
     }
+
+    /* @media (max-width: 768px) {
+        &__button>h4 {
+            display: none;
+        }
+    } */
 }
 
 .carousel {

@@ -7,11 +7,11 @@ import template from './track.hbs';
 import './track.scss';
 
 export class TrackView {
-  /**
-   * The parent HTML element.
-   * @type {HTMLElement}
-   */
-  parent;
+	/**
+	 * The parent HTML element.
+	 * @type {HTMLElement}
+	 */
+	parent;
 
 	/**
 	 * Initializes the TrackView.
@@ -33,7 +33,7 @@ export class TrackView {
 			track.image = `${S3_BUCKETS.TRACK_IMAGES}/${track.image}`;
 		}
 
-    const user = userStore.storage.user;
+		const user = userStore.storage.user;
 
 		this.trackElement = document.createElement('div');
 		this.trackElement.classList.add('track');
@@ -43,59 +43,60 @@ export class TrackView {
 		this.trackElement.innerHTML = template({ track, user, isMyPlaylist, isFavorite });
 		this.parent.appendChild(this.trackElement);
 
-		this.addBtn = this.trackElement.querySelector('track__add-btn');
-		this.deleteBtn = this.trackElement.querySelector('track__delete-btn');
+		this.addBtn = this.trackElement.querySelector('.track__add-btn');
+		this.deleteBtn = this.trackElement.querySelector('.track__delete-btn');
 		this.likeBtn = this.trackElement.querySelector('.track__like-btn');
 
-    this.addEvents();
-  }
+		this.addEvents();
+	}
 
-  addEvents() {
-    this.trackElement.addEventListener('click', this.bindTrack);
+	addEvents() {
+		this.trackElement.addEventListener('click', this.bindTrack);
 
 		const links = this.trackElement.querySelectorAll('.link');
 		links.forEach(link => {
 			link.addEventListener('click', (event) => this.handleLink(event));
 		});
-		
+
 		this.addBtn.addEventListener('click', this.handleTrackAdd);
-		this.deleteBtn.addEventListener('click', this.handleTrackDelete);
+		this.deleteBtn?.addEventListener('click', this.handleTrackDelete);
 		this.likeBtn.addEventListener('click', this.handleLikeTrackBtn);
 	}
 
-  handleTrackAdd = (event) => {
-    const trackInPlaylistModal = new TrackInPlaylistModal(
-      this.parent,
-      this.track.id,
-    );
-    trackInPlaylistModal.render();
-    event.stopPropagation();
-  };
+	handleTrackAdd = (event) => {
+		const trackInPlaylistModal = new TrackInPlaylistModal(
+			this.parent,
+			this.track.id,
+		);
+		trackInPlaylistModal.render();
+		event.stopPropagation();
+	};
 
-  handleTrackDelete = (event) => {
-    const trackInPlaylistAPI = new TrackInPlaylistAPI(this.myPlaylistId);
-    trackInPlaylistAPI.deleteTrack(this.track.id);
-    this.trackElement.remove();
-    event.stopPropagation();
-  };
+	handleTrackDelete = (event) => {
+		const trackInPlaylistAPI = new TrackInPlaylistAPI(this.myPlaylistId);
+		trackInPlaylistAPI.deleteTrack(this.track.id);
+		this.trackElement.remove();
+		event.stopPropagation();
+	};
 
 	handleLikeTrackBtn = async (event) => {
 		event.stopPropagation();
 		const user = userStore.storage.user;
 		if (!user.isAuthorized) {
-		  eventBus.emit('navigate', '/signin');
-		  return;
+			eventBus.emit('navigate', '/signin');
+			return;
 		}
-		
+
 		const isFavorite = await this.footerPlayerAPI.isFavorite(this.track.id);
+		console.log(isFavorite);
 		if (user.isAuthorized && isFavorite) {
-		  this.footerPlayerAPI.deleteFavorite(this.track.id);
-		  this.likeBtn.classList.remove('track__liked');
+			this.footerPlayerAPI.deleteFavorite(this.track.id);
+			this.likeBtn.classList.remove('track__liked');
 		} else {
-		  this.footerPlayerAPI.addFavorite(this.track.id);
-		  this.likeBtn.classList.add('track__liked');
+			this.footerPlayerAPI.addFavorite(this.track.id);
+			this.likeBtn.classList.add('track__liked');
 		}
-	  };
+	};
 
 	deleteEvents() {
 		this.trackElement.removeEventListener('click', this.bindTrack);
@@ -105,23 +106,23 @@ export class TrackView {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});
 		this.addBtn.removeEventListener('click', this.handleTrackAdd);
-		this.deleteBtn.removeEventListener('click', this.handleTrackDelete);
+		this.deleteBtn?.removeEventListener('click', this.handleTrackDelete);
 		this.likeBtn.removeEventListener('click', this.handleLikeTrackBtn);
 	}
 
-  bindTrack = () => {
-    eventBus.emit('reloadTracks');
-    eventBus.emit('playById', this.trackIndex);
-  };
+	bindTrack = () => {
+		eventBus.emit('reloadTracks');
+		eventBus.emit('playById', this.trackIndex);
+	};
 
-  handleLink(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const href = event.target.getAttribute('href');
-    eventBus.emit('navigate', href);
-  }
+	handleLink(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		const href = event.target.getAttribute('href');
+		eventBus.emit('navigate', href);
+	}
 
-  destructor() {
-    this.deleteEvents();
-  }
+	destructor() {
+		this.deleteEvents();
+	}
 }

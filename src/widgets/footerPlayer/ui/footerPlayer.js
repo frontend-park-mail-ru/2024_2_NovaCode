@@ -149,7 +149,6 @@ export class FooterPlayerView {
 
   handleLoading = async () => {
     const trackInfo = player.getTrackInfo();
-    console.log(trackInfo);
     this.trackInfoTrackImg.setAttribute(
       "src",
       `${S3_BUCKETS.TRACK_IMAGES}/${trackInfo.image}`,
@@ -219,7 +218,7 @@ export class FooterPlayerView {
   handleAddTrackBtn = () => {
     const trackInfo = player.getTrackInfo();
     const trackInPlaylistModal = new TrackInPlaylistModal(this.parent, trackInfo.id);
-		trackInPlaylistModal.render()
+    trackInPlaylistModal.render()
   }
 
   handleTimerSlider = async () => {

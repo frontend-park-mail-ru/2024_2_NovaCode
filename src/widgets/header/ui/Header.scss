@@ -36,7 +36,7 @@ $header-img-size: 45px;
 
   &__left_block {
     display: flex;
-    align-items: end;
+    align-items: center;
     gap: $header-gap;
 
     @media (max-width: 768px) {
@@ -47,7 +47,7 @@ $header-img-size: 45px;
 
   &__logo_block {
     display: flex;
-    align-items: end;
+    align-items: center;
     gap: 5px;
   }
 
@@ -80,13 +80,13 @@ $header-img-size: 45px;
     cursor: pointer;
 
     @media (max-width: 1023px) {
-      height: 50px;
-      width: 50px;
+      height: 40px;
+      width: 40px;
     }
 
     @media (max-width: 768px) {
-      height: 40px;
-      width: 40px;
+      height: 35px;
+      width: 35px;
     }
   }
 
@@ -94,11 +94,11 @@ $header-img-size: 45px;
     height: $header-img-size;
 
     @media (max-width: 1023px) {
-      height: 35px;
+      height: 40px;
     }
 
     @media (max-width: 768px) {
-      height: 30px;
+      height: 35px;
     }
   }
 

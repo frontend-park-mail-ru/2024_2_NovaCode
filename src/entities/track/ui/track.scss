@@ -9,8 +9,12 @@ $track-img-size-xl: 60px;
   border-radius: 10px;
 
   &__left_side {
+    min-width: 200px;
     display: flex;
     align-items: center;
+    text-overflow: ellipsis;
+	  white-space: nowrap;
+	  overflow: hidden;
   }
 
   &__right_side {
@@ -30,6 +34,9 @@ $track-img-size-xl: 60px;
 
   &__info {
     margin-left: 20px;
+    text-overflow: inherit;
+    white-space: inherit;
+    overflow: inherit;
   }
 
   &__delete-btn,
@@ -43,6 +50,9 @@ $track-img-size-xl: 60px;
 		color: #636363;
 		font-size: 1rem;
 		font-weight: 400;
+    text-overflow: inherit;
+    white-space: inherit;
+    overflow: inherit;
 
 		&__artist_link {
 			text-decoration: none;
@@ -70,6 +80,9 @@ $track-img-size-xl: 60px;
     color: #1f1f1f;
     font-size: 1rem;
     font-weight: 400;
+    text-overflow: inherit;
+    white-space: inherit;
+    overflow: inherit;
   }
 
   &:hover {

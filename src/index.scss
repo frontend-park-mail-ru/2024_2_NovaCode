@@ -28,6 +28,16 @@ main {
 	height: 100%;
 }
 
+main::after {
+	content: '';
+	display: block;
+	height: 100px;
+}
+
+.hidden {
+	display: none;
+}
+
 h1,
 h2,
 h3,

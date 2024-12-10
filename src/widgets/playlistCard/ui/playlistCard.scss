@@ -1,7 +1,6 @@
 @use "/src/colors.scss";
 
 .playlist_card {
-
   &__text {
     color: colors.$white;
     margin-bottom: 10px;
@@ -12,49 +11,47 @@
     justify-content: center;
     align-items: center;
     gap: 50px;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
   }
 
   &__img {
-    display: block;
+    display: flex;
     border-radius: 100%;
   }
 
   &__aside {
     display: flex;
     flex-direction: column;
-    align-content: center;
+    align-items: start;
   }
 }
 
 .playlist_info {
+  color: colors.$white;
+
+  &__name,
+  &__owner,
+  &__likes,
+  &__listen {
+    display: flex;
+  }
+
   &__name {
-    color: colors.$white;
     margin-bottom: 20px;
   }
 
   &__owner {
-    color: colors.$white;
     margin-bottom: 15px;
   }
 
   &__likes,
   &__listen {
-    color: colors.$white;
     margin-bottom: 10px;
-  }
-
-  &__listen {
-    margin-bottom: 40px;
   }
 
   &__buttons {
     display: flex;
     justify-content: space-around;
-    flex-direction: rows;
+    flex-direction: row;
   }
 }
 
@@ -64,189 +61,44 @@
   }
 }
 
-/* @media (max-width: 1380px) {
-  .playlist_card {
-    &__block {
-      width: 90%;
-    }
-  }
-}
-
-@media (max-width: 1023px) {
-  .playlist_card {
-    &__img {
-      height: 225px;
-      width: 225px;
-    }
-  }
-
-  .playlist_info {
-    &__name {
-      font-size: 38px;
-      margin-bottom: 15px;
-    }
-
-    &__listen {
-      margin-bottom: 20px;
-    }
-  }
-
-  .buttons {
-    &__like,
-    &__listen,
-    %__delete {
-      font-size: 22px;
-    }
-
-    &__icon {
-      width: 25px;
-      height: 25px;
-    }
-  }
-}
-
 @media (max-width: 768px) {
   .playlist_card {
-    &__img {
-      height: 210px;
-      width: 210px;
-    }
-
-    &__text {
-      font-size: 19px;
-    }
-  }
-
-  .playlist_info {
-    &__name {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-  }
-
-  .buttons {
-    &__like,
-    &__listen,
-    &__delete {
-      padding: 8px;
-      font-size: 16px;
-
-      &:hover {
-        transform: none;
-      }
-
-      &:active {
-        transform: scale(1.1);
-      }
-    }
-
-    &__icon {
-      width: 18px;
-      height: 18px;
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .playlist_card {
-    &__img {
-      height: 175px;
-      width: 175px;
-    }
-
     &__wrapper {
-      gap: 15px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
     }
 
-    &__text {
-      font-size: 19px;
-      margin-bottom: 5px;
+    &__aside {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
   }
 
   .playlist_info {
-    &__name {
-      font-size: 26px;
-      margin-bottom: 5px;
+    align-items: center;
+    justify-content: center;
+
+    &__name,
+    &__owner,
+    &__likes,
+    &__listen {
+      justify-content: center;
     }
 
+    &__name {
+      margin-bottom: 10px;
+    }
+
+    &__owner {
+      margin-bottom: 8px;
+    }
 
     &__likes,
     &__listen {
-      font-size: 14px;
-    }
-
-    &__listen {
-      margin-bottom: 10px;
-    }
-  }
-
-  .buttons {
-    flex-direction: column;
-    align-items: center;
-
-    &__like,
-    &__listen,
-    &__delete {
-      justify-content: flex-start;
-      width: 135px;
-      padding: 8px;
-      font-size: 16px;
-    }
-
-    &__icon {
-      width: 17px;
-      height: 17px;
+      margin-bottom: 3px;
     }
   }
 }
-
-@media (max-width: 480px) {
-  .playlist_card {
-    &__img {
-      height: 145px;
-      width: 145px;
-    }
-
-    &__text {
-      font-size: 16px;
-      margin-bottom: 0px;
-    }
-  }
-
-  .playlist_info {
-    &__name {
-      font-size: 22px;
-      margin-bottom: 5px;
-    }
-
-    &__likes,
-    &__listen {
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-
-    &__listen {
-      margin-bottom: 10px;
-    }
-  }
-
-  .buttons {
-    flex-direction: column;
-    align-items: center;
-
-    &__like,
-    &__listen,
-    &__delete {
-      justify-content: flex-start;
-      width: 120px;
-      padding: 5px;
-      font-size: 14px;
-    }
-
-    &__icon {
-      width: 15px;
-      height: 15px;
-    }
-  }
-} */
