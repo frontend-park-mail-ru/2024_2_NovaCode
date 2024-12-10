@@ -20,8 +20,12 @@ export class PlaylistPage {
   async render() {
     this.parent.innerHTML = '';
 
-    const playlistCardView = new PlaylistCardView(this.parent, this.playlistId);
-    await playlistCardView.render();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const playlistCardView = new PlaylistCardView(this.pageContent, this.playlistId);
+		await playlistCardView.render();
 
     const myPlaylistsAPI = new UserPlaylistsAPI(userStore.storage.user.id);
     this.isMyPlaylist = await myPlaylistsAPI.isMyPlaylist(this.playlistId);
@@ -36,8 +40,8 @@ export class PlaylistPage {
       args = {};
     }
 
-    const trackListView = new TrackListView(this.parent, args);
-    await trackListView.render(tracks, false);
+		const trackListView = new TrackListView(this.pageContent, args);
+		await trackListView.render(tracks, false);
 
     if (tracks.length > 0 && userStore.storage.user.isAuthorized) {
       player.addTracks(tracks);

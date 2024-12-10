@@ -12,12 +12,12 @@
 </div> 
 <div class="track__right_side">
     {{#if isMyPlaylist }}
-    <img src="/images/icons/trash.svg" id="delete-from-playlist" class="track__delete-btn">
+    <img src="/images/icons/trash.svg" id="delete-from-playlist" class="track__delete-btn icon">
     {{/if}}
     {{#if user.isAuthorized}}
-    <img src="/images/icons/add.svg" id="add-to-playlist" class="track__add-btn">
+    <img src="/images/icons/heart-black.svg" id="like-track" class="track__like-btn icon {{#if isFavorite}} track__liked {{/if}}">
+    <img src="/images/icons/add.svg" id="add-to-playlist" class="track__add-btn icon">
     {{/if}}
     {{ track.duration }}
-    <img class="track__duration_icon" src="/images/icons/music.svg">
 </div>
 

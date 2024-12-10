@@ -1,28 +1,28 @@
-<div class="artist_card__container">
-  <div class="artist_card__block">
-    <div class="artist_card__text">Исполнитель</div>
+<div class="artist_card__container container">
+  <div class="artist_card__block block">
+    <div class="artist_card__text"><h4>Исполнитель</h4></div>
     <div class="artist_card__wrapper">
-      <img src="{{artist.image}}" class="artist_card__img" />
+      <img src="{{artist.image}}" class="artist_card__img card-img" />
       <div class="artist_card__aside">
         <div class="artist_card__info artist_info">
-          <div class="artist_info__name"> {{artist.name}} </div>
+          <div class="artist_info__name"> <h3>{{artist.name}}</h3> </div>
           <div class="artist_info__genres">
-            Жанры:
+            {{!-- <h4>Жанры: </h4> --}}
             {{#each genres}}
-              {{this.rusName}}
+              <h4>{{ this.rusName}}</h4>
             {{/each}}
           </div>
-          <div class="artist_info__likes">123 оценок нравится</div>
-          <div class="artist_info__listen">123 прослушиваний в месяц</div>
+          <div class="artist_info__likes"><h5>123 оценок нравится</h5></div>
+          <div class="artist_info__listen"><h5>123 прослушиваний в месяц</h5></div>
         </div>
         <div class="artist_info__buttons buttons">
-          <div class="buttons__subscribe">
-            <img src="/images/icons/sub.svg" class="buttons__icon" />
-            Подписаться
+          <div class="buttons__subscribe buttons__button">
+            <img src="/images/icons/sub.svg" class="button icon" />
+            <h4>Подписаться</h4>
           </div>
-          <div class="buttons__listen">
-            <img src="/images/icons/listen.svg" class="buttons__icon" />
-            Слушать
+          <div class="buttons__listen buttons__button">
+            <img src="/images/icons/play-circle.svg" class="button icon" />
+            <h4>Слушать</h4>
           </div>
         </div>
       </div>

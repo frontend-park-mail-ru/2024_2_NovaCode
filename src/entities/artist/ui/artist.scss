@@ -1,9 +1,11 @@
 .artist {
+  cursor: pointer;
+  border: 5px solid transparent;
+  border-radius: 10px;
+  
   &__img {
-    width: 210px;
-    height: 210px;
-    border-radius: 6px;
-    transition-duration: 0.5s;
+    border-radius: 5px;
+    transition-duration: 0.2s;
     transition-timing-function: ease;
 
     &:hover {
@@ -16,12 +18,12 @@
     display: flex;
     justify-content: center;
     color: #f1f1f1;
-    font-size: 20px;
+    font-size: 1rem;
     font-weight: 400;
   }
 }
 
-@media (max-width: 920px) {
+/* @media (max-width: 920px) {
   .artist {
     &__img {
       width: 190px;
@@ -55,3 +57,4 @@
     }
   }
 }
+ */

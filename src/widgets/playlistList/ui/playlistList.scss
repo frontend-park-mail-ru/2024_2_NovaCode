@@ -1,37 +1,12 @@
-.playlists {
-	&__container {
-		max-width: 1280px;
-		margin: 0 auto;
-	}
+@use "/src/colors.scss";
 
-	&__block {
-		margin: 0 auto;
-		padding: 10px;
-		background-color: rgba(241.39, 241.39, 241.39, 0.1);
-		border-radius: 9px;
-		margin-top: 12px;
-	}
+.playlists {
 
 	&__text {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		color: #f1f1f1;
-		font-size: 24px;
-		font-weight: 400;
-	}
-
-	&__show_more {
-		text-decoration: none;
-		color: #f1f1f1;
-
-		&:visited {
-			color: #f1f1f1;
-		}
-
-		&:hover {
-			text-decoration: underline;
-		}
+		color: colors.$white;
 	}
 
 	&__list {
@@ -43,7 +18,7 @@
 }
 
 
-@media (max-width: 1380px) {
+/* @media (max-width: 1380px) {
 	.playlists {
 		&__block {
 			width: 90%;
@@ -69,4 +44,4 @@
 			font-size: 19px;
 		}
 	}
-}
+} */

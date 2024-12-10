@@ -1,40 +1,38 @@
-<div class="login">
-  <div class="login__container">
-    <div class="login__intro">
-      <h1 class="login__title">NovaMusic</h1>
-      <h2 class="login__subtitle">Музыкальный стриминговый сервис</h2>
-      <div class="login__info">Переходите к прослушиванию любимой музыки</div>
-    </div>
+<div class="login__container container">
+  <div class="login__intro block">
+    <h1 class="login__title">NovaMusic</h1>
+    <h2 class="login__subtitle">Музыкальный стриминговый сервис</h2>
+    <div class="login__info"><h5>Переходите к прослушиванию любимой музыки</h5></div>
+  </div>
 
-    <div class="login__form">
-      <form id="login-form">
-        <input
-          class="login__input"
-          type="text"
-          id="username"
-          name="username"
-          placeholder="Имя пользователя"
-          required
-        />
-        <div id="login__username-error" class="login__input-error"></div>
+  <div class="login__form">
+    <form id="login-form">
+      <input
+        class="login__input"
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Имя пользователя"
+        required
+      />
+      <div id="login__username-error" class="login__input-error"></div>
 
-        <input
-          class="login__input"
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Пароль"
-          required
-        />
-        <div id="login__password-error" class="login__input-error"></div>
-        
-        <button class="login__submit_btn" type="submit">Войти</button>
-        <div class="login__additional">
-          Нет аккаунта? 
-          <a class="login__register_site link" href="/signup">Регистрация в NovaMusic</a></span>
-        </div>
-        <div id="login__general-error" class="login__general-error"></div>
-      </form>
-    </div>
+      <input
+        class="login__input"
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Пароль"
+        required
+      />
+      <div id="login__password-error" class="login__input-error"></div>
+      
+      <button class="login__submit_btn button" type="submit"><h4>Войти</h4></button>
+      <div class="login__additional">
+        <h5>Нет аккаунта? </h5>
+        <h4><a class="login__register_site link" href="/signup">Зарегистрироваться</a></h4>
+      </div>
+      <div id="login__general-error" class="login__general-error"></div>
+    </form>
   </div>
 </div>

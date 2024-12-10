@@ -26,17 +26,21 @@ export class MoreTracksPage {
       this.favorite = true;
     }
 
-    const trackListAPI = new TrackListAPI({
-      artistId: this.artistId,
-      albumId: this.albumId,
-    });
-    const trackListView = new TrackListView(this.parent, {
-      artistId: this.artistId,
-      albumId: this.albumId,
-      favorite: this.favorite,
-    });
-    const tracks = await trackListAPI.get();
-    await trackListView.render(tracks, false);
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const trackListAPI = new TrackListAPI({artistId: this.artistId, albumId: this.albumId});
+		const trackListView = new TrackListView(
+			this.pageContent,
+			{
+				artistId: this.artistId, 
+				albumId: this.albumId,
+				favorite: this.favorite,
+			},
+		);
+		const tracks = await trackListAPI.get();
+		await trackListView.render(tracks, false);
 
     player.addTracks(tracks);
     if (userStore.storage.user.isAuthorized) {

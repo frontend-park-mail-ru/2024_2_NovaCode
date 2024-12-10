@@ -61,7 +61,8 @@ export class AlbumCarouselView {
 	}
 
 	setTitle(titleText) {
-		const title = document.querySelector('.album_carousel__recommend_text');
+		const titleBlock = document.querySelector('.album_carousel__recommend_text');
+		const title = titleBlock.querySelector("h4");
 		title.textContent = titleText;
 	}
 

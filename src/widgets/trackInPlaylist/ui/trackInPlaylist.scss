@@ -1,3 +1,5 @@
+@use "/src/colors.scss";
+
 .track-in-playlist-modal-container {
     position: fixed;
     top: 0;
@@ -12,15 +14,15 @@
 }
 
 .track-in-playlist-modal {
-    background: #1f1f1f;
+    background: colors.$black;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid colors.$white;
     padding: 20px;
     width: 400px;
     text-align: center;
 
     &__header {
-        color: #f1f1f1;
+        color: colors.$white;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -29,9 +31,7 @@
     &__close-btn {
         border: none;
         background: none;
-        color: #ccc;
-        font-size: 20px;
-        cursor: pointer;
+        color: colors.$white;
     }
 
     &__body {
@@ -42,15 +42,9 @@
         display: block;
         padding: 10px;
         margin: 5px 0;
-        border: 1px solid #ccc;
-        background: #474646;
-        color: #ccc;
+        border: 1px solid colors.$white;
+        background: colors.$button-background;
+        color: colors.$white;
         border-radius: 4px;
-        text-decoration: none;
-        cursor: pointer;
-
-        /* &:hover {
-            background-color: #f1f1f1;
-        } */
     }
 }

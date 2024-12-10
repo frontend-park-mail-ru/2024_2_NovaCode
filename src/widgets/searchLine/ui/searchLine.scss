@@ -1,43 +1,31 @@
-.search_line {
-  &__container {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
+@use "/src/colors.scss";
 
-  &__block {
-    margin: 0 auto;
-    padding: 10px;
-    background-color: rgba(241.39, 241.39, 241.39, 0.1);
-    border-radius: 9px;
-    margin-top: 12px;
-  }
+.search_line {
 
   &__form {
     display: flex;
-    flex-direction: row;
+    //flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
   }
 
   &__input {
     width: 300px;
     padding: 10px;
-    background: #f1f1f1;
+    background: colors.$white;
     border-radius: 9px;
     border: none;
-    color: #1f1f1f;
-    font-size: 18px;
-    font-weight: 400;
+    color: colors.$white;
   }
 
   &__button {
     padding: 10px 20px;
-    background: #ff5f0f;
+    background: colors.$orange;
     border-radius: 9px;
     border: none;
-    color: #f1f1f1;
-    font-size: 18px;
-    font-weight: 400;
-    cursor: pointer;
+    color: colors.$white;
     text-align: center;
   }
 }

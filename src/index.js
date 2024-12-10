@@ -1,4 +1,4 @@
-import './index.css';
+import './index.scss';
 import { App } from './app/app.js';
 
 // if ('serviceWorker' in navigator) {

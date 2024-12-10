@@ -20,19 +20,28 @@ export class FeedPage {
     this.parent = document.querySelector('#root');
   }
 
-  async render() {
-    this.parent.innerHTML = '';
+	async render() {
+		if (!userStore.isAuth()) {
+			eventBus.emit('navigate', '/signin');
+			return;
+		}
+
+		this.parent.innerHTML = '';
 
     const iframe = new CSATWindow();
     await iframe.render();
 
-    const listenBlockView = new ListenBlockView(this.parent);
-    await listenBlockView.render();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
 
-    const trackListAPI = new TrackListAPI();
-    const trackListView = new TrackListView(this.parent);
-    const tracks = await trackListAPI.get();
-    await trackListView.render(tracks.slice(0, 5));
+		const listenBlockView = new ListenBlockView(this.pageContent);
+		await listenBlockView.render();
+
+		const trackListAPI = new TrackListAPI();
+		const trackListView = new TrackListView(this.pageContent);
+		const tracks = await trackListAPI.get();
+		await trackListView.render(tracks.slice(0, 5));
 
     player.addTracks(tracks);
     if (userStore.storage.user.isAuthorized) {
@@ -41,11 +50,11 @@ export class FeedPage {
       eventBus.emit('hidePlayer');
     }
 
-    const artistCarouselView = new ArtistCarouselView(this.parent);
+    const artistCarouselView = new ArtistCarouselView(this.pageContent);
     await artistCarouselView.render();
 
     const playlistListAPI = new PlaylistListAPI();
-    const playlistListView = new PlaylistListView(this.parent);
+    const playlistListView = new PlaylistListView(this.pageContent);
     const playlists = await playlistListAPI.get();
     await playlistListView.render(playlists.slice(0, 5));
   }

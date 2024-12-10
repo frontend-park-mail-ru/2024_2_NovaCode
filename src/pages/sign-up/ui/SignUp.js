@@ -18,11 +18,19 @@ export class SignUpPage {
   render() {
     this.parent.innerHTML = '';
 
-    this.parent.innerHTML = template();
-    this.bindEvents();
-    this.onEvents();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const registerBlock = document.createElement('div');
+		registerBlock.classList.add('register');
+		registerBlock.innerHTML = template();
+		this.pageContent.appendChild(registerBlock);
+
+		this.bindEvents();
+		this.onEvents();
     eventBus.emit('hidePlayer');
-  }
+	}
 
   bindEvents() {
     const form = document.querySelector('#signup-form');

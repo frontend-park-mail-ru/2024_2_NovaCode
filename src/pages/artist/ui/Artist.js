@@ -18,15 +18,17 @@ export class ArtistPage {
   async render() {
     this.parent.innerHTML = '';
 
-    const artistCardView = new ArtistCardView(this.parent, this.artistId);
-    await artistCardView.render();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
 
-    const trackListAPI = new TrackListAPI({ artistId: this.artistId });
-    const tracks = await trackListAPI.get();
-    const trackListView = new TrackListView(this.parent, {
-      artistId: this.artistId,
-    });
-    await trackListView.render(tracks.slice(0, 5));
+		const artistCardView = new ArtistCardView(this.pageContent, this.artistId);
+		await artistCardView.render();
+
+		const trackListAPI = new TrackListAPI({artistId: this.artistId});
+		const tracks = await trackListAPI.get();
+		const trackListView = new TrackListView(this.pageContent, {artistId: this.artistId});
+		await trackListView.render(tracks.slice(0, 5));
 
     player.addTracks(tracks);
     if (userStore.storage.user.isAuthorized) {
@@ -35,7 +37,7 @@ export class ArtistPage {
       eventBus.emit('hidePlayer');
     }
 
-    const albumCarouselView = new AlbumCarouselView(this.parent, this.artistId);
+    const albumCarouselView = new AlbumCarouselView(this.pageContent, this.artistId);
     await albumCarouselView.render();
   }
 }

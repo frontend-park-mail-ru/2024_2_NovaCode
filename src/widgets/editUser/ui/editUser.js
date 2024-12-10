@@ -84,22 +84,22 @@ export class EditUserView {
   }
 
   handleError(error) {
-    document.querySelector("#edit-user__username-error").textContent = "";
-    document.querySelector("#edit-user__email-error").textContent = "";
-    document.querySelector("#edit-user__general-error").textContent = "";
+    document.querySelector("#edit-user__username-error").querySelector('h4').textContent = "";
+    document.querySelector("#edit-user__email-error").querySelector('h4').textContent = "";
+    document.querySelector("#edit-user__general-error").querySelector('h4').textContent = "";
 
     if (error.username) {
-      document.querySelector("#edit-user__username-error").textContent =
+      document.querySelector("#edit-user__username-error").querySelector('h4').textContent =
         error.username;
     }
 
     if (error.email) {
-      document.querySelector("#edit-user__email-error").textContent =
+      document.querySelector("#edit-user__email-error").querySelector('h4').textContent =
         error.email;
     }
 
     if (typeof error === "string") {
-      document.querySelector("#edit-user__general-error").textContent = error;
+      document.querySelector("#edit-user__general-error").querySelector('h4').textContent = error;
     }
   }
 }

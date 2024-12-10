@@ -1,6 +1,5 @@
 import { eventBus } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
-import { player } from '../../../shared/player/model/store.js';
 import { handleLink, S3_BUCKETS } from '../../../shared/lib/index.js';
 import { ModalConfirmView } from '../../../widgets/modalConfirm/index.js';
 import template from './Header.hbs';
@@ -25,14 +24,20 @@ export class Header {
 
     this.parent.innerHTML = template({ user });
 
-    this.bindEvents();
-    this.onEvents();
-    this.switchActiveNavlink(window.location.pathname);
-  }
+		this.getElements();
+		this.bindEvents();
+		this.onEvents();
+		this.switchActiveNavlink(window.location.pathname);
+	}
 
-  bindEvents() {
-    const logoutLink = this.parent.querySelector('#header_logout_link');
-    const links = this.parent.querySelectorAll('.link');
+	getElements() {
+		this.mainLink = this.parent.querySelector('header__link_main');
+		this.searchLink = this.parent.querySelector('header__link_search');
+	}
+
+	bindEvents() {
+		const logoutLink = this.parent.querySelector('#header_logout_link');
+		const links = this.parent.querySelectorAll('.navlink');
 
     if (logoutLink) {
       logoutLink.addEventListener('click', (event) =>

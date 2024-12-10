@@ -1,42 +1,56 @@
 <div class="header__container">
   <div class="header__row">
     <div class="header__left_block">
-      <img class="header__img_logo" src="/images/icons/logo_light.svg">
-      <a
-        class="header__link_logo link"
-        id="header_logo_link"
+      <div class="header__logo_block">
+        <img class="header__img_logo" src="/images/icons/logo_light.svg">
+        <h1><a
+          class="header__link_logo header__link"
+          id="header_logo_link"
+          {{#if user.isAuthorized}} 
+          href="/"
+          {{else}}
+          href="/signin"
+          {{/if}}
+        >NovaMusic</a></h1>
+      </div>
+      <h2><a
+        class="header__link_main header__link navlink"
         {{#if user.isAuthorized}} 
         href="/"
         {{else}}
         href="/signin"
         {{/if}}
-      >NovaMusic</a>
-      <a
-        class="header__link_search navlink link"
+      >Главная</a></h2>
+      <h2><a
+        class="header__link_search header__link navlink"
+        {{#if user.isAuthorized}} 
         href="/search"
-      >Поиск</a>
+        {{else}}
+        href="/signin"
+        {{/if}}
+      >Поиск</a></h2>
     </div>
     <div class="header__right_block" id="header_signin_menu">
       {{#if user.isAuthorized}}
         <div class="header__signed_block">
-          <img src="{{user.image}}" href="/profiles/{{user.username}}" class="header__profile_img link">
-          <a
-            class="header__link_signin"
+          <img src="{{user.image}}" href="/profiles/{{user.username}}" class="header__profile_img header__link navlink">
+          <h2><a
+            class="header__link_logout header__link"
             id="header_logout_link"
             href="/signin"
-          >Выход</a>
+          >Выход</a></h2>
         </div>
       {{else}}
-        <a
-          class="header__link_signin navlink link"
+        <h2><a
+          class="header__link_signin header__link navlink"
           id="header_signin_link"
           href="/signin"
-        >Войти</a>
-        <a
-          class="header__link_signup navlink link"
+        >Войти</a></h2>
+        <h2><a
+          class="header__link_signup header__link navlink"
           id="header_signup_link"
           href="/signup"
-        >Регистрация</a>
+        >Регистрация</a></h2>
       {{/if}}
     </div>
   </div>

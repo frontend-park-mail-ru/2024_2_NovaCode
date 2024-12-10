@@ -1,3 +1,5 @@
+@use "/src/colors.scss";
+
 .modal_confirm { 
     &__fade {
         content: "";
@@ -15,16 +17,14 @@
         top: 50%;
         left: 50%;
         padding: 20px;
-        border: 1px solid #ccc;
+        border: 1px solid colors.$white;
         border-radius: 10px;
         transform: translate(-50%, -50%);
-        background-color: #1f1f1f;
+        background-color: colors.$black;
     }
 
     &__text {
-        color: #f1f1f1;
-        font-size: 24px;
-        font-weight: 400;
+        color: colors.$white;
         text-align: center;
     }
 
@@ -38,28 +38,26 @@
     &__btn_yes {
         margin-top: 10px;
         padding: 10px;
-        background: rgba(241, 241, 241, 0.25);
+        background: colors.$button-background;
         border-radius: 9px;
         border: none;
-        color: #f1f1f1;
-        font-size: 24px;
-        font-weight: 400;
+        color: colors.$white;
         text-align: center;
+        cursor: pointer;
     }
 
     &__btn_no {
         margin-top: 10px;
         padding: 10px;
-        background: #FF5F0F;
+        background: colors.$orange;
         border-radius: 9px;
         border: none;
-        color: #f1f1f1;
-        font-size: 24px;
-        font-weight: 400;
+        color: colors.$white;
         text-align: center;
+        cursor: pointer;
     }
 
-    @media (max-width: 768px) {
+    /* @media (max-width: 768px) {
         &__text,
         &__btn_yes,
         &__btn_no {
@@ -73,5 +71,5 @@
         &__btn_no {
             font-size: 16px;
         }
-    }
+    } */
 }

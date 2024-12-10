@@ -20,14 +20,19 @@ export class MoreAlbumsPage {
       this.artistId = this.entityId;
     }
 
-    const albumListAPI = new AlbumListAPI(this.artistId);
-    const albums = await albumListAPI.get();
-    const albumListView = new AlbumListView(this.parent, this.artistId);
-    await albumListView.render(albums);
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const albumListAPI = new AlbumListAPI(this.artistId);
+		const albums = await albumListAPI.get();
+		const albumListView = new AlbumListView(this.pageContent, this.artistId);
+		await albumListView.render(albums);
+
     if (userStore.storage.user.isAuthorized) {
       eventBus.emit('showPlayer');
     } else {
       eventBus.emit('hidePlayer');
     }
-  }
+	}
 }
