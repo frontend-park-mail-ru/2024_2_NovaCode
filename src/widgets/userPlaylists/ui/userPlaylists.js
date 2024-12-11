@@ -5,7 +5,7 @@ import { CreatePlaylistModal } from '../../createPlaylist/index.js';
 import { UserPlaylistsAPI } from '../api/api.js';
 import template from './userPlaylists.hbs'
 import * as styles from './userPlaylists.scss';
-import subIcon from '../../../../public/images/icons/sub.svg';
+import musicSquareAddIcon from '../../../../public/images/icons/music-square-add.svg';
 
 export class UserPlaylistsView {
 	/**
@@ -33,13 +33,12 @@ export class UserPlaylistsView {
 		const userPlaylistsElement = document.createElement('div');
 		userPlaylistsElement.classList.add('user-playlists');
 
-		this.isMyProfile = false;
+		this.isCurrentUser = false;
 		if (this.userId === userStore.storage.user.id) {
-			this.isMyProfile = true;
+			this.isCurrentUser = true;
 		}
 
-		userPlaylistsElement.innerHTML = template({ styles, isMyProfile: this.isMyProfile, subIcon });
-
+		userPlaylistsElement.innerHTML = template({ styles, isCurrentUser: this.isCurrentUser, musicSquareAddIcon });
 		this.parent.appendChild(userPlaylistsElement);
 
 		const playlistsBlock = document.getElementById('user-playlists');

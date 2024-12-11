@@ -2,15 +2,9 @@ import { eventBus } from "../../../shared/lib/eventbus.js";
 import { player } from "../../../shared/player/model/store.js";
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from "./footerPlayer.hbs";
-import * as styles from "./footerPlayer.scss";
+import "./footerPlayer.scss";
 import { FooterPlayerAPI } from "../api/api.js";
 import { userStore } from "../../../entities/user/index.js";
-import playFooterIcon from '../../../../public/images/icons/play_footer.svg';
-import prevIcon from '../../../../public/images/icons/prev.svg';
-import nextIcon from '../../../../public/images/icons/next.svg';
-import likeIcon from '../../../../public/images/icons/like.svg';
-import volumeDownIcon from '../../../../public/images/icons/volume_down.svg';
-import volumeUpIcon from '../../../../public/images/icons/volume_up.svg';
 
 export class FooterPlayerView {
   /**
@@ -36,15 +30,7 @@ export class FooterPlayerView {
   async render() {
     const footerPlayerElement = document.createElement("div");
     footerPlayerElement.classList.add("footer_player");
-    footerPlayerElement.innerHTML = template({ 
-      styles, 
-      playFooterIcon, 
-      prevIcon, 
-      nextIcon, 
-      likeIcon,
-      volumeDownIcon,
-      volumeUpIcon
-    });
+    footerPlayerElement.innerHTML = template({});
     this.parent.appendChild(footerPlayerElement);
 
     await this.getElements();
@@ -59,10 +45,10 @@ export class FooterPlayerView {
     this.footerPlayer = document.querySelector("#player");
     this.trackTime = document.querySelector(`.${styles['track_slider__time_current']}`);
 
-    this.playPauseBtn = document.querySelector('.buttons_player__play_track');
-    this.nextTrackBtn = document.querySelector('.buttons_player__next_track');
-    this.prevTrackBtn = document.querySelector('.buttons_player__prev_track');
-    this.likeTrackBtn = document.querySelector('.buttons_player__like_track');
+    this.playPauseBtn = document.querySelector(".buttons_player__play_track");
+    this.nextTrackBtn = document.querySelector(".buttons_player__next_track");
+    this.prevTrackBtn = document.querySelector(".buttons_player__prev_track");
+    this.likeTrackBtn = document.querySelector(".buttons_player__like_track");
 
     this.seekTimerSlider = document.querySelector('.track_slider__seek');
     this.seekVolumeSlider = document.querySelector('.volume_slider__seek');
@@ -90,20 +76,22 @@ export class FooterPlayerView {
   }
 
   addEvents() {
-    this.playPauseBtn.addEventListener("click", this.handlePlayPauseBtn);
-    this.nextTrackBtn.addEventListener("click", this.handleNextTrackBtn);
-    this.prevTrackBtn.addEventListener("click", this.handlePrevTrackBtn);
-    this.likeTrackBtn.addEventListener("click", this.handleLikeTrackBtn);
-    this.seekTimerSlider.addEventListener("change", this.handleTimerSlider);
-    this.seekVolumeSlider.addEventListener("change", this.handleVolumeSlider);
+    this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
+    this.nextTrackBtn.addEventListener('click', this.handleNextTrackBtn);
+    this.prevTrackBtn.addEventListener('click', this.handlePrevTrackBtn);
+    this.likeTrackBtn.addEventListener('click', this.handleLikeTrackBtn);
+    this.addTrackBtn.addEventListener('click', this.handleAddTrackBtn);
+    this.seekTimerSlider.addEventListener('change', this.handleTimerSlider);
+    this.seekVolumeSlider.addEventListener('change', this.handleVolumeSlider);
   }
 
   deleteEvents() {
-    this.playPauseBtn.removeEventListener("click", this.handlePlayPauseBtn);
-    this.nextTrackBtn.removeEventListener("click", this.handleNextTrackBtn);
-    this.prevTrackBtn.removeEventListener("click", this.handlePrevTrackBtn);
-    this.likeTrackBtn.removeEventListener("click", this.handleLikeTrackBtn);
-    this.seekTimerSlider.removeEventListener("change", this.handleTimerSlider);
+    this.playPauseBtn.removeEventListener('click', this.handlePlayPauseBtn);
+    this.nextTrackBtn.removeEventListener('click', this.handleNextTrackBtn);
+    this.prevTrackBtn.removeEventListener('click', this.handlePrevTrackBtn);
+    this.likeTrackBtn.removeEventListener('click', this.handleLikeTrackBtn);
+    this.addTrackBtn.removeEventListener('click', this.handleAddTrackBtn);
+    this.seekTimerSlider.removeEventListener('change', this.handleTimerSlider);
     this.seekVolumeSlider.removeEventListener(
       "change",
       this.handleVolumeSlider,
@@ -190,7 +178,12 @@ export class FooterPlayerView {
   };
 
   handlePlayPauseBtn = async () => {
-    eventBus.emit("playPauseTrack");
+    if (player.isPlaying) {
+      this.playPauseBtnIcon.src = "/images/icons/play-circle-black.svg";
+    } else {
+      this.playPauseBtnIcon.src = "/images/icons/pause-circle-black.svg";
+    }
+    eventBus.emit('playPauseTrack');
   };
 
   handleNextTrackBtn = async () => {
@@ -218,6 +211,12 @@ export class FooterPlayerView {
       this.likeTrackBtn.classList.add(styles['liked_footer_player']);
     }
   };
+
+  handleAddTrackBtn = () => {
+    const trackInfo = player.getTrackInfo();
+    const trackInPlaylistModal = new TrackInPlaylistModal(this.parent, trackInfo.id);
+    trackInPlaylistModal.render()
+  }
 
   handleTimerSlider = async () => {
     this.seekToTimer();

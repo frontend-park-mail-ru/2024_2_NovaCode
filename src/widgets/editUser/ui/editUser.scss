@@ -1,22 +1,10 @@
-.edit_user {
-  &__container {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
+@use "/src/colors.scss";
 
-  &__block {
-    margin: 0 auto;
-    padding: 10px;
-    background-color: rgba(241.39, 241.39, 241.39, 0.1);
-    border-radius: 9px;
-    margin-top: 12px;
-  }
+.edit_user {
 
   &__text {
     padding: 0 10px;
-    color: #f1f1f1;
-    font-size: 24px;
-    font-weight: 400;
+    color: colors.$white;
     margin-bottom: 10px;
   }
 
@@ -30,39 +18,35 @@
     display: block;
     width: 430px;
     height: 30px;
-    padding: 10px;
+    //padding: 10px;
     margin-top: 15px;
-    background: #f1f1f1;
-    border-radius: 9px;
+    background: colors.$white;
+    //border-radius: 9px;
     border: none;
-    color: #1f1f1f;
-    font-size: 22px;
-    font-weight: 400;
+    color: colors.$black;
 
     &:first-child {
       margin-top: 0px;
     }
 
     &_error {
-      color: #ff0000;
-      font-weight: 700;
+      color: colors.$red;
     }
   }
 
   &__submit_btn {
     margin-top: 20px;
     padding: 10px;
-    background: #ff5f0f;
+    background: colors.$orange;
     border-radius: 9px;
     border: none;
-    color: #f1f1f1;
-    font-size: 24px;
-    font-weight: 400;
+    color: colors.$white;
     text-align: center;
+    cursor: pointer;
   }
 }
 
-@media (max-width: 1380px) {
+/* @media (max-width: 1380px) {
   .edit_user {
     &__block {
       width: 90%;
@@ -121,3 +105,4 @@
     }
   }
 }
+ */

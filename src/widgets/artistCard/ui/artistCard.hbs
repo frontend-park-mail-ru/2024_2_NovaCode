@@ -1,28 +1,28 @@
-<div class="{{ styles.artist_card__container }}">
-  <div class="{{ styles.artist_card__block }}">
-    <div class="{{ styles.artist_card__text }}">Исполнитель</div>
+<div class="{{ styles.artist_card__container }} container">
+  <div class="{{ styles.artist_card__block }} block">
+    <div class="{{ styles.artist_card__text }}"><h4>Исполнитель</h4></div>
     <div class="{{ styles.artist_card__wrapper }}">
-      <img src="{{artist.image}}" class="{{ styles.artist_card__img }}" />
+      <img src="{{artist.image}}" class="{{ styles.artist_card__img }} card-img" />
       <div class="{{ styles.artist_card__aside }}">
         <div class="{{ styles.artist_card__info }} {{ styles.artist_info }}">
-          <div class="{{ styles.artist_info__name }}"> {{artist.name}} </div>
+          <div class="{{ styles.artist_info__name }}"><h3>{{ artist.name }}</h3></div>
           <div class="{{ styles.artist_info__genres }}">
-            Жанры:
+            {{!-- <h4>Жанры: </h4> --}}
             {{#each genres}}
-              {{this.rusName}}
+              <h4>{{ this.rusName}}</h4>
             {{/each}}
           </div>
-          <div class="{{ styles.artist_info__likes }}">123 оценок нравится</div>
-          <div class="{{ styles.artist_info__listen }}">123 прослушиваний в месяц</div>
+          <div class="{{ styles.artist_info__likes }}"><h5>123 оценок нравится</h5></div>
+          <div class="{{ styles.artist_info__listen }}"><h5>123 прослушиваний в месяц</h5></div>
         </div>
-        <div class="{{ styles.artist_info__buttons }} {{ styles.buttons }}">
-          <div class="{{ styles.buttons__subscribe }}">
-            <img src="{{ subIcon }}" class="{{ styles.buttons__icon }}" />
-            Подписаться
+        <div class="{{ styles.artist_info__buttons }} buttons">
+          <div class="{{ styles.buttons__subscribe }} buttons_button">
+            <img src="{{ subIcon }}" class="button icon" />
+            <h4>Подписаться</h4>
           </div>
-          <div class="{{ styles.buttons__listen }}">
-            <img src="{{ listenIcon }}" class="{{ styles.buttons__icon }}" />
-            Слушать
+          <div class="{{ styles.buttons__listen }} buttons__button">
+            <img src="{{ playCircleIcon }}" class="button icon" />
+            <h4>Слушать</h4>
           </div>
         </div>
       </div>

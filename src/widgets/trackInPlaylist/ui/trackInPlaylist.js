@@ -32,19 +32,6 @@ export class TrackInPlaylistModal {
         }
     }
 
-    renderBtn() {
-        const button = document.createElement('button');
-        button.classList.add('track-playlist-button');
-        button.textContent = 'Add to Playlist';
-
-        button.addEventListener('click', () => {
-            this.modal = new TrackInPlaylistModal(this.parent, this.trackId);
-            this.modal.render();
-        });
-
-        this.parent.appendChild(button);
-    }
-
     addEventListeners() {
         const closeButton = this.modal.querySelector(`.${styles['track-playlist-modal__close-btn']}`);
         closeButton.addEventListener('click', this.handleClose.bind(this));

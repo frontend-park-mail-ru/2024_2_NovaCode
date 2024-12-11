@@ -13,9 +13,16 @@ export class ErrorPage {
   async render() {
     this.parent.innerHTML = '';
 
-    const errorView = new ErrorView(this.parent, this.title, this.message);
-    await errorView.render();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const errorBlock = document.createElement('div');
+		flexBefore.classList.add('error');
+		this.pageContent.appendChild(errorBlock);
+
+		errorBlock.innerHTML = template({ message });
 
     eventBus.emit('hidePlayer');
-  }
+	}
 }

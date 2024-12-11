@@ -65,9 +65,9 @@ export class TrackListView {
 		this.parent.appendChild(trackListElement);
 
 		const tracksBlock = document.getElementById('tracks');
-		Array.from(tracks).forEach((track, index) => {
+		Array.from(tracks).forEach(async (track, index) => {
 			const trackView = new TrackView(tracksBlock, index);
-			trackView.render(track, this.myPlaylistId);
+			await trackView.render(track, this.myPlaylistId);
 		});
 
 		this.bindEvents();
@@ -75,7 +75,8 @@ export class TrackListView {
 	}
 
 	setTitle(titleText) {
-		const title = document.querySelector(`.${styles['tracks__recommend_text']}`);
+		const titleBlock = document.querySelector(`.${styles['tracks__recommend_text']}`);
+		const title = titleBlock.querySelector('h4');
 		title.textContent = titleText;
 	}
 

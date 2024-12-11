@@ -1,11 +1,11 @@
-<div class="{{ styles.user-playlists__container }}">
-    <div class="{{ styles.user-playlists__block }}">
+<div class="{{ styles.user-playlists__container }} container">
+    <div class="{{ styles.user-playlists__block }} block">
         <div class="{{ styles.user-playlists__text }}">
-            Плейлисты пользователя
-            {{#if isMyProfile }}
-            <div class="{{ styles.buttons__new }}" id="add-playlist">
-                <img src="{{ subIcon }}" class="{{ styles.buttons__icon }}" />
-                Создать плейлист
+            <h4>Плейлисты пользователя</h4>
+            {{#if isCurrentUser }}
+            <div class="{{ styles.buttons__new }} buttons__button" id="add-playlist">
+                <img src="{{ musicSquareAddIcon }}" class="button icon" />
+                <h4>Создать плейлист</h4>
             </div>
             {{/if}}
         </div>

@@ -1,47 +1,58 @@
+$track-img-size-xl: 60px;
+
 .track {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
   margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 10px;
   background-color: #f9f9f9;
-  transition-duration: 0.5s;
-  transition-timing-function: ease;
+  border: 5px solid #f9f9f9;
+  border-radius: 10px;
 
   &__left_side {
+    min-width: 200px;
     display: flex;
     align-items: center;
+    text-overflow: ellipsis;
+	  white-space: nowrap;
+	  overflow: hidden;
   }
 
   &__right_side {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    font-size: 21px;
+    font-size: 1rem;
     justify-content: center;
     align-items: center;
   }
 
   &__img {
-    width: 90px;
-    height: 90px;
-  }
-
-  &__duration_icon {
-    width: 25px;
-    height: 25px;
+    border-radius: 5px;
+    width: $track-img-size-xl;
+    height: $track-img-size-xl;
   }
 
   &__info {
     margin-left: 20px;
+    text-overflow: inherit;
+    white-space: inherit;
+    overflow: inherit;
+  }
+
+  &__delete-btn,
+  &__like-btn,
+  &__add-btn {
+    cursor: pointer;
   }
 
 	&__artist {
 		margin-top: 5px;
 		color: #636363;
-		font-size: 20px;
+		font-size: 1rem;
 		font-weight: 400;
+    text-overflow: inherit;
+    white-space: inherit;
+    overflow: inherit;
 
 		&__artist_link {
 			text-decoration: none;
@@ -56,26 +67,31 @@
 			}
 		}
 	}
+
+  &__liked {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
   
   &__name {
     color: #1f1f1f;
-    font-size: 22px;
+    font-size: 1rem;
     font-weight: 400;
-  }
-
-  &__artist {
-    margin-top: 5px;
-    color: #636363;
-    font-size: 20px;
-    font-weight: 400;
+    text-overflow: inherit;
+    white-space: inherit;
+    overflow: inherit;
   }
 
   &:hover {
-    transform: translateX(-20px);
+    border: 5px solid #FF5F0F;
+    //transform: translateX(-20px);
   }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .track {
     padding: 8px;
 
@@ -145,4 +161,4 @@
       transform: translateX(-12px);
     }
   }
-}
+} */

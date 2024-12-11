@@ -1,29 +1,28 @@
-<div class="{{ styles.register }}">
-  <div class="{{ styles.register__container }}">
-    <div class="{{ styles.register__intro }}">
-      <h1 class="{{ styles.register__title }}">NovaMusic</h1>
-      <h2 class="{{ styles.register__subtitle }}">Музакальный стриминговый сервис</h2>
-      <div class="{{ styles.register__info }}">Слушайте музыку, создавайте плейлисты с друзьями,  <br />узнавайте первыми о новинках</div>
-    </div>
+<div class="{{ styles.register__container }} container">
+  <div class="{{ styles.register__intro }}  block">
+    <h1 class="{{ styles.register__title }}">NovaMusic</h1>
+    <h2 class="{{ styles.register__subtitle }}">Музыкальный стриминговый сервис</h2>
+    <div class="{{ styles.register__info }}"><h5>Слушайте музыку, создавайте плейлисты с друзьями,  <br />узнавайте первыми о новинках</h5></div>
   </div>
-
-  <div class="{{ styles.register__form }}">
-    <form id="signup-form">
-      <input class="{{ styles.register__input }}" type="text" id="username" name="username" placeholder="Имя пользователя" required />
-      <div id="register__username-error" class="{{ styles.register__input-error }}"></div>
-
-      <input class="{{ styles.register__input }}" type="email" id="email" name="email" placeholder="Адрес электронной почты" required />
-      <div id="register__email-error" class="{{ styles.register__input-error }}"></div>
-
-      <input class="{{ styles.register__input }}" type="password" id="password" name="password" placeholder="Пароль" required />
-      <div id="register__password-error" class="{{ styles.register__input-error }}"></div>
-
-      <button class="{{ styles.register__submit_btn }}" type="submit">Регистрация</button>
-      <div class="{{ styles.register__additional }}">
-        Уже есть аккаунт? <a class="{{ styles.register__enter_account }} link" href="/signin">Войдите в него</a></span>
-      </div>
-      
-      <div id="register__general-error" class="{{ styles.register__general-error }}"></div>
-    </form>
-  </div> 
 </div>
+
+<div class="{{ styles.register__form }}">
+  <form id="signup-form">
+    <input class="{{ styles.register__input }}" type="text" id="username" name="username" placeholder="Имя пользователя" required />
+    <div id="register__username-error" class="{{ styles.register__input-error }}"></div>
+
+    <input class="{{ styles.register__input }}" type="email" id="email" name="email" placeholder="Адрес электронной почты" required />
+    <div id="register__email-error" class="{{ styles.register__input-error }}"></div>
+
+    <input class="{{ styles.register__input }}" type="password" id="password" name="password" placeholder="Пароль" required />
+    <div id="register__password-error" class="{{ styles.register__input-error }}"></div>
+
+    <button class="{{ styles.register__submit_btn }} button" type="submit"><h4>Регистрация</h4></button>
+    <div class="{{ styles.register__additional }}">
+      <h5>Уже есть аккаунт?</h5>
+      <h4><a class="{{ styles.register__enter_account }} link" href="/signin">Войти</a></h4>
+    </div>
+    
+    <div id="register__general-error" class="{{ styles.register__general-error }}"></div>
+  </form>
+</div> 

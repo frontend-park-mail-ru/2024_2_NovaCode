@@ -18,11 +18,19 @@ export class SignInPage {
   render() {
     this.parent.innerHTML = '';
 
-    this.parent.innerHTML = template({styles});
-    this.bindEvents();
-    this.onEvents();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const loginBlock = document.createElement('div');
+		loginBlock.classList.add('login');
+		loginBlock.innerHTML = template({ styles });
+		this.pageContent.appendChild(loginBlock);
+
+		this.bindEvents();
+		this.onEvents();
     eventBus.emit('hidePlayer');
-  }
+	}
 
   bindEvents() {
     const form = document.querySelector('#login-form');

@@ -1,22 +1,10 @@
-.upload_avatar {
-  &__container {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
+@use "/src/colors.scss";
 
-  &__block {
-    margin: 0 auto;
-    padding: 10px;
-    background-color: rgba(241.39, 241.39, 241.39, 0.1);
-    border-radius: 9px;
-    margin-top: 12px;
-  }
+.upload_avatar {
 
   &__text {
     padding: 0 10px;
-    color: #f1f1f1;
-    font-size: 24px;
-    font-weight: 400;
+    color: colors.$white;
     margin-bottom: 10px;
   }
 
@@ -35,8 +23,9 @@
 
 .avatar_form {
   &__input {
-    margin-top: 15px;
+    //margin-top: 15px;
     width: 150px;
+    align-self: center;
 
     &::file-selector-button {
       display: none;
@@ -47,42 +36,30 @@
     display: inline-block;
     margin-right: 10px;
     padding: 10px;
-    background: rgba(241, 241, 241, 0.25);;
+    background: colors.$button-background;
     border-radius: 9px;
     border: none;
-    color: #f1f1f1;
-    font-size: 24px;
-    font-weight: 400;
+    color: colors.$white;
     text-align: center;
-    transition: 0.5s;
-    transition-timing-function: ease;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 
   &__submit_btn {
     margin-top: 30px;
     padding: 10px;
     margin-top: 20px;
-    background: #ff5f0f;
+    background: colors.$orange;
     border-radius: 9px;
     border: none;
-    color: #f1f1f1;
-    font-size: 24px;
-    font-weight: 400;
+    color: colors.$white;
     text-align: center;
   }
 
   &__input {
-    color: #f1f1f1;
-    font-size: 18px;
-    font-weight: 400;
+    color: colors.$white;
   }
 }
 
-@media (max-width: 1380px) {
+/* @media (max-width: 1380px) {
   .upload_avatar {
     &__block {
       width: 90%;
@@ -159,3 +136,4 @@
     }
   }
 }
+ */

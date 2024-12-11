@@ -22,6 +22,10 @@ export class CSATWindow {
 
 			this.iframeDoc = this.csatWindowIframe.contentWindow.document;
 
+			this.iframeDoc.head.innerHTML += `<link rel="preconnect" href="https://fonts.googleapis.com">
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+			<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">`;
+
 			const style = this.iframeDoc.createElement('style');
 			style.innerHTML = inlineStyles;
 			this.iframeDoc.head.appendChild(style);

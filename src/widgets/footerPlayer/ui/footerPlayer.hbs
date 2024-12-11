@@ -12,19 +12,15 @@
         />
         <div class="{{ styles.track_slider__time_total }}">01:23</div>
       </div>
-
-      <div class="{{ styles.footer_player__buttons }} {{ styles.buttons_player }}">
-        <div class="buttons_player__play_track {{ styles.player_button }}">
-          <img src="{{ playFooterIcon }}" alt="play_pause" class="{{ styles.footer_player__icon }}">
+      <div class="{{ styles.footer_player__buttons_controls }} buttons_player">
+        <div class="buttons_player__prev_track player_button">
+          <img src="{{ backwardIcon }}" alt="prev_track" class="{{ styles.footer_player__icon }}">
         </div>
-        <div class="buttons_player__prev_track {{ styles.player_button }}">
-          <img src="{{ prevIcon }}" alt="prev_track" class="{{ styles.footer_player__icon }}">
+        <div class="buttons_player__play_track player_button">
+          <img src="{{#if isPlaying }}{{ pauseCircleBlackIcon }}{{else}}{{ playCircleBlackIcon }}{{/if}}" alt="play_pause" class="{{ styles.footer_player__icon }}">
         </div>
-        <div class="buttons_player__next_track {{ styles.player_button }}">
-          <img src="{{ nextIcon }}" alt="next_track" class="{{ styles.footer_player__icon }}">
-        </div>
-        <div class="buttons_player__like_track {{ styles.player_button }}">
-          <img src="{{ likeIcon }}" alt="like_track" class="{{ styles.footer_player__icon }}">
+        <div class="buttons_player__next_track player_button">
+          <img src="{{ forwardIcon }}" alt="next_track" class="{{ styles.footer_player__icon }}">
         </div>
       </div>
 
@@ -36,21 +32,28 @@
         </div>
       </div>
 
-      <div class="{{ styles.footer_player__volume_slider }} {{ styles.volume_slider }}">
-        <div class="{{ styles.volume_slider__up }}">
-          <img src="{{ volumeDownIcon }}" alt="volume_down" class="{{ styles.footer_player__icon }}">
-        </div>
-        <input
-          type="range"
-          min="1"
-          max="100"
-          value="10"
-          class="volume_slider__seek"
-        />
-        <div class="{{ styles.volume_slider__down }}">
-          <img src="{{ volumeUpIcon }}" alt="volume_up" class="{{ styles.footer_player__icon }}">
-        </div>
+    <div class="{{ styles.footer_player__buttons_actions }} buttons_player">
+      <div class="{{ styles.buttons_player__like_track }} player_button">
+        <img src="{{ heartBlackIcon }}" alt="like_track" class="{{ styles.footer_player__icon }}">
       </div>
+      <div class="buttons_player__add_track player_button">
+        <img src="{{ addIcon }}" alt="add_track" class="{{ styles.footer_player__icon }}">
+      </div>
+    </div>
+
+    <div class="footer_player__volume_slider volume_slider">
+      <div class="volume_slider__up">
+        <img src="{{ volumeLowIson}}" alt="volume_down" class="{{ styles.footer_player__icon }}">
+      </div>
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value="10"
+        class="volume_slider__seek"
+      />
+      <div class="{{ styles.volume_slider__down }}">
+        <img src="{{ volumeUpIcon }}" alt="volume_up" class="{{ styles.footer_player__icon }}">
     </div>
   </div>
 </div>
