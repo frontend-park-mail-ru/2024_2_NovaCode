@@ -2,7 +2,7 @@ import { AlbumView } from '../../../entities/album/index.js';
 import { AlbumCarouselAPI } from '../api/api.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import template from './albumCarousel.hbs';
-import './albumCarousel.scss';
+import * as styles from './albumCarousel.scss';
 
 export class AlbumCarouselView {
 	/**
@@ -41,7 +41,7 @@ export class AlbumCarouselView {
 			titleText = "Популярные альбомы";
 		}
 		
-		albumCarouselElement.innerHTML = template({ showMoreHref });
+		albumCarouselElement.innerHTML = template({ styles, showMoreHref });
 		this.parent.appendChild(albumCarouselElement);
 
 		const albumsBlock = document.getElementById('albums-carousel');
@@ -61,7 +61,7 @@ export class AlbumCarouselView {
 	}
 
 	setTitle(titleText) {
-		const titleBlock = document.querySelector('.album_carousel__recommend_text');
+		const titleBlock = document.querySelector(`.${styles['album_carousel__recommend_text']}`);
 		const title = titleBlock.querySelector("h4");
 		title.textContent = titleText;
 	}
@@ -80,7 +80,7 @@ export class AlbumCarouselView {
 		this.nextBtn.addEventListener('click', this.handleNextBtn);
 		this.prevBtn.addEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll('.link_more_albums');
+		const links = this.parent.querySelectorAll('.album_carousel__show_more');
 		links.forEach((link) => {
 			link.addEventListener('click', (event) => this.handleLink(event));
 		});
@@ -90,7 +90,7 @@ export class AlbumCarouselView {
 		this.nextBtn.removeEventListener('click', this.handleNextBtn);
 		this.prevBtn.removeEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll('.link_more_albums');
+		const links = this.parent.querySelectorAll('.album_carousel__show_more');
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});
@@ -100,8 +100,8 @@ export class AlbumCarouselView {
 		this.carouselInner = document.querySelector('.carousel__inner');
 		this.carouselItems = document.querySelectorAll('.carousel__item');
 		this.carouselArea = document.querySelector('.carousel__area');
-		this.nextBtn = document.querySelector('.carousel__button--next');
-		this.prevBtn = document.querySelector('.carousel__button--prev');
+		this.nextBtn = document.querySelector('.carousel__button_next');
+		this.prevBtn = document.querySelector('.carousel__button_prev');
 
 		this.itemWidth = this.carouselItems[0]?.offsetWidth ?? 0;
 		this.carouselAreaWidth = this.carouselArea.offsetWidth;

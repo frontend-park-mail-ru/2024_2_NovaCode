@@ -2,7 +2,9 @@ import { eventBus } from '../../../shared/lib/eventbus.js';
 import { ArtistCardAPI } from '../api/api.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './artistCard.hbs';
-import './artistCard.scss';
+import * as styles from './artistCard.scss';
+import subIcon from '../../../../public/images/icons/sub.svg';
+import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
 
 export class ArtistCardView {
   /**
@@ -33,7 +35,7 @@ export class ArtistCardView {
 
     const artistCardElement = document.createElement("div");
     artistCardElement.classList.add("artist_card");
-    artistCardElement.innerHTML = template({ artist, genres });
+    artistCardElement.innerHTML = template({ styles, artist, genres, subIcon, playCircleIcon });
     this.parent.appendChild(artistCardElement);
 
     this.playPauseBtn = document.querySelector('.buttons__listen');

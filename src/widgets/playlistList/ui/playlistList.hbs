@@ -1,12 +1,12 @@
-<div class="playlists__container container">
-  <div class="playlists__block block">
+<div class="{{ styles.playlists__container }} container">
+  <div class="{{ styles.playlists__block }} block">
     {{#if showMoreHref}}
-      <div class="playlists__text">
+      <div class="{{ styles.playlists__text }}">
         <h4>Популярные плейлисты</h4>
-        <a href="{{ showMoreHref }}" class="playlists__show_more link"><h4>Показать еще</h4></a>
+        <h4><a href="{{ showMoreHref }}" class="playlists__show_more link">Показать еще</a></h4>
       </div>
     {{/if}}
-    <div class="playlists__list" id="mainpage-popular-playlists">
+    <div class="{{ styles.playlists__list }}" id="mainpage-popular-playlists">
     
     </div>
   </div>

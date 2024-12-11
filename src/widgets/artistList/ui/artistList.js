@@ -1,6 +1,6 @@
 import { ArtistView } from '../../../entities/artist/index.js';
 import template from './artistList.hbs';
-import './artistList.scss';
+import * as styles from './artistList.scss';
 
 export class ArtistListView {
 	/**
@@ -24,7 +24,7 @@ export class ArtistListView {
 		const artistListElement = document.createElement('div');
 		artistListElement.classList.add('artists');
 	
-		artistListElement.innerHTML = template({});
+		artistListElement.innerHTML = template({ styles });
 		
 		this.parent.appendChild(artistListElement);
 

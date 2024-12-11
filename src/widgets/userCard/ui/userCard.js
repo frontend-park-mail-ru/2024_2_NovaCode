@@ -1,7 +1,7 @@
 import { userStore } from '../../../entities/user/index.js';
 import { handleLink, S3_BUCKETS } from '../../../shared/lib/index.js';
 import template from './userCard.hbs';
-import './userCard.scss';
+import * as styles from './userCard.scss';
 
 export class UserCardView {
 	parent;
@@ -23,14 +23,14 @@ export class UserCardView {
 		const isCurrentUser = currentUser.username === this.username;
 		const userCardElement = document.createElement('div');
 		userCardElement.classList.add('user_card');
-		userCardElement.innerHTML = template({ user, isCurrentUser });
+		userCardElement.innerHTML = template({ styles, user, isCurrentUser });
 		this.parent.appendChild(userCardElement);
 
 		this.bindEvents();
 	}
 
 	bindEvents() {
-		const links = this.parent.querySelectorAll('.link');
+		const links = this.parent.querySelectorAll('.button_link');
 		links.forEach((link) => {
 			link.addEventListener('click', handleLink);
 		});

@@ -1,7 +1,6 @@
 @use "/src/colors.scss";
 
 .popular_artists {
-
 	&__upper_wrapper {
 		padding: 0 10px;
 		display: flex;
@@ -13,14 +12,7 @@
     justify-content: space-between;
     align-items: center;
     color: colors.$white;
-    padding: 0 5px;
   }
-
-	&__upper_wrapper {
-		padding: 0 10px;
-		display: flex;
-		justify-content: space-between;
-	}
 
   &__list {
     margin-top: 10px;
@@ -29,127 +21,28 @@
   }
 }
 
-/* .carousel {
-  &__container {
-    position: relative;
-    width: 100%;
-    padding: 0 60px;
-    margin: 5px 0;
-    border-radius: 10px;
-    overflow: hidden;
-    box-sizing: border-box;
-  }
+// @media (max-width: 1380px) {
+//   .popular_artists {
+//     &__block {
+//       width: 90%;
+//     }
+//   }
+// }
 
-  &__area {
-    width: 100%;
-    overflow: hidden;
-    border-radius: 10px;
-    display: flex;
-    justify-content: start;
-  }
+// @media (max-width: 768px) {
+//   .popular_artists {
+//     &__show_more,
+//     &__text {
+//       font-size: 19px;
+//     }
+//   }
+// }
 
-  &__inner {
-    display: flex;
-    transition: transform 0.5s ease;
-    text-align: left;
-  }
-
-  &__item {
-    display: flex;
-    padding: 0 10px;
-    flex-direction: column;
-    align-items: center;
-    height: fit-content;
-    flex-shrink: 0;
-  }
-
-  &__button {
-    position: absolute;
-    top: 43%;
-    transform: translateY(-50%);
-    background-color: colors.$black;
-    color: colors.$white;
-    border: none;
-    border-radius: 50%;
-    font-size: 18px;
-
-    &--prev {
-      left: 10px;
-    }
-
-    &--next {
-      right: 10px;
-    }
-  }
-} */
-
-/* @media (max-width: 1380px) {
-  .popular_artists {
-    &__block {
-      width: 90%;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .popular_artists {
-    &__show_more,
-    &__text {
-      font-size: 19px;
-    }
-  }
-
-  .carousel {
-    &__container {
-      padding: 0 45px 0 35px;
-    }
-
-    &__button {
-      width: 28px;
-      height: 28px;
-      font-size: 16px;
-      cursor: pointer;
-
-      &--prev {
-        left: 5px;
-      }
-
-      &--next {
-        right: 5px;
-      }
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .popular_artists {
-    &__show_more,
-    &__text {
-      font-size: 16px;
-    }
-  }
-
-  .carousel {
-    &__container {
-      padding: 0 27px 0 22px;
-    }
-
-    &__item {
-      padding: 4px;
-    }
-
-    &__button {
-      width: 22px;
-      height: 22px;
-      font-size: 12px;
-
-      &--prev {
-        left: 0px;
-      }
-
-      &--next {
-        right: 0px;
-      }
-    }
-  }
-} */
+// @media (max-width: 480px) {
+//   .popular_artists {
+//     &__show_more,
+//     &__text {
+//       font-size: 16px;
+//     }
+//   }
+// }

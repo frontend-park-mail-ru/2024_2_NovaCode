@@ -2,7 +2,7 @@ import { PlaylistView } from '../../../entities/playlist/index.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import { handleLink } from '../../../shared/lib/link.js';
 import template from './playlistList.hbs'
-import './playlistList.scss';
+import * as styles from './playlistList.scss';
 
 export class PlaylistListView {
 	/**
@@ -28,9 +28,9 @@ export class PlaylistListView {
 
 		if (needsShowMoreHref) {
 			let showMoreHref = `/more_playlists/popular`;
-			playlistListElement.innerHTML = template({ showMoreHref });
+			playlistListElement.innerHTML = template({ styles, showMoreHref });
 		} else {
-			playlistListElement.innerHTML = template({});
+			playlistListElement.innerHTML = template({ styles });
 		}
 		
 		this.parent.appendChild(playlistListElement);

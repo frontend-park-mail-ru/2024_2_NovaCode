@@ -1,49 +1,49 @@
-<div class="footer_player__container">
-  <div class="footer_player__grid">
-    <div class="footer_player__track_slider track_slider">
-      <div class="track_slider__time_current">00:00</div>
-      <input
-        type="range"
-        min="1"
-        max="100"
-        value="0"
-        class="track_slider__seek"
-      />
-      <div class="track_slider__time_total">01:23</div>
-    </div>
+<div class="{{ styles.footer_player }}">
+  <div class="{{ styles.footer_player__container }}">
+    <div class="{{ styles.footer_player__grid }}">
+      <div class="{{ styles.footer_player__track_slider }} {{ styles.track_slider }}">
+        <div class="{{ styles.track_slider__time_current }}">00:00</div>
+        <input
+          type="range"
+          min="1"
+          max="100"
+          value="0"
+          class="track_slider__seek"
+        />
+        <div class="{{ styles.track_slider__time_total }}">01:23</div>
+      </div>
+      <div class="{{ styles.footer_player__buttons_controls }} buttons_player">
+        <div class="buttons_player__prev_track player_button">
+          <img src="{{ backwardIcon }}" alt="prev_track" class="{{ styles.footer_player__icon }}">
+        </div>
+        <div class="buttons_player__play_track player_button">
+          <img src="{{#if isPlaying }}{{ pauseCircleBlackIcon }}{{else}}{{ playCircleBlackIcon }}{{/if}}" alt="play_pause" class="{{ styles.footer_player__icon }}">
+        </div>
+        <div class="buttons_player__next_track player_button">
+          <img src="{{ forwardIcon }}" alt="next_track" class="{{ styles.footer_player__icon }}">
+        </div>
+      </div>
 
-    <div class="footer_player__buttons_controls buttons_player">
-      <div class="buttons_player__prev_track player_button">
-        <img src="/images/icons/backward.svg" alt="prev_track" class="footer_player__icon">
+      <div class="{{ styles.footer_player__player_details }} {{ styles.player_details }}">
+        <img class="{{ styles.player_details__track_img }}">
+        <div class="{{ styles.player_details__info }}">
+          <div class="{{ styles.player__track_name }}">track_name</div>
+          <div class="{{ styles.player__track_artist }}">track_artist</div>
+        </div>
       </div>
-      <div class="buttons_player__play_track player_button">
-        <img src="/images/icons/{{#if isPlaying }}pause{{else}}play{{/if}}-circle-black.svg" alt="play_pause" class="footer_player__icon">
-      </div>
-      <div class="buttons_player__next_track player_button">
-        <img src="/images/icons/forward.svg" alt="next_track" class="footer_player__icon">
-      </div>
-    </div>
 
-    <div class="footer_player__player_details player_details">
-      <img class="player_details__track_img">
-      <div class="player_details__info">
-        <div class="player__track_name">track_name</div>
-        <div class="player__track_artist">track_artist</div>
-      </div>
-    </div>
-
-    <div class="footer_player__buttons_actions buttons_player">
+    <div class="{{ styles.footer_player__buttons_actions }} buttons_player">
       <div class="buttons_player__like_track player_button">
-        <img src="/images/icons/heart-black.svg" alt="like_track" class="footer_player__icon">
+        <img src="{{ heartBlackIcon }}" alt="like_track" class="{{ styles.footer_player__icon }}">
       </div>
       <div class="buttons_player__add_track player_button">
-        <img src="/images/icons/add.svg" alt="add_track" class="footer_player__icon">
+        <img src="{{ addIcon }}" alt="add_track" class="{{ styles.footer_player__icon }}">
       </div>
     </div>
 
-    <div class="footer_player__volume_slider volume_slider">
+    <div class="{{styles.footer_player__volume_slider }} volume_slider">
       <div class="volume_slider__up">
-        <img src="/images/icons/volume-low.svg" alt="volume_down" class="footer_player__icon">
+        <img src="{{ volumeLowIcon }}" alt="volume_down" class="{{ styles.footer_player__icon }}">
       </div>
       <input
         type="range"
@@ -53,7 +53,7 @@
         class="volume_slider__seek"
       />
       <div class="volume_slider__down">
-        <img src="/images/icons/volume-up.svg" alt="volume_up" class="footer_player__icon">
+        <img src="{{ volumeUpIcon }}" alt="volume_up" class="{{ styles.footer_player__icon }}">
       </div>
     </div>
   </div>

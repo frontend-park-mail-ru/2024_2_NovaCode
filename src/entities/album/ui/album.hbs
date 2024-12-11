@@ -1,8 +1,7 @@
-<img src="{{ image }}" class="album__img preview-img">
-<div class="album__name">
-    <span>{{ name }}</span>
+<img src="{{ album.image }}" class="{{ styles.album__img }} preview-img">
+<div class="{{ styles.album__name }}">
+    <span>{{ album.name }}</span>
 </div>
-<div class="album__artist">
-    <span>{{ artistName }}</span>
+<div class="{{ styles.album__artist }}">
+    <span>{{ album.artistName }}</span>
 </div>
-
