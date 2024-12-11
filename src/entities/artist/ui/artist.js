@@ -31,7 +31,7 @@ export class ArtistView {
     }
 
     const artistElement = document.createElement('div');
-    artistElement.classList.add('artist');
+    artistElement.classList.add(styles['artist']);
     artistElement.setAttribute('data-id', this.artistId);
     artistElement.innerHTML = template({styles, artist});
     this.parent.appendChild(artistElement);

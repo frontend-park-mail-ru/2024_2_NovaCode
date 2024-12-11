@@ -26,12 +26,14 @@ export class PlaylistView {
 	render(playlist) {
 		this.playlistId = playlist.id;
 
-		if (!playlist.image) {
-			playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.jpeg`;
+		if (playlist.image) {
+			playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/${playlist.image}`;
+		} else {
+			playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.webp`;
 		}
 
 		const playlistElement = document.createElement('div');
-		playlistElement.classList.add('playlist');
+		playlistElement.classList.add(styles['playlist']);
 		playlistElement.setAttribute('data-playlist-id', this.playlistId)
 		playlistElement.innerHTML = template({styles, playlist});
 		this.parent.appendChild(playlistElement);

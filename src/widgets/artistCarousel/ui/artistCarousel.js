@@ -33,10 +33,10 @@ export class ArtistCarouselView {
 		artistCarouselElement.innerHTML = template({ styles, showMoreHref });
 		this.parent.appendChild(artistCarouselElement);
 
-		const artistsBlock = document.getElementById('mainpage-popular-artists');
+		const artistsBlock = document.getElementById('popular-artists');
 		Array.from(artists).forEach((artist) => {
 			const artistCarouselElement = document.createElement('div');
-			artistCarouselElement.classList.add(styles['carousel__item']);
+			artistCarouselElement.classList.add('carousel__item');
 			const artistView = new ArtistView(artistCarouselElement);
 			artistView.render(artist);
 			artistsBlock.appendChild(artistCarouselElement);
@@ -62,7 +62,7 @@ export class ArtistCarouselView {
 		this.nextBtn.addEventListener('click', this.handleNextBtn);
 		this.prevBtn.addEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll(`.${styles['popular_artists__show_more']}`);
+		const links = this.parent.querySelectorAll('.popular_artists__show_more');
 		links.forEach((link) => {
 			link.addEventListener('click', (event) => this.handleLink(event));
 		});
@@ -72,18 +72,18 @@ export class ArtistCarouselView {
 		this.nextBtn.removeEventListener('click', this.handleNextBtn);
 		this.prevBtn.removeEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll(`.${styles['popular_artists__show_more']}`);
+		const links = this.parent.querySelectorAll('.popular_artists__show_more');
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});
 	}
 
 	async getElements() {
-		this.carouselInner = document.querySelector(`.${styles['carousel__inner']}`);
-		this.carouselItems = document.querySelectorAll(`.${styles['carousel__item']}`);
-		this.carouselArea = document.querySelector(`.${styles['carousel__area']}`);
-		this.nextBtn = document.querySelector(`.${styles['carousel__button_next']}`);
-		this.prevBtn = document.querySelector(`.${styles['carousel__button_prev']}`);
+		this.carouselInner = document.querySelector('.carousel__inner');
+		this.carouselItems = document.querySelectorAll('.carousel__item');
+		this.carouselArea = document.querySelector('.carousel__area');
+		this.nextBtn = document.querySelector('.carousel__button_next');
+		this.prevBtn = document.querySelector('.carousel__button_prev');
 
 		this.itemWidth = this.carouselItems[0]?.offsetWidth ?? 0;
 		this.carouselAreaWidth = this.carouselArea.offsetWidth;

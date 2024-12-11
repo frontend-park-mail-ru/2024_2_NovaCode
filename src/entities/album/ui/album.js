@@ -31,7 +31,7 @@ export class AlbumView {
 		}
 
 		const albumElement = document.createElement('div');
-		albumElement.classList.add('album');
+		albumElement.classList.add(styles['album']);
 		albumElement.setAttribute('data-id', this.albumId);
 		albumElement.innerHTML = template({ styles, album });
 		this.parent.appendChild(albumElement);

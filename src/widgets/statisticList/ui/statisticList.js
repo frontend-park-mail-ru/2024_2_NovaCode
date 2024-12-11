@@ -54,19 +54,19 @@ export class StatisticListView {
     statisticListElement.innerHTML = template({ styles, statistics });
     this.parent.appendChild(statisticListElement);
     
-    const stats = statisticListElement.querySelectorAll(styles['statistic__stats']);
+    const stats = statisticListElement.querySelectorAll(`.${styles['statistic__stats']}`);
     
     stats.forEach((stat) => {
-        let ratingContainers = stat.querySelectorAll(styles['rating__container']);
-        let questionStats = stat.querySelectorAll(styles['statistic__question_stat']);
-        questionStats.forEach((questionStat, i) => {
-            this.updateRating(questionStat.dataset.averageScore, ratingContainers[i]);
-        });
+      let ratingContainers = stat.querySelectorAll(`.${styles['rating__container']}`);
+      let questionStats = stat.querySelectorAll(`.${styles['statistic__question_stat']}`);
+      questionStats.forEach((questionStat, i) => {
+          this.updateRating(questionStat.dataset.averageScore, ratingContainers[i]);
+      });
     });
   }
 
   updateRating(rating, ratingContainer) {
-    const ratingBlocks = ratingContainer.querySelectorAll(styles['rating__block']);
+    const ratingBlocks = ratingContainer.querySelectorAll(`.${styles['rating__block']}`);
     ratingBlocks.forEach((block, index) => {
       if (index < Math.floor(rating)) {
         block.classList.add(styles['rating__block_active']);

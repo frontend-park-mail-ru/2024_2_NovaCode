@@ -36,7 +36,7 @@ export class CSATWindow {
 		}
 
 		const div = this.iframeDoc.createElement('div');
-		div.classList.add(styles['csat_window']);
+		div.classList.add('csat_window');
 		div.innerHTML = template({ styles, question: this.questions[this.current_question].question });
 
 		this.iframeDoc.body.innerHTML = '';

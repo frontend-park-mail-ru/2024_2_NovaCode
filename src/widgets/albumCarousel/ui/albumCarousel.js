@@ -47,7 +47,7 @@ export class AlbumCarouselView {
 		const albumsBlock = document.getElementById('albums-carousel');
 		Array.from(albums).forEach((album) => {
 			const albumCarouselElement = document.createElement('div');
-			albumCarouselElement.classList.add(styles['carousel__item']);
+			albumCarouselElement.classList.add('carousel__item');
 			const albumView = new AlbumView(albumCarouselElement);
 			albumView.render(album);
 			albumsBlock.appendChild(albumCarouselElement);
@@ -80,7 +80,7 @@ export class AlbumCarouselView {
 		this.nextBtn.addEventListener('click', this.handleNextBtn);
 		this.prevBtn.addEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll(`.${styles['album_carousel__show_more']}`);
+		const links = this.parent.querySelectorAll('.album_carousel__show_more');
 		links.forEach((link) => {
 			link.addEventListener('click', (event) => this.handleLink(event));
 		});
@@ -90,18 +90,18 @@ export class AlbumCarouselView {
 		this.nextBtn.removeEventListener('click', this.handleNextBtn);
 		this.prevBtn.removeEventListener('click', this.handlePrevBtn);
 
-		const links = this.parent.querySelectorAll(`.${styles['album_carousel__show_more']}`);
+		const links = this.parent.querySelectorAll('.album_carousel__show_more');
 		links.forEach((link) => {
 			link.removeEventListener('click', (event) => this.handleLink(event));
 		});
 	}
 
 	async getElements() {
-		this.carouselInner = document.querySelector(`.${styles['carousel__inner']}`);
-		this.carouselItems = document.querySelectorAll(`.${styles['carousel__item']}`);
-		this.carouselArea = document.querySelector(`.${styles['carousel__area']}`);
-		this.nextBtn = document.querySelector(`.${styles['carousel__button_next']}`);
-		this.prevBtn = document.querySelector(`.${styles['carousel__button_prev']}`);
+		this.carouselInner = document.querySelector('.carousel__inner');
+		this.carouselItems = document.querySelectorAll('.carousel__item');
+		this.carouselArea = document.querySelector('.carousel__area');
+		this.nextBtn = document.querySelector('.carousel__button_next');
+		this.prevBtn = document.querySelector('.carousel__button_prev');
 
 		this.itemWidth = this.carouselItems[0]?.offsetWidth ?? 0;
 		this.carouselAreaWidth = this.carouselArea.offsetWidth;

@@ -1,3 +1,4 @@
+import { eventBus } from '../../../shared/lib/eventbus.js';
 import { userStore } from '../../../entities/user/index.js';
 import { UserPlaylistsAPI } from '../../userPlaylists/index.js';
 import { TrackInPlaylistAPI } from '../api/api.js';
@@ -18,7 +19,7 @@ export class TrackInPlaylistModal {
 
     async render() {
         this.modal = document.createElement('div');
-        this.modal.classList.add(styles['track-playlist-modal-container']);
+        this.modal.classList.add(styles['track-in-playlist-modal-container']);
         this.parent.appendChild(this.modal);
 
         try {
@@ -33,15 +34,14 @@ export class TrackInPlaylistModal {
     }
 
     addEventListeners() {
-        const closeButton = this.modal.querySelector(`.${styles['track-playlist-modal__close-btn']}`);
+        console.log(styles['track-in-playlist-modal__playlist-link']);
+        console.log(this.modal);
+        const closeButton = this.modal.querySelector(`.${styles['track-in-playlist-modal__close-btn']}`);
         closeButton.addEventListener('click', this.handleClose.bind(this));
 
-        const playlistLinks = this.modal.querySelectorAll(styles['track-playlist-modal__playlist-link']);
+        const playlistLinks = this.modal.querySelectorAll(`.${styles['track-in-playlist-modal__playlist-link']}`);
         playlistLinks.forEach((link) => {
-            link.addEventListener('click', async (event) => {
-                event.preventDefault();
-                this.handleLink(link);
-            });
+            link.addEventListener('click', (event) => this.handleLink(event));
         });
     }
 
@@ -49,10 +49,10 @@ export class TrackInPlaylistModal {
         this.modal.remove();
     }
 
-    handleLink = function(link) {
-        
-        const playlistId = link.dataset.id;
+    handleLink(event) {
+        const link = event.target;
 
+        const playlistId = link.dataset.id;
         try {
             const trackInPlaylistAPI = new TrackInPlaylistAPI(playlistId);
             trackInPlaylistAPI.addTrack(this.trackId);
@@ -60,13 +60,17 @@ export class TrackInPlaylistModal {
         } catch (error) {
             console.error('Failed to add track to playlist:', error);
         }
+
+        event.preventDefault();
+		const href = link.getAttribute('href')
+		eventBus.emit('navigate', href);
     }
 
     removeEventListeners() {
-        const closeButton = this.modal.querySelector(`.${styles['track-playlist-modal__close-btn']}`);
+        const closeButton = this.modal.querySelector(`.${styles['track-in-playlist-modal__close-btn']}`);
         closeButton.removeEventListener('click', this.handleClose.bind(this));
 
-        const playlistLinks = this.modal.querySelectorAll(styles['track-playlist-modal__playlist-link']);
+        const playlistLinks = this.modal.querySelectorAll(`.${styles['track-in-playlist-modal__playlist-link']}`);
         playlistLinks.forEach((link) => {
             link.removeEventListener('click', this.handleLink.bind(this));
         });

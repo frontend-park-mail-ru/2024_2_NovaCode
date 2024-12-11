@@ -105,7 +105,7 @@ export class Header {
   }
 
   switchActiveNavlink(href) {
-    let navlinks = document.querySelectorAll('.navlink');
+    let navlinks = document.querySelectorAll('.navlink_switch');
     navlinks.forEach((navlink) => {
       if (navlink.getAttribute('href') == href) {
         navlink.classList.add(styles.active);

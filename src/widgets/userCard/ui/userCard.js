@@ -30,7 +30,7 @@ export class UserCardView {
 	}
 
 	bindEvents() {
-		const links = this.parent.querySelectorAll('.link');
+		const links = this.parent.querySelectorAll('.button_link');
 		links.forEach((link) => {
 			link.addEventListener('click', handleLink);
 		});

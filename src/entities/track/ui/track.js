@@ -6,8 +6,8 @@ import { userStore } from '../../user/index.js';
 import template from './track.hbs';
 import * as styles from './track.scss';
 import trashIcon from '../../../../public/images/icons/trash.svg';
+import heartBlackIcon from '../../../../public/images/icons/heart-black.svg';
 import addIcon from '../../../../public/images/icons/add.svg';
-import musicIcon from '../../../../public/images/icons/music.svg';
 
 export class TrackView {
 	/**
@@ -50,14 +50,14 @@ export class TrackView {
 			isMyPlaylist,
 			isFavorite,
 			trashIcon,
+			heartBlackIcon,
 			addIcon,
-			musicIcon,
 		});
 		this.parent.appendChild(this.trackElement);
 
-		this.addBtn = this.trackElement.querySelector('.track__add-btn');
-		this.deleteBtn = this.trackElement.querySelector('.track__delete-btn');
-		this.likeBtn = this.trackElement.querySelector('.track__like-btn');
+		this.addBtn = this.trackElement.querySelector(`.${styles['track__add-btn']}`);
+		this.deleteBtn = this.trackElement.querySelector(`.${styles['track__delete-btn']}`);
+		this.likeBtn = this.trackElement.querySelector(`.${styles['track__like-btn']}`);
 
 		this.addEvents();
 	}
@@ -100,13 +100,12 @@ export class TrackView {
 		}
 
 		const isFavorite = await this.footerPlayerAPI.isFavorite(this.track.id);
-		console.log(isFavorite);
 		if (user.isAuthorized && isFavorite) {
 			this.footerPlayerAPI.deleteFavorite(this.track.id);
-			this.likeBtn.classList.remove('track__liked');
+			this.likeBtn.classList.remove(styles['track__liked']);
 		} else {
 			this.footerPlayerAPI.addFavorite(this.track.id);
-			this.likeBtn.classList.add('track__liked');
+			this.likeBtn.classList.add(styles['track__liked']);
 		}
 	};
 

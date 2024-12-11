@@ -5,9 +5,9 @@ import template from './playlistCard.hbs';
 import * as styles from './playlistCard.scss';
 import { UserPlaylistsAPI } from '../../userPlaylists/index.js';
 import { userStore } from '../../../entities/user/index.js';
-import heartWhiteIcon from '../../../../public/images/icons/heart_white.svg';
-import listenIcon from '../../../../public/images/icons/listen.svg';
-import trashWhiteIcon from '../../../../public/images/icons/trash_white.svg';
+import heartIcon from '../../../../public/images/icons/heart.svg';
+import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
+import musicSquareRemoveIcon from '../../../../public/images/icons/music-square-remove.svg';
 
 export class PlaylistCardView {
     /**
@@ -34,9 +34,9 @@ export class PlaylistCardView {
         let playlist = await playlistCardAPI.get();
 
         if (playlist.image) {
-            playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/${playlist.image}`;
-        } else {
-            playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.jpeg`;
+			playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/${playlist.image}`;
+		} else {
+            playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.webp`
         }
 
         const playlistCardElement = document.createElement("div");
@@ -54,13 +54,13 @@ export class PlaylistCardView {
             styles, 
             playlist, 
             isMyPlaylist: this.isMyPlaylist,
-            heartWhiteIcon,
-            listenIcon,
-            trashWhiteIcon
+            heartIcon,
+            playCircleIcon,
+            musicSquareRemoveIcon
         });
         this.parent.appendChild(playlistCardElement);
 
-        this.playPauseBtn = document.querySelector(`.${styles['buttons__listen']}`);
+        this.playPauseBtn = document.querySelector('.buttons__listen');
         this.deleteBtn = document.querySelector(`.${styles['buttons__delete']}`);
         this.addEvents();
         this.onEvents();

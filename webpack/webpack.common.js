@@ -8,7 +8,7 @@ module.exports = {
   entry: path.resolve(__dirname, '..', 'src', 'index.js'),
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, '..', 'dist'),
+    path: path.resolve(process.env.HOME, 'dist'),
     clean: true,
   },
   module: {
@@ -35,7 +35,7 @@ module.exports = {
                 loader: 'css-loader',
                 options: {
                   modules: {
-                    localIdentName: isDev ? '[path][name]__[local]--[hash:base64:4]' : '[hash:base64:6]',
+                    localIdentName: isDev ? '[local]--[hash:base64:4]' : '[hash:base64:6]',
                   },
                 },
               },
@@ -48,7 +48,12 @@ module.exports = {
                 loader: 'css-loader',
                 options: {
                   modules: {
-                    localIdentName: isDev ? '[path][name]__[local]--[hash:base64:4]' : '[hash:base64:6]',
+                    localIdentName: isDev ? '[local]--[hash:base64:4]' : '[hash:base64:6]',
+                    auto: (resourcePath) => {
+                      return !resourcePath.includes('src/colors') &&
+                             !resourcePath.includes('src/components') &&
+                             !resourcePath.includes('src/index');
+                    },
                   },
                 },
               },

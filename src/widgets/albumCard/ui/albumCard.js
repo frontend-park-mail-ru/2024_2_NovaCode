@@ -4,7 +4,7 @@ import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './albumCard.hbs';
 import * as styles from './albumCard.scss';
 import subIcon from '../../../../public/images/icons/sub.svg';
-import listenIcon from '../../../../public/images/icons/listen.svg';
+import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
 
 export class AlbumCardView {
   /**
@@ -36,10 +36,10 @@ export class AlbumCardView {
 
     this.albumCardElement = document.createElement("div");
     this.albumCardElement.classList.add("album_card");
-    this.albumCardElement.innerHTML = template({ styles, album, subIcon, listenIcon });
+    this.albumCardElement.innerHTML = template({ styles, album, subIcon, playCircleIcon });
     this.parent.appendChild(this.albumCardElement);
 
-    this.playPauseBtn = document.querySelector(`.${styles['buttons__listen']}`);
+    this.playPauseBtn = document.querySelector('.buttons__listen');
 		this.addEvents();
   }
 

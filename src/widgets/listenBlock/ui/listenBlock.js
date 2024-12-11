@@ -1,7 +1,7 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import template from './listenBlock.hbs';
 import * as styles from './listenBlock.scss';
-import playIcon from '../../../../public/images/icons/play.svg';
+import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
 
 export class ListenBlockView {
 	/**
@@ -24,7 +24,7 @@ export class ListenBlockView {
 	async render() {
 		const listenBlockElement = document.createElement('div');
 		listenBlockElement.classList.add('listen');
-		listenBlockElement.innerHTML = template({ styles, playIcon });
+		listenBlockElement.innerHTML = template({ styles, playCircleIcon });
 		this.parent.appendChild(listenBlockElement);
 
 		this.playPauseBtn = document.querySelector(`.${styles['listen__btn_img']}`);

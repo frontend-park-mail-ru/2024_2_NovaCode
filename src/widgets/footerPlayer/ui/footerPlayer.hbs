@@ -33,7 +33,7 @@
       </div>
 
     <div class="{{ styles.footer_player__buttons_actions }} buttons_player">
-      <div class="{{ styles.buttons_player__like_track }} player_button">
+      <div class="buttons_player__like_track player_button">
         <img src="{{ heartBlackIcon }}" alt="like_track" class="{{ styles.footer_player__icon }}">
       </div>
       <div class="buttons_player__add_track player_button">
@@ -41,9 +41,9 @@
       </div>
     </div>
 
-    <div class="footer_player__volume_slider volume_slider">
+    <div class="{{styles.footer_player__volume_slider }} volume_slider">
       <div class="volume_slider__up">
-        <img src="{{ volumeLowIson}}" alt="volume_down" class="{{ styles.footer_player__icon }}">
+        <img src="{{ volumeLowIcon }}" alt="volume_down" class="{{ styles.footer_player__icon }}">
       </div>
       <input
         type="range"
@@ -52,8 +52,9 @@
         value="10"
         class="volume_slider__seek"
       />
-      <div class="{{ styles.volume_slider__down }}">
+      <div class="volume_slider__down">
         <img src="{{ volumeUpIcon }}" alt="volume_up" class="{{ styles.footer_player__icon }}">
+      </div>
     </div>
   </div>
 </div>

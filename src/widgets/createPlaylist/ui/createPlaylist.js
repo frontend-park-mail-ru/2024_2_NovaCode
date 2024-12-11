@@ -32,14 +32,14 @@ export class CreatePlaylistModal {
         const form = this.createPlaylistModal.querySelector('#create-playlist-modal__form');
         const cancelButton = this.createPlaylistModal.querySelector(`.${styles['create-playlist-modal__cancel']}`);
 
-        form.addEventListener('submit', this.handleFormSubmit);
-        cancelButton.addEventListener('click', this.handleCancel);
+        form.addEventListener('submit', this.handleFormSubmit.bind(this));
+        cancelButton.addEventListener('click', this.handleClose.bind(this));
 
-        const closeButton = this.createPlaylistModal.querySelector('.create-playlist-modal__close-btn');
-        closeButton.addEventListener('click', this.handleClose);
+        const closeButton = this.createPlaylistModal.querySelector(`.${styles['create-playlist-modal__close-btn']}`);
+        closeButton.addEventListener('click', this.handleClose.bind(this));
     }
 
-    handleClose = () => {
+    handleClose() {
         this.createPlaylistModal.remove();
     }
 
@@ -58,17 +58,9 @@ export class CreatePlaylistModal {
             const response = await api.createPlaylist(playlistName);
             eventBus.emit('notification', { type: 'success', message: 'Playlist created successfully!' });
             eventBus.emit('playlist:created', response);
-            this.close();
+            this.createPlaylistModal.remove();
         } catch (error) {
             eventBus.emit('notification', { type: 'error', message: `Failed to create playlist: ${error.message}` });
         }
-    }
-
-    handleCancel() {
-        this.close();
-    }
-
-    close() {
-        this.createPlaylistModal.remove();
     }
 }
