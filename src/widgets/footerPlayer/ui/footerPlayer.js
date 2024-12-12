@@ -90,6 +90,8 @@ export class FooterPlayerView {
     eventBus.on("showPlayer", this.showPlayer);
     eventBus.on("playPauseTrack", this.changePlayPauseBtnImg);
     eventBus.on("playById", this.changePlayPauseBtnImg);
+    eventBus.on("prevTrack", this.changePlayPauseBtnImg);
+    eventBus.on("nextTrack", this.changePlayPauseBtnImg);
   }
 
   offEvents() {
@@ -98,6 +100,8 @@ export class FooterPlayerView {
     eventBus.off("showPlayer", this.showPlayer);
     eventBus.on("playPauseTrack", this.changePlayPauseBtnImg);
     eventBus.on("playById", this.changePlayPauseBtnImg);
+    eventBus.on("prevTrack", this.changePlayPauseBtnImg);
+    eventBus.on("nextTrack", this.changePlayPauseBtnImg);
   }
 
   addEvents() {
@@ -204,9 +208,9 @@ export class FooterPlayerView {
 
   changePlayPauseBtnImg = () => {
     if (player.isPlaying) {
-      this.playPauseBtnImg.src = "/images/icons/pause-circle-black.svg";
+      this.playPauseBtnImg.src = pauseCircleBlackIcon;
     } else {
-      this.playPauseBtnImg.src = "/images/icons/play-circle-black.svg";
+      this.playPauseBtnImg.src = playCircleBlackIcon;
     }
   }
 

@@ -34,8 +34,6 @@ export class TrackInPlaylistModal {
     }
 
     addEventListeners() {
-        console.log(styles['track-in-playlist-modal__playlist-link']);
-        console.log(this.modal);
         const closeButton = this.modal.querySelector(`.${styles['track-in-playlist-modal__close-btn']}`);
         closeButton.addEventListener('click', this.handleClose.bind(this));
 

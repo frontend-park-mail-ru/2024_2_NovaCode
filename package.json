@@ -7,7 +7,7 @@
     "build": "NODE_ENV=production webpack --config webpack/webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ignore-pattern '**/*.precompiled.js' 'src/**/*.js?(x)' --config .github/linters/eslint.config.mjs",
-    "start": "NODE_ENV=development webpack serve --config webpack/webpack.dev.js"
+    "start": "NODE_ENV=development webpack --config webpack/webpack.dev.js"
   },
   "author": "",
   "license": "ISC",
