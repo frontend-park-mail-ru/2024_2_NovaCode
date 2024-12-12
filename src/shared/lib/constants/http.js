@@ -7,7 +7,7 @@ import {
   API_TRACK_URL,
   API_USER_URL,
   S3_URL,
-} from '../../config/index.js';
+} from "../../config/index.js";
 
 export const HTTP_STATUS = {
   OK: 200,
@@ -45,7 +45,7 @@ export const API_ENDPOINTS = {
   ADD_DELETE_PLAYLIST: (playlistID) =>
     `${API_PLAYLIST_URL}/api/v1/playlists/${playlistID}/tracks`,
   GET_USER_PLAYLISTS: (userID) =>
-    `${API_PLAYLIST_URL}/api/v1/users/${userID}/playlists`,
+    `${API_PLAYLIST_URL}/api/v1/playlists/${userID}/allPlaylists`,
 
   GET_ALL_ALBUMS: `${API_ALBUM_URL}/api/v1/albums`,
   GET_ALBUM: (albumID) => `${API_ALBUM_URL}/api/v1/albums/${albumID}`,
@@ -75,5 +75,5 @@ export const S3_BUCKETS = {
 };
 
 export const HEADERS = {
-  CSRF_TOKEN: 'X-Csrf-Token',
+  CSRF_TOKEN: "X-Csrf-Token",
 };
