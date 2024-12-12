@@ -1,9 +1,9 @@
-<div class="edit_user__container container">
-  <div class="edit_user__block block">
-    <div class="edit_user__text"><h4>Редактирование профиля</h4></div>
-    <form class="edit_user__form" id="edit-user-form">
+<div class="{{ styles.edit_user__container }} container">
+  <div class="{{ styles.edit_user__block }} block">
+    <div class="{{ styles.edit_user__text }}"><h4>Редактирование профиля</h4></div>
+    <form class="{{ styles.edit_user__form }}" id="edit-user-form">
       <input
-        class="edit_user__input"
+        class="{{ styles.edit_user__input }}"
         type="text"
         id="username"
         name="username"
@@ -11,9 +11,9 @@
         value="{{user.username}}"
         required
       />
-      <div id="edit-user__username-error" class="edit_user__input_error"><h4></h4></div>
+      <div id="edit-user__username-error" class="{{ styles.edit_user__input_error }}"><h4></h4></div>
       <input
-        class="edit_user__input"
+        class="{{ styles.edit_user__input }}"
         type="email"
         id="email"
         name="email"
@@ -21,9 +21,9 @@
         value="{{user.email}}"
         required
       />
-      <div id="edit-user__email-error" class="edit_user__input_error"><h4></h4></div>
-      <button class="edit_user__submit_btn button" type="submit"><h4>Сохранить</h4></button>
-      <div id="edit-user__general-error" class="edit_user__general_error"><h4></h4></div>
+      <div id="edit-user__email-error" class="{{ styles.edit_user__input_error }}"><h4></h4></div>
+      <button class="{{ styles.edit_user__submit_btn }} button" type="submit"><h4>Сохранить</h4></button>
+      <div id="edit-user__general-error" class="{{ styles.edit_user__general_error }}"><h4></h4></div>
     </form>
   </div>
 </div>

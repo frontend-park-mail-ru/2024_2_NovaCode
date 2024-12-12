@@ -2,11 +2,14 @@ import { eventBus } from '../../../shared/lib/eventbus.js';
 import { PlaylistCardAPI } from '../api/api.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './playlistCard.hbs';
-import './playlistCard.scss';
+import * as styles from './playlistCard.scss';
 import { UserPlaylistsAPI } from '../../userPlaylists/index.js';
 import { userStore } from '../../../entities/user/index.js';
 import { BASE_URL } from '../../../shared/config/api.js';
 import { ShareModal } from '../../shareModal/index.js';
+import heartIcon from '../../../../public/images/icons/heart.svg';
+import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
+import musicSquareRemoveIcon from '../../../../public/images/icons/music-square-remove.svg';
 
 export class PlaylistCardView {
     /**
@@ -33,9 +36,9 @@ export class PlaylistCardView {
         let playlist = await playlistCardAPI.get();
 
         if (playlist.image) {
-            playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/${playlist.image}`;
-        } else {
-            playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.jpeg`;
+			playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/${playlist.image}`;
+		} else {
+            playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.webp`
         }
 
         const playlistCardElement = document.createElement("div");
@@ -49,7 +52,14 @@ export class PlaylistCardView {
                 this.isMyPlaylist = true;
             }
         })
-        playlistCardElement.innerHTML = template({ playlist, isMyPlaylist: this.isMyPlaylist });
+        playlistCardElement.innerHTML = template({ 
+            styles, 
+            playlist, 
+            isMyPlaylist: this.isMyPlaylist,
+            heartIcon,
+            playCircleIcon,
+            musicSquareRemoveIcon
+        });
         this.parent.appendChild(playlistCardElement);
 
         await this.getElements();
@@ -59,7 +69,7 @@ export class PlaylistCardView {
 
     async getElements() {
         this.playPauseBtn = document.querySelector('.buttons__listen');
-        this.deleteBtn = document.querySelector('.buttons__delete');
+        this.deleteBtn = document.querySelector(`.${styles['buttons__delete']}`);
         this.shareBtn = document.querySelector('.buttons__share');
     }
 

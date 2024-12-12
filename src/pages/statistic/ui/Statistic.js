@@ -1,7 +1,7 @@
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import { StatisticListView } from '../../../widgets/statisticList/index.js';
 import template from './Statistic.hbs';
-import './Statistic.scss';
+import * as styles from './Statistic.scss';
 
 export class StatisticPage {
   /**
@@ -14,7 +14,7 @@ export class StatisticPage {
   async render() {
     this.parent.innerHTML = '';
 
-    this.parent.innerHTML = template();
+    this.parent.innerHTML = template({styles});
 
     const statisticListView = new StatisticListView();
     await statisticListView.render();

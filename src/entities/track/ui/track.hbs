@@ -1,24 +1,24 @@
-<div class="track__left_side">
-    <img class="track__img" src="{{ track.image }}">
-    <div class="track__info">
-        <div class="track__name">{{ track.name }} </div>
-        <div class="track__artist">
-            <a class="track__artist__artist_link link"
+<div class="{{ styles.track__left_side }}">
+    <img class="{{ styles.track__img }}" src="{{ track.image }}">
+    <div class="{{ styles.track__info }}">
+        <div class="{{ styles.track__name }}">{{ track.name }} </div>
+        <div class="{{ styles.track__artist }}">
+            <a class="{{ styles.track__artist__artist_link }} link"
                 href="/artist/{{ track.artistID }}">
                 {{ track.artistName }}
             </a> 
         </div>
     </div>
-</div> 
-<div class="track__right_side">
+</div>
+<div class="{{ styles.track__right_side }}">
     {{#if isMyPlaylist }}
-    <img src="/images/icons/trash.svg" id="delete-from-playlist" class="track__delete-btn icon">
+    <img src="{{ trashIcon }}" id="delete-from-playlist" class="{{ styles.track__delete-btn }}">
     {{/if}}
     {{#if user.isAuthorized}}
-    <img src="/images/icons/heart-black.svg" id="like-track" class="track__like-btn icon {{#if isFavorite}} track__liked {{/if}}">
-    <img src="/images/icons/add.svg" id="add-to-playlist" class="track__add-btn icon">
-    <img src="/images/icons/send-square-black.svg" id="share-track" class="track__share-btn icon">
+    <img src="{{ heartBlackIcon }}" id="like-track" class="{{ styles.track__like-btn }} icon {{#if isFavorite}} {{ styles.track__liked }} {{/if}}">
+    <img src="{{ addIcon }}" id="add-to-playlist" class="{{ styles.track__add-btn }} icon">
+    <img src="{{ sendSquareBlackIcon }}" id="share-track" class="{{ track__share-btn }} icon">
+
     {{/if}}
     {{ track.duration }}
 </div>
-

@@ -11,6 +11,12 @@ export class SearchPage {
    */
   constructor() {
     this.parent = document.querySelector('#root');
+    this.eventHandlers = {
+      foundArtists: this.handleFoundArtists.bind(this),
+      foundAlbums: this.handleFoundAlbums.bind(this),
+      foundTracks: this.handleFoundTracks.bind(this),
+      emptySearchResult: this.handleNotFound.bind(this)
+    };
   }
 
   async render() {
@@ -26,19 +32,17 @@ export class SearchPage {
     this.onEvents();
     eventBus.emit('hidePlayer');
   }
-
+  
   onEvents() {
-    eventBus.on('foundArtists', this.handleFoundArtists.bind(this));
-    eventBus.on('foundAlbums', this.handleFoundAlbums.bind(this));
-    eventBus.on('foundTracks', this.handleFoundTracks.bind(this));
-    eventBus.on('emptySearchResult', this.handleNotFound.bind(this));
+    Object.keys(this.eventHandlers).forEach(event => {
+      eventBus.on(event, this.eventHandlers[event]);
+    });
   }
-
+  
   offEvents() {
-    eventBus.off('foundArtists', this.handleFoundArtists.bind(this));
-    eventBus.off('foundAlbums', this.handleFoundAlbums.bind(this));
-    eventBus.off('foundTracks', this.handleFoundTracks.bind(this));
-    eventBus.off('emptySearchResult', this.handleNotFound.bind(this));
+    Object.keys(this.eventHandlers).forEach(event => {
+      eventBus.off(event, this.eventHandlers[event]);
+    });
   }
 
   async handleFoundArtists(artists) {

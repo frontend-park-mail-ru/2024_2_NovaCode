@@ -2,9 +2,11 @@ import { eventBus } from '../../../shared/lib/eventbus.js';
 import { AlbumCardAPI } from '../api/api.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './albumCard.hbs';
-import './albumCard.scss';
 import { BASE_URL } from '../../../shared/config/api.js';
 import { ShareModal } from '../../shareModal/index.js';
+import * as styles from './albumCard.scss';
+import subIcon from '../../../../public/images/icons/sub.svg';
+import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
 
 export class AlbumCardView {
   /**
@@ -36,7 +38,7 @@ export class AlbumCardView {
 
     this.albumCardElement = document.createElement("div");
     this.albumCardElement.classList.add("album_card");
-    this.albumCardElement.innerHTML = template({ album });
+    this.albumCardElement.innerHTML = template({ styles, album, subIcon, playCircleIcon });
     this.parent.appendChild(this.albumCardElement);
 
     await this.getElements();

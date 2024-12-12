@@ -1,7 +1,7 @@
 import { TrackView } from '../../../entities/track/index.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import template from './trackList.hbs';
-import './trackList.scss';
+import * as styles from './trackList.scss';
 
 export class TrackListView {
 	/**
@@ -57,9 +57,9 @@ export class TrackListView {
 		}
 		
 		if (needsShowMoreHref) {
-			trackListElement.innerHTML = template({ showMoreHref });
+			trackListElement.innerHTML = template({ styles, showMoreHref });
 		} else {
-			trackListElement.innerHTML = template({});
+			trackListElement.innerHTML = template({ styles });
 		}
 
 		this.parent.appendChild(trackListElement);
@@ -77,7 +77,7 @@ export class TrackListView {
 	}
 
 	setTitle(titleText) {
-		const titleBlock = document.querySelector('.tracks__recommend_text');
+		const titleBlock = document.querySelector(`.${styles['tracks__recommend_text']}`);
 		const title = titleBlock.querySelector('h4');
 		title.textContent = titleText;
 	}

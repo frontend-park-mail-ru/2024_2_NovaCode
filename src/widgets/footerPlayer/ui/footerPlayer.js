@@ -1,13 +1,21 @@
-import { eventBus } from '../../../shared/lib/eventbus.js';
-import { player } from '../../../shared/player/model/store.js';
-import { S3_BUCKETS } from '../../../shared/lib/index.js';
-import template from './footerPlayer.hbs';
-import './footerPlayer.scss';
-import { FooterPlayerAPI } from '../api/api.js';
-import { userStore } from '../../../entities/user/index.js';
+import { eventBus } from "../../../shared/lib/eventbus.js";
+import { player } from "../../../shared/player/model/store.js";
+import { S3_BUCKETS } from "../../../shared/lib/index.js";
+import template from "./footerPlayer.hbs";
+import * as styles from "./footerPlayer.scss";
+import { FooterPlayerAPI } from "../api/api.js";
+import { userStore } from "../../../entities/user/index.js";
 import { TrackInPlaylistModal } from '../../trackInPlaylist/index.js';
 import { ShareModal } from '../../shareModal/index.js';
 import { BASE_URL } from '../../../shared/config/api.js';
+import playCircleBlackIcon from '../../../../public/images/icons/play-circle-black.svg';
+import pauseCircleBlackIcon from '../../../../public/images/icons/pause-circle-black.svg';
+import backwardIcon from '../../../../public/images/icons/backward.svg';
+import forwardIcon from '../../../../public/images/icons/forward.svg';
+import heartBlackIcon from '../../../../public/images/icons/heart-black.svg';
+import addIcon from '../../../../public/images/icons/add.svg';
+import volumeLowIcon from '../../../../public/images/icons/volume-low.svg';
+import volumeUpIcon from '../../../../public/images/icons/volume-up.svg';
 
 export class FooterPlayerView {
   /**
@@ -33,7 +41,17 @@ export class FooterPlayerView {
   async render() {
     const footerPlayerElement = document.createElement("div");
     footerPlayerElement.classList.add("footer_player");
-    footerPlayerElement.innerHTML = template({ isPlaying: player.isPlaying });
+    footerPlayerElement.innerHTML = template({
+      styles, 
+      playCircleBlackIcon,
+      pauseCircleBlackIcon,
+      backwardIcon,
+      forwardIcon,
+      heartBlackIcon,
+      addIcon,
+      volumeLowIcon,
+      volumeUpIcon,
+    });
     this.parent.appendChild(footerPlayerElement);
 
     await this.getElements();
@@ -46,7 +64,7 @@ export class FooterPlayerView {
 
   async getElements() {
     this.footerPlayer = document.querySelector("#player");
-    this.trackTime = document.querySelector(".track_slider__time_current");
+    this.trackTime = document.querySelector(`.${styles['track_slider__time_current']}`);
 
     this.playPauseBtn = document.querySelector('.buttons_player__play_track');
     this.playPauseBtnIcon = this.playPauseBtn.querySelector('img');
@@ -56,16 +74,16 @@ export class FooterPlayerView {
     this.addTrackBtn = document.querySelector('.buttons_player__add_track');
     this.shareTrackBtn = document.querySelector('.buttons_player__share_track')
 
-    this.seekTimerSlider = document.querySelector(".track_slider__seek");
-    this.seekVolumeSlider = document.querySelector(".volume_slider__seek");
+    this.seekTimerSlider = document.querySelector('.track_slider__seek');
+    this.seekVolumeSlider = document.querySelector('.volume_slider__seek');
 
     this.trackInfoTrackImg = document.querySelector(
-      ".player_details__track_img",
+      `.${styles['player_details__track_img']}`,
     );
-    this.trackInfoTrackName = document.querySelector(".player__track_name");
-    this.trackInfoTrackArtist = document.querySelector(".player__track_artist");
+    this.trackInfoTrackName = document.querySelector(`.${styles['player__track_name']}`);
+    this.trackInfoTrackArtist = document.querySelector(`.${styles['player__track_artist']}`);
     this.trackInfoTrackDuration = document.querySelector(
-      ".track_slider__time_total",
+      `.${styles['track_slider__time_total']}`,
     );
   }
 
@@ -73,12 +91,16 @@ export class FooterPlayerView {
     eventBus.on("loadingTrack", this.handleLoading);
     eventBus.on("hidePlayer", this.hidePlayer);
     eventBus.on("showPlayer", this.showPlayer);
+    eventBus.on("playPauseTrack", this.changePlayPauseBtnImg);
+    eventBus.on("playById", this.changePlayPauseBtnImg);
   }
 
   offEvents() {
     eventBus.off("loadingTrack", this.handleLoading);
     eventBus.off("hidePlayer", this.hidePlayer);
     eventBus.off("showPlayer", this.showPlayer);
+    eventBus.on("playPauseTrack", this.changePlayPauseBtnImg);
+    eventBus.on("playById", this.changePlayPauseBtnImg);
   }
 
   addEvents() {
@@ -174,9 +196,9 @@ export class FooterPlayerView {
     }
 
     if (user.isAuthorized && isFavorite) {
-      this.likeTrackBtn.classList.add("liked_footer_player");
+      this.likeTrackBtn.classList.add(styles['liked_footer_player']);
     } else {
-      this.likeTrackBtn.classList.remove("liked_footer_player");
+      this.likeTrackBtn.classList.remove(styles['liked_footer_player']);
     }
 
     clearInterval(this.trackTimer);
@@ -184,12 +206,15 @@ export class FooterPlayerView {
     this.trackTimer = setInterval(this.seekSliderUpdate, 1000);
   };
 
-  handlePlayPauseBtn = async () => {
+  changePlayPauseBtnImg = () => {
     if (player.isPlaying) {
-      this.playPauseBtnIcon.src = "/images/icons/play-circle-black.svg";
+      this.playPauseBtnImg.src = "/images/icons/pause-circle-black.svg";
     } else {
-      this.playPauseBtnIcon.src = "/images/icons/pause-circle-black.svg";
+      this.playPauseBtnImg.src = "/images/icons/play-circle-black.svg";
     }
+  }
+
+  handlePlayPauseBtn = async () => {
     eventBus.emit('playPauseTrack');
   };
 
@@ -212,10 +237,10 @@ export class FooterPlayerView {
     const isFavorite = await this.api.isFavorite(trackInfo.id);
     if (user.isAuthorized && isFavorite) {
       this.api.deleteFavorite(trackInfo.id);
-      this.likeTrackBtn.classList.remove("liked_footer_player");
+      this.likeTrackBtn.classList.remove(styles['liked_footer_player']);
     } else {
       this.api.addFavorite(trackInfo.id);
-      this.likeTrackBtn.classList.add("liked_footer_player");
+      this.likeTrackBtn.classList.add(styles['liked_footer_player']);
     }
   };
 

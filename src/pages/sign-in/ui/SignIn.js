@@ -2,7 +2,7 @@ import { eventBus } from '../../../shared/lib/index.js';
 import { validate, VALIDATION_RULES } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
 import template from './SignIn.hbs';
-import './SignIn.scss';
+import * as styles from './SignIn.scss';
 
 export class SignInPage {
   parent;
@@ -24,7 +24,7 @@ export class SignInPage {
 
 		const loginBlock = document.createElement('div');
 		loginBlock.classList.add('login');
-		loginBlock.innerHTML = template();
+		loginBlock.innerHTML = template({ styles });
 		this.pageContent.appendChild(loginBlock);
 
 		this.bindEvents();
@@ -86,17 +86,17 @@ export class SignInPage {
     document.querySelector('#login__username-error').textContent = '';
     document.querySelector('#login__password-error').textContent = '';
     document.querySelector('#login__general-error').textContent = '';
-    document.querySelector('#username').classList.remove('login__input_error');
-    document.querySelector('#password').classList.remove('login__input_error');
+    document.querySelector('#username').classList.remove(styles['login__input-error']);
+    document.querySelector('#password').classList.remove(styles['login__input-error']);
 
     if (error.username) {
-      document.querySelector('#username').classList.add('login__input_error');
+      document.querySelector('#username').classList.add(styles['login__input_error']);
       document.querySelector('#login__username-error').textContent =
         error.username;
     }
 
     if (error.password) {
-      document.querySelector('#password').classList.add('login__input_error');
+      document.querySelector('#password').classList.add(styles['login__input_error']);
       document.querySelector('#login__password-error').textContent =
         error.password;
     }

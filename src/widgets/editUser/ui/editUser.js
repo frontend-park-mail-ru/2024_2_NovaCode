@@ -2,7 +2,7 @@ import { userStore } from "../../../entities/user/model/store.js";
 import { eventBus } from "../../../shared/lib/index.js";
 import { validate, VALIDATION_RULES } from "../../../shared/lib/index.js";
 import template from './editUser.hbs';
-import './editUser.scss';
+import * as styles from './editUser.scss';
 
 export class EditUserView {
   parent;
@@ -18,7 +18,7 @@ export class EditUserView {
 
     const editUserElement = document.createElement("div");
     editUserElement.classList.add("edit_user");
-    editUserElement.innerHTML = template({ user });
+    editUserElement.innerHTML = template({ styles, user });
     this.parent.appendChild(editUserElement);
 
     this.bindEvents();

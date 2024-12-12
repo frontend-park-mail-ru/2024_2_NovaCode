@@ -1,7 +1,6 @@
 @use "/src/colors.scss";
 
 .album_carousel {
-
 	&__upper_wrapper {
 		padding: 0 10px;
 		display: flex;
@@ -22,72 +21,28 @@
 	}
 }
 
-/* @media (max-width: 1380px) {
-	.album_carousel {
-	  	&__block {
-			width: 90%;
-	  	}
-	}
-}
+// @media (max-width: 1380px) {
+// 	.album_carousel {
+// 	  	&__block {
+// 			width: 90%;
+// 	  	}
+// 	}
+// }
   
-@media (max-width: 768px) {
-	.album_carousel {
-		&__recommend_text,
-		&__show_more {
-			font-size: 19px;
-		}
-	}
+// @media (max-width: 768px) {
+// 	.album_carousel {
+// 		&__recommend_text,
+// 		&__show_more {
+// 			font-size: 19px;
+// 		}
+// 	}
+// }
 
-	.carousel {
-		&__container {
-			padding: 0 45px 0 35px;
-		}
-
-		&__button {
-			width: 28px;
-			height: 28px;
-			font-size: 16px;
-
-			&--prev {
-				left: 5px;
-			}
-
-			&--next {
-				right: 5px;
-			}
-		}
-	}
-}
-
-@media (max-width: 480px) {
-	.album_carousel {
-		&__recommend_text,
-		&__show_more {
-			font-size: 16px;
-		}
-	}
-
-	.carousel {
-		&__container {
-			padding: 0 27px 0 22px;
-		}
-
-		&__item {
-			padding: 4px;
-		}
-
-		&__button {
-			width: 22px;
-			height: 22px;
-			font-size: 12px;
-
-			&--prev {
-				left: 0px;
-			}
-
-			&--next {
-				right: 0px;
-			}
-		}
-	}
-} */
+// @media (max-width: 480px) {
+// 	.album_carousel {
+// 		&__recommend_text,
+// 		&__show_more {
+// 			font-size: 16px;
+// 		}
+// 	}
+// }

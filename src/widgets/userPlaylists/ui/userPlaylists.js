@@ -4,7 +4,8 @@ import { eventBus } from '../../../shared/lib/eventbus.js';
 import { CreatePlaylistModal } from '../../createPlaylist/index.js';
 import { UserPlaylistsAPI } from '../api/api.js';
 import template from './userPlaylists.hbs'
-import './userPlaylists.scss';
+import * as styles from './userPlaylists.scss';
+import musicSquareAddIcon from '../../../../public/images/icons/music-square-add.svg';
 
 export class UserPlaylistsView {
 	/**
@@ -37,8 +38,7 @@ export class UserPlaylistsView {
 			this.isCurrentUser = true;
 		}
 
-		userPlaylistsElement.innerHTML = template({ isCurrentUser: this.isCurrentUser });
-
+		userPlaylistsElement.innerHTML = template({ styles, isCurrentUser: this.isCurrentUser, musicSquareAddIcon });
 		this.parent.appendChild(userPlaylistsElement);
 
 		const playlistsBlock = document.getElementById('user-playlists');
