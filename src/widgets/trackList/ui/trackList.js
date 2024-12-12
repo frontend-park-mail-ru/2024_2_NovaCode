@@ -30,11 +30,11 @@ export class TrackListView {
 	 * Renders the tracklist view.
 	 */
 	async render(tracks, needsShowMoreHref = true) {
-		tracks = tracks.map(({ id, name, artistName, artistID, image, duration }) => {
+		tracks = tracks.map(({ id, name, artistName, artistID, albumID, image, duration }) => {
 			const minutes = Math.floor(duration / 60);
 			const seconds = duration % 60;
 			duration = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-			return { id, name, artistName, artistID, image, duration };
+			return { id, name, artistName, artistID, albumID, image, duration };
 		});
 
 		const trackListElement = document.createElement('div');
@@ -65,10 +65,12 @@ export class TrackListView {
 		this.parent.appendChild(trackListElement);
 
 		const tracksBlock = document.getElementById('tracks');
+		let promises = [];
 		Array.from(tracks).forEach(async (track, index) => {
 			const trackView = new TrackView(tracksBlock, index);
-			await trackView.render(track, this.myPlaylistId);
+			promises.push(trackView.render(track, this.myPlaylistId));
 		});
+		Promise.all(promises).then(() => eventBus.emit('tracks:rendered'));
 
 		this.bindEvents();
 		this.setTitle(titleText);

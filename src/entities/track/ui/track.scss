@@ -8,6 +8,10 @@ $track-img-size-xl: 60px;
   border: 5px solid #f9f9f9;
   border-radius: 10px;
 
+  &_active {
+    border: 5px solid #FF5F0F;
+  }
+
   &__left_side {
     min-width: 200px;
     display: flex;
@@ -41,7 +45,8 @@ $track-img-size-xl: 60px;
 
   &__delete-btn,
   &__like-btn,
-  &__add-btn {
+  &__add-btn,
+  &__share-btn {
     cursor: pointer;
   }
 

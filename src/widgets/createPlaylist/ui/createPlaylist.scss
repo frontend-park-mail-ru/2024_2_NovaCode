@@ -1,6 +1,6 @@
 @use "/src/colors.scss";
 
-.create-playlist-modal-container {
+/* .create-playlist-modal-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,15 +11,29 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-}
+} */
 
 .create-playlist-modal {
-    background: colors.$black;
-    border-radius: 8px;
-    border: 1px solid colors.$white;
-    padding: 20px;
-    width: 400px;
-    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+
+    &__container {
+        background: colors.$black;
+        border-radius: 8px;
+        border: 1px solid colors.$white;
+        padding: 20px;
+        width: 400px;
+        text-align: center;
+    }
 
     &__header {
         display: flex;

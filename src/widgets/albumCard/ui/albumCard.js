@@ -3,6 +3,8 @@ import { AlbumCardAPI } from '../api/api.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './albumCard.hbs';
 import './albumCard.scss';
+import { BASE_URL } from '../../../shared/config/api.js';
+import { ShareModal } from '../../shareModal/index.js';
 
 export class AlbumCardView {
   /**
@@ -16,7 +18,7 @@ export class AlbumCardView {
    *
    */
   constructor(parent, albumId) {
-    this.parent = parent ? parent : document.querySelector("#root");
+    this.parent = parent ?? document.querySelector("#root");
     this.albumId = albumId;
   }
 
@@ -37,12 +39,18 @@ export class AlbumCardView {
     this.albumCardElement.innerHTML = template({ album });
     this.parent.appendChild(this.albumCardElement);
 
-    this.playPauseBtn = document.querySelector('.buttons__listen');
+    await this.getElements();
 		this.addEvents();
+  }
+
+  async getElements() {
+    this.playPauseBtn = document.querySelector('.buttons__listen');
+    this.shareBtn = document.querySelector('.buttons__share');
   }
 
   addEvents() {
 		this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
+    this.shareBtn.addEventListener('click', this.handleShareBtn);
 
     const links = this.albumCardElement.querySelectorAll('.link');
     links.forEach(link => {
@@ -52,6 +60,8 @@ export class AlbumCardView {
 
 	deleteEvents() {
 		this.playPauseBtn.removeEventListener('click', this.handlePlayPauseBtn);
+    this.shareBtn.removeEventListener('click', this.handleShareBtn);
+
 
     const links = this.parent.querySelectorAll('.link');
 		links.forEach((link) => {
@@ -62,6 +72,13 @@ export class AlbumCardView {
 	handlePlayPauseBtn() {
 		eventBus.emit('playPauseTrack');
 	}
+
+  handleShareBtn = () => {
+    const url = `${BASE_URL}/album/${this.albumId}`;
+
+		const shareModal = new ShareModal(document.querySelector('#root'));
+		shareModal.render(url);
+  }
 
   handleLink(event) {
 		event.preventDefault();

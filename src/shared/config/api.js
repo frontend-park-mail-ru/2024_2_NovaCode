@@ -1,3 +1,5 @@
+export const BASE_URL = "https://nova-music.ru";
+
 export const API_USER_URL = "http://localhost:8081";
 export const API_ALBUM_URL = "http://localhost:8082";
 export const API_ARTIST_URL = "http://localhost:8083";

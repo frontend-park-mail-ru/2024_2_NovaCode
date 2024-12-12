@@ -6,6 +6,8 @@ import './footerPlayer.scss';
 import { FooterPlayerAPI } from '../api/api.js';
 import { userStore } from '../../../entities/user/index.js';
 import { TrackInPlaylistModal } from '../../trackInPlaylist/index.js';
+import { ShareModal } from '../../shareModal/index.js';
+import { BASE_URL } from '../../../shared/config/api.js';
 
 export class FooterPlayerView {
   /**
@@ -52,6 +54,7 @@ export class FooterPlayerView {
     this.prevTrackBtn = document.querySelector('.buttons_player__prev_track');
     this.likeTrackBtn = document.querySelector('.buttons_player__like_track');
     this.addTrackBtn = document.querySelector('.buttons_player__add_track');
+    this.shareTrackBtn = document.querySelector('.buttons_player__share_track')
 
     this.seekTimerSlider = document.querySelector(".track_slider__seek");
     this.seekVolumeSlider = document.querySelector(".volume_slider__seek");
@@ -84,6 +87,7 @@ export class FooterPlayerView {
     this.prevTrackBtn.addEventListener('click', this.handlePrevTrackBtn);
     this.likeTrackBtn.addEventListener('click', this.handleLikeTrackBtn);
     this.addTrackBtn.addEventListener('click', this.handleAddTrackBtn);
+    this.shareTrackBtn.addEventListener('click', this.handleShareTrackBtn);
     this.seekTimerSlider.addEventListener('change', this.handleTimerSlider);
     this.seekVolumeSlider.addEventListener('change', this.handleVolumeSlider);
   }
@@ -219,6 +223,13 @@ export class FooterPlayerView {
     const trackInfo = player.getTrackInfo();
     const trackInPlaylistModal = new TrackInPlaylistModal(this.parent, trackInfo.id);
     trackInPlaylistModal.render()
+  }
+
+  handleShareTrackBtn = () => {
+    const trackInfo = player.getTrackInfo();
+    const url = `${BASE_URL}/album/${trackInfo.albumID}/track/${trackInfo.id}`;
+    const shareModal = new ShareModal(document.querySelector('#root'));
+    shareModal.render(url);
   }
 
   handleTimerSlider = async () => {

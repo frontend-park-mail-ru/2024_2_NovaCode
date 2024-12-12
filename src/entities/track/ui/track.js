@@ -1,6 +1,8 @@
+import { BASE_URL } from '../../../shared/config/api.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import { FooterPlayerAPI } from '../../../widgets/footerPlayer/api/api.js';
+import { ShareModal } from '../../../widgets/shareModal/index.js';
 import { TrackInPlaylistAPI, TrackInPlaylistModal } from '../../../widgets/trackInPlaylist/index.js';
 import { userStore } from '../../user/index.js';
 import template from './track.hbs';
@@ -43,11 +45,16 @@ export class TrackView {
 		this.trackElement.innerHTML = template({ track, user, isMyPlaylist, isFavorite });
 		this.parent.appendChild(this.trackElement);
 
+		await this.getElements();
+
+		this.addEvents();
+	}
+
+	async getElements() {
 		this.addBtn = this.trackElement.querySelector('.track__add-btn');
 		this.deleteBtn = this.trackElement.querySelector('.track__delete-btn');
 		this.likeBtn = this.trackElement.querySelector('.track__like-btn');
-
-		this.addEvents();
+		this.shareBtn = this.trackElement.querySelector('.track__share-btn');
 	}
 
 	addEvents() {
@@ -61,6 +68,7 @@ export class TrackView {
 		this.addBtn.addEventListener('click', this.handleTrackAdd);
 		this.deleteBtn?.addEventListener('click', this.handleTrackDelete);
 		this.likeBtn.addEventListener('click', this.handleLikeTrackBtn);
+		this.shareBtn.addEventListener('click', this.handleTrackShare);
 	}
 
 	handleTrackAdd = (event) => {
@@ -98,6 +106,15 @@ export class TrackView {
 		}
 	};
 
+	handleTrackShare = (event) => {
+		event.stopPropagation();
+
+		const url = `${BASE_URL}/album/${this.track.albumID}/track/${this.track.id}`;
+
+		const shareModal = new ShareModal(document.querySelector('#root'));
+		shareModal.render(url);
+	}
+
 	deleteEvents() {
 		this.trackElement.removeEventListener('click', this.bindTrack);
 
@@ -108,6 +125,7 @@ export class TrackView {
 		this.addBtn.removeEventListener('click', this.handleTrackAdd);
 		this.deleteBtn?.removeEventListener('click', this.handleTrackDelete);
 		this.likeBtn.removeEventListener('click', this.handleLikeTrackBtn);
+		this.shareBtn.removeEventListener('click', this.handleTrackShare);
 	}
 
 	bindTrack = () => {
