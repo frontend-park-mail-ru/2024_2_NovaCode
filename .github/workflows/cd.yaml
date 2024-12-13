@@ -29,6 +29,9 @@ jobs:
 
       - name: Build
         run: npm run build
+      
+      - name: Debug Build Output
+        run: ls -la ~/dist
 
       - name: Upload build result
         uses: actions/upload-artifact@v4
