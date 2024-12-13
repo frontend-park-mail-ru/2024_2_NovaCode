@@ -1,128 +1,159 @@
+import { BASE_URL } from '../../../shared/config/api.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
-import { S3_BUCKETS } from '../../../shared/lib/index.js';
-import {
-  TrackInPlaylistAPI,
-  TrackInPlaylistModal,
-} from '../../../widgets/trackInPlaylist/index.js';
+import { S3_BUCKETS } from "../../../shared/lib/index.js";
+import { FooterPlayerAPI } from '../../../widgets/footerPlayer/api/api.js';
+import { ShareModal } from '../../../widgets/shareModal/index.js';
+import { TrackInPlaylistAPI, TrackInPlaylistModal } from '../../../widgets/trackInPlaylist/index.js';
 import { userStore } from '../../user/index.js';
 import template from './track.hbs';
-import './track.scss';
+import * as styles from './track.scss';
+import trashIcon from '../../../../public/images/icons/trash.svg';
+import heartBlackIcon from '../../../../public/images/icons/heart-black.svg';
+import addIcon from '../../../../public/images/icons/add.svg';
+import sendSquareBlackIcon from '../../../../public/images/icons/send-square-black.svg';
 
 export class TrackView {
-  /**
-   * The parent HTML element.
-   * @type {HTMLElement}
-   */
-  parent;
+	/**
+	 * The parent HTML element.
+	 * @type {HTMLElement}
+	 */
+	parent;
 
-  /**
-   * Initializes the TrackView.
-   *
-   */
-  constructor(parent, index) {
-    this.parent = parent ? parent : document.querySelector('#root');
-    this.trackIndex = index;
-  }
+	/**
+	 * Initializes the TrackView.
+	 *
+	 */
+	constructor(parent, index) {
+		this.parent = parent ?? document.querySelector('#root');
+		this.trackIndex = index;
+		this.footerPlayerAPI = new FooterPlayerAPI();
+	}
 
-  /**
-   * Renders the track view.
-   */
-  render(track, myPlaylistId = null) {
-    this.myPlaylistId = myPlaylistId;
-    this.track = track;
-    if (track.image) {
-      track.image = `${S3_BUCKETS.TRACK_IMAGES}/${track.image}`;
-    }
+	/**
+	 * Renders the track view.
+	 */
+	async render(track, myPlaylistId = null) {
+		this.myPlaylistId = myPlaylistId;
+		this.track = track;
+		if (track.image) {
+			track.image = `${S3_BUCKETS.TRACK_IMAGES}/${track.image}`;
+		}
 
-    const user = userStore.storage.user;
+		const user = userStore.storage.user;
 
-    this.trackElement = document.createElement('div');
-    this.trackElement.classList.add('track');
-    this.trackElement.setAttribute('data-track-id', track.id);
-    this.trackElement.innerHTML = template({
-      track,
-      user,
-      isMyPlaylist: this.myPlaylistId ? true : false,
-    });
-    this.parent.appendChild(this.trackElement);
+		this.trackElement = document.createElement('div');
+		this.trackElement.classList.add(styles['track']);
+		this.trackElement.setAttribute('data-track-id', track.id);
+		let isMyPlaylist = (this.myPlaylistId ? true : false);
+		let isFavorite = await this.footerPlayerAPI.isFavorite(this.track.id);
+		this.trackElement.innerHTML = template({
+			styles,
+			track,
+			user,
+			isMyPlaylist,
+			isFavorite,
+			trashIcon,
+			heartBlackIcon,
+			addIcon,
+			sendSquareBlackIcon,
+		});
+		this.parent.appendChild(this.trackElement);
 
-    this.addBtns = this.trackElement.getElementsByClassName('track__add-btn');
-    this.deleteBtns =
-      this.trackElement.getElementsByClassName('track__delete-btn');
+		await this.getElements();
 
-    this.addEvents();
-  }
+		this.addEvents();
+	}
 
-  addEvents() {
-    this.trackElement.addEventListener('click', this.bindTrack);
+	async getElements() {
+		this.addBtn = this.trackElement.querySelector(`.${styles['track__add-btn']}`);
+		this.deleteBtn = this.trackElement.querySelector(`.${styles['track__delete-btn']}`);
+		this.likeBtn = this.trackElement.querySelector(`.${styles['track__like-btn']}`);
+		this.shareBtn = this.trackElement.querySelector(`.${styles['track__share-btn']}`);
+	}
 
-    const links = this.trackElement.querySelectorAll('.link');
-    links.forEach((link) => {
-      link.addEventListener('click', (event) => this.handleLink(event));
-    });
-    if (this.addBtns.length > 0) {
-      this.addBtns[0].addEventListener('click', this.handleTrackAdd.bind(this));
-    }
+	addEvents() {
+		this.trackElement.addEventListener('click', this.bindTrack);
 
-    if (this.deleteBtns.length > 0) {
-      this.deleteBtns[0].addEventListener(
-        'click',
-        this.handleTrackDelete.bind(this),
-      );
-    }
-  }
+		const links = this.trackElement.querySelectorAll('.link');
+		links.forEach(link => {
+			link.addEventListener('click', (event) => this.handleLink(event));
+		});
 
-  handleTrackAdd = (event) => {
-    const trackInPlaylistModal = new TrackInPlaylistModal(
-      this.parent,
-      this.track.id,
-    );
-    trackInPlaylistModal.render();
-    event.stopPropagation();
-  };
+		this.addBtn.addEventListener('click', this.handleTrackAdd);
+		this.deleteBtn?.addEventListener('click', this.handleTrackDelete);
+		this.likeBtn.addEventListener('click', this.handleLikeTrackBtn);
+		this.shareBtn.addEventListener('click', this.handleTrackShare);
+	}
 
-  handleTrackDelete = (event) => {
-    const trackInPlaylistAPI = new TrackInPlaylistAPI(this.myPlaylistId);
-    trackInPlaylistAPI.deleteTrack(this.track.id);
-    this.trackElement.remove();
-    event.stopPropagation();
-  };
+	handleTrackAdd = (event) => {
+		const trackInPlaylistModal = new TrackInPlaylistModal(
+			this.parent,
+			this.track.id,
+		);
+		trackInPlaylistModal.render();
+		event.stopPropagation();
+	};
 
-  deleteEvents() {
-    this.trackElement.removeEventListener('click', this.bindTrack);
+	handleTrackDelete = (event) => {
+		const trackInPlaylistAPI = new TrackInPlaylistAPI(this.myPlaylistId);
+		trackInPlaylistAPI.deleteTrack(this.track.id);
+		this.trackElement.remove();
+		event.stopPropagation();
+	};
 
-    const links = this.trackElement.querySelectorAll('.link');
-    links.forEach((link) => {
-      link.removeEventListener('click', (event) => this.handleLink(event));
-    });
-    if (this.addBtns.length > 0) {
-      this.addBtns[0].removeEventListener(
-        'click',
-        this.handleTrackAdd.bind(this),
-      );
-    }
+	handleLikeTrackBtn = async (event) => {
+		event.stopPropagation();
+		const user = userStore.storage.user;
+		if (!user.isAuthorized) {
+			eventBus.emit('navigate', '/signin');
+			return;
+		}
 
-    if (deleteBtns.length > 0) {
-      deleteBtns[0].removeEventListener(
-        'click',
-        this.handleTrackDelete.bind(this),
-      );
-    }
-  }
+		const isFavorite = await this.footerPlayerAPI.isFavorite(this.track.id);
+		if (user.isAuthorized && isFavorite) {
+			this.footerPlayerAPI.deleteFavorite(this.track.id);
+			this.likeBtn.classList.remove(styles['track__liked']);
+		} else {
+			this.footerPlayerAPI.addFavorite(this.track.id);
+			this.likeBtn.classList.add(styles['track__liked']);
+		}
+	};
 
-  bindTrack = () => {
-    eventBus.emit('reloadTracks');
-    eventBus.emit('playById', this.trackIndex);
-  };
+	handleTrackShare = (event) => {
+		event.stopPropagation();
 
-  handleLink(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const href = event.target.getAttribute('href');
-    eventBus.emit('navigate', href);
-  }
+		const url = `${BASE_URL}/album/${this.track.albumID}/track/${this.track.id}`;
 
-  destructor() {
-    this.deleteEvents();
-  }
+		const shareModal = new ShareModal(document.querySelector('#root'));
+		shareModal.render(url);
+	}
+
+	deleteEvents() {
+		this.trackElement.removeEventListener('click', this.bindTrack);
+
+		const links = this.trackElement.querySelectorAll('.link');
+		links.forEach((link) => {
+			link.removeEventListener('click', (event) => this.handleLink(event));
+		});
+		this.addBtn.removeEventListener('click', this.handleTrackAdd);
+		this.deleteBtn?.removeEventListener('click', this.handleTrackDelete);
+		this.likeBtn.removeEventListener('click', this.handleLikeTrackBtn);
+		this.shareBtn.removeEventListener('click', this.handleTrackShare);
+	}
+
+	bindTrack = () => {
+		eventBus.emit('reloadTracks');
+		eventBus.emit('playById', this.trackIndex);
+	};
+
+	handleLink(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		const href = event.target.getAttribute('href');
+		eventBus.emit('navigate', href);
+	}
+
+	destructor() {
+		this.deleteEvents();
+	}
 }

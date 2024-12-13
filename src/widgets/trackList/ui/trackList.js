@@ -1,7 +1,7 @@
 import { TrackView } from '../../../entities/track/index.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import template from './trackList.hbs';
-import './trackList.scss';
+import * as styles from './trackList.scss';
 
 export class TrackListView {
 	/**
@@ -30,11 +30,11 @@ export class TrackListView {
 	 * Renders the tracklist view.
 	 */
 	async render(tracks, needsShowMoreHref = true) {
-		tracks = tracks.map(({ id, name, artistName, artistID, image, duration }) => {
+		tracks = tracks.map(({ id, name, artistName, artistID, albumID, image, duration }) => {
 			const minutes = Math.floor(duration / 60);
 			const seconds = duration % 60;
 			duration = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-			return { id, name, artistName, artistID, image, duration };
+			return { id, name, artistName, artistID, albumID, image, duration };
 		});
 
 		const trackListElement = document.createElement('div');
@@ -57,25 +57,28 @@ export class TrackListView {
 		}
 		
 		if (needsShowMoreHref) {
-			trackListElement.innerHTML = template({ showMoreHref });
+			trackListElement.innerHTML = template({ styles, showMoreHref });
 		} else {
-			trackListElement.innerHTML = template({});
+			trackListElement.innerHTML = template({ styles });
 		}
 
 		this.parent.appendChild(trackListElement);
 
 		const tracksBlock = document.getElementById('tracks');
-		Array.from(tracks).forEach((track, index) => {
+		let promises = [];
+		Array.from(tracks).forEach(async (track, index) => {
 			const trackView = new TrackView(tracksBlock, index);
-			trackView.render(track, this.myPlaylistId);
+			promises.push(trackView.render(track, this.myPlaylistId));
 		});
+		Promise.all(promises).then(() => eventBus.emit('tracks:rendered'));
 
 		this.bindEvents();
 		this.setTitle(titleText);
 	}
 
 	setTitle(titleText) {
-		const title = document.querySelector('.tracks__recommend_text');
+		const titleBlock = document.querySelector(`.${styles['tracks__recommend_text']}`);
+		const title = titleBlock.querySelector('h4');
 		title.textContent = titleText;
 	}
 

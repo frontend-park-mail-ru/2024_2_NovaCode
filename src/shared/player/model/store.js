@@ -153,7 +153,6 @@ class PlayerStore {
   };
 
   storageHandler = (event) => {
-    console.log("storageEvent");
     if (event.key === PLAYER_STATE) {
       const state = JSON.parse(event.newValue);
       if (

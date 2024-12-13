@@ -1,10 +1,10 @@
 import { eventBus } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/model/store.js';
-import { player } from '../../../shared/player/model/store.js';
 import { handleLink, S3_BUCKETS } from '../../../shared/lib/index.js';
 import { ModalConfirmView } from '../../../widgets/modalConfirm/index.js';
 import template from './Header.hbs';
-import './Header.scss';
+import * as styles from './Header.scss';
+import logoLightIcon from '../../../../public/images/icons/logo_light.svg';
 
 export class Header {
   parent;
@@ -23,16 +23,22 @@ export class Header {
       user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
     }
 
-    this.parent.innerHTML = template({ user });
+    this.parent.innerHTML = template({ styles, user, logoLightIcon });
 
-    this.bindEvents();
-    this.onEvents();
-    this.switchActiveNavlink(window.location.pathname);
-  }
+		this.getElements();
+		this.bindEvents();
+		this.onEvents();
+		this.switchActiveNavlink(window.location.pathname);
+	}
 
-  bindEvents() {
-    const logoutLink = this.parent.querySelector('#header_logout_link');
-    const links = this.parent.querySelectorAll('.link');
+	getElements() {
+		this.mainLink = this.parent.querySelector('header__link_main');
+		this.searchLink = this.parent.querySelector('header__link_search');
+	}
+
+	bindEvents() {
+		const logoutLink = this.parent.querySelector('#header_logout_link');
+		const links = this.parent.querySelectorAll('.navlink');
 
     if (logoutLink) {
       logoutLink.addEventListener('click', (event) =>
@@ -99,12 +105,12 @@ export class Header {
   }
 
   switchActiveNavlink(href) {
-    let navlinks = document.querySelectorAll('.navlink');
+    let navlinks = document.querySelectorAll('.navlink_switch');
     navlinks.forEach((navlink) => {
       if (navlink.getAttribute('href') == href) {
-        navlink.classList.add('active');
+        navlink.classList.add(styles.active);
       } else {
-        navlink.classList.remove('active');
+        navlink.classList.remove(styles.active);
       }
     });
   }

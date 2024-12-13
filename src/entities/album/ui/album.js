@@ -1,7 +1,7 @@
 import { eventBus } from '../../../shared/lib/index.js';
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from './album.hbs';
-import './album.scss';
+import * as styles from './album.scss';
 
 export class AlbumView {
 	/**
@@ -31,9 +31,9 @@ export class AlbumView {
 		}
 
 		const albumElement = document.createElement('div');
-		albumElement.classList.add('album');
+		albumElement.classList.add(styles['album']);
 		albumElement.setAttribute('data-id', this.albumId);
-		albumElement.innerHTML = template(album);
+		albumElement.innerHTML = template({ styles, album });
 		this.parent.appendChild(albumElement);
 		this.bindEvents();
 	}

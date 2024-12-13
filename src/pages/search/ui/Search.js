@@ -11,30 +11,38 @@ export class SearchPage {
    */
   constructor() {
     this.parent = document.querySelector('#root');
+    this.eventHandlers = {
+      foundArtists: this.handleFoundArtists.bind(this),
+      foundAlbums: this.handleFoundAlbums.bind(this),
+      foundTracks: this.handleFoundTracks.bind(this),
+      emptySearchResult: this.handleNotFound.bind(this)
+    };
   }
 
   async render() {
     this.parent.innerHTML = '';
 
-    const searchLine = new SearchLineView();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const searchLine = new SearchLineView(this.pageContent);
     await searchLine.render();
 
     this.onEvents();
     eventBus.emit('hidePlayer');
   }
-
+  
   onEvents() {
-    eventBus.on('foundArtists', this.handleFoundArtists.bind(this));
-    eventBus.on('foundAlbums', this.handleFoundAlbums.bind(this));
-    eventBus.on('foundTracks', this.handleFoundTracks.bind(this));
-    eventBus.on('emptySearchResult', this.handleNotFound.bind(this));
+    Object.keys(this.eventHandlers).forEach(event => {
+      eventBus.on(event, this.eventHandlers[event]);
+    });
   }
-
+  
   offEvents() {
-    eventBus.off('foundArtists', this.handleFoundArtists.bind(this));
-    eventBus.off('foundAlbums', this.handleFoundAlbums.bind(this));
-    eventBus.off('foundTracks', this.handleFoundTracks.bind(this));
-    eventBus.off('emptySearchResult', this.handleNotFound.bind(this));
+    Object.keys(this.eventHandlers).forEach(event => {
+      eventBus.off(event, this.eventHandlers[event]);
+    });
   }
 
   async handleFoundArtists(artists) {
@@ -52,7 +60,7 @@ export class SearchPage {
       return;
     }
 
-    const artistListView = new ArtistListView(this.parent);
+    const artistListView = new ArtistListView(this.pageContent);
     await artistListView.render(artists);
   }
 
@@ -71,7 +79,7 @@ export class SearchPage {
       return;
     }
 
-    const albumListView = new AlbumListView(this.parent);
+    const albumListView = new AlbumListView(this.pageContent);
     await albumListView.render(albums);
   }
 
@@ -90,7 +98,7 @@ export class SearchPage {
       return;
     }
 
-    const trackListView = new TrackListView(this.parent);
+    const trackListView = new TrackListView(this.pageContent);
     await trackListView.render(tracks, false);
   }
 

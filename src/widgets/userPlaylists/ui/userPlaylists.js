@@ -4,7 +4,8 @@ import { eventBus } from '../../../shared/lib/eventbus.js';
 import { CreatePlaylistModal } from '../../createPlaylist/index.js';
 import { UserPlaylistsAPI } from '../api/api.js';
 import template from './userPlaylists.hbs'
-import './userPlaylists.scss';
+import * as styles from './userPlaylists.scss';
+import musicSquareAddIcon from '../../../../public/images/icons/music-square-add.svg';
 
 export class UserPlaylistsView {
 	/**
@@ -32,27 +33,27 @@ export class UserPlaylistsView {
 		const userPlaylistsElement = document.createElement('div');
 		userPlaylistsElement.classList.add('user-playlists');
 
-		this.isMyProfile = false;
+		this.isCurrentUser = false;
 		if (this.userId === userStore.storage.user.id) {
-			this.isMyProfile = true;
+			this.isCurrentUser = true;
 		}
 
-		userPlaylistsElement.innerHTML = template({ isMyProfile: this.isMyProfile });
-
+		userPlaylistsElement.innerHTML = template({ styles, isCurrentUser: this.isCurrentUser, musicSquareAddIcon });
 		this.parent.appendChild(userPlaylistsElement);
 
-		const playlistsBlock = document.getElementById('user-playlists');
-		Array.from(playlists).forEach((playlist) => {
-			const playlistView = new PlaylistView(playlistsBlock);
-			playlistView.render(playlist);
-		});
-
 		this.addBtn = document.getElementById('add-playlist');
+		console.log(this.addBtn);
 		if (this.addBtn) {
 			this.addEvents();
 			this.onEvents();
 		}
 
+		const playlistsBlock = document.getElementById('user-playlists');
+		if (playlists?.length === 0) return;
+		Array.from(playlists).forEach((playlist) => {
+			const playlistView = new PlaylistView(playlistsBlock);
+			playlistView.render(playlist);
+		});
 	}
 
 	addEvents() {
@@ -75,7 +76,7 @@ export class UserPlaylistsView {
 		eventBus.off('playlist:created', this.render);
 	}
 
-	handleAddBtn() {
+	handleAddBtn = () => {
 		const modal = new CreatePlaylistModal(this.parent);
 		modal.render();
 	}

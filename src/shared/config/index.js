@@ -1,4 +1,5 @@
 export {
+  BASE_URL,
   API_CSAT_URL,
   API_USER_URL,
   API_ALBUM_URL,

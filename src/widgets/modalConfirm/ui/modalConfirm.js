@@ -1,5 +1,5 @@
 import template from './modalConfirm.hbs';
-import './modalConfirm.scss';
+import * as styles from './modalConfirm.scss';
 
 export class ModalConfirmView {;
     constructor(parent, text, onConfirm, onCancel) {
@@ -12,17 +12,17 @@ export class ModalConfirmView {;
     render() {
         this.modalConfirmElement = document.createElement("div");
         this.modalConfirmElement.classList.add("modal_confirm");
-        this.modalConfirmElement.innerHTML = template({ text: this.text });
+        this.modalConfirmElement.innerHTML = template({ styles, text: this.text });
         this.parent.appendChild(this.modalConfirmElement);
 
         this.addEvents();
     }
 
     addEvents() {
-        this.confirmBtn = this.modalConfirmElement.querySelector('.modal_confirm__btn_yes');
+        this.confirmBtn = this.modalConfirmElement.querySelector(`.${styles['modal_confirm__btn_yes']}`);
         this.confirmBtn.addEventListener('click', this.handleConfirm.bind(this));
 
-        this.cancelBtn = this.modalConfirmElement.querySelector('.modal_confirm__btn_no');
+        this.cancelBtn = this.modalConfirmElement.querySelector(`.${styles['modal_confirm__btn_no']}`);
         this.cancelBtn.addEventListener('click', this.handleCancel.bind(this));
     }
 

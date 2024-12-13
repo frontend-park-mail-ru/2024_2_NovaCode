@@ -12,19 +12,22 @@ export class AlbumPage {
   constructor(params) {
     this.parent = document.querySelector('#root');
     this.albumId = params['albumId'];
+    this.trackId = params['trackId'];
   }
 
   async render() {
     this.parent.innerHTML = '';
 
-    const albumCardView = new AlbumCardView(this.parent, this.albumId);
-    await albumCardView.render();
+		this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+		const albumCardView = new AlbumCardView(this.pageContent, this.albumId);
+		await albumCardView.render();
 
     const trackListAPI = new TrackListAPI({ albumId: this.albumId });
     const tracks = await trackListAPI.get();
-    const trackListView = new TrackListView(this.parent, {
-      albumId: this.albumId,
-    });
+    const trackListView = new TrackListView(this.pageContent, { albumId: this.albumId, trackId: this.trackId });
     await trackListView.render(tracks);
 
     player.addTracks(tracks);
@@ -33,5 +36,39 @@ export class AlbumPage {
     } else {
       eventBus.emit('hidePlayer');
     }
+
+    this.onEvents();
   }
+
+  onEvents() {
+    if (this.trackId) {
+      eventBus.on('tracks:rendered', this.highlightTrack);
+    }
+  }
+
+  highlightTrack = () => {
+    const highlightedTrack = document.querySelector(`[data-track-id="${this.trackId}"]`);
+    if (!highlightedTrack) return;
+    highlightedTrack.classList.add('track_active');
+
+    const trackRect = highlightedTrack.getBoundingClientRect();
+
+    const header = document.querySelector('#header');
+    const headerStyle = getComputedStyle(header);
+    window.scrollTo({
+      top: trackRect.top - parseInt(headerStyle['height'], 10),
+      behavior: "smooth",
+    });
+  }
+
+  offEvents() {
+    if (this.trackId) {
+      eventBus.off('tracks:rendered', this.highlightTrack);
+    }
+  }
+
+  destructor() {
+    this.offEvents();
+  }
+
 }

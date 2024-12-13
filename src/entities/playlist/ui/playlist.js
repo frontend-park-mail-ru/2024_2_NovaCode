@@ -1,7 +1,7 @@
 import { eventBus } from "../../../shared/lib/index.js";
 import { S3_BUCKETS } from "../../../shared/lib/index.js";
 import template from "./playlist.hbs";
-import "./playlist.scss";
+import * as styles from "./playlist.scss";
 
 export class PlaylistView {
 	/**
@@ -26,14 +26,16 @@ export class PlaylistView {
 	render(playlist) {
 		this.playlistId = playlist.id;
 
-		if (!playlist.image) {
-			playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.jpeg`;
+		if (playlist.image) {
+			playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/${playlist.image}`;
+		} else {
+			playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.webp`;
 		}
 
 		const playlistElement = document.createElement('div');
-		playlistElement.classList.add('playlist');
+		playlistElement.classList.add(styles['playlist']);
 		playlistElement.setAttribute('data-playlist-id', this.playlistId)
-		playlistElement.innerHTML = template(playlist);
+		playlistElement.innerHTML = template({styles, playlist});
 		this.parent.appendChild(playlistElement);
 		this.bindEvents();
 	}

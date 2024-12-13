@@ -1,5 +1,5 @@
 import template from './error.hbs';
-import './error.scss';
+import * as styles from './error.scss';
 
 export class ErrorView {
   parent;
@@ -15,7 +15,7 @@ export class ErrorView {
   async render() {
     const errorElement = document.createElement("div");
     errorElement.classList.add("error");
-    errorElement.innerHTML = template({ title: this.title, message: this.message });
+    errorElement.innerHTML = template({ styles, title: this.title, message: this.message });
     this.parent.appendChild(errorElement);
   }
 }

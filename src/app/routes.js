@@ -85,4 +85,8 @@ export const PAGES = [
     path: '/more_playlists/popular',
     view: MorePlaylistsPage,
   },
+  {
+    path: '/album/{albumId}/track/{trackId}',
+    view: AlbumPage,
+  },
 ];

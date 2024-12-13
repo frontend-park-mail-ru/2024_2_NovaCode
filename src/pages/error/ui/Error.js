@@ -13,7 +13,11 @@ export class ErrorPage {
   async render() {
     this.parent.innerHTML = '';
 
-    const errorView = new ErrorView(this.parent, this.title, this.message);
+    this.pageContent = document.createElement('div');
+		this.pageContent.classList.add('page_content');
+		this.parent.appendChild(this.pageContent);
+
+    const errorView = new ErrorView(this.pageContent, this.title, this.message);
     await errorView.render();
 
     eventBus.emit('hidePlayer');

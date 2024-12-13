@@ -1,6 +1,8 @@
 import { PlaylistView } from '../../../entities/playlist/index.js';
+import { eventBus } from '../../../shared/lib/eventbus.js';
+import { handleLink } from '../../../shared/lib/link.js';
 import template from './playlistList.hbs'
-import './playlistList.scss';
+import * as styles from './playlistList.scss';
 
 export class PlaylistListView {
 	/**
@@ -26,9 +28,9 @@ export class PlaylistListView {
 
 		if (needsShowMoreHref) {
 			let showMoreHref = `/more_playlists/popular`;
-			playlistListElement.innerHTML = template({ showMoreHref });
+			playlistListElement.innerHTML = template({ styles, showMoreHref });
 		} else {
-			playlistListElement.innerHTML = template({});
+			playlistListElement.innerHTML = template({ styles });
 		}
 		
 		this.parent.appendChild(playlistListElement);
@@ -38,5 +40,27 @@ export class PlaylistListView {
 			const playlistView = new PlaylistView(playlistsBlock);
 			playlistView.render(playlist);
 		});
+
+		this.addEvents();
+	}
+
+	addEvents() {
+		const links = this.parent.querySelectorAll('.playlists__show_more');
+
+		links.forEach((link) => {
+			link.addEventListener('click', handleLink);
+		});
+	}
+
+	removeEvents() {
+		const links = this.parent.querySelectorAll('.playlists__show_more');
+
+		links.forEach((link) => {
+			link.addEventListener('click', handleLink);
+		});
+	}
+
+	destructor() {
+		this.removeEvents();
 	}
 }
