@@ -5,9 +5,12 @@ import template from './playlistCard.hbs';
 import * as styles from './playlistCard.scss';
 import { UserPlaylistsAPI } from '../../userPlaylists/index.js';
 import { userStore } from '../../../entities/user/index.js';
+import { BASE_URL } from '../../../shared/config/api.js';
+import { ShareModal } from '../../shareModal/index.js';
 import heartIcon from '../../../../public/images/icons/heart.svg';
 import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
 import musicSquareRemoveIcon from '../../../../public/images/icons/music-square-remove.svg';
+import sendSquareWhiteIcon from '../../../../public/images/icons/send-square-white.svg';
 
 export class PlaylistCardView {
     /**
@@ -56,37 +59,45 @@ export class PlaylistCardView {
             isMyPlaylist: this.isMyPlaylist,
             heartIcon,
             playCircleIcon,
-            musicSquareRemoveIcon
+            musicSquareRemoveIcon,
+            sendSquareWhiteIcon
         });
         this.parent.appendChild(playlistCardElement);
 
-        this.playPauseBtn = document.querySelector('.buttons__listen');
-        this.deleteBtn = document.querySelector(`.${styles['buttons__delete']}`);
+        await this.getElements();
         this.addEvents();
         this.onEvents();
     }
 
+    async getElements() {
+        this.playPauseBtn = document.querySelector('.buttons__listen');
+        this.deleteBtn = document.querySelector(`.${styles['buttons__delete']}`);
+        this.shareBtn = document.querySelector('.buttons__share');
+    }
+
     addEvents() {
         this.playPauseBtn.addEventListener('click', this.handlePlayPauseBtn);
-        if (this.deleteBtn) {
-            this.deleteBtn.addEventListener('click', () => this.deletePlaylist());
-        }
+        this.deleteBtn?.addEventListener('click', this.deletePlaylist);
+        this.shareBtn.addEventListener('click', this.handleShareBtn);
     }
 
     onEvents() {
-        eventBus.on('playlist:deleted', this.handlePlaylistDelete);
+        eventBus.on('playlist:deleted', this.handlePlaylistDeleted);
     }
 
     deleteEvents() {
         this.playPauseBtn.removeEventListener('click', this.handlePlayPauseBtn);
+        this.deleteBtn?.removeEventListener('click', this.deletePlaylist);
+        this.shareBtn.removeEventListener('click', this.handleShareBtn);
+
     }
 
-    handlePlaylistDelete() {
+    handlePlaylistDeleted() {
         const user = userStore.storage.user;
         eventBus.emit('navigate', `/profiles/${user.username}`);
     }
 
-    deletePlaylist() {
+    deletePlaylist = () => {
         const myPlaylistAPI = new PlaylistCardAPI(this.playlistId);
         myPlaylistAPI.delete();
         eventBus.emit('playlist:deleted');
@@ -94,6 +105,13 @@ export class PlaylistCardView {
 
     handlePlayPauseBtn() {
         eventBus.emit('playPauseTrack');
+    }
+
+    handleShareBtn = () => {
+        const url = `${BASE_URL}/playlist/${this.playlistId}`;
+
+        const shareModal = new ShareModal(document.querySelector('#root'));
+        shareModal.render(url);
     }
 
     destructor() {

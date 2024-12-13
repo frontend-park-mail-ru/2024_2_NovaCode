@@ -16,7 +16,6 @@ export class CreatePlaylistModal {
 	 */
 	constructor(parent) {
 		this.parent = parent ?? document.querySelector('#root');
-		this.position = 0;
 	}
 
     async render() {

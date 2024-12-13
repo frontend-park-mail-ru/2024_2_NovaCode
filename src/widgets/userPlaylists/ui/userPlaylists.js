@@ -41,18 +41,19 @@ export class UserPlaylistsView {
 		userPlaylistsElement.innerHTML = template({ styles, isCurrentUser: this.isCurrentUser, musicSquareAddIcon });
 		this.parent.appendChild(userPlaylistsElement);
 
-		const playlistsBlock = document.getElementById('user-playlists');
-		Array.from(playlists).forEach((playlist) => {
-			const playlistView = new PlaylistView(playlistsBlock);
-			playlistView.render(playlist);
-		});
-
 		this.addBtn = document.getElementById('add-playlist');
+		console.log(this.addBtn);
 		if (this.addBtn) {
 			this.addEvents();
 			this.onEvents();
 		}
 
+		const playlistsBlock = document.getElementById('user-playlists');
+		if (playlists?.length === 0) return;
+		Array.from(playlists).forEach((playlist) => {
+			const playlistView = new PlaylistView(playlistsBlock);
+			playlistView.render(playlist);
+		});
 	}
 
 	addEvents() {
@@ -75,7 +76,7 @@ export class UserPlaylistsView {
 		eventBus.off('playlist:created', this.render);
 	}
 
-	handleAddBtn() {
+	handleAddBtn = () => {
 		const modal = new CreatePlaylistModal(this.parent);
 		modal.render();
 	}

@@ -16,7 +16,9 @@
     {{/if}}
     {{#if user.isAuthorized}}
     <img src="{{ heartBlackIcon }}" id="like-track" class="{{ styles.track__like-btn }} icon {{#if isFavorite}} {{ styles.track__liked }} {{/if}}">
-    <img src="{{ addIcon }}" id="add-to-playlist" class="{{ styles.track__add-btn }}">
+    <img src="{{ addIcon }}" id="add-to-playlist" class="{{ styles.track__add-btn }} icon">
+    <img src="{{ sendSquareBlackIcon }}" id="share-track" class="{{ styles.track__share-btn }} icon">
+
     {{/if}}
     {{ track.duration }}
 </div>
