@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: ./dist
+          path: ~/dist
 
   delivery:
     name: Delivery
@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: ./dist
+          path: ~/dist
       
       - name: Transfer build files to server
         uses: appleboy/scp-action@v0.1.7
@@ -53,6 +53,6 @@ jobs:
           host: 185.241.194.24
           username: ubuntu
           key: ${{ secrets.PRIVATE_KEY }}
-          source: "dist/*"
+          source: "~/dist/*"
           target: "/var/www/nova-music/dist"
           strip_components: 1
