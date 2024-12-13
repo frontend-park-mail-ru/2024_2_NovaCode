@@ -7,6 +7,7 @@ import { ShareModal } from '../../shareModal/index.js';
 import * as styles from './albumCard.scss';
 import subIcon from '../../../../public/images/icons/sub.svg';
 import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
+import sendSquareWhiteIcon from '../../../../public/images/icons/send-square-white.svg';
 
 export class AlbumCardView {
   /**
@@ -38,7 +39,7 @@ export class AlbumCardView {
 
     this.albumCardElement = document.createElement("div");
     this.albumCardElement.classList.add("album_card");
-    this.albumCardElement.innerHTML = template({ styles, album, subIcon, playCircleIcon });
+    this.albumCardElement.innerHTML = template({ styles, album, subIcon, playCircleIcon, sendSquareWhiteIcon });
     this.parent.appendChild(this.albumCardElement);
 
     await this.getElements();

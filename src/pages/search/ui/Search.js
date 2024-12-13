@@ -98,7 +98,7 @@ export class SearchPage {
       return;
     }
 
-    const trackListView = new TrackListView(this.parent);
+    const trackListView = new TrackListView(this.pageContent);
     await trackListView.render(tracks, false);
   }
 

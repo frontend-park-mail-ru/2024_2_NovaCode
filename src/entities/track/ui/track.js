@@ -24,7 +24,7 @@ export class TrackView {
 	 *
 	 */
 	constructor(parent, index) {
-		this.parent = parent ? parent : document.querySelector('#root');
+		this.parent = parent ?? document.querySelector('#root');
 		this.trackIndex = index;
 		this.footerPlayerAPI = new FooterPlayerAPI();
 	}

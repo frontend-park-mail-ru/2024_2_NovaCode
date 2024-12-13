@@ -7,6 +7,7 @@ import { BASE_URL } from '../../../shared/config/api.js';
 import * as styles from './artistCard.scss';
 import subIcon from '../../../../public/images/icons/sub.svg';
 import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
+import sendSquareWhiteIcon from '../../../../public/images/icons/send-square-white.svg';
 
 export class ArtistCardView {
   /**
@@ -37,7 +38,7 @@ export class ArtistCardView {
 
     const artistCardElement = document.createElement("div");
     artistCardElement.classList.add("artist_card");
-    artistCardElement.innerHTML = template({ styles, artist, genres, subIcon, playCircleIcon });
+    artistCardElement.innerHTML = template({ styles, artist, genres, subIcon, playCircleIcon, sendSquareWhiteIcon });
     this.parent.appendChild(artistCardElement);
 
     await this.getElements();

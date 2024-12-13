@@ -1,5 +1,8 @@
 import template from './shareModal.hbs';
-import './shareModal.scss';
+import * as styles from './shareModal.scss';
+import tgLogo from '../../../../public/images/icons/tg_logo.svg';
+import vkLogo from '../../../../public/images/icons/vk_logo.svg';
+
 
 export class ShareModal {
     parent;
@@ -13,7 +16,7 @@ export class ShareModal {
 
         this.shareModal = document.createElement('div');
         this.shareModal.classList.add('share_modal');
-        this.shareModal.innerHTML = template({ url });
+        this.shareModal.innerHTML = template({ styles, url, tgLogo, vkLogo });
         this.parent.appendChild(this.shareModal);
 
         this.getElements();
@@ -22,9 +25,8 @@ export class ShareModal {
     }
 
     getElements() {
-        this.cancelBtn = this.shareModal.querySelector('.share_modal__btn_cancel');
-        this.copyLinkBtn = this.shareModal.querySelector('.share_buttons__copy_link');
-        this.msg = this.shareModal.querySelector('#link_copied_msg');
+        this.cancelBtn = this.shareModal.querySelector(`.${styles['share_modal__btn_cancel']}`);
+        this.copyLinkBtn = this.shareModal.querySelector(`.${styles['share_buttons__copy_link']}`);
     }
 
     addEventListeners() {

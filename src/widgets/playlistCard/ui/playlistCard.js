@@ -10,6 +10,7 @@ import { ShareModal } from '../../shareModal/index.js';
 import heartIcon from '../../../../public/images/icons/heart.svg';
 import playCircleIcon from '../../../../public/images/icons/play-circle.svg';
 import musicSquareRemoveIcon from '../../../../public/images/icons/music-square-remove.svg';
+import sendSquareWhiteIcon from '../../../../public/images/icons/send-square-white.svg';
 
 export class PlaylistCardView {
     /**
@@ -58,7 +59,8 @@ export class PlaylistCardView {
             isMyPlaylist: this.isMyPlaylist,
             heartIcon,
             playCircleIcon,
-            musicSquareRemoveIcon
+            musicSquareRemoveIcon,
+            sendSquareWhiteIcon
         });
         this.parent.appendChild(playlistCardElement);
 

@@ -16,6 +16,8 @@ import heartBlackIcon from '../../../../public/images/icons/heart-black.svg';
 import addIcon from '../../../../public/images/icons/add.svg';
 import volumeLowIcon from '../../../../public/images/icons/volume-low.svg';
 import volumeUpIcon from '../../../../public/images/icons/volume-up.svg';
+import sendSquareBlackIcon from '../../../../public/images/icons/send-square-black.svg';
+
 
 export class FooterPlayerView {
   /**
@@ -49,6 +51,7 @@ export class FooterPlayerView {
       forwardIcon,
       heartBlackIcon,
       addIcon,
+      sendSquareBlackIcon,
       volumeLowIcon,
       volumeUpIcon,
     });
