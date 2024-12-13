@@ -215,9 +215,9 @@ export class FooterPlayerView {
 
   changePlayPauseBtnImg = () => {
     if (player.isPlaying) {
-      this.playPauseBtnImg.src = pauseCircleBlackIcon;
+      this.playPauseBtnIcon.src = pauseCircleBlackIcon;
     } else {
-      this.playPauseBtnImg.src = playCircleBlackIcon;
+      this.playPauseBtnIcon.src = playCircleBlackIcon;
     }
   }
 
