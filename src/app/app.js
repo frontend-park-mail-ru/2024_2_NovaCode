@@ -1,5 +1,6 @@
 import { Router } from '../shared/lib/router.js';
 import { LAYOUT, PAGES } from './routes.js';
+import { userStore } from '../entities/user/index.js';
 
 export class App {
 	constructor() {
@@ -11,7 +12,10 @@ export class App {
 	/**
 	 * Starts the application by making the router listen for path changes.
 	 */
-	run() {
+	async run() {
+		if (userStore.isAuth() && !userStore.csrfToken) {
+			await userStore.getCSRFToken();
+		}
 		this.router.listen();
 	}
 
