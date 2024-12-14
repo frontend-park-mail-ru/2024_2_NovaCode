@@ -23,6 +23,7 @@ class UserStore {
 			user: Storage.load('user') || {},
 			error: null,
 		};
+		this.csrfToken = null;
 	}
 
 	isAuth() {
@@ -41,7 +42,6 @@ class UserStore {
 						username: response.data.user.username,
 						email: response.data.user.email,
 						image: response.data.user.image,
-						token: response.data.token,
 						isAuthorized: true,
 					};
 					this.storage.user = userData;
@@ -85,7 +85,6 @@ class UserStore {
 						username: response.data.user.username,
 						email: response.data.user.email,
 						image: response.data.user.image,
-						token: response.data.token,
 						isAuthorized: true,
 					};
 					this.storage.user = userData;
@@ -127,6 +126,7 @@ class UserStore {
 					this.storage.error = null;
 					Storage.save('user', this.storage.user);
 
+					this.csrfToken = null;
 					eventBus.emit('signOutSuccess');
 					break;
 
@@ -237,18 +237,12 @@ class UserStore {
 				return;
 			}
 
-			let userFields;
-
 			switch (response.status) {
 				case HTTP_STATUS.OK:
-					userFields = {
-						csrfToken: response.data.csrf,
-					};
-					this.storage.user = { ...this.storage.user, ...userFields };
+					this.csrfToken = response.data.csrf;
 					this.storage.error = null;
-					Storage.save('user', this.storage.user);
 
-					eventBus.emit('updateUserSuccess', this.storage.user);
+					eventBus.emit('updateUserSuccess', this.csrfToken);
 					break;
 				default:
 					this.storage.error = handleStatus(
@@ -257,7 +251,7 @@ class UserStore {
 					);
 			}
 		} catch (error) {
-			console.error('Error getting user csrf token:', error);
+			console.error('error getting user csrf token:', error);
 		}
 	};
 }
