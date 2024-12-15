@@ -23,6 +23,7 @@ export class CSATWindowAPI {
       }
     } catch (error) {
       console.error(error);
+      return [];
     }
   }
 
