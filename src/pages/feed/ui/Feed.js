@@ -21,8 +21,8 @@ export class FeedPage {
   }
 
 	async render() {
+    await userStore.checkAuth();
 		if (!userStore.isAuth()) {
-			eventBus.emit('navigate', '/signin');
 			return;
 		}
 

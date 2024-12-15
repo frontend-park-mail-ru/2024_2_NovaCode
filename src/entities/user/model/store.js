@@ -9,6 +9,7 @@ import {
 	signUpRequest,
 	signOutRequest,
 	getCSRFTokenRequest,
+	checkAuthRequest,
 } from '../api/auth.js';
 import {
 	getUserRequest,
@@ -26,9 +27,44 @@ class UserStore {
 		this.csrfToken = null;
 	}
 
-	isAuth() {
+	isAuth = () => {
 		return this.storage.user?.isAuthorized;
-	}
+	};
+
+	checkAuth = async () => {
+		try {
+			const response = await checkAuthRequest();
+
+			switch (response.status) {
+				case HTTP_STATUS.OK:
+					this.storage.error = null;
+
+					await this.getCSRFToken();
+
+					eventBus.emit('checkAuthSuccess');
+					break;
+
+				case HTTP_STATUS.UNAUTHORIZED:
+					this.storage.user = {
+						isAuthorized: false,
+					};
+					Storage.save('user', this.storage.user);
+					this.storage.error = PUBLIC_ERRORS.UNAUTHORIZED;
+					eventBus.emit('navigate', '/signin');
+					break;
+
+				default:
+					this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+					eventBus.emit('checkAuthError', this.storage.error);
+					console.error('undefined status code:', response.status);
+					break;
+			}
+		} catch (error) {
+			this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+			eventBus.emit('checkAuthError', this.storage.error);
+			console.error('unable to check authorization: ', error);
+		}
+	};
 
 	signIn = async (user) => {
 		try {
@@ -57,6 +93,7 @@ class UserStore {
 					this.storage.user = {
 						isAuthorized: false,
 					};
+					Storage.save('user', this.storage.user);
 					this.storage.error = PUBLIC_ERRORS.INVALID_USERNAME_OR_PASSWORD;
 					eventBus.emit('signInError', this.storage.error);
 					break;
@@ -100,6 +137,7 @@ class UserStore {
 					this.storage.user = {
 						isAuthorized: false,
 					};
+					Storage.save('user', this.storage.user);
 					this.storage.error = PUBLIC_ERRORS.USER_EXISTS;
 					eventBus.emit('signUpError', this.storage.error);
 					break;

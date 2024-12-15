@@ -33,3 +33,8 @@ export const signOutRequest = async () => {
 export const getCSRFTokenRequest = async () => {
   return await GET(API_ENDPOINTS.GET_CSRF_TOKEN);
 };
+
+export const checkAuthRequest = async () => {
+  const url = API_ENDPOINTS.IS_AUTH;
+  return await GET(url);
+};
