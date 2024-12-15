@@ -1,5 +1,11 @@
 @use "/src/colors.scss";
 
+.album {
+  &__liked {
+    background-color: colors.$subscribe;
+  }
+}
+
 .album_card {
   &__text {
     color: colors.$white;
