@@ -15,6 +15,13 @@ export class CSATWindow {
 	}
 
 	async render() {
+		if (this.current_question === -1) {
+			await this.getQuestions();
+			if (this.questions.length == 0) {
+				return;
+			}
+		}
+		
 		if (!this.csatWindowIframe) {
 			this.csatWindowIframe = document.createElement('iframe');
 			this.csatWindowIframe.classList.add(styles['csat-iframe']);
@@ -29,10 +36,6 @@ export class CSATWindow {
 			const style = this.iframeDoc.createElement('style');
 			style.innerHTML = inlineStyles;
 			this.iframeDoc.head.appendChild(style);
-		}
-
-		if (this.current_question === -1) {
-			await this.getQuestions();
 		}
 
 		const div = this.iframeDoc.createElement('div');
