@@ -76,12 +76,14 @@ export class Header {
     eventBus.on('signInSuccess', this.onSignInSuccess);
     eventBus.on('signUpSuccess', this.onSignUpSuccess);
     eventBus.on('signOutSuccess', this.onSignOutSuccess);
+    eventBus.on('unauthorized', this.onSignOutSuccess);
   }
 
   offEvents() {
     eventBus.off('signInSuccess', this.onSignInSuccess);
     eventBus.off('signUpSuccess', this.onSignUpSuccess);
     eventBus.off('signOutSuccess', this.onSignOutSuccess);
+    eventBus.off('unauthorized', this.onSignOutSuccess);
   }
 
   onSignInSuccess = (user) => {

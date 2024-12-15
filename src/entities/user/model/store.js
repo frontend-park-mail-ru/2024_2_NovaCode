@@ -50,6 +50,7 @@ class UserStore {
 					};
 					Storage.save('user', this.storage.user);
 					this.storage.error = PUBLIC_ERRORS.UNAUTHORIZED;
+					eventBus.emit('unauthorized');
 					eventBus.emit('navigate', '/signin');
 					break;
 
