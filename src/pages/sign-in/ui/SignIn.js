@@ -126,7 +126,6 @@ export class SignInPage {
       validationErrors.password = passwordError;
     }
 
-    console.log(validationErrors);
     return validationErrors;
   }
 

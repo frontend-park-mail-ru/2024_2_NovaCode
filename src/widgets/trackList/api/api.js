@@ -34,7 +34,6 @@ export class TrackListAPI {
       if (!response.error) {
         return response.data;
       } else {
-        console.log('Error during TrackList loading:');
         return [];
       }
     } catch (error) {
