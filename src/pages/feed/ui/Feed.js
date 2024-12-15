@@ -11,6 +11,7 @@ import { player } from '../../../shared/player/model/store.js';
 import { CSATWindow } from '../../../widgets/csatWindow/ui/csatWindow.js';
 import { userStore } from '../../../entities/user/index.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
+import { csatStore } from '../../../entities/csat/index.js';
 
 export class FeedPage {
   /**
@@ -28,8 +29,10 @@ export class FeedPage {
 
 		this.parent.innerHTML = '';
 
-    const iframe = new CSATWindow();
-    await iframe.render();
+    if (!csatStore.submitted()) {
+      const iframe = new CSATWindow();
+      await iframe.render();
+    }
 
 		this.pageContent = document.createElement('div');
 		this.pageContent.classList.add('page_content');

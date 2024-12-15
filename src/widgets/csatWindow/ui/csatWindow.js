@@ -3,6 +3,7 @@ import './csatWindow.scss';
 import inlineStyles from './csatWindow.scss?inline';
 import { CSATWindowAPI } from '../api/api';
 import * as styles from './csatWindow.scss';
+import { csatStore } from '../../../entities/csat';
 
 export class CSATWindow {
 	constructor(parent) {
@@ -86,6 +87,8 @@ export class CSATWindow {
 			alert("Перед ответом нужно выбрать оценку!");
 			return;
 		}
+
+		csatStore.submit();
 
 		if (this.questions[this.current_question]) {
 			const questionID = this.questions[this.current_question].id;
