@@ -1,19 +1,20 @@
-import { Header } from '../widgets/header/index.js';
-import { FeedPage } from '../pages/feed/index.js';
-import { SignUpPage } from '../pages/sign-up/index.js';
-import { SignInPage } from '../pages/sign-in/index.js';
-import { ArtistPage } from '../pages/artist/index.js';
-import { AlbumPage } from '../pages/album/index.js';
-import { ProfilePage } from '../pages/profile/index.js';
-import { EditProfilePage } from '../pages/edit-profile/index.js';
-import { MoreTracksPage } from '../pages/more-tracks/index.js';
-import { MoreAlbumsPage } from '../pages/more-albums/index.js';
-import { MoreArtistsPage } from '../pages/more-artists/index.js';
-import { SearchPage } from '../pages/search/index.js';
-import { StatisticPage } from '../pages/statistic/index.js';
-import { MorePlaylistsPage } from '../pages/more-playlists/index.js';
-import { PlaylistPage } from '../pages/playlist/index.js';
-import { FooterPlayerView } from '../widgets/footerPlayer/index.js';
+import { Header } from "../widgets/header/index.js";
+import { FeedPage } from "../pages/feed/index.js";
+import { SignUpPage } from "../pages/sign-up/index.js";
+import { SignInPage } from "../pages/sign-in/index.js";
+import { ArtistPage } from "../pages/artist/index.js";
+import { AlbumPage } from "../pages/album/index.js";
+import { ProfilePage } from "../pages/profile/index.js";
+import { EditProfilePage } from "../pages/edit-profile/index.js";
+import { MoreTracksPage } from "../pages/more-tracks/index.js";
+import { MoreAlbumsPage } from "../pages/more-albums/index.js";
+import { MoreArtistsPage } from "../pages/more-artists/index.js";
+import { SearchPage } from "../pages/search/index.js";
+import { StatisticPage } from "../pages/statistic/index.js";
+import { MorePlaylistsPage } from "../pages/more-playlists/index.js";
+import { PlaylistPage } from "../pages/playlist/index.js";
+import { FooterPlayerView } from "../widgets/footerPlayer/index.js";
+import { SubscriptionsPage } from "../pages/subscriptions/ui/subscriptions.js";
 
 export const LAYOUT = [Header, FooterPlayerView];
 
@@ -22,71 +23,75 @@ export const LAYOUT = [Header, FooterPlayerView];
  */
 export const PAGES = [
   {
-    path: '/',
+    path: "/",
     view: FeedPage,
   },
   {
-    path: '/signin',
+    path: "/signin",
     view: SignInPage,
   },
   {
-    path: '/signup',
+    path: "/signup",
     view: SignUpPage,
   },
   {
-    path: '/artist/{artistId}',
+    path: "/artist/{artistId}",
     view: ArtistPage,
   },
   {
-    path: '/album/{albumId}',
+    path: "/album/{albumId}",
     view: AlbumPage,
   },
   {
-    path: '/playlist/{playlistId}',
+    path: "/playlist/{playlistId}",
     view: PlaylistPage,
   },
   {
-    path: '/profiles/{username}',
+    path: "/profiles/{username}",
     view: ProfilePage,
   },
   {
-    path: '/profiles/{username}/edit',
+    path: "/profiles/{username}/edit",
     view: EditProfilePage,
   },
   {
-    path: '/more_tracks/{type}',
+    path: "/profiles/{username}/subs",
+    view: SubscriptionsPage,
+  },
+  {
+    path: "/more_tracks/{type}",
     view: MoreTracksPage,
   },
   {
-    path: '/more_tracks/{entity}/{id}',
+    path: "/more_tracks/{entity}/{id}",
     view: MoreTracksPage,
   },
   {
-    path: '/more_albums/{type}',
+    path: "/more_albums/{type}",
     view: MoreAlbumsPage,
   },
   {
-    path: '/more_albums/{entity}/{id}',
+    path: "/more_albums/{entity}/{id}",
     view: MoreAlbumsPage,
   },
   {
-    path: '/more_artists/{type}',
+    path: "/more_artists/{type}",
     view: MoreArtistsPage,
   },
   {
-    path: '/search',
+    path: "/search",
     view: SearchPage,
   },
   {
-    path: '/statistic',
+    path: "/statistic",
     view: StatisticPage,
   },
   {
-    path: '/more_playlists/popular',
+    path: "/more_playlists/popular",
     view: MorePlaylistsPage,
   },
   {
-    path: '/album/{albumId}/track/{trackId}',
+    path: "/album/{albumId}/track/{trackId}",
     view: AlbumPage,
   },
 ];

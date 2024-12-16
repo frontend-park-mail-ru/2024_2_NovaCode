@@ -1,5 +1,11 @@
 @use "/src/colors.scss";
 
+.artist {
+  &__liked {
+    background-color: colors.$subscribe;
+  }
+}
+
 .artist_card {
   &__text {
     color: colors.$white;

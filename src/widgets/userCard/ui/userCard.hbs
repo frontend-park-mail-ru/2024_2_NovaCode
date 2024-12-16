@@ -5,6 +5,9 @@
         <div class="{{ styles.user_card__name }}"><h3>{{ user.username }}</h3></div>
         <img src="{{ user.image }}" class="{{ styles.user_card__avatar }} card-img">
       </div>
+      <div class="{{ styles.user_card__subscriptions }}">
+        <h4><a href="/profiles/{{ user.username }}/subs" class="{{ styles.user_card__link }} button_link">Подписки</a></h4>
+      </div>
       {{#if isCurrentUser}}
         <div class="{{ styles.user_card__edit }}">
           <h4><a href="/profiles/{{ user.username }}/edit" class="{{ styles.user_card__link }} button_link">Настройки профиля</a></h4>

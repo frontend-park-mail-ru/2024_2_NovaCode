@@ -1,5 +1,11 @@
 @use "/src/colors.scss";
 
+.playlist {
+  &__liked {
+    background-color: colors.$subscribe;
+  }
+}
+
 .playlist_card {
   &__text {
     color: colors.$white;
