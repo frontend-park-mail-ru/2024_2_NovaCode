@@ -1,5 +1,6 @@
 import './index.scss';
 import { App } from './app/app.js';
+import "../public/images/icons/logo.svg";
 
 // if ('serviceWorker' in navigator) {
 // 	navigator.serviceWorker
