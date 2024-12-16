@@ -1,8 +1,15 @@
-import { ArtistCarouselView } from "../../../widgets/artistCarousel/index.js";
 import { player } from "../../../shared/player/model/store";
 import { userStore } from "../../../entities/user";
 import { eventBus } from "../../../shared/lib";
-import { AlbumCarouselView } from "../../../widgets/albumCarousel/index.js";
+import { ErrorView } from "../../../widgets/error/index.js";
+import { 
+  AlbumCarouselView,
+  AlbumCarouselAPI
+} from "../../../widgets/albumCarousel/index.js";
+import { 
+  ArtistCarouselView, 
+  ArtistCarouselAPI 
+} from "../../../widgets/artistCarousel/index.js";
 import {
   PlaylistListAPI,
   PlaylistListView,
@@ -28,19 +35,36 @@ export class SubscriptionsPage {
     this.pageContent.classList.add("page_content");
     this.parent.appendChild(this.pageContent);
 
+    const artistCarouselAPI = new ArtistCarouselAPI();
     const artistCarouselView = new ArtistCarouselView(this.pageContent, {
       favorite: true,
     });
-    await artistCarouselView.render();
+    const artists = await artistCarouselAPI.getFavorite();
+    if (artists) {
+      await artistCarouselView.render(artists);
+    }
 
-    const albumCardView = new AlbumCarouselView(this.pageContent, null, true);
-    await albumCardView.render();
+    const albumCarouselAPI = new AlbumCarouselAPI();
+    const albumCarouselView = new AlbumCarouselView(this.pageContent, null, true);
+    const albums = await albumCarouselAPI.getFavorite();
+    if (albums) {
+      await albumCarouselView.render(albums);
+    }
 
     const playlistListAPI = new PlaylistListAPI();
     const playlistListView = new PlaylistListView(this.pageContent);
     const playlists = await playlistListAPI.getFavorite();
     if (playlists) {
       await playlistListView.render(playlists.slice(0, 5), true, true);
+    }
+
+    if (!artists && !albums && !playlists) {
+      const errorView = new ErrorView(
+        null,
+        "У вас пока нед подписок",
+        "Здесь можно увидеть подписки на артистов, альбомы и плейлисты",
+      );
+      await errorView.render();
     }
 
     if (

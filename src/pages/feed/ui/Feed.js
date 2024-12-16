@@ -1,4 +1,5 @@
 import { TrackListAPI } from "../../../widgets/trackList/index.js";
+import { ArtistCarouselAPI} from "../../../widgets/artistCarousel/index.js";
 import { ListenBlockView } from "../../../widgets/listenBlock/index.js";
 import { TrackListView } from "../../../widgets/trackList/index.js";
 import { ArtistCarouselView } from "../../../widgets/artistCarousel/index.js";
@@ -53,8 +54,10 @@ export class FeedPage {
       eventBus.emit("hidePlayer");
     }
 
+    const artistCarouselAPI = new ArtistCarouselAPI();
     const artistCarouselView = new ArtistCarouselView(this.pageContent);
-    await artistCarouselView.render();
+    const artists = await artistCarouselAPI.get();
+    await artistCarouselView.render(artists);
 
     const playlistListAPI = new PlaylistListAPI();
     const playlistListView = new PlaylistListView(this.pageContent);
