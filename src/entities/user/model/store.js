@@ -9,6 +9,7 @@ import {
 	signUpRequest,
 	signOutRequest,
 	getCSRFTokenRequest,
+	checkAuthRequest,
 } from '../api/auth.js';
 import {
 	getUserRequest,
@@ -23,11 +24,48 @@ class UserStore {
 			user: Storage.load('user') || {},
 			error: null,
 		};
+		this.csrfToken = null;
 	}
 
-	isAuth() {
+	isAuth = () => {
 		return this.storage.user?.isAuthorized;
-	}
+	};
+
+	checkAuth = async () => {
+		try {
+			const response = await checkAuthRequest();
+
+			switch (response.status) {
+				case HTTP_STATUS.OK:
+					this.storage.error = null;
+
+					await this.getCSRFToken();
+
+					eventBus.emit('checkAuthSuccess');
+					break;
+
+				case HTTP_STATUS.UNAUTHORIZED:
+					this.storage.user = {
+						isAuthorized: false,
+					};
+					Storage.save('user', this.storage.user);
+					this.storage.error = PUBLIC_ERRORS.UNAUTHORIZED;
+					eventBus.emit('unauthorized');
+					eventBus.emit('navigate', '/signin');
+					break;
+
+				default:
+					this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+					eventBus.emit('checkAuthError', this.storage.error);
+					console.error('undefined status code:', response.status);
+					break;
+			}
+		} catch (error) {
+			this.storage.error = PUBLIC_ERRORS.UNKNOWN;
+			eventBus.emit('checkAuthError', this.storage.error);
+			console.error('unable to check authorization: ', error);
+		}
+	};
 
 	signIn = async (user) => {
 		try {
@@ -41,7 +79,6 @@ class UserStore {
 						username: response.data.user.username,
 						email: response.data.user.email,
 						image: response.data.user.image,
-						token: response.data.token,
 						isAuthorized: true,
 					};
 					this.storage.user = userData;
@@ -57,6 +94,7 @@ class UserStore {
 					this.storage.user = {
 						isAuthorized: false,
 					};
+					Storage.save('user', this.storage.user);
 					this.storage.error = PUBLIC_ERRORS.INVALID_USERNAME_OR_PASSWORD;
 					eventBus.emit('signInError', this.storage.error);
 					break;
@@ -85,7 +123,6 @@ class UserStore {
 						username: response.data.user.username,
 						email: response.data.user.email,
 						image: response.data.user.image,
-						token: response.data.token,
 						isAuthorized: true,
 					};
 					this.storage.user = userData;
@@ -101,6 +138,7 @@ class UserStore {
 					this.storage.user = {
 						isAuthorized: false,
 					};
+					Storage.save('user', this.storage.user);
 					this.storage.error = PUBLIC_ERRORS.USER_EXISTS;
 					eventBus.emit('signUpError', this.storage.error);
 					break;
@@ -127,6 +165,7 @@ class UserStore {
 					this.storage.error = null;
 					Storage.save('user', this.storage.user);
 
+					this.csrfToken = null;
 					eventBus.emit('signOutSuccess');
 					break;
 
@@ -237,18 +276,12 @@ class UserStore {
 				return;
 			}
 
-			let userFields;
-
 			switch (response.status) {
 				case HTTP_STATUS.OK:
-					userFields = {
-						csrfToken: response.data.csrf,
-					};
-					this.storage.user = { ...this.storage.user, ...userFields };
+					this.csrfToken = response.data.csrf;
 					this.storage.error = null;
-					Storage.save('user', this.storage.user);
 
-					eventBus.emit('updateUserSuccess', this.storage.user);
+					eventBus.emit('updateUserSuccess', this.csrfToken);
 					break;
 				default:
 					this.storage.error = handleStatus(
@@ -257,7 +290,7 @@ class UserStore {
 					);
 			}
 		} catch (error) {
-			console.error('Error getting user csrf token:', error);
+			console.error('error getting user csrf token:', error);
 		}
 	};
 }

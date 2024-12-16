@@ -1,24 +1,12 @@
-.albums {
-  &__container {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
+@use "/src/colors.scss";
 
-  &__block {
-    margin: 0 auto;
-    padding: 10px;
-    background-color: rgba(241.39, 241.39, 241.39, 0.1);
-    border-radius: 9px;
-    margin-top: 12px;
-  }
+.albums {
 
 	&__recommend_text {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		color: #f1f1f1;
-		font-size: 24px;
-		font-weight: 400;
+		color: colors.$white;
 	}
 
 	&__list {
@@ -29,7 +17,7 @@
 		gap: 15px;
 	}
 
-  &__show_more {
+/*   &__show_more {
     text-decoration: none;
     color: #f1f1f1;
 
@@ -40,10 +28,10 @@
     &:hover {
       text-decoration: underline;
     }
-  }
+  } */
 }
 
-@media (max-width: 1380px) {
+/* @media (max-width: 1380px) {
 	.albums {
 	  	&__block {
 			width: 90%;
@@ -68,3 +56,4 @@
 		}
 	}
 }
+ */

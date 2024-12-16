@@ -1,52 +1,64 @@
-import { TrackListAPI } from '../../../widgets/trackList/index.js';
-import { ListenBlockView } from '../../../widgets/listenBlock/index.js';
-import { TrackListView } from '../../../widgets/trackList/index.js';
-import { ArtistCarouselView } from '../../../widgets/artistCarousel/index.js';
-import { PlaylistListAPI, PlaylistListView } from '../../../widgets/playlistList/index.js';
-import { FooterPlayerView } from '../../../widgets/footerPlayer/index.js';
+import { TrackListAPI } from "../../../widgets/trackList/index.js";
+import { ListenBlockView } from "../../../widgets/listenBlock/index.js";
+import { TrackListView } from "../../../widgets/trackList/index.js";
+import { ArtistCarouselView } from "../../../widgets/artistCarousel/index.js";
+import {
+  PlaylistListAPI,
+  PlaylistListView,
+} from "../../../widgets/playlistList/index.js";
 
-import { userStore } from '../../../entities/user/model/store.js';
-import { player } from '../../../shared/player/model/store.js';
-import { CSATWindow } from '../../../widgets/csatWindow/ui/csatWindow.js';
+import { player } from "../../../shared/player/model/store.js";
+import { CSATWindow } from "../../../widgets/csatWindow/ui/csatWindow.js";
+import { userStore } from "../../../entities/user/index.js";
+import { eventBus } from "../../../shared/lib/eventbus.js";
+import { csatStore } from "../../../entities/csat/index.js";
 
 export class FeedPage {
-	/**
-	 * Creates an instance of the View class.
-	 */
-	constructor() {
-		this.parent = document.querySelector('#root');
-	}
+  /**
+   * Creates an instance of the View class.
+   */
+  constructor() {
+    this.parent = document.querySelector("#root");
+  }
 
-	async render() {
-		this.parent.innerHTML = '';
+  async render() {
+    await userStore.checkAuth();
+    if (!userStore.isAuth()) {
+      return;
+    }
 
-		const iframe = new CSATWindow();
-		await iframe.render();
+    this.parent.innerHTML = "";
 
-		const listenBlockView = new ListenBlockView(this.parent);
-		await listenBlockView.render();
+    if (!csatStore.submitted()) {
+      const iframe = new CSATWindow();
+      await iframe.render();
+    }
 
-		const trackListAPI = new TrackListAPI();
-		const trackListView = new TrackListView(this.parent);
-		const tracks = await trackListAPI.get();
-		await trackListView.render(tracks.slice(0, 5));
+    this.pageContent = document.createElement("div");
+    this.pageContent.classList.add("page_content");
+    this.parent.appendChild(this.pageContent);
 
-		player.setTracks(tracks);
+    const listenBlockView = new ListenBlockView(this.pageContent);
+    await listenBlockView.render();
 
-		const artistCarouselView = new ArtistCarouselView(this.parent);
-		await artistCarouselView.render();
+    const trackListAPI = new TrackListAPI();
+    const trackListView = new TrackListView(this.pageContent);
+    const tracks = await trackListAPI.get();
+    await trackListView.render(tracks.slice(0, 5));
 
-		const playlistListAPI = new PlaylistListAPI();
-		const playlistListView = new PlaylistListView(this.parent)
-		const playlists = await playlistListAPI.get();
-		await playlistListView.render(playlists.slice(0, 5));
+    player.addTracks(tracks);
+    if (userStore.storage.user.isAuthorized) {
+      eventBus.emit("showPlayer");
+    } else {
+      eventBus.emit("hidePlayer");
+    }
 
+    const artistCarouselView = new ArtistCarouselView(this.pageContent);
+    await artistCarouselView.render();
 
-		const footPlayerView = new FooterPlayerView(this.parent);
-
-		const user = userStore.storage.user;
-		if (user) {
-			await footPlayerView.render();
-		}
-	}
+    const playlistListAPI = new PlaylistListAPI();
+    const playlistListView = new PlaylistListView(this.pageContent);
+    const playlists = await playlistListAPI.get();
+    await playlistListView.render(playlists.slice(0, 5));
+  }
 }

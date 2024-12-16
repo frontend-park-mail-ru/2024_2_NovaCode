@@ -1,55 +1,25 @@
-.listen {
-  &__container {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
+@use "/src/colors.scss" as *;
 
-  &__block {
-    margin: 0 auto;
-    padding: 10px;
-    background-color: rgba(241.39, 241.39, 241.39, 0.1);
-    border-radius: 9px;
-    margin-top: 12px;
-  }
+.listen {
 
   &__btn_img {
     display: block;
     margin: 0 auto;
-    width: 250px;
-    height: 250px;
-    transition: 0.5s;
-    transition-timing-function: ease;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 
   &__title {
     margin-top: 10px;
-    color: #f1f1f1;
-    font-size: 41px;
-    font-weight: 400;
+    color: $white;
     text-align: center;
   }
 
   &__info {
-    color: #f1f1f1;
-    font-size: 25px;
-    font-weight: 400;
+    color: $white;
     text-align: center;
   }
 }
 
-@media (max-width: 1380px) {
-  .listen {
-    &__block {
-      width: 90%;
-    }
-  }
-}
-
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .listen {
     &__btn_img {
       width: 175px;
@@ -81,4 +51,4 @@
       font-size: 18px;
     }
   }
-}
+} */

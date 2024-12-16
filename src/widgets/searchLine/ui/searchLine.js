@@ -1,7 +1,7 @@
 import { SearchLineAPI } from "../api/api.js";
 import { eventBus } from "../../../shared/lib/index.js";
 import template from './searchLine.hbs';
-import './searchLine.scss';
+import * as styles from './searchLine.scss';
 
 export class SearchLineView {
   parent;
@@ -13,21 +13,21 @@ export class SearchLineView {
   async render() {
     const searchLineElement = document.createElement("div");
     searchLineElement.classList.add("search_line");
-    searchLineElement.innerHTML = template();
+    searchLineElement.innerHTML = template({ styles });
     this.parent.appendChild(searchLineElement);
 
     this.bindEvents();
   }
 
   bindEvents() {
-    const form = document.querySelector(".search_line__form");
+    const form = document.querySelector(`.${styles['search_line__form']}`);
     if (form) {
       form.addEventListener("submit", this.handleSubmit.bind(this));
     }
   }
 
   destructor() {
-    const form = document.querySelector(".search_line__form");
+    const form = document.querySelector(`.${styles['search_line__form']}`);
     if (form) {
       form.removeEventListener("submit", this.handleSubmit.bind(this));
     }
@@ -36,7 +36,7 @@ export class SearchLineView {
   async handleSubmit(event) {
     event.preventDefault();
 
-    const query = document.querySelector(".search_line__input").value;
+    const query = document.querySelector(`.${styles['search_line__input']}`).value;
 
     const artists = await SearchLineAPI.findArtists(query);
     eventBus.emit("foundArtists", artists);
@@ -46,5 +46,9 @@ export class SearchLineView {
 
     const tracks = await SearchLineAPI.findTracks(query);
     eventBus.emit("foundTracks", tracks);
+
+    if (!artists && !albums && !tracks) {
+      eventBus.emit("emptySearchResult");
+    }
   }
 }

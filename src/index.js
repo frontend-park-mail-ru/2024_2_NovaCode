@@ -1,4 +1,4 @@
-import './index.css';
+import './index.scss';
 import { App } from './app/app.js';
 
 // if ('serviceWorker' in navigator) {
@@ -13,4 +13,4 @@ import { App } from './app/app.js';
 // }
 
 const app = new App();
-app.run();
+await app.run();

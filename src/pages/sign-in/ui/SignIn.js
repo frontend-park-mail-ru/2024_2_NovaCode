@@ -1,124 +1,139 @@
-import { eventBus } from '../../../shared/lib/index.js';
-import { validate, VALIDATION_RULES } from '../../../shared/lib/index.js';
-import { userStore } from '../../../entities/user/model/store.js';
-import template from './SignIn.hbs';
-import './SignIn.scss';
+import { eventBus } from "../../../shared/lib/index.js";
+import { validate, VALIDATION_RULES } from "../../../shared/lib/index.js";
+import { userStore } from "../../../entities/user/model/store.js";
+import template from "./SignIn.hbs";
+import * as styles from "./SignIn.scss";
 
 export class SignInPage {
-	parent;
+  parent;
 
-	constructor() {
-		this.parent = document.querySelector('#root');
+  constructor() {
+    this.parent = document.querySelector("#root");
 
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleSignInSuccess = this.handleSignInSuccess.bind(this);
-		this.handleSignInError = this.handleSignInError.bind(this);
-	}
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignInSuccess = this.handleSignInSuccess.bind(this);
+    this.handleSignInError = this.handleSignInError.bind(this);
+  }
 
-	render() {
-		this.parent.innerHTML = '';
+  render() {
+    this.parent.innerHTML = "";
 
-		this.parent.innerHTML = template();
-		this.bindEvents();
-		this.onEvents();
-	}
+    this.pageContent = document.createElement("div");
+    this.pageContent.classList.add("page_content");
+    this.parent.appendChild(this.pageContent);
 
-	bindEvents() {
-		const form = document.querySelector('#login-form');
-		const links = this.parent.querySelectorAll('.link');
+    const loginBlock = document.createElement("div");
+    loginBlock.classList.add("login");
+    loginBlock.innerHTML = template({ styles });
+    this.pageContent.appendChild(loginBlock);
 
-		if (form) {
-			form.addEventListener('submit', this.handleSubmit);
-		}
-		links.forEach(link => {
-			link.addEventListener('click', (event) => this.handleLink(event));
-	  	});
-	}
+    this.bindEvents();
+    this.onEvents();
+    eventBus.emit("hidePlayer");
+  }
 
-	handleLink(event) {
-		event.preventDefault();
-		const href = event.target.getAttribute('href')
-		eventBus.emit('navigate', href);
-	}
+  bindEvents() {
+    const form = document.querySelector("#login-form");
+    const links = this.parent.querySelectorAll(".link");
 
-	async handleSubmit(event) {
-		event.preventDefault();
+    if (form) {
+      form.addEventListener("submit", this.handleSubmit);
+    }
+    links.forEach((link) => {
+      link.addEventListener("click", (event) => this.handleLink(event));
+    });
+  }
 
-		const username = document.querySelector('#username').value;
-		const password = document.querySelector('#password').value;
+  handleLink(event) {
+    event.preventDefault();
+    const href = event.target.getAttribute("href");
+    eventBus.emit("navigate", href);
+  }
 
-		let validationErrors = this.inputValidation(username, password);
-		console.log(validationErrors);
+  async handleSubmit(event) {
+    event.preventDefault();
 
-		if (Object.keys(validationErrors).length > 0) {
-			this.handleSignInError(validationErrors);
-			return;
-		}
+    const username = document.querySelector("#username").value;
+    const password = document.querySelector("#password").value;
 
-		const user = { username, password };
-		await userStore.signIn(user);
-	}
+    let validationErrors = this.inputValidation(username, password);
 
-	onEvents() {
-		eventBus.on('signInSuccess', this.handleSignInSuccess);
-		eventBus.on('signInError', this.handleSignInError);
-	}
+    if (Object.keys(validationErrors).length > 0) {
+      this.handleSignInError(validationErrors);
+      return;
+    }
 
-	offEvents() {
-		eventBus.off('signInSuccess', this.handleSignInSuccess);
-		eventBus.off('signInError', this.handleSignInError);
-	}
+    const user = { username, password };
+    await userStore.signIn(user);
+  }
 
-	handleSignInSuccess() {
-		eventBus.emit('navigate', '/');
-	}
+  onEvents() {
+    eventBus.on("signInSuccess", this.handleSignInSuccess);
+    eventBus.on("signInError", this.handleSignInError);
+  }
 
-	handleSignInError(error) {
-		document.querySelector('#login__username-error').textContent = '';
-		document.querySelector('#login__password-error').textContent = '';
-		document.querySelector('#login__general-error').textContent = '';
-		document.querySelector('#username').classList.remove('login__input_error');
-		document.querySelector('#password').classList.remove('login__input_error');
+  offEvents() {
+    eventBus.off("signInSuccess", this.handleSignInSuccess);
+    eventBus.off("signInError", this.handleSignInError);
+  }
 
-		if (error.username) {
-			document.querySelector('#username').classList.add('login__input_error');
-			document.querySelector('#login__username-error').textContent =
-				error.username;
-		}
+  handleSignInSuccess() {
+    eventBus.emit("navigate", "/");
+  }
 
-		if (error.password) {
-			document.querySelector('#password').classList.add('login__input_error');
-			document.querySelector('#login__password-error').textContent =
-				error.password;
-		}
+  handleSignInError(error) {
+    document.querySelector("#login__username-error").textContent = "";
+    document.querySelector("#login__password-error").textContent = "";
+    document.querySelector("#login__general-error").textContent = "";
+    document
+      .querySelector("#username")
+      .classList.remove(styles["login__input-error"]);
+    document
+      .querySelector("#password")
+      .classList.remove(styles["login__input-error"]);
 
-		if (typeof error === 'string') {
-			document.querySelector('#login__general-error').textContent = error;
-		}
-	}
+    if (error.username) {
+      document
+        .querySelector("#username")
+        .classList.add(styles["login__input_error"]);
+      document.querySelector("#login__username-error").textContent =
+        error.username;
+    }
 
-	inputValidation(username, password) {
-		let validationErrors = {};
+    if (error.password) {
+      document
+        .querySelector("#password")
+        .classList.add(styles["login__input_error"]);
+      document.querySelector("#login__password-error").textContent =
+        error.password;
+    }
 
-		const usernameError = validate(username, VALIDATION_RULES.username);
-		if (usernameError) {
-			validationErrors.username = usernameError;
-		}
+    if (typeof error === "string") {
+      document.querySelector("#login__general-error").textContent = error;
+    }
+  }
 
-		const passwordError = validate(password, VALIDATION_RULES.password);
-		if (passwordError) {
-			validationErrors.password = passwordError;
-		}
+  inputValidation(username, password) {
+    let validationErrors = {};
 
-		console.log(validationErrors);
-		return validationErrors;
-	}
+    const usernameError = validate(username, VALIDATION_RULES.username);
+    if (usernameError) {
+      validationErrors.username = usernameError;
+    }
 
-	destructor() {
-		this.offEvents();
-		const form = document.querySelector('#login-form');
-		if (form) {
-			form.removeEventListener('submit', this.handleSubmit);
-		}
-	}
+    const passwordError = validate(password, VALIDATION_RULES.password);
+    if (passwordError) {
+      validationErrors.password = passwordError;
+    }
+
+    return validationErrors;
+  }
+
+  destructor() {
+    this.offEvents();
+    const form = document.querySelector("#login-form");
+    if (form) {
+      form.removeEventListener("submit", this.handleSubmit);
+    }
+  }
 }

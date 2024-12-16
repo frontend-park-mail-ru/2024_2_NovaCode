@@ -1,27 +1,27 @@
-<div class="statistic__container">
+<div class="{{ styles.statistic__container }}">
         {{#each statistics }}
-        <div class="statistic__block">
-            <div class="statistic__stats">
-                <div class="statistic__topic">
+        <div class="{{ ../styles.statistic__block }}">
+            <div class="{{ ../styles.statistic__stats }}">
+                <div class="{{ ../styles.statistic__topic }}">
                     {{ topic }}
                 </div>
-                <div class="statistic__question_stats">
+                <div class="{{ ../styles.statistic__question_stats }}">
                 {{#each topic_stat }}
-                <div class="statistic__question_stat" data-average-score="{{ average_score }}">
-                    <div class="statistic__question">
+                <div class="{{ ../../styles.statistic__question_stat }}" data-average-score="{{ average_score }}">
+                    <div class="{{ styles.statistic__question }}">
                         {{ question }}
                     </div>
-                    <div class="rating__container">
-                        <div class="rating__block">1</div>
-                        <div class="rating__block">2</div>
-                        <div class="rating__block">3</div>
-                        <div class="rating__block">4</div>
-                        <div class="rating__block">5</div>
-                        <div class="rating__block">6</div>
-                        <div class="rating__block">7</div>
-                        <div class="rating__block">8</div>
-                        <div class="rating__block">9</div>
-                        <div class="rating__block">10</div>
+                    <div class="{{ ../../styles.rating__container }}">
+                        <div class="{{ ../../styles.rating__block }}">1</div>
+                        <div class="{{ ../../styles.rating__block }}">2</div>
+                        <div class="{{ ../../styles.rating__block }}">3</div>
+                        <div class="{{ ../../styles.rating__block }}">4</div>
+                        <div class="{{ ../../styles.rating__block }}">5</div>
+                        <div class="{{ ../../styles.rating__block }}">6</div>
+                        <div class="{{ ../../styles.rating__block }}">7</div>
+                        <div class="{{ ../../styles.rating__block }}">8</div>
+                        <div class="{{ ../../styles.rating__block }}">9</div>
+                        <div class="{{ ../../styles.rating__block }}">10</div>
                     </div>
                 </div>
                 {{/each}}

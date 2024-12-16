@@ -1,6 +1,6 @@
 import { AlbumView } from '../../../entities/album/index.js';
 import template from './albumList.hbs';
-import './albumList.scss';
+import * as styles from './albumList.scss';
 
 export class AlbumListView {
 	/**
@@ -32,7 +32,7 @@ export class AlbumListView {
 			titleText = "Популярные альбомы";
 		}
 
-		albumListElement.innerHTML = template({});
+		albumListElement.innerHTML = template({styles});
 
 		this.parent.appendChild(albumListElement);
 
@@ -46,7 +46,8 @@ export class AlbumListView {
 	}
 
 	setTitle(titleText) {
-		const title = document.querySelector('.albums__recommend_text');
+		const titleBlock = document.querySelector(`.${styles['albums__recommend_text']}`);
+		const title = titleBlock.querySelector('h4');
 		title.textContent = titleText;
 	}
 }

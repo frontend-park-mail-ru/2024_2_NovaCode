@@ -1,24 +1,25 @@
 .album {
+	cursor: pointer;
+	border: 5px solid transparent;
+	border-radius: 10px;
+
 	&__img {
-		width: 210px;
-		height: 210px;
-		border-radius: 6px;
+		border-radius: 5px;
+		transition-duration: 0.2s;
+		transition-timing-function: ease;
+
+		&:hover {
+			transform: scale(1.1);
+		}
 	}
 
-	&__name {
+	&__name,
+	&__artist {
 		margin-top: 5px;
 		display: flex;
 		justify-content: center;
 		color: #f1f1f1;
-		font-size: 16px;
-		font-weight: 400;
-	}
-    &__artist {
-		margin-top: 5px;
-		display: flex;
-		justify-content: center;
-		color: #A1A1A1;
-		font-size: 16px;
+		font-size: 1rem;
 		font-weight: 400;
 	}
 }

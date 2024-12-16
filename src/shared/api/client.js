@@ -18,7 +18,7 @@ const HTTP_METHODS = {
 const request = async (method, url, options = {}) => {
   const { body = null, headers = {} } = options;
 
-  const csrfToken = userStore.storage.user?.csrfToken;
+  const csrfToken = userStore.csrfToken;
   const csrfTokenHeader = HEADERS.CSRF_TOKEN;
 
   const requestOptions = {

@@ -1,0 +1,14 @@
+@use "/src/colors.scss";
+
+.error {
+
+	&__title {
+		color: colors.$white;
+		text-align: center;
+	}
+
+	&__message {
+		color: colors.$white;
+		text-align: center;
+	}
+}
