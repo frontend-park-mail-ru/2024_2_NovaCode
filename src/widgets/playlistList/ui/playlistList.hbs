@@ -1,11 +1,11 @@
 <div class="{{ styles.playlists__container }} container">
   <div class="{{ styles.playlists__block }} block">
-    {{#if showMoreHref}}
-      <div class="{{ styles.playlists__text }}">
-        <h4>Популярные плейлисты</h4>
-        <h4><a href="{{ showMoreHref }}" class="playlists__show_more link">Показать еще</a></h4>
-      </div>
-    {{/if}}
+    <div class="{{ styles.playlists__text }}">
+      <h4>Популярные плейлисты</h4>
+      {{#if showMoreHref}}
+      <h4><a href="{{ showMoreHref }}" class="playlists__show_more link">Показать еще</a></h4>
+      {{/if}}
+    </div>
     <div class="{{ styles.playlists__list }}" id="mainpage-popular-playlists">
     
     </div>

@@ -24,4 +24,17 @@ export class AlbumListAPI {
       console.error(error);
     }
   }
+
+  async getFavorite() {
+    try {
+      const response = await GET(`${API_ENDPOINTS.GET_FAVORITE_ALBUMS}`);
+      if (!response.error) {
+        return response.data;
+      } else {
+        console.log("Error during favorite AlbumList loading:");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

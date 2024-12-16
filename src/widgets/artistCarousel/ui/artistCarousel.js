@@ -29,10 +29,21 @@ export class ArtistCarouselView {
     let artists = !this.favorite
       ? await artistCarouselAPI.get()
       : await artistCarouselAPI.getFavorite();
+    if (!artists) return;
 
     const artistCarouselElement = document.createElement("div");
     artistCarouselElement.classList.add("popular_artists");
-    let showMoreHref = `/more_artists/popular`;
+
+    let titleText;
+    let showMoreHref;
+    if (this.favorite) {
+      showMoreHref = `/more_artists/favorite`;
+      titleText = "Любимые артисты";
+    } else {
+      showMoreHref = `/more_artists/popular`;
+      titleText = "Популярные артисты";
+    }
+
     artistCarouselElement.innerHTML = template({ styles, showMoreHref });
     this.parent.appendChild(artistCarouselElement);
 
@@ -46,9 +57,8 @@ export class ArtistCarouselView {
     });
 
     await this.getElements();
-    if (this.favorite) {
-      this.setTitle("Любимые артисты");
-    }
+    
+    this.setTitle(titleText);
 
     this.onEvents();
     this.addEvents();

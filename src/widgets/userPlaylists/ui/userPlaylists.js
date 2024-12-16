@@ -29,6 +29,7 @@ export class UserPlaylistsView {
   async render() {
     const userPlaylistsAPI = new UserPlaylistsAPI(this.userId);
     const playlists = await userPlaylistsAPI.get();
+    if (!playlists) return;
 
     const userPlaylistsElement = document.createElement("div");
     userPlaylistsElement.classList.add("user-playlists");
@@ -52,7 +53,6 @@ export class UserPlaylistsView {
     }
 
     const playlistsBlock = document.getElementById("user-playlists");
-    if (playlists?.length === 0) return;
     Array.from(playlists).forEach((playlist) => {
       const playlistView = new PlaylistView(playlistsBlock);
       playlistView.render(playlist);
