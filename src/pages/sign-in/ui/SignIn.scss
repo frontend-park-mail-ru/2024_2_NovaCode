@@ -30,6 +30,9 @@
     margin-top: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: auto;
   }
 
   &__input {
@@ -50,23 +53,34 @@
     &_error {
       border: 3px solid colors.$red;
     }
+
+    @media (max-width: 600px) {
+      width: 100%;
+      box-sizing: border-box;
+    }
   }
 
   &__input-error {
     width: 430px;
     color: colors.$red;
-    font-size: 1rem;
-    font-weight: 400;
     margin-top: 5px;
+
+    @media (max-width: 600px) {
+      width: 100%;
+      box-sizing: border-box;
+    }
   }
 
   &__general-error {
     width: 430px;
     color: colors.$red;
-    font-size: 1rem;
-    font-weight: 400;
     margin-top: 15px;
     text-align: center;
+
+    @media (max-width: 600px) {
+      width: 100%;
+      box-sizing: border-box;
+    }
   }
 
   &__submit_btn {
@@ -79,6 +93,11 @@
     border: none;
     color: colors.$white;
     text-align: center;
+
+    @media (max-width: 600px) {
+      width: 100%;
+      box-sizing: border-box;
+    }
   }
 
   &__additional {
@@ -88,6 +107,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: 600px) {
+      width: 100%;
+      box-sizing: border-box;
+      flex-direction: column;
+    }
   }
 
   /* @media (pointer: coarse) {

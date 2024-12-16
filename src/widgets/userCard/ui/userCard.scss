@@ -6,6 +6,11 @@
     justify-content: center;
     align-items: center;
     gap: 50px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 10px;
+    }
   }
 
   &__public_info {

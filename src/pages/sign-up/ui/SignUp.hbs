@@ -6,8 +6,8 @@
   </div>
 </div>
 
-<div class="{{ styles.register__form }}">
-  <form id="signup-form">
+{{!-- <div class="{{ styles.register__form }}"> --}}
+  <form id="signup-form" class="{{ styles.register__form }}">
     <input class="{{ styles.register__input }}" type="text" id="username" name="username" placeholder="Имя пользователя" required />
     <div id="register__username-error" class="{{ styles.register__input-error }}"></div>
 
@@ -25,4 +25,4 @@
     
     <div id="register__general-error" class="{{ styles.register__general-error }}"></div>
   </form>
-</div> 
+{{!-- </div>  --}}
