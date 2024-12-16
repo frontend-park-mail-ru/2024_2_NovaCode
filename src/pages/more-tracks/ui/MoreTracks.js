@@ -30,7 +30,7 @@ export class MoreTracksPage {
 		this.pageContent.classList.add('page_content');
 		this.parent.appendChild(this.pageContent);
 
-		const trackListAPI = new TrackListAPI({artistId: this.artistId, albumId: this.albumId});
+		const trackListAPI = new TrackListAPI({artistId: this.artistId, albumId: this.albumId, favorite: this.favorite});
 		const trackListView = new TrackListView(
 			this.pageContent,
 			{

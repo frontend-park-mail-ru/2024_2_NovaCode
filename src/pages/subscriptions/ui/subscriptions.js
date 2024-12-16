@@ -39,7 +39,9 @@ export class SubscriptionsPage {
     const playlistListAPI = new PlaylistListAPI();
     const playlistListView = new PlaylistListView(this.pageContent);
     const playlists = await playlistListAPI.getFavorite();
-    await playlistListView.render(playlists.slice(0, 5), true, true);
+    if (playlists) {
+      await playlistListView.render(playlists.slice(0, 5), true, true);
+    }
 
     if (
       userStore.storage.user.isAuthorized &&

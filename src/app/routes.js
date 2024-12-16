@@ -87,7 +87,7 @@ export const PAGES = [
     view: StatisticPage,
   },
   {
-    path: "/more_playlists/popular",
+    path: "/more_playlists/{type}",
     view: MorePlaylistsPage,
   },
   {

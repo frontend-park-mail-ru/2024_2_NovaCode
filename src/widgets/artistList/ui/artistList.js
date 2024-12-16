@@ -20,9 +20,16 @@ export class ArtistListView {
 	/**
 	 * Renders the playlist view.
 	 */
-	async render(artists) {
+	async render(artists, favorite = false) {
 		const artistListElement = document.createElement('div');
 		artistListElement.classList.add('artists');
+
+		let titleText;
+		if (favorite) {
+			titleText = "Любимые артисты";
+		} else {
+			titleText = "Популярные артисты";
+		}
 	
 		artistListElement.innerHTML = template({ styles });
 		
@@ -33,5 +40,13 @@ export class ArtistListView {
 			const artistView = new ArtistView(artistsBlock);
 			artistView.render(artist);
 		});
+
+		this.setTitle(titleText);
+	}
+
+	setTitle(titleText) {
+		const titleBlock = document.querySelector(`.${styles['artists__recommend_text']}`);
+		const title = titleBlock.querySelector('h4');
+		title.textContent = titleText;
 	}
 }

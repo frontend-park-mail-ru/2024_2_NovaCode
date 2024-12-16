@@ -22,7 +22,7 @@ export class TrackListView {
 		this.parent = parent ?? document.querySelector('#root');
 		this.artistId = args.artistId ?? null;
 		this.albumId = args.albumId ?? null;
-		this.favorite = arguments.favorite ?? null;
+		this.favorite = args.favorite ?? null;
 		this.myPlaylistId = args.myPlaylistId ?? false;
 	}
 

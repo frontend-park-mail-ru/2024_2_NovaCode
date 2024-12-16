@@ -9,6 +9,7 @@ export class MoreAlbumsPage {
    */
   constructor(params) {
     this.parent = document.querySelector('#root');
+    this.type = params['type']
     this.entity = params['entity'];
     this.entityId = params['id'];
   }
@@ -20,14 +21,21 @@ export class MoreAlbumsPage {
       this.artistId = this.entityId;
     }
 
+    if (this.type === 'favorite') {
+      this.favorite = this.type;
+    }
+
 		this.pageContent = document.createElement('div');
 		this.pageContent.classList.add('page_content');
 		this.parent.appendChild(this.pageContent);
 
-		const albumListAPI = new AlbumListAPI(this.artistId);
-		const albums = await albumListAPI.get();
+    const albumListAPI = new AlbumListAPI(this.artistId);
+    let albums = !this.favorite
+    ? await albumListAPI.get()
+    : await albumListAPI.getFavorite();
+
 		const albumListView = new AlbumListView(this.pageContent, this.artistId);
-		await albumListView.render(albums);
+		await albumListView.render(albums, this.favorite);
 
     if (userStore.storage.user.isAuthorized) {
       eventBus.emit('showPlayer');

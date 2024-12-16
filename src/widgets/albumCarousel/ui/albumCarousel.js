@@ -30,6 +30,7 @@ export class AlbumCarouselView {
     let albums = !this.favorite
       ? await albumCarouselAPI.get()
       : await albumCarouselAPI.getFavorite();
+    if (!albums) return;
 
     const albumCarouselElement = document.createElement("div");
     albumCarouselElement.classList.add("album_carousel");
@@ -40,7 +41,7 @@ export class AlbumCarouselView {
       showMoreHref = `/more_albums/${"artist"}/${this.artistId}`;
       titleText = "Альбомы исполнителя";
     } else if (this.favorite) {
-      showMoreHref = `/more_albums/popular`;
+      showMoreHref = `/more_albums/favorite`;
       titleText = "Любимые альбомы";
     } else {
       showMoreHref = `/more_albums/popular`;

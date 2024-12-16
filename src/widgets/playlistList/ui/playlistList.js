@@ -26,8 +26,17 @@ export class PlaylistListView {
     const playlistListElement = document.createElement("div");
     playlistListElement.classList.add("playlists");
 
+    let titleText;
+    let showMoreHref;
+    if (favorite) {
+      showMoreHref = `/more_playlists/favorite`;
+      titleText = "Любимые плейлисты";
+    } else {
+      showMoreHref = `/more_playlists/popular`;
+      titleText = "Популярные плейлисты";
+    }
+
     if (needsShowMoreHref) {
-      let showMoreHref = `/more_playlists/popular`;
       playlistListElement.innerHTML = template({ styles, showMoreHref });
     } else {
       playlistListElement.innerHTML = template({ styles });
@@ -45,13 +54,12 @@ export class PlaylistListView {
 
     this.addEvents();
 
-    if (favorite && needsShowMoreHref) {
-      this.setTitle("Любимые плейлисты");
-    }
+    this.setTitle(titleText);
   }
 
   setTitle(newTitle) {
-    const title = document.querySelector(`.${styles["playlists__text"]}>h4`);
+    const titleBlock = document.querySelector(`.${styles['playlists__text']}`);
+    const title = titleBlock.querySelector('h4');
     title.textContent = newTitle;
   }
 

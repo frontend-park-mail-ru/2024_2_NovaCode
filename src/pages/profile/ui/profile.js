@@ -37,6 +37,7 @@ export class ProfilePage {
   async renderFavorites() {
     const trackListAPI = new TrackListAPI({ favorite: true });
     const tracks = await trackListAPI.get();
+    if (!tracks) return;
     if (tracks.length > 0 && userStore.storage.user.isAuthorized) {
       const trackListView = new TrackListView(this.pageContent, { favorite: true });
       await trackListView.render(tracks.slice(0, 5));

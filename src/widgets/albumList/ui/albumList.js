@@ -21,13 +21,15 @@ export class AlbumListView {
 	/**
 	 * Renders the album view.
 	 */
-	async render(albums) {
+	async render(albums, favorite = false) {
 		const albumListElement = document.createElement('div');
 		albumListElement.classList.add('albums');
 
 		let titleText;
 		if (this.artistId) {
 			titleText = "Альбомы исполнителя";
+		} else if (favorite) {
+			titleText = "Любимые альбомы";
 		} else {
 			titleText = "Популярные альбомы";
 		}

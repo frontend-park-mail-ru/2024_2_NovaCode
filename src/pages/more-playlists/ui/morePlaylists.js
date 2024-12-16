@@ -7,21 +7,29 @@ export class MorePlaylistsPage {
   /**
    * Creates an instance of the View class.
    */
-  constructor() {
+  constructor(params) {
     this.parent = document.querySelector('#root');
+    this.type = params['type']
   }
 
 	async render() {
 		this.parent.innerHTML = '';
 
+    if (this.type === 'favorite') {
+      this.favorite = this.type;
+    }
+
 		this.pageContent = document.createElement('div');
 		this.pageContent.classList.add('page_content');
 		this.parent.appendChild(this.pageContent);
 
-		const playlistListAPI = new PlaylistListAPI();
-		const playlists = await playlistListAPI.get();
+    const playlistListAPI  = new PlaylistListAPI();
+    let playlists = !this.favorite
+    ? await playlistListAPI.get()
+    : await playlistListAPI.getFavorite();
+
 		const playlistListView = new PlaylistListView(this.pageContent);
-		await playlistListView.render(playlists, false);
+		await playlistListView.render(playlists, false, this.favorite);
 
     if (userStore.storage.user.isAuthorized) {
       eventBus.emit('showPlayer');
