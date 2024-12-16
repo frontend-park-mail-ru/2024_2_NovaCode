@@ -25,13 +25,7 @@ export class AlbumCarouselView {
   /**
    * Renders the playlist view.
    */
-  async render() {
-    const albumCarouselAPI = new AlbumCarouselAPI(this.artistId);
-    let albums = !this.favorite
-      ? await albumCarouselAPI.get()
-      : await albumCarouselAPI.getFavorite();
-    if (!albums) return;
-
+  async render(albums) {
     const albumCarouselElement = document.createElement("div");
     albumCarouselElement.classList.add("album_carousel");
 
