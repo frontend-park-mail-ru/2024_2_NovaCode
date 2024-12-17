@@ -4,37 +4,37 @@ import { PlaylistListAPI } from '../../../widgets/playlistList/index.js';
 import { PlaylistListView } from '../../../widgets/playlistList/index.js';
 
 export class MorePlaylistsPage {
-  /**
-   * Creates an instance of the View class.
-   */
-  constructor(params) {
-    this.parent = document.querySelector('#root');
-    this.type = params['type']
-  }
+	/**
+	 * Creates an instance of the View class.
+	 */
+	constructor(params) {
+		this.parent = document.querySelector('#root');
+		this.type = params['type'];
+	}
 
 	async render() {
 		this.parent.innerHTML = '';
 
-    if (this.type === 'favorite') {
-      this.favorite = this.type;
-    }
+		if (this.type === 'favorite') {
+			this.favorite = this.type;
+		}
 
 		this.pageContent = document.createElement('div');
 		this.pageContent.classList.add('page_content');
 		this.parent.appendChild(this.pageContent);
 
-    const playlistListAPI  = new PlaylistListAPI();
-    let playlists = !this.favorite
-    ? await playlistListAPI.get()
-    : await playlistListAPI.getFavorite();
+		const playlistListAPI = new PlaylistListAPI();
+		let playlists = !this.favorite
+			? await playlistListAPI.get()
+			: await playlistListAPI.getFavorite();
 
 		const playlistListView = new PlaylistListView(this.pageContent);
 		await playlistListView.render(playlists, false, this.favorite);
 
-    if (userStore.storage.user.isAuthorized) {
-      eventBus.emit('showPlayer');
-    } else {
-      eventBus.emit('hidePlayer');
-    }
-  }
+		if (userStore.storage.user.isAuthorized && player.isReady()) {
+			eventBus.emit('showPlayer');
+		} else {
+			eventBus.emit('hidePlayer');
+		}
+	}
 }
