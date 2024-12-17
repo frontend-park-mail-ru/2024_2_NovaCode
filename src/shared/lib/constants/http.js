@@ -41,6 +41,7 @@ export const API_ENDPOINTS = {
     `${API_TRACK_URL}/api/v1/tracks/search?query=${query}`,
 
   GET_ALL_PLAYLISTS: `${API_PLAYLIST_URL}/api/v1/playlists`,
+  GET_POPULAR_PLAYLISTS: `${API_PLAYLIST_URL}/api/v1/playlists/popular`,
   GET_PLAYLIST: (playlistID) =>
     `${API_PLAYLIST_URL}/api/v1/playlists/${playlistID}`,
   ADD_DELETE_PLAYLIST: (playlistID) =>

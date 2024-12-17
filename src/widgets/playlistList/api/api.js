@@ -13,7 +13,7 @@ export class PlaylistListAPI {
    *
    */
   constructor() {
-    this.url = API_ENDPOINTS.GET_ALL_PLAYLISTS;
+    this.url = API_ENDPOINTS.GET_POPULAR_PLAYLISTS;
   }
 
   async get() {
