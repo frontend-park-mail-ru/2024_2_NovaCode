@@ -58,6 +58,7 @@ export const API_ENDPOINTS = {
   GET_FAVORITE_ALBUMS: `${API_ARTIST_URL}/api/v1/albums/favorite`,
 
   GET_ALL_ARTISTS: `${API_ARTIST_URL}/api/v1/artists`,
+  GET_POPULAR_ARTISTS: `${API_ARTIST_URL}/api/v1/artists/popular`,
   GET_ARTIST: (artistID) => `${API_ARTIST_URL}/api/v1/artists/${artistID}`,
   FIND_ARTISTS: (query) =>
     `${API_ARTIST_URL}/api/v1/artists/search?query=${query}`,

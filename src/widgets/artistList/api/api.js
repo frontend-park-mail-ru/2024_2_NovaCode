@@ -13,7 +13,7 @@ export class ArtistListAPI {
    *
    */
   constructor() {
-    this.url = API_ENDPOINTS.GET_ALL_ARTISTS;
+    this.url = API_ENDPOINTS.GET_POPULAR_ARTISTS;
   }
 
   async get() {
