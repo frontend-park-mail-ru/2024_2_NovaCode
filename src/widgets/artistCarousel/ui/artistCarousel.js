@@ -51,7 +51,7 @@ export class ArtistCarouselView {
     });
 
     await this.getElements();
-    
+
     this.setTitle(titleText);
 
     this.onEvents();

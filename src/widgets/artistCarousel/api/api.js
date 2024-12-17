@@ -29,9 +29,11 @@ export class ArtistCarouselAPI {
     }
   }
 
-  async getFavorite() {
+  async getFavorite(userID) {
     try {
-      const response = await GET(`${API_ENDPOINTS.GET_FAVORITE_ARTIST}`);
+      const response = await GET(
+        `${API_ENDPOINTS.GET_FAVORITE_ARTIST}/byUser/${userID}`,
+      );
       if (!response.error) {
         return response.data;
       } else {

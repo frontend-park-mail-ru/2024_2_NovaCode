@@ -58,8 +58,8 @@ export class PlaylistListView {
   }
 
   setTitle(newTitle) {
-    const titleBlock = document.querySelector(`.${styles['playlists__text']}`);
-    const title = titleBlock.querySelector('h4');
+    const titleBlock = document.querySelector(`.${styles["playlists__text"]}`);
+    const title = titleBlock.querySelector("h4");
     title.textContent = newTitle;
   }
 

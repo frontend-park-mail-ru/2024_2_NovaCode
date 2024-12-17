@@ -1,80 +1,88 @@
-import { player } from '../../../shared/player/model/store';
-import { userStore } from '../../../entities/user';
-import { eventBus } from '../../../shared/lib';
-import { ErrorView } from '../../../widgets/error/index.js';
+import { player } from "../../../shared/player/model/store";
+import { userStore } from "../../../entities/user";
+import { eventBus } from "../../../shared/lib";
+import { ErrorView } from "../../../widgets/error/index.js";
 import {
-	AlbumCarouselView,
-	AlbumCarouselAPI,
-} from '../../../widgets/albumCarousel/index.js';
+  AlbumCarouselView,
+  AlbumCarouselAPI,
+} from "../../../widgets/albumCarousel/index.js";
 import {
-	ArtistCarouselView,
-	ArtistCarouselAPI,
-} from '../../../widgets/artistCarousel/index.js';
+  ArtistCarouselView,
+  ArtistCarouselAPI,
+} from "../../../widgets/artistCarousel/index.js";
 import {
-	PlaylistListAPI,
-	PlaylistListView,
-} from '../../../widgets/playlistList/index.js';
+  PlaylistListAPI,
+  PlaylistListView,
+} from "../../../widgets/playlistList/index.js";
 
 export class SubscriptionsPage {
-	/**
-	 * Creates an instance of the View class.
-	 */
-	constructor() {
-		this.parent = document.querySelector('#root');
-	}
+  /**
+   * Creates an instance of the View class.
+   */
+  constructor(params) {
+    this.parent = document.querySelector("#root");
+    this.username = params["username"];
+  }
 
-	async render() {
-		await userStore.checkAuth();
-		if (!userStore.isAuth()) {
-			return;
-		}
+  async render() {
+    await userStore.checkAuth();
+    if (!userStore.isAuth()) {
+      return;
+    }
 
-		this.parent.innerHTML = '';
+    this.parent.innerHTML = "";
 
-		this.pageContent = document.createElement('div');
-		this.pageContent.classList.add('page_content');
-		this.parent.appendChild(this.pageContent);
+    this.pageContent = document.createElement("div");
+    this.pageContent.classList.add("page_content");
+    this.parent.appendChild(this.pageContent);
+    this.user = await userStore.getUser(this.username);
 
-		const artistCarouselAPI = new ArtistCarouselAPI();
-		const artistCarouselView = new ArtistCarouselView(this.pageContent, {
-			favorite: true,
-		});
-		const artists = await artistCarouselAPI.getFavorite();
-		if (artists) {
-			await artistCarouselView.render(artists);
-		}
+    const artistCarouselAPI = new ArtistCarouselAPI();
+    const artistCarouselView = new ArtistCarouselView(this.pageContent, {
+      favorite: true,
+    });
+    const artists = await artistCarouselAPI.getFavorite(this.user.id);
+    if (artists) {
+      await artistCarouselView.render(artists);
+    }
 
-		const albumCarouselAPI = new AlbumCarouselAPI();
-		const albumCarouselView = new AlbumCarouselView(
-			this.pageContent,
-			null,
-			true,
-		);
-		const albums = await albumCarouselAPI.getFavorite();
-		if (albums) {
-			await albumCarouselView.render(albums);
-		}
+    const albumCarouselAPI = new AlbumCarouselAPI();
+    const albumCarouselView = new AlbumCarouselView(
+      this.pageContent,
+      null,
+      true,
+      this.user.id,
+    );
+    const albums = await albumCarouselAPI.getFavorite(this.user.id);
+    if (albums) {
+      await albumCarouselView.render(albums);
+    }
 
-		const playlistListAPI = new PlaylistListAPI();
-		const playlistListView = new PlaylistListView(this.pageContent);
-		const playlists = await playlistListAPI.getFavorite();
-		if (playlists) {
-			await playlistListView.render(playlists.slice(0, 5), true, true);
-		}
+    const playlistListAPI = new PlaylistListAPI();
+    const playlistListView = new PlaylistListView(this.pageContent);
+    const playlists = await playlistListAPI.getFavorite(this.user.id);
+    if (playlists) {
+      await playlistListView.render(
+        playlists.slice(0, 5),
+        true,
+        true,
+        this.user.id,
+      );
+    }
 
-		if (!artists && !albums && !playlists) {
-			const errorView = new ErrorView(
-				null,
-				'У вас пока нед подписок',
-				'Здесь можно увидеть подписки на артистов, альбомы и плейлисты',
-			);
-			await errorView.render();
-		}
+    if (!artists && !albums && !playlists) {
+      const errorView = new ErrorView(
+        null,
+        "У вас пока нед подписок",
+        "Здесь можно увидеть подписки на артистов, альбомы и плейлисты",
+      );
+      await errorView.render();
+    }
 
-		if (userStore.storage.user.isAuthorized && player.isReady()) {
-			eventBus.emit('showPlayer');
-		} else {
-			eventBus.emit('hidePlayer');
-		}
-	}
+    if (userStore.storage.user.isAuthorized && player.isReady()) {
+      eventBus.emit("showPlayer");
+    } else {
+      eventBus.emit("hidePlayer");
+    }
+  }
 }
