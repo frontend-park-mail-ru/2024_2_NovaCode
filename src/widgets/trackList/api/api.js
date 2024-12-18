@@ -1,5 +1,5 @@
-import { API_ENDPOINTS } from '../../../shared/lib/index.js';
-import { GET } from '../../../shared/api/index.js';
+import { API_ENDPOINTS } from "../../../shared/lib/index.js";
+import { GET } from "../../../shared/api/index.js";
 
 export class TrackListAPI {
   /**
@@ -20,11 +20,11 @@ export class TrackListAPI {
     } else if (args.albumId !== undefined) {
       this.url = API_ENDPOINTS.GET_TRACKS_BY_ALBUM(args.albumId);
     } else if (args.favorite !== undefined) {
-      this.url = API_ENDPOINTS.GET_FAVORITE_TRACKS;
+      this.url = `${API_ENDPOINTS.GET_FAVORITE_TRACKS}/byUser/${args.userID}`;
     } else if (args.playlistId !== undefined) {
       this.url = API_ENDPOINTS.GET_TRACKS_BY_PLAYLIST(args.playlistId);
     } else {
-      this.url = API_ENDPOINTS.GET_ALL_TRACKS;
+      this.url = API_ENDPOINTS.GET_POPULAR_TRACKS;
     }
   }
 

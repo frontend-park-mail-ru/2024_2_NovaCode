@@ -13,7 +13,7 @@ export class PlaylistListAPI {
    *
    */
   constructor() {
-    this.url = API_ENDPOINTS.GET_ALL_PLAYLISTS;
+    this.url = API_ENDPOINTS.GET_POPULAR_PLAYLISTS;
   }
 
   async get() {
@@ -29,9 +29,11 @@ export class PlaylistListAPI {
     }
   }
 
-  async getFavorite() {
+  async getFavorite(userID) {
     try {
-      const response = await GET(`${API_ENDPOINTS.GET_FAVORITE_PLAYLISTS}`);
+      const response = await GET(
+        `${API_ENDPOINTS.GET_FAVORITE_PLAYLISTS}/byUser/${userID}`,
+      );
       if (!response.error) {
         return response.data;
       } else {

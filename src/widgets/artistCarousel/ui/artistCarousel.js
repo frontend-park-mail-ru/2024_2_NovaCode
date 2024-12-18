@@ -19,6 +19,7 @@ export class ArtistCarouselView {
     this.parent = parent ? parent : document.querySelector("#root");
     this.position = 0;
     this.favorite = args?.favorite ?? false;
+    this.userID = args?.userID ?? "";
   }
 
   /**
@@ -31,7 +32,7 @@ export class ArtistCarouselView {
     let titleText;
     let showMoreHref;
     if (this.favorite) {
-      showMoreHref = `/more_artists/favorite`;
+      showMoreHref = `/more_artists/favorite/${this.userID}`;
       titleText = "Любимые артисты";
     } else {
       showMoreHref = `/more_artists/popular`;
@@ -51,7 +52,7 @@ export class ArtistCarouselView {
     });
 
     await this.getElements();
-    
+
     this.setTitle(titleText);
 
     this.onEvents();

@@ -2,13 +2,13 @@ import { player } from "../../../shared/player/model/store";
 import { userStore } from "../../../entities/user";
 import { eventBus } from "../../../shared/lib";
 import { ErrorView } from "../../../widgets/error/index.js";
-import { 
+import {
   AlbumCarouselView,
-  AlbumCarouselAPI
+  AlbumCarouselAPI,
 } from "../../../widgets/albumCarousel/index.js";
-import { 
-  ArtistCarouselView, 
-  ArtistCarouselAPI 
+import {
+  ArtistCarouselView,
+  ArtistCarouselAPI,
 } from "../../../widgets/artistCarousel/index.js";
 import {
   PlaylistListAPI,
@@ -19,8 +19,9 @@ export class SubscriptionsPage {
   /**
    * Creates an instance of the View class.
    */
-  constructor() {
+  constructor(params) {
     this.parent = document.querySelector("#root");
+    this.username = params["username"];
   }
 
   async render() {
@@ -34,28 +35,40 @@ export class SubscriptionsPage {
     this.pageContent = document.createElement("div");
     this.pageContent.classList.add("page_content");
     this.parent.appendChild(this.pageContent);
+    this.user = await userStore.getUser(this.username);
 
     const artistCarouselAPI = new ArtistCarouselAPI();
     const artistCarouselView = new ArtistCarouselView(this.pageContent, {
       favorite: true,
+      userID: this.user.id,
     });
-    const artists = await artistCarouselAPI.getFavorite();
+    const artists = await artistCarouselAPI.getFavorite(this.user.id);
     if (artists) {
       await artistCarouselView.render(artists);
     }
 
     const albumCarouselAPI = new AlbumCarouselAPI();
-    const albumCarouselView = new AlbumCarouselView(this.pageContent, null, true);
-    const albums = await albumCarouselAPI.getFavorite();
+    const albumCarouselView = new AlbumCarouselView(
+      this.pageContent,
+      null,
+      true,
+      this.user.id,
+    );
+    const albums = await albumCarouselAPI.getFavorite(this.user.id);
     if (albums) {
       await albumCarouselView.render(albums);
     }
 
     const playlistListAPI = new PlaylistListAPI();
     const playlistListView = new PlaylistListView(this.pageContent);
-    const playlists = await playlistListAPI.getFavorite();
+    const playlists = await playlistListAPI.getFavorite(this.user.id);
     if (playlists) {
-      await playlistListView.render(playlists.slice(0, 5), true, true);
+      await playlistListView.render(
+        playlists.slice(0, 5),
+        true,
+        true,
+        this.user.id,
+      );
     }
 
     if (!artists && !albums && !playlists) {
@@ -67,10 +80,7 @@ export class SubscriptionsPage {
       await errorView.render();
     }
 
-    if (
-      userStore.storage.user.isAuthorized &&
-      (player.isLoaded || player.isPlaying)
-    ) {
+    if (userStore.storage.user.isAuthorized && player.isReady()) {
       eventBus.emit("showPlayer");
     } else {
       eventBus.emit("hidePlayer");

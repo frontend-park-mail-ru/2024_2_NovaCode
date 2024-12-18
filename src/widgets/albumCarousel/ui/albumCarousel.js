@@ -15,11 +15,12 @@ export class AlbumCarouselView {
    * Initializes the AlbumView.
    *
    */
-  constructor(parent, artistId = null, favorite = false) {
+  constructor(parent, artistId = null, favorite = false, userID = "") {
     this.parent = parent ? parent : document.querySelector("#root");
     this.position = 0;
     this.artistId = artistId;
     this.favorite = favorite;
+    this.userID = userID;
   }
 
   /**
@@ -35,7 +36,7 @@ export class AlbumCarouselView {
       showMoreHref = `/more_albums/${"artist"}/${this.artistId}`;
       titleText = "Альбомы исполнителя";
     } else if (this.favorite) {
-      showMoreHref = `/more_albums/favorite`;
+      showMoreHref = `/more_albums/favorite/${this.userID}`;
       titleText = "Любимые альбомы";
     } else {
       showMoreHref = `/more_albums/popular`;

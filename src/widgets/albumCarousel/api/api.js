@@ -33,9 +33,11 @@ export class AlbumCarouselAPI {
     }
   }
 
-  async getFavorite() {
+  async getFavorite(userID) {
     try {
-      const response = await GET(`${API_ENDPOINTS.GET_FAVORITE_ALBUMS}`);
+      const response = await GET(
+        `${API_ENDPOINTS.GET_FAVORITE_ALBUMS}/byUser/${userID}`,
+      );
       if (!response.error) {
         return response.data;
       } else {

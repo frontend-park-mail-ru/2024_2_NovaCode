@@ -1,5 +1,5 @@
-import { GET } from '../../../shared/api/index.js';
-import { API_ENDPOINTS } from '../../../shared/lib/index.js';
+import { GET } from "../../../shared/api/index.js";
+import { API_ENDPOINTS } from "../../../shared/lib/index.js";
 
 export class ArtistListAPI {
   /**
@@ -13,7 +13,7 @@ export class ArtistListAPI {
    *
    */
   constructor() {
-    this.url = API_ENDPOINTS.GET_ALL_ARTISTS;
+    this.url = API_ENDPOINTS.GET_POPULAR_ARTISTS;
   }
 
   async get() {
@@ -22,16 +22,18 @@ export class ArtistListAPI {
       if (!response.error) {
         return response.data;
       } else {
-        console.log('Error during ArtistList loading:');
+        console.log("Error during ArtistList loading:");
       }
     } catch (error) {
       console.error(error);
     }
   }
 
-  async getFavorite() {
+  async getFavorite(userID) {
     try {
-      const response = await GET(`${API_ENDPOINTS.GET_FAVORITE_ARTIST}`);
+      const response = await GET(
+        `${API_ENDPOINTS.GET_FAVORITE_ARTIST}/byUser/${userID}`,
+      );
       if (!response.error) {
         return response.data;
       } else {
