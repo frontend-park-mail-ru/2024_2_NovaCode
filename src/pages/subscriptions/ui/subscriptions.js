@@ -40,6 +40,7 @@ export class SubscriptionsPage {
     const artistCarouselAPI = new ArtistCarouselAPI();
     const artistCarouselView = new ArtistCarouselView(this.pageContent, {
       favorite: true,
+      userID: this.user.id,
     });
     const artists = await artistCarouselAPI.getFavorite(this.user.id);
     if (artists) {

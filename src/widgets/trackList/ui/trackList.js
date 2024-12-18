@@ -22,6 +22,7 @@ export class TrackListView {
     this.parent = parent ?? document.querySelector("#root");
     this.artistId = args.artistId ?? null;
     this.albumId = args.albumId ?? null;
+    this.userID = args.userID ?? null;
     this.favorite = args.favorite ?? null;
     this.myPlaylistId = args.myPlaylistId ?? false;
   }
@@ -51,7 +52,7 @@ export class TrackListView {
       showMoreHref = `/more_tracks/${"album"}/${this.albumId}`;
       titleText = "Треки альбома";
     } else if (this.favorite) {
-      showMoreHref = `/more_tracks/favorite`;
+      showMoreHref = `/more_tracks/favorite/${this.userID}`;
       titleText = "Любимые треки";
     } else {
       showMoreHref = `/more_tracks/popular`;

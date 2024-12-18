@@ -51,6 +51,7 @@ export class ProfilePage {
     if (tracks.length > 0 && userStore.storage.user.isAuthorized) {
       const trackListView = new TrackListView(this.pageContent, {
         favorite: true,
+        userID: this.user.id,
       });
       await trackListView.render(tracks.slice(0, 5));
       trackListView.setTitle("Любимые треки");

@@ -22,14 +22,19 @@ export class PlaylistListView {
   /**
    * Renders the playlist view.
    */
-  async render(playlists, needsShowMoreHref = true, favorite = false) {
+  async render(
+    playlists,
+    needsShowMoreHref = true,
+    favorite = false,
+    userID = "",
+  ) {
     const playlistListElement = document.createElement("div");
     playlistListElement.classList.add("playlists");
 
     let titleText;
     let showMoreHref;
     if (favorite) {
-      showMoreHref = `/more_playlists/favorite`;
+      showMoreHref = `/more_playlists/favorite/${userID}`;
       titleText = "Любимые плейлисты";
     } else {
       showMoreHref = `/more_playlists/popular`;
