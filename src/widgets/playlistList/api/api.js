@@ -29,9 +29,11 @@ export class PlaylistListAPI {
     }
   }
 
-  async getFavorite() {
+  async getFavorite(userID) {
     try {
-      const response = await GET(`${API_ENDPOINTS.GET_FAVORITE_PLAYLISTS}`);
+      const response = await GET(
+        `${API_ENDPOINTS.GET_FAVORITE_PLAYLISTS}/byUser/${userID}`,
+      );
       if (!response.error) {
         return response.data;
       } else {

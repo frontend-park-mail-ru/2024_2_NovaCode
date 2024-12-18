@@ -1,5 +1,5 @@
-import { GET } from '../../../shared/api/index.js';
-import { API_ENDPOINTS } from '../../../shared/lib/index.js';
+import { GET } from "../../../shared/api/index.js";
+import { API_ENDPOINTS } from "../../../shared/lib/index.js";
 
 export class AlbumListAPI {
   url;
@@ -18,16 +18,18 @@ export class AlbumListAPI {
       if (!response.error) {
         return response.data;
       } else {
-        console.log('Error during AlbumList loading');
+        console.log("Error during AlbumList loading");
       }
     } catch (error) {
       console.error(error);
     }
   }
 
-  async getFavorite() {
+  async getFavorite(userID) {
     try {
-      const response = await GET(`${API_ENDPOINTS.GET_FAVORITE_ALBUMS}`);
+      const response = await GET(
+        `${API_ENDPOINTS.GET_FAVORITE_ALBUMS}/byUser/${userID}`,
+      );
       if (!response.error) {
         return response.data;
       } else {
