@@ -43,7 +43,7 @@ export class PlaylistCardView {
       playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.webp`;
     }
 
-    const playlistLikesCount = (await playlistCardAPI.GetPlaylistLikesCount(this.playlistId))?.playlistLikesCount;
+    const playlistLikesCount = (await playlistCardAPI.GetPlaylistLikesCount(this.playlistId))?.count;
 
     const playlistCardElement = document.createElement("div");
     playlistCardElement.classList.add("playlist_card");

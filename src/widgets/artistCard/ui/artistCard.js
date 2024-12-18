@@ -38,7 +38,7 @@ export class ArtistCardView {
       artist.image = `${S3_BUCKETS.ARTIST_IMAGES}/${artist.image}`;
     }
 
-    const artistLikesCount = (await artistCardAPI.GetArtistLikesCount(this.artistId))?.artistLikesCount;
+    const artistLikesCount = (await artistCardAPI.GetArtistLikesCount(this.artistId))?.count;
 
     const artistCardElement = document.createElement("div");
     artistCardElement.classList.add("artist_card");

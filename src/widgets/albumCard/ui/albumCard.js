@@ -40,7 +40,7 @@ export class AlbumCardView {
       album.image = `${S3_BUCKETS.ALBUM_IMAGES}/${album.image}`;
     }
 
-    const albumLikesCount = (await albumCardAPI.GetAlbumLikesCount(this.albumId))?.albumLikesCount;
+    const albumLikesCount = (await albumCardAPI.GetAlbumLikesCount(this.albumId))?.count;
 
     this.albumCardElement = document.createElement("div");
     this.albumCardElement.classList.add("album_card");

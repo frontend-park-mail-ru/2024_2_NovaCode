@@ -21,9 +21,9 @@ export class UserCardView {
 		}
 
 		const userCardAPI = new UserCardAPI(user.id);
-		const favArtistsCount = (await userCardAPI.getFavoriteArtistsCount())?.favoriteArtistsCount;		;
-		const favAlbumsCount = (await userCardAPI.getFavoriteAlbumsCount())?.favoriteAlbumsCount;
-		const favPlaylistsCount = (await userCardAPI.getFavoritePlaylistsCount())?.favoritePlaylistsCount;
+		const favArtistsCount = (await userCardAPI.getFavoriteArtistsCount())?.count;
+		const favAlbumsCount = (await userCardAPI.getFavoriteAlbumsCount())?.count;
+		const favPlaylistsCount = (await userCardAPI.getFavoritePlaylistsCount())?.count;
 
 		const currentUser = userStore.storage.user;
 		const isCurrentUser = currentUser.username === this.username;
