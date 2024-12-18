@@ -77,4 +77,17 @@ export class ArtistCardAPI {
       console.error(error);
     }
   }
+
+  async GetArtistLikesCount(artistID) {
+    try {
+      const response = await GET(`${API_ENDPOINTS.GET_ARTIST_LIKES_COUNT(artistID)}`);
+      if (!response.error) {
+        return response.data;
+      } else {
+        console.log("Error during artist likes count loading:");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

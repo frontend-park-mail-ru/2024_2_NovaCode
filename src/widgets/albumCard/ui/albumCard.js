@@ -40,6 +40,8 @@ export class AlbumCardView {
       album.image = `${S3_BUCKETS.ALBUM_IMAGES}/${album.image}`;
     }
 
+    const albumLikesCount = (await albumCardAPI.GetAlbumLikesCount(this.albumId))?.albumLikesCount;
+
     this.albumCardElement = document.createElement("div");
     this.albumCardElement.classList.add("album_card");
     this.albumCardElement.innerHTML = template({
@@ -48,6 +50,7 @@ export class AlbumCardView {
       subIcon,
       playCircleIcon,
       sendSquareWhiteIcon,
+      albumLikesCount
     });
     this.parent.appendChild(this.albumCardElement);
 

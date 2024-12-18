@@ -1,3 +1,4 @@
+import { UserCardAPI } from '../api/api.js';
 import { userStore } from '../../../entities/user/index.js';
 import { handleLink, S3_BUCKETS } from '../../../shared/lib/index.js';
 import template from './userCard.hbs';
@@ -19,11 +20,23 @@ export class UserCardView {
 			user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
 		}
 
+		const userCardAPI = new UserCardAPI(user.id);
+		const favArtistsCount = (await userCardAPI.getFavoriteArtistsCount())?.favoriteArtistsCount;		;
+		const favAlbumsCount = (await userCardAPI.getFavoriteAlbumsCount())?.favoriteAlbumsCount;
+		const favPlaylistsCount = (await userCardAPI.getFavoritePlaylistsCount())?.favoritePlaylistsCount;
+
 		const currentUser = userStore.storage.user;
 		const isCurrentUser = currentUser.username === this.username;
 		const userCardElement = document.createElement('div');
 		userCardElement.classList.add('user_card');
-		userCardElement.innerHTML = template({ styles, user, isCurrentUser });
+		userCardElement.innerHTML = template({ 
+			styles, 
+			user, 
+			isCurrentUser, 
+			favArtistsCount,
+			favAlbumsCount,  
+			favPlaylistsCount 
+		});
 		this.parent.appendChild(userCardElement);
 
 		this.bindEvents();

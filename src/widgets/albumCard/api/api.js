@@ -70,4 +70,17 @@ export class AlbumCardAPI {
       console.error(error);
     }
   }
+
+  async GetAlbumLikesCount(albumID) {
+    try {
+      const response = await GET(`${API_ENDPOINTS.GET_ALBUM_LIKES_COUNT(albumID)}`);
+      if (!response.error) {
+        return response.data;
+      } else {
+        console.log("Error during album likes count loading:");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

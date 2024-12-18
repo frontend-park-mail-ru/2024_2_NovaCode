@@ -1,32 +1,27 @@
 @use "/src/colors.scss";
 
 .user_card {
+  &__text {
+    color: colors.$white;
+    margin-bottom: 10px;
+  }
+
   &__wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 50px;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 10px;
-    }
   }
 
-  &__public_info {
+  &__img {
+    display: flex;
+    border-radius: 100%;
+  }
+
+  &__aside {
     display: flex;
     flex-direction: column;
-    align-items: center;
-  }
-
-  &__name {
-    color: colors.$white;
-    margin-bottom: 10px;
-  }
-
-  &__avatar {
-    display: block;
-    border-radius: 100%;
+    align-items: start;
   }
 
   &__link {
@@ -41,67 +36,68 @@
   }
 }
 
-/* @media (max-width: 1380px) {
-  .user_card {
-    &__block {
-      width: 90%;
-    }
+.user_info {
+  color: colors.$white;
+
+  &__name,
+  &__fav_users_count,
+  &__fav_albums_count,
+  &__fav_playlists_count {
+    display: flex;
   }
-}
 
-@media (max-width: 1024px) {
-  .user_card {
-    &__name {
-      font-size: 32px;
-    }
+  &__name {
+    margin-bottom: 20px;
+  }
 
-    &__avatar {
-      height: 210px;
-      width: 210px;
-    }
+  &__fav_users_count,
+  &__fav_albums_count,
+  &__fav_playlists_count {
+    margin-bottom: 10px;
+  }
 
-    &__link {
-      font-size: 32px;
-    }
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
   }
 }
 
 @media (max-width: 768px) {
   .user_card {
-    &__name {
-      font-size: 24px;
-    }
-
     &__wrapper {
-      gap: 25px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
     }
 
-    &__avatar {
-      height: 160px;
-      width: 160px;
-    }
-
-    &__link {
-      font-size: 24px;
+    &__aside {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
   }
-}
 
-@media (max-width: 480px) {
-  .user_card {
+  .user_info {
+    align-items: center;
+    justify-content: center;
+
+    &__name,
+    &__fav_users_count,
+    &__fav_albums_count,
+    &__fav_playlists_count {
+      justify-content: center;
+    }
+
     &__name {
-      font-size: 20px;
+      margin-bottom: 10px;
     }
 
-    &__avatar {
-      height: 145px;
-      width: 145px;
-    }
-
-    &__link {
-      padding: 8px;
-      font-size: 20px;
+    &__fav_users_count,
+    &__fav_albums_count,
+    &__fav_playlists_count {
+      margin-bottom: 3px;
     }
   }
 }
- */

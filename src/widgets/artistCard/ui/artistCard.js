@@ -38,6 +38,8 @@ export class ArtistCardView {
       artist.image = `${S3_BUCKETS.ARTIST_IMAGES}/${artist.image}`;
     }
 
+    const artistLikesCount = (await artistCardAPI.GetArtistLikesCount(this.artistId))?.artistLikesCount;
+
     const artistCardElement = document.createElement("div");
     artistCardElement.classList.add("artist_card");
     artistCardElement.innerHTML = template({
@@ -47,6 +49,7 @@ export class ArtistCardView {
       subIcon,
       playCircleIcon,
       sendSquareWhiteIcon,
+      artistLikesCount
     });
     this.parent.appendChild(artistCardElement);
 
