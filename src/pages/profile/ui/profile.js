@@ -7,16 +7,16 @@ import { UserPlaylistsView } from '../../../widgets/userPlaylists/index.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 
 export class ProfilePage {
-  parent;
-  username;
+	parent;
+	username;
 
-  constructor(params) {
-    this.parent = document.querySelector('#root');
-    this.username = params['username'];
-  }
+	constructor(params) {
+		this.parent = document.querySelector('#root');
+		this.username = params['username'];
+	}
 
-  async render() {
-    this.parent.innerHTML = '';
+	async render() {
+		this.parent.innerHTML = '';
 
 		this.pageContent = document.createElement('div');
 		this.pageContent.classList.add('page_content');
@@ -26,26 +26,31 @@ export class ProfilePage {
 		await userCardView.render();
 
 		this.user = await userStore.getUser(this.username);
-		const myPlaylistsView = new UserPlaylistsView(this.pageContent, this.user.id);
+		const myPlaylistsView = new UserPlaylistsView(
+			this.pageContent,
+			this.user.id,
+		);
 		await myPlaylistsView.render();
 
-    if (this.user.id === userStore.storage.user.id) {
-      await this.renderFavorites();
-    }
-  }
+		await this.renderFavorites();
+		if (player.isReady() && userStore.storage.user.isAuthorized) {
+			eventBus.emit('showPlayer');
+		} else {
+			eventBus.emit('hidePlayer');
+		}
+	}
 
-  async renderFavorites() {
-    const trackListAPI = new TrackListAPI({ favorite: true });
-    const tracks = await trackListAPI.get();
-    if (!tracks) return;
-    if (tracks.length > 0 && userStore.storage.user.isAuthorized) {
-      const trackListView = new TrackListView(this.pageContent, { favorite: true });
-      await trackListView.render(tracks.slice(0, 5));
-      trackListView.setTitle('Любимые треки');
-      player.addTracks(tracks);
-      eventBus.emit('showPlayer');
-    } else {
-      eventBus.emit('hidePlayer');
-    }
-  }
+	async renderFavorites() {
+		const trackListAPI = new TrackListAPI({ favorite: true });
+		const tracks = await trackListAPI.get();
+		if (!tracks) return;
+		if (tracks.length > 0 && userStore.storage.user.isAuthorized) {
+			const trackListView = new TrackListView(this.pageContent, {
+				favorite: true,
+			});
+			await trackListView.render(tracks.slice(0, 5));
+			trackListView.setTitle('Любимые треки');
+			player.addTracks(tracks);
+		}
+	}
 }

@@ -1,7 +1,10 @@
-import { TrackListAPI } from '../../../widgets/trackList/index.js';
 import { ArtistCardView } from '../../../widgets/artistCard/index.js';
-import { TrackListView } from '../../../widgets/trackList/index.js';
-import { AlbumCarouselView } from '../../../widgets/albumCarousel/index.js';
+import { 
+  TrackListView, 
+  TrackListAPI } from '../../../widgets/trackList/index.js';
+import { 
+  AlbumCarouselView, 
+  AlbumCarouselAPI } from '../../../widgets/albumCarousel/index.js';
 import { player } from '../../../shared/player/model/store.js';
 import { eventBus } from '../../../shared/lib/eventbus.js';
 import { userStore } from '../../../entities/user/index.js';
@@ -38,6 +41,8 @@ export class ArtistPage {
     }
 
     const albumCarouselView = new AlbumCarouselView(this.pageContent, this.artistId);
-    await albumCarouselView.render();
+    const albumCarouselAPI = new AlbumCarouselAPI(this.artistId);
+    const albums = await albumCarouselAPI.get()
+    await albumCarouselView.render(albums);
   }
 }

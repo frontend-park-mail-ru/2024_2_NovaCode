@@ -24,13 +24,7 @@ export class ArtistCarouselView {
   /**
    * Renders the playlist view.
    */
-  async render() {
-    const artistCarouselAPI = new ArtistCarouselAPI();
-    let artists = !this.favorite
-      ? await artistCarouselAPI.get()
-      : await artistCarouselAPI.getFavorite();
-    if (!artists) return;
-
+  async render(artists) {
     const artistCarouselElement = document.createElement("div");
     artistCarouselElement.classList.add("popular_artists");
 
