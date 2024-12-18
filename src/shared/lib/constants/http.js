@@ -30,6 +30,7 @@ export const API_ENDPOINTS = {
 
   GET_ALL_TRACKS: `${API_TRACK_URL}/api/v1/tracks`,
   GET_FAVORITE_TRACKS: `${API_TRACK_URL}/api/v1/tracks/favorite`,
+  GET_POPULAR_TRACKS: `${API_TRACK_URL}/api/v1/tracks/popular`,
   GET_TRACKS_BY_PLAYLIST: (playlistID) =>
     `${API_TRACK_URL}/api/v1/tracks/byPlaylistId/${playlistID}`,
   GET_TRACKS_BY_ALBUM: (albumID) =>
@@ -40,6 +41,7 @@ export const API_ENDPOINTS = {
     `${API_TRACK_URL}/api/v1/tracks/search?query=${query}`,
 
   GET_ALL_PLAYLISTS: `${API_PLAYLIST_URL}/api/v1/playlists`,
+  GET_POPULAR_PLAYLISTS: `${API_PLAYLIST_URL}/api/v1/playlists/popular`,
   GET_PLAYLIST: (playlistID) =>
     `${API_PLAYLIST_URL}/api/v1/playlists/${playlistID}`,
   ADD_DELETE_PLAYLIST: (playlistID) =>
@@ -57,6 +59,7 @@ export const API_ENDPOINTS = {
   GET_FAVORITE_ALBUMS: `${API_ARTIST_URL}/api/v1/albums/favorite`,
 
   GET_ALL_ARTISTS: `${API_ARTIST_URL}/api/v1/artists`,
+  GET_POPULAR_ARTISTS: `${API_ARTIST_URL}/api/v1/artists/popular`,
   GET_ARTIST: (artistID) => `${API_ARTIST_URL}/api/v1/artists/${artistID}`,
   FIND_ARTISTS: (query) =>
     `${API_ARTIST_URL}/api/v1/artists/search?query=${query}`,

@@ -119,7 +119,7 @@ export class SearchPage {
 		}
 
 		const errorView = new ErrorView(
-			null,
+			this.pageContent,
 			'Ничего не найдено',
 			'Попробуйте поискать что-то другое.',
 		);

@@ -24,7 +24,7 @@ export class TrackListAPI {
     } else if (args.playlistId !== undefined) {
       this.url = API_ENDPOINTS.GET_TRACKS_BY_PLAYLIST(args.playlistId);
     } else {
-      this.url = API_ENDPOINTS.GET_ALL_TRACKS;
+      this.url = API_ENDPOINTS.GET_POPULAR_TRACKS;
     }
   }
 
