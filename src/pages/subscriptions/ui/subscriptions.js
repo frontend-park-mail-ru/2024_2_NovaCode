@@ -73,9 +73,9 @@ export class SubscriptionsPage {
 
     if (!artists && !albums && !playlists) {
       const errorView = new ErrorView(
-        null,
-        "У вас пока нед подписок",
-        "Здесь можно увидеть подписки на артистов, альбомы и плейлисты",
+        this.pageContent,
+        "Здесь пока нет подписок",
+        "В этом разделе можно увидеть подписки на артистов, альбомы и плейлисты",
       );
       await errorView.render();
     }

@@ -7,7 +7,7 @@ import { UserPlaylistsAPI } from "../../userPlaylists/index.js";
 import { userStore } from "../../../entities/user/index.js";
 import { BASE_URL } from "../../../shared/config/api.js";
 import { ShareModal } from "../../shareModal/index.js";
-import heartIcon from "../../../../public/images/icons/heart.svg";
+import subIcon from "../../../../public/images/icons/sub.svg";
 import playCircleIcon from "../../../../public/images/icons/play-circle.svg";
 import musicSquareRemoveIcon from "../../../../public/images/icons/music-square-remove.svg";
 import sendSquareWhiteIcon from "../../../../public/images/icons/send-square-white.svg";
@@ -43,6 +43,8 @@ export class PlaylistCardView {
       playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.webp`;
     }
 
+    const playlistLikesCount = (await playlistCardAPI.GetPlaylistLikesCount(this.playlistId))?.count;
+
     const playlistCardElement = document.createElement("div");
     playlistCardElement.classList.add("playlist_card");
 
@@ -58,10 +60,11 @@ export class PlaylistCardView {
       styles,
       playlist,
       isMyPlaylist: this.isMyPlaylist,
-      heartIcon,
+      subIcon,
       playCircleIcon,
       musicSquareRemoveIcon,
       sendSquareWhiteIcon,
+      playlistLikesCount
     });
     this.parent.appendChild(playlistCardElement);
 

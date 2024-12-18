@@ -1,19 +1,31 @@
-<div class="{{ styles.user_card__container }} container">
-  <div class="{{ styles.user_card__block }} block">
+<div class="container">
+  <div class="block">
     <div class="{{ styles.user_card__wrapper }}">
-      <div class="{{ styles.user_card__public_info }}">
-        <div class="{{ styles.user_card__name }}"><h3>{{ user.username }}</h3></div>
-        <img src="{{ user.image }}" class="{{ styles.user_card__avatar }} card-img">
-      </div>
-      <div class="{{ styles.user_card__subscriptions }}">
-        <h4><a href="/profiles/{{ user.username }}/subs" class="{{ styles.user_card__link }} button_link">Подписки</a></h4>
-      </div>
-      {{#if isCurrentUser}}
-        <div class="{{ styles.user_card__edit }}">
-          <h4><a href="/profiles/{{ user.username }}/edit" class="{{ styles.user_card__link }} button_link">Настройки профиля</a></h4>
+      <img src="{{user.image}}" class="{{ styles.user_card__img }} card-img" />
+      <div class="{{ styles.user_card__aside }}">
+        <div class="{{ styles.user_card__info }} {{ styles.user_info }}">
+          <div class="{{ styles.user_info__name }}"><h3>{{ user.username }}</h3></div>
+          {{#if favArtistsCount}}
+          <div class="{{ styles.user_info__fav_users_count }}"><h5>подписок на артистов: {{ favArtistsCount }}</h5></div>
+          {{/if}}
+          {{#if favAlbumsCount}}
+          <div class="{{ styles.user_info__fav_albums_count }}"><h5>подписок на альбомы: {{ favAlbumsCount }}</h5></div>
+          {{/if}}
+          {{#if favPlaylistsCount}}
+          <div class="{{ styles.user_info__fav_playlists_count }}"><h5>подписок на плейлисты: {{ favPlaylistsCount }}</h5></div>
+          {{/if}}
         </div>
-      {{/if}}
+        <div class="{{ styles.user_info__buttons }} buttons">
+          <div>
+            <h4><a href="/profiles/{{ user.username }}/subs" class="{{ styles.user_card__link }} button_link">Подписки</a></h4>
+          </div>
+          {{#if isCurrentUser}}
+          <div>
+            <h4><a href="/profiles/{{ user.username }}/edit" class="{{ styles.user_card__link }} button_link">Настройки профиля</a></h4>
+          </div>
+          {{/if}}
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
