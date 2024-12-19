@@ -68,12 +68,11 @@ export class TrackListView {
     this.parent.appendChild(trackListElement);
 
     const tracksBlock = document.getElementById("tracks");
-    let promises = [];
-    Array.from(tracks).forEach(async (track, index) => {
+    for (const [index, track] of Array.from(tracks).entries()) {
       const trackView = new TrackView(tracksBlock, index);
-      promises.push(trackView.render(track, this.myPlaylistId));
-    });
-    Promise.all(promises).then(() => eventBus.emit("tracks:rendered"));
+      await trackView.render(track, this.myPlaylistId);
+    }
+    eventBus.emit("tracks:rendered");
 
     this.bindEvents();
     this.setTitle(titleText);

@@ -46,7 +46,6 @@ export class FooterPlayerView {
     footerPlayerElement.innerHTML = template({
       styles, 
       playCircleBlackIcon,
-      pauseCircleBlackIcon,
       backwardIcon,
       forwardIcon,
       heartBlackIcon,
@@ -96,8 +95,6 @@ export class FooterPlayerView {
     eventBus.on("showPlayer", this.showPlayer);
     eventBus.on("playPauseTrack", this.changePlayPauseBtnImg);
     eventBus.on("playById", this.changePlayPauseBtnImg);
-    eventBus.on("prevTrack", this.changePlayPauseBtnImg);
-    eventBus.on("nextTrack", this.changePlayPauseBtnImg);
   }
 
   offEvents() {
@@ -106,8 +103,6 @@ export class FooterPlayerView {
     eventBus.off("showPlayer", this.showPlayer);
     eventBus.on("playPauseTrack", this.changePlayPauseBtnImg);
     eventBus.on("playById", this.changePlayPauseBtnImg);
-    eventBus.on("prevTrack", this.changePlayPauseBtnImg);
-    eventBus.on("nextTrack", this.changePlayPauseBtnImg);
   }
 
   addEvents() {
