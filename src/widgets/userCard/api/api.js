@@ -59,4 +59,17 @@ export class UserCardAPI {
       console.error(error);
     }
   }
+
+  async getFavoriteTracksCount() {
+    try {
+      const response = await GET(`${API_ENDPOINTS.GET_FAVORITE_TRACKS_COUNT(this.userId)}`);
+      if (!response.error) {
+        return response.data;
+      } else {
+        console.log("Error during favorite favorite tracks count loading:");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

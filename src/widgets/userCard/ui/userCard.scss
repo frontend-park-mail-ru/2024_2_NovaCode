@@ -42,7 +42,8 @@
   &__name,
   &__fav_users_count,
   &__fav_albums_count,
-  &__fav_playlists_count {
+  &__fav_playlists_count,
+  &__fav_tracks_count {
     display: flex;
   }
 
@@ -52,7 +53,8 @@
 
   &__fav_users_count,
   &__fav_albums_count,
-  &__fav_playlists_count {
+  &__fav_playlists_count,
+  &__fav_tracks_count {
     margin-bottom: 10px;
   }
 
@@ -86,7 +88,8 @@
     &__name,
     &__fav_users_count,
     &__fav_albums_count,
-    &__fav_playlists_count {
+    &__fav_playlists_count,
+    &__fav_tracks_count {
       justify-content: center;
     }
 
@@ -96,7 +99,8 @@
 
     &__fav_users_count,
     &__fav_albums_count,
-    &__fav_playlists_count {
+    &__fav_playlists_count,
+    &__fav_tracks_count {
       margin-bottom: 3px;
     }
   }
