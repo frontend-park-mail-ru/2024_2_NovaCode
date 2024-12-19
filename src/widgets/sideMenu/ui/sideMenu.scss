@@ -1,0 +1,62 @@
+@use "/src/colors.scss";
+
+.side_menu {
+  height: 100%; // 100% Full-height
+  width: 0; // 0 width - change this with JavaScript
+  position: fixed; // Stay in place
+  z-index: 1; // Stay on top
+  top: 0; // Stay at the top
+  right: -20px;
+  background-color: #111; // Black
+  overflow-x: hidden; // Disable horizontal scroll
+  padding: 60px 10px 0px; // Place content 60px from the top
+  transition: margin-left 0.5s; // 0.5 second transition effect to slide in the sidenav
+  display: none;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+    justify-content: start;
+  }
+
+  &>* {
+    margin-bottom: 10px;
+  }
+
+  &__link {
+    display: block;
+    color: colors.$white;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    @media (max-width: 1023px) {
+      font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+    }
+  }
+
+  .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+}
+
+.active {
+  border-bottom: 3px solid colors.$orange;
+
+  @media (max-width: 768px) {
+    border-bottom: 2px solid colors.$orange;
+    ;
+  }
+}
