@@ -30,6 +30,8 @@ export const API_ENDPOINTS = {
 
   GET_ALL_TRACKS: `${API_TRACK_URL}/api/v1/tracks`,
   GET_FAVORITE_TRACKS: `${API_TRACK_URL}/api/v1/tracks/favorite`,
+  GET_FAVORITE_TRACKS_COUNT: (userID) => 
+    `${API_TRACK_URL}/api/v1/tracks/favorite/count/${userID}`,
   GET_POPULAR_TRACKS: `${API_TRACK_URL}/api/v1/tracks/popular`,
   GET_TRACKS_BY_PLAYLIST: (playlistID) =>
     `${API_TRACK_URL}/api/v1/tracks/byPlaylistId/${playlistID}`,

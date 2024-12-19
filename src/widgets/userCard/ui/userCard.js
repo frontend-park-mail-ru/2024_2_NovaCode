@@ -24,6 +24,7 @@ export class UserCardView {
 		const favArtistsCount = (await userCardAPI.getFavoriteArtistsCount())?.count;
 		const favAlbumsCount = (await userCardAPI.getFavoriteAlbumsCount())?.count;
 		const favPlaylistsCount = (await userCardAPI.getFavoritePlaylistsCount())?.count;
+		const favTracksCount = (await userCardAPI.getFavoriteTracksCount())?.count;
 
 		const currentUser = userStore.storage.user;
 		const isCurrentUser = currentUser.username === this.username;
@@ -35,7 +36,8 @@ export class UserCardView {
 			isCurrentUser, 
 			favArtistsCount,
 			favAlbumsCount,  
-			favPlaylistsCount 
+			favPlaylistsCount,
+			favTracksCount
 		});
 		this.parent.appendChild(userCardElement);
 
