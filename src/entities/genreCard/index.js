@@ -1,0 +1,1 @@
+export { GenreCardView } from "./ui/genreCard.js"
