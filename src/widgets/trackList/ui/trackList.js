@@ -70,7 +70,7 @@ export class TrackListView {
     const tracksBlock = document.getElementById("tracks");
     for (const [index, track] of Array.from(tracks).entries()) {
       const trackView = new TrackView(tracksBlock, index);
-      await trackView.render(track, this.myPlaylistId);
+      trackView.render(track, this.myPlaylistId);
     }
     eventBus.emit("tracks:rendered");
 
