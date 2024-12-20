@@ -6,6 +6,7 @@ export class Router {
     this.layout = [];
     this.routes = [];
     this.currentView = null;
+    this.isRendering = false;
 
     this.onPopState = this.onPopState.bind(this);
     this.onNavigate = this.onNavigate.bind(this);
@@ -71,6 +72,10 @@ export class Router {
    * Popstate event handler for browser back/forward navigation
    */
   async onPopState() {
+    if (this.isRendering) {
+      return;
+    }
+    eventBus.emit("popstate", window.location.pathname);
     await this.goToImpl();
   }
 
@@ -90,6 +95,9 @@ export class Router {
    * @returns {Promise<void>} promise that resolves when navigation is complete
    */
   async goTo(path) {
+    if (this.isRendering) {
+      return;
+    }
     window.history.pushState({}, "", path);
     await this.goToImpl();
   }
@@ -100,6 +108,8 @@ export class Router {
    * @returns {Promise<void>} promise that resolves when the rendering is complete
    */
   async goToImpl() {
+    this.isRendering = true;
+
     const currentPath = window.location.pathname;
     const targetRoute = this.findRoute(currentPath);
 
@@ -116,6 +126,7 @@ export class Router {
       this.currentView = new ErrorPage('Ошибка', 'Такой страницы не существует.');
       await this.currentView.render();
     }
+    this.isRendering = false;
   }
 
   /**
