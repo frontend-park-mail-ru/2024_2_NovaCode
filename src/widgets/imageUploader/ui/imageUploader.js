@@ -50,7 +50,6 @@ export class ImageUploaderView {
   onEvents() {
     if (this.onSuccessEvent) {
       eventBus.on(this.onSuccessEvent, () => {
-        console.log(`Event ${this.onSuccessEvent} triggered.`);
         if (this.navigateUrl) {
           window.location.href = this.navigateUrl;
         }
