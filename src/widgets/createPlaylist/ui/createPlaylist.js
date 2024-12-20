@@ -32,7 +32,7 @@ export class CreatePlaylistModal {
         const form = this.createPlaylistModal.querySelector('#create-playlist-modal__form');
         const cancelButton = this.createPlaylistModal.querySelector(`.${styles['create-playlist-modal__cancel']}`);
 
-        form.addEventListener('submit', this.handleFormSubmit.bind(this));
+        form.addEventListener('submit', this.handleFormSubmit);
         cancelButton.addEventListener('click', this.handleClose);
 
         const closeButton = this.createPlaylistModal.querySelector(`.${styles['create-playlist-modal__close-btn']}`);
@@ -46,7 +46,7 @@ export class CreatePlaylistModal {
         }
     }
 
-    async handleFormSubmit(event) {
+    handleFormSubmit = async (event) => {
         event.preventDefault();
         const playlistNameInput = event.target.querySelector('#playlist-name');
         const playlistName = playlistNameInput.value.trim();

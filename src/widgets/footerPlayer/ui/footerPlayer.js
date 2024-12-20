@@ -221,10 +221,12 @@ export class FooterPlayerView {
   };
 
   handleNextTrackBtn = async () => {
+    this.playPauseBtnIcon.src = pauseCircleBlackIcon;
     eventBus.emit("nextTrack");
   };
 
   handlePrevTrackBtn = async () => {
+    this.playPauseBtnIcon.src = pauseCircleBlackIcon;
     eventBus.emit("prevTrack");
   };
 

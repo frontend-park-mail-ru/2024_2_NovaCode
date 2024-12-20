@@ -50,6 +50,8 @@ export class ListenBlockView {
 	onEvents() {
 		eventBus.on("playPauseTrack", this.changePlayPauseBtnImg);
 		eventBus.on("playById", this.changePlayPauseBtnImg);
+		eventBus.on("nextTrack", this.setPlayBtnImg);
+		eventBus.on("prevTrack", this.setPlayBtnImg);
 	}
 	
 	offEvents() {
@@ -63,6 +65,10 @@ export class ListenBlockView {
 		} else {
 			this.playPauseBtn.src = playCircleIcon;
 		}
+	}
+
+	setPlayBtnImg = () => {
+		this.playPauseBtn.src = pauseCircleIcon;
 	}
 
 	handlePlayPauseBtn() {
