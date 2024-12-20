@@ -5,6 +5,12 @@
   &__btn_img {
     display: block;
     margin: 0 auto;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   &__title {
