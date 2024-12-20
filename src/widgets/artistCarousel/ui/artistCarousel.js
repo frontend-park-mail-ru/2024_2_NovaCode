@@ -59,13 +59,13 @@ export class ArtistCarouselView {
   }
 
   onEvents() {
-    eventBus.on("carousel:next", this.handleGoNext);
-    eventBus.on("carousel:prev", this.handleGoPrev);
+    eventBus.on("artists-carousel:next", this.handleGoNext);
+    eventBus.on("artists-carousel:prev", this.handleGoPrev);
   }
 
   offEvents() {
-    eventBus.off("carousel:next", this.handleGoNext);
-    eventBus.off("carousel:prev", this.handleGoPrev);
+    eventBus.off("artists-carousel:next", this.handleGoNext);
+    eventBus.off("artists-carousel:prev", this.handleGoPrev);
   }
 
   addEvents() {
@@ -137,11 +137,11 @@ export class ArtistCarouselView {
   };
 
   handleNextBtn = () => {
-    eventBus.emit("carousel:next");
+    eventBus.emit("artists-carousel:next");
   };
 
   handlePrevBtn = () => {
-    eventBus.emit("carousel:prev");
+    eventBus.emit("artists-carousel:prev");
   };
 
   destructor() {

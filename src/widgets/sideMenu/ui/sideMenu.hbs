@@ -1,16 +1,19 @@
+<div class="{{ styles.side_menu__button_close }}">
+        <h2>&times</h2>
+</div>
 {{#if user.isAuthorized}}
 <h2><a class="{{ styles.side_menu__link_main }} {{ styles.side_menu__link }} navlink navlink_switch"
-        href="/">Главная</a></h2>
+                href="/">Главная</a></h2>
 <h2><a class="{{styles.side_menu__link_search }} {{ styles.side_menu__link }} navlink navlink_switch"
-        href="/search">Поиск</a></h2>
+                href="/search">Поиск</a></h2>
 <h2><a class="{{ styles.side_menu__link_profile }} {{ styles.side_menu__link }} navlink navlink_switch"
-        href="/profiles/{{user.username}}">Профиль</a></h2>
+                href="/profiles/{{user.username}}">Профиль</a></h2>
 <h5><a class="{{ styles.side_menu__link_logout }} {{ styles.side_menu__link }} navlink navlink_switch"
-        href="/signin">Выход</a></h5>
+                id="side_menu_logout_link" href="/signin">Выход</a></h5>
 </div>
 {{else}}
 <h2><a class="{{ styles.side_menu__link_signin }} {{styles.side_menu__link }} navlink navlink_switch"
-        id="side_menu_signin_link" href="/signin">Войти</a></h2>
+                id="side_menu_signin_link" href="/signin">Войти</a></h2>
 <h2><a class="{{ styles.side_menu__link_signup }} {{ styles.side_menu__link }} navlink navlink_switch"
-        id="side_menu_signup_link" href="/signup">Регистрация</a></h2>
+                id="side_menu_signup_link" href="/signup">Регистрация</a></h2>
 {{/if}}

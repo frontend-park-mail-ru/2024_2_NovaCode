@@ -2,6 +2,7 @@
   width: 100%;
   position: fixed;
   bottom: 0px;
+  z-index: 10001;
 
   &__container {
     height: 100%;
@@ -13,7 +14,7 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: 135px fit-content(300px) 1fr 300px;
+    grid-template-columns: min-content fit-content(300px) 1fr 300px;
     grid-template-rows: min-content 1fr;
     width: 100%;
   }
@@ -25,13 +26,21 @@
     grid-column: 1 / 5;
   }
 
-  &__buttons_controls {
-    margin-left: 10px;
+  &__buttons_controls,
+  &__buttons_actions {
+    margin: 0px 12px;
     display: flex;
     align-items: center;
     gap: 12px;
     grid-row: 2;
+  }
+
+  &__buttons_controls {
     grid-column: 1 / 2;
+  }
+
+  &__buttons_actions {
+    grid-column: 3 / 4;
   }
 
   &__player_details {
@@ -40,15 +49,6 @@
     gap: 25px;
     grid-row: 2;
     grid-column: 2 / 3;
-  }
-
-  &__buttons_actions {
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    grid-row: 2;
-    grid-column: 3 / 4;
   }
 
   &__volume_slider {
@@ -128,10 +128,6 @@
   }
 }
 
-.spacer {
-  height: 200px;
-}
-
 .liked_footer_player {
   opacity: 0.5;
 
@@ -158,21 +154,19 @@
     }
   }
 
-  .player {
-
-    &__track_name,
-    &__track_artist {
-      font-size: 14px;
-    }
-  }
-
   .footer_player {
     &__player_details {
       gap: 15px;
     }
 
+    &__buttons_controls,
+    &__buttons_actions {
+      margin: 0px 10px;
+      gap: 10px;
+    }
+
     &__grid {
-      grid-template-columns: 160px 1fr 220px;
+      grid-template-columns: min-content fit-content(300px) 1fr 250px;
     }
 
     &__icon {
@@ -211,7 +205,7 @@
     }
 
     &__grid {
-      grid-template-columns: 130px 1fr 180px;
+      grid-template-columns: min-content fit-content(300px) 1fr 200px;
     }
 
     &__buttons {
@@ -237,7 +231,11 @@
 @media (max-width: 600px) {
   .footer_player {
     &__grid {
-      grid-template-columns: 120px 1fr;
+      grid-template-columns: min-content fit-content(300px) 1fr;
+    }
+
+    &__buttons_actions {
+      justify-content: end;
     }
 
     &__volume_slider {

@@ -5,7 +5,7 @@ import { ModalConfirmView } from '../../../widgets/modalConfirm/index.js';
 import template from './Header.hbs';
 import * as styles from './Header.scss';
 import logoLightIcon from '../../../../public/images/icons/logo_light.svg';
-import addIcon from '../../../../public/images/icons/add.svg';
+import sideBarLeftIcon from '../../../../public/images/icons/sidebar-left.svg';
 import { SideMenu } from '../../sideMenu/ui/sideMenu.js';
 
 export class Header {
@@ -25,7 +25,7 @@ export class Header {
       user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
     }
 
-    this.parent.innerHTML = template({ styles, user, logoLightIcon, addIcon });
+    this.parent.innerHTML = template({ styles, user, logoLightIcon, sideBarLeftIcon });
 
     this.sideMenu = new SideMenu()
     this.sideMenu.render()

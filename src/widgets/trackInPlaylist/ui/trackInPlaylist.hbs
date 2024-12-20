@@ -1,13 +1,23 @@
-<div class="{{ styles.track-in-playlist-modal }}">
-    <div class="{{ styles.track-in-playlist-modal__header }}">
-        <h4>Выберите плейлист</h4>
-        <button class="{{ styles.track-in-playlist-modal__close-btn }} button"><h4>×</h4></button>
-    </div>
-    <div class="{{ styles.track-in-playlist-modal__body }}">
-        {{#each playlists}}
-        <h5><a href="/playlist/{{ this.id }}" class="{{ ../styles.track-in-playlist-modal__playlist-link }} link" data-id="{{this.id}}">
-            {{this.name}}
-        </a></h5>
-        {{/each}}
+<div class="{{ styles.track-in-playlist-modal__fade }}">
+    <div class="{{ styles.track-in-playlist-modal__container }}">
+        <div class="{{ styles.track-in-playlist-modal__header }}">
+            <h4>Выберите плейлист</h4>
+            <button class="{{ styles.track-in-playlist-modal__close-btn }} button">
+                <h4>&times</h4>
+            </button>
+        </div>
+        <div class="{{ styles.track-in-playlist-modal__body }}">
+            {{#each playlists}}
+            <h5><a href="/playlist/{{ this.id }}" class="{{ ../styles.track-in-playlist-modal__playlist-link }} link"
+                    data-id="{{this.id}}">
+                    {{this.name}}
+                </a></h5>
+            {{/each}}
+        </div>
+        <div class="{{ styles.track-in-playlist-modal__actions }}">
+            <button type="submit" class="{{ styles.track-in-playlist-modal__create-btn }}">
+                <h4>Создать плейлист</h4>
+            </button>
+        </div>
     </div>
 </div>

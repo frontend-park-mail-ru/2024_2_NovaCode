@@ -105,7 +105,8 @@
     color: colors.$white;
     padding: 0px 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 10px;
     align-items: center;
 
     @media (max-width: 600px) {

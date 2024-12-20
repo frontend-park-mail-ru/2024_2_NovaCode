@@ -4,6 +4,7 @@ import { UserPlaylistsAPI } from '../../userPlaylists/index.js';
 import { TrackInPlaylistAPI } from '../api/api.js';
 import template from './trackInPlaylist.hbs';
 import * as styles from './trackInPlaylist.scss';
+import { CreatePlaylistModal } from '../../createPlaylist/index.js';
 
 export class TrackInPlaylistModal {
     /**
@@ -19,7 +20,7 @@ export class TrackInPlaylistModal {
 
     async render() {
         this.modal = document.createElement('div');
-        this.modal.classList.add(styles['track-in-playlist-modal-container']);
+        this.modal.classList.add(styles['track-in-playlist-modal']);
         this.parent.appendChild(this.modal);
 
         try {
@@ -41,6 +42,9 @@ export class TrackInPlaylistModal {
         playlistLinks.forEach((link) => {
             link.addEventListener('click', (event) => this.handleLink(event));
         });
+
+        const createButton = this.modal.querySelector(`.${styles["track-in-playlist-modal__create-btn"]}`);
+        createButton.addEventListener('click', this.handleCreate)
     }
 
     handleClose = () => {
@@ -62,6 +66,15 @@ export class TrackInPlaylistModal {
         event.preventDefault();
 		const href = link.getAttribute('href')
 		eventBus.emit('navigate', href);
+    }
+
+    handleCreate = async () => {
+        this.modal.remove();
+        const createPlaylistModal = new CreatePlaylistModal(null, async () => {
+            const trackInPlaylistModal = new TrackInPlaylistModal(this.parent, this.trackId);
+            await trackInPlaylistModal.render();
+        });
+        await createPlaylistModal.render();
     }
 
     removeEventListeners() {
