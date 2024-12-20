@@ -1,0 +1,22 @@
+<div class="{{ styles.image_uploader__container }} container">
+  <form
+    class="{{ styles.image_uploader__form }} {{ styles.form }}"
+    id="{{ formID }}"
+    enctype="multipart/form-data"
+  >
+    <label
+      for="{{ inputID }}"
+      class="{{ styles.image_uploader__label }} button"
+    >
+      Загрузить изображение
+    </label>
+    <input
+      class="{{ styles.image_uploader__input }}"
+      type="file"
+      id="{{ inputID }}"
+      name="file"
+      accept=".jpg,.jpeg,.png,.webp,.svg"
+      required
+    />
+  </form>
+</div>

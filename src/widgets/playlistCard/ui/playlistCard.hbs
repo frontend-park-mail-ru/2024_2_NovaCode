@@ -2,20 +2,24 @@
   <div class="{{ styles.playlist_card__block }} block">
     <div class="{{ styles.playlist_card__text }}"><h4>Плейлист</h4></div>
     <div class="{{ styles.playlist_card__wrapper }}">
-      <img src="{{playlist.image}}" class="{{ styles.playlist_card__img }} card-img" />
+      <div class="{{ styles.playlist_card__column }}">
+        <img src="{{playlist.image}}" class="{{ styles.playlist_card__img }} card-img" />
+        {{#if isMyPlaylist }}
+          <div class="image_uploader"></div>
+        {{/if}} 
+      </div>
       <div class="{{ styles.playlist_card__aside }}">
         <div class="{{ styles.playlist_card__info }} {{ styles.playlist_info }}">
           <div class="{{ styles.playlist_info__name }}"><h3>{{playlist.name}}</h3></div>
           <div class="{{ styles.playlist_info__owner }}">
             <h4>Автор: {{playlist.owner_name}}</h4>
           </div>
-          <div class="{{ styles.playlist_info__likes }}"><h5>123 оценок нравится</h5></div>
-          <div class="{{ styles.playlist_info__listen }}"><h5>123 прослушиваний в месяц</h5></div>
+          <div class="{{ styles.playlist_info__likes }}"><h5>подписок: {{playlistLikesCount}}</h5></div>
         </div>
         <div class="{{ styles.playlist_info__buttons }} buttons">
           <div class="buttons__like buttons__button">
-            <img src="{{ heartIcon }}" class="button icon" />
-            <h4>Нравится</h4>
+            <img src="{{ subIcon }}" class="button icon" />
+            <h4>Подписаться</h4>
           </div>
           <div class="buttons__listen buttons__button">
             <img src="{{ playCircleIcon }}" class="button icon" />

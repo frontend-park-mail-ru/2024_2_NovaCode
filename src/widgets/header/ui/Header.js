@@ -13,8 +13,7 @@ export class Header {
 
   constructor() {
     this.parent = document.querySelector('#header');
-    // this.eventBus = eventBus;
-    // this.userStore = userStore;
+    this.handleNavigation = this.handleNavigation.bind(this);
   }
 
   render() {
@@ -87,6 +86,9 @@ export class Header {
     eventBus.on('signUpSuccess', this.onSignUpSuccess);
     eventBus.on('signOutSuccess', this.onSignOutSuccess);
     eventBus.on('unauthorized', this.onSignOutSuccess);
+    eventBus.on('renderHeader', this.onSignInSuccess);
+    eventBus.on('navigate', this.handleNavigation);
+    eventBus.on('popstate', this.handleNavigation);
   }
 
   offEvents() {
@@ -94,6 +96,9 @@ export class Header {
     eventBus.off('signUpSuccess', this.onSignUpSuccess);
     eventBus.off('signOutSuccess', this.onSignOutSuccess);
     eventBus.off('unauthorized', this.onSignOutSuccess);
+    eventBus.off('renderHeader', this.onSignInSuccess);
+    eventBus.off('navigate', this.handleNavigation);
+    eventBus.off('popstate', this.handleNavigation);
   }
 
   onSignInSuccess = (user) => {
@@ -112,11 +117,11 @@ export class Header {
     this.offEvents();
   }
 
-  handleNavigation(href) {
+  handleNavigation (href) {
     this.switchActiveNavlink(href);
   }
 
-  switchActiveNavlink(href) {
+  switchActiveNavlink (href) {
     let navlinks = document.querySelectorAll('.navlink_switch');
     navlinks.forEach((navlink) => {
       if (navlink.getAttribute('href') == href) {

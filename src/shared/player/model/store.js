@@ -165,8 +165,7 @@ class PlayerStore {
 				state.status === PLAYER_PLAYING_STATE &&
 				this.isPlaying
 			) {
-				this.currentTrack.pause();
-				this.isPlaying = false;
+				eventBus.emit('playPauseTrack');
 			}
 		}
 	};

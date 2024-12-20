@@ -79,6 +79,10 @@ export const PAGES = [
     view: MoreArtistsPage,
   },
   {
+    path: "/more_artists/{entity}/{id}",
+    view: MoreArtistsPage,
+  },
+  {
     path: "/search",
     view: SearchPage,
   },
@@ -88,6 +92,10 @@ export const PAGES = [
   },
   {
     path: "/more_playlists/{type}",
+    view: MorePlaylistsPage,
+  },
+  {
+    path: "/more_playlists/{entity}/{id}",
     view: MorePlaylistsPage,
   },
   {

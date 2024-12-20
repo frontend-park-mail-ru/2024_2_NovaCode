@@ -83,4 +83,17 @@ export class PlaylistCardAPI {
       console.error(error);
     }
   }
+
+  async GetPlaylistLikesCount(playlistID) {
+    try {
+      const response = await GET(`${API_ENDPOINTS.GET_PLAYLIST_LIKES_COUNT(playlistID)}`);
+      if (!response.error) {
+        return response.data;
+      } else {
+        console.log("Error during playlist likes count loading:");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
