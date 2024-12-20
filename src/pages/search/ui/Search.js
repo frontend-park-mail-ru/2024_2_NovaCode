@@ -7,126 +7,289 @@ import { player } from '../../../shared/player/model/store.js';
 import { eventBus } from '../../../shared/lib/index.js';
 import { userStore } from '../../../entities/user/index.js';
 
+// export class SearchPage {
+// 	/**
+// 	 * Creates an instance of the View class.
+// 	 */
+// 	constructor() {
+// 		this.parent = document.querySelector('#root');
+// 		this.eventHandlers = {
+// 			foundArtists: this.handleFoundArtists.bind(this),
+// 			foundAlbums: this.handleFoundAlbums.bind(this),
+// 			foundTracks: this.handleFoundTracks.bind(this),
+// 			emptySearchResult: this.handleNotFound.bind(this),
+// 		};
+// 	}
+
+// 	async render() {
+// 		this.parent.innerHTML = '';
+
+// 		this.pageContent = document.createElement('div');
+// 		this.pageContent.classList.add('page_content');
+// 		this.parent.appendChild(this.pageContent);
+
+// 		const searchLine = new SearchLineView(this.pageContent);
+// 		await searchLine.render();
+
+// 		this.onEvents();
+// 		if (userStore.storage.user.isAuthorized && player.isReady()) {
+// 			eventBus.emit('showPlayer');
+// 		} else {
+// 			eventBus.emit('hidePlayer');
+// 		}
+// 	}
+
+// 	onEvents() {
+// 		Object.keys(this.eventHandlers).forEach((event) => {
+// 			eventBus.on(event, this.eventHandlers[event]);
+// 		});
+// 	}
+
+// 	offEvents() {
+// 		Object.keys(this.eventHandlers).forEach((event) => {
+// 			eventBus.off(event, this.eventHandlers[event]);
+// 		});
+// 	}
+
+// 	async handleFoundArtists(artists) {
+// 		const errorElement = document.querySelector('.error');
+// 		if (errorElement) {
+// 			errorElement.remove();
+// 		}
+
+// 		const artistsElement = document.querySelector('.artists');
+// 		if (artistsElement) {
+// 			artistsElement.remove();
+// 		}
+
+// 		if (!artists) {
+// 			return;
+// 		}
+
+// 		const artistListView = new ArtistListView(this.pageContent);
+// 		await artistListView.render(artists);
+// 	}
+
+// 	async handleFoundAlbums(albums) {
+// 		const errorElement = document.querySelector('.error');
+// 		if (errorElement) {
+// 			errorElement.remove();
+// 		}
+
+// 		const albumsElement = document.querySelector('.albums');
+// 		if (albumsElement) {
+// 			albumsElement.remove();
+// 		}
+
+// 		if (!albums) {
+// 			return;
+// 		}
+
+// 		const albumListView = new AlbumListView(this.pageContent);
+// 		await albumListView.render(albums);
+// 	}
+
+// 	async handleFoundTracks(tracks) {
+// 		if (tracks.length > 0) {
+// 			player.addTracks(tracks);
+// 		}
+
+// 		const errorElement = document.querySelector('.error');
+// 		if (errorElement) {
+// 			errorElement.remove();
+// 		}
+
+// 		const tracksElement = document.querySelector('.tracks');
+// 		if (tracksElement) {
+// 			tracksElement.remove();
+// 		}
+
+// 		if (!tracks) {
+// 			return;
+// 		}
+
+// 		const trackListView = new TrackListView(this.pageContent);
+// 		await trackListView.render(tracks, false);
+// 	}
+
+// 	async handleNotFound() {
+// 		const errorElement = document.querySelector('.error');
+// 		if (errorElement) {
+// 			errorElement.remove();
+// 		}
+
+// 		const errorView = new ErrorView(
+// 			this.pageContent,
+// 			'Ничего не найдено',
+// 			'Попробуйте поискать что-то другое.',
+// 		);
+// 		await errorView.render();
+// 	}
+
+// 	destructor() {
+// 		this.offEvents();
+// 	}
+// }
+
 export class SearchPage {
-	/**
-	 * Creates an instance of the View class.
-	 */
 	constructor() {
-		this.parent = document.querySelector('#root');
-		this.eventHandlers = {
-			foundArtists: this.handleFoundArtists.bind(this),
-			foundAlbums: this.handleFoundAlbums.bind(this),
-			foundTracks: this.handleFoundTracks.bind(this),
-			emptySearchResult: this.handleNotFound.bind(this),
-		};
+	  this.parent = document.querySelector('#root');
+	  this.eventHandlers = {
+		foundArtists: this.handleFoundArtists.bind(this),
+		foundAlbums: this.handleFoundAlbums.bind(this),
+		foundTracks: this.handleFoundTracks.bind(this),
+		emptySearchResult: this.handleNotFound.bind(this),
+	  };
+	  this.abortController = null;
 	}
-
+  
 	async render() {
-		this.parent.innerHTML = '';
-
-		this.pageContent = document.createElement('div');
-		this.pageContent.classList.add('page_content');
-		this.parent.appendChild(this.pageContent);
-
-		const searchLine = new SearchLineView(this.pageContent);
-		await searchLine.render();
-
-		this.onEvents();
-		if (userStore.storage.user.isAuthorized && player.isReady()) {
-			eventBus.emit('showPlayer');
+	  this.parent.innerHTML = '';
+  
+	  this.pageContent = document.createElement('div');
+	  this.pageContent.classList.add('page_content');
+	  this.parent.appendChild(this.pageContent);
+  
+	  const searchLine = new SearchLineView(this.pageContent);
+	  await this.renderWithAbort(searchLine.render());
+  
+	  this.onEvents();
+	  if (userStore.storage.user.isAuthorized && player.isReady()) {
+		eventBus.emit('showPlayer');
+	  } else {
+		eventBus.emit('hidePlayer');
+	  }
+	}
+  
+	async renderWithAbort(promise) {
+	  if (this.abortController) {
+		this.abortController.abort('Cancelled due to new render');
+	  }
+	  this.abortController = new AbortController();
+  
+	  try {
+		await promise;
+	  } catch (e) {
+		if (e.name === 'AbortError') {
+		  console.log('Rendering aborted:', e.message);
 		} else {
-			eventBus.emit('hidePlayer');
+		  throw e;
 		}
+	  }
+  
+	  this.abortController = null;
 	}
-
+  
 	onEvents() {
-		Object.keys(this.eventHandlers).forEach((event) => {
-			eventBus.on(event, this.eventHandlers[event]);
-		});
+	  Object.keys(this.eventHandlers).forEach((event) => {
+		eventBus.on(event, this.eventHandlers[event]);
+	  });
 	}
-
+  
 	offEvents() {
-		Object.keys(this.eventHandlers).forEach((event) => {
-			eventBus.off(event, this.eventHandlers[event]);
-		});
+	  Object.keys(this.eventHandlers).forEach((event) => {
+		eventBus.off(event, this.eventHandlers[event]);
+	  });
 	}
-
+  
 	async handleFoundArtists(artists) {
-		const errorElement = document.querySelector('.error');
-		if (errorElement) {
-			errorElement.remove();
-		}
-
-		const artistsElement = document.querySelector('.artists');
-		if (artistsElement) {
-			artistsElement.remove();
-		}
-
-		if (!artists) {
-			return;
-		}
-
-		const artistListView = new ArtistListView(this.pageContent);
-		await artistListView.render(artists);
+	  const errorElement = document.querySelector('.error');
+	  if (errorElement) {
+		errorElement.remove();
+	  }
+  
+	  const artistsElement = document.querySelector('.artists');
+	  if (artistsElement) {
+		artistsElement.remove();
+	  }
+  
+	  if (!artists) {
+		return;
+	  }
+  
+	  const artistListView = new ArtistListView(this.pageContent);
+	  await this.renderWithAbort(artistListView.render(artists));
 	}
-
+  
 	async handleFoundAlbums(albums) {
-		const errorElement = document.querySelector('.error');
-		if (errorElement) {
-			errorElement.remove();
-		}
-
-		const albumsElement = document.querySelector('.albums');
-		if (albumsElement) {
-			albumsElement.remove();
-		}
-
-		if (!albums) {
-			return;
-		}
-
-		const albumListView = new AlbumListView(this.pageContent);
-		await albumListView.render(albums);
+	  const errorElement = document.querySelector('.error');
+	  if (errorElement) {
+		errorElement.remove();
+	  }
+  
+	  const albumsElement = document.querySelector('.albums');
+	  if (albumsElement) {
+		albumsElement.remove();
+	  }
+  
+	  if (!albums) {
+		return;
+	  }
+  
+	  const albumListView = new AlbumListView(this.pageContent);
+	  await this.renderWithAbort(albumListView.render(albums));
 	}
-
+  
 	async handleFoundTracks(tracks) {
-		if (tracks.length > 0) {
-			player.addTracks(tracks);
-		}
-
-		const errorElement = document.querySelector('.error');
-		if (errorElement) {
-			errorElement.remove();
-		}
-
-		const tracksElement = document.querySelector('.tracks');
-		if (tracksElement) {
-			tracksElement.remove();
-		}
-
-		if (!tracks) {
-			return;
-		}
-
-		const trackListView = new TrackListView(this.pageContent);
-		await trackListView.render(tracks, false);
+	  if (tracks.length > 0) {
+		player.addTracks(tracks);
+	  }
+  
+	  const errorElement = document.querySelector('.error');
+	  if (errorElement) {
+		errorElement.remove();
+	  }
+  
+	  const tracksElement = document.querySelector('.tracks');
+	  if (tracksElement) {
+		tracksElement.remove();
+	  }
+  
+	  if (!tracks) {
+		return;
+	  }
+  
+	  const trackListView = new TrackListView(this.pageContent);
+	  await this.renderWithAbort(trackListView.render(tracks, false));
 	}
 
 	async handleNotFound() {
 		const errorElement = document.querySelector('.error');
 		if (errorElement) {
-			errorElement.remove();
+		  errorElement.remove();
 		}
-
+	  
 		const errorView = new ErrorView(
-			this.pageContent,
-			'Ничего не найдено',
-			'Попробуйте поискать что-то другое.',
+		  this.pageContent,
+		  'Ничего не найдено',
+		  'Попробуйте поискать что-то другое.'
 		);
-		await errorView.render();
-	}
-
+		await this.renderWithAbort(errorView.render());
+	  }
+	  
 	destructor() {
 		this.offEvents();
+		if (this.abortController) {
+		  this.abortController.abort('Destroying SearchPage');
+		}
+	}
+
+	async renderWithAbort(promise) {
+		if (this.abortController) {
+		  this.abortController.abort('Cancelled due to new render');
+		}
+		this.abortController = new AbortController();
+	
+		try {
+		  await promise;
+		} catch (e) {
+		  if (e.name === 'AbortError') {
+			console.log('Rendering aborted:', e.message);
+		  } else {
+			throw e;
+		  }
+		}
+	
+		this.abortController = null;
 	}
 }

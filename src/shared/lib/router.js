@@ -1,15 +1,19 @@
 import { eventBus } from "./eventbus.js";
 import { ErrorPage } from "../../pages/error/index.js";
+import { ErrorRenderCancelled } from "./index.js"
+import { AbortController } from "./abortController.js"
 
 export class Router {
   constructor() {
     this.layout = [];
     this.routes = [];
     this.currentView = null;
-    this.isRendering = false;
+    // this.isRendering = false;
+    this.abortController = null;
 
     this.onPopState = this.onPopState.bind(this);
     this.onNavigate = this.onNavigate.bind(this);
+    this.prevCount = 1;
   }
 
   /**
@@ -72,9 +76,9 @@ export class Router {
    * Popstate event handler for browser back/forward navigation
    */
   async onPopState() {
-    if (this.isRendering) {
-      return;
-    }
+    // if (this.isRendering) {
+    //   return;
+    // }
     eventBus.emit("popstate", window.location.pathname);
     await this.goToImpl();
   }
@@ -95,20 +99,18 @@ export class Router {
    * @returns {Promise<void>} promise that resolves when navigation is complete
    */
   async goTo(path) {
-    if (this.isRendering) {
-      return;
-    }
+    // if (this.isRendering) {
+    //   return;
+    // }
     window.history.pushState({}, "", path);
     await this.goToImpl();
   }
 
-  /**
-   * Implements the navigation logic for rendering views
-   *
-   * @returns {Promise<void>} promise that resolves when the rendering is complete
-   */
   async goToImpl() {
-    this.isRendering = true;
+    if (this.abortController) {
+      this.abortController.abort('Cancelled due to new navigation');
+    }
+    this.abortController = new AbortController();
 
     const currentPath = window.location.pathname;
     const targetRoute = this.findRoute(currentPath);
@@ -117,17 +119,116 @@ export class Router {
 
     if (targetRoute) {
       this.currentView = new targetRoute.view(targetRoute.params);
-      await this.currentView?.render();
+      await this.renderWithAbort(this.currentView.render());
 
       if (targetRoute.updateLayout) {
         this.renderLayout();
       }
     } else {
       this.currentView = new ErrorPage('Ошибка', 'Такой страницы не существует.');
-      await this.currentView.render();
+      await this.renderWithAbort(this.currentView.render());
     }
-    this.isRendering = false;
+
+    this.abortController = null;
   }
+
+  async renderWithAbort(promise) {
+    try {
+      await promise;
+    } catch (e) {
+      if (e.name === 'AbortError') {
+        console.log('Rendering aborted:', e.message);
+      } else {
+        throw e;
+      }
+    }
+  }
+
+  // /**
+  //  * Implements the navigation logic for rendering views
+  //  *
+  //  * @returns {Promise<void>} promise that resolves when the rendering is complete
+  //  */
+  // async goToImpl() {
+  //   const currentPath = window.location.pathname;
+  //   const targetRoute = this.findRoute(currentPath);
+
+  //   this.currentView?.destructor?.();
+
+  //   if (targetRoute) {
+  //     this.currentView = new targetRoute.view(targetRoute.params);
+  //     await this.currentView?.render();
+
+  //     if (targetRoute.updateLayout) {
+  //       this.renderLayout();
+  //     }
+  //   } else {
+  //     this.currentView = new ErrorPage('Ошибка', 'Такой страницы не существует.');
+  //     await this.currentView.render();
+  //   }
+  // }
+
+  // /**
+  //  * Implements the navigation logic for rendering views
+  //  *
+  //  * @returns {Promise<void>} promise that resolves when the rendering is complete
+  //  */
+  // async goToImpl() {
+  //   // this.isRendering = true;
+  //   console.log(this.currentRenderPromise);
+  //   if (this.currentRenderPromise) {
+  //     this.currentRenderPromise.cancel();
+  //   }
+  
+  //   const currentPath = window.location.pathname;
+  //   const targetRoute = this.findRoute(currentPath);
+  
+  //   // Если есть текущий view, очищаем его
+  //   this.currentView?.destructor?.();
+  
+  //   if (targetRoute) {
+  //     this.currentView = new targetRoute.view(targetRoute.params);
+  //     this.currentRenderPromise = this.currentView?.render();
+  
+  //     // Добавляем cancel в новое обещание рендера
+  //     this.currentRenderPromise.cancel = () => {
+  //       // return Promise.reject(new ErrorRenderCancelled('Рендер был отменен'));
+  //       throw new ErrorRenderCancelled('Рендер был отменен');
+  //     };
+  
+  //     if (targetRoute.updateLayout) {
+  //       this.renderLayout();
+  //     }
+  //   } else {
+  //     this.currentView = new ErrorPage('Ошибка', 'Такой страницы не существует.');
+  //     this.currentRenderPromise = this.currentView.render();
+  
+  //     // Добавляем cancel в новое обещание рендера для ошибки
+  //     this.currentRenderPromise.cancel = () => {
+  //       // return Promise.reject(new ErrorRenderCancelled('Рендер был отменен'));
+  //       throw new ErrorRenderCancelled('Рендер был отменен');
+  //     };
+  //   }
+
+  //   // this.currentRenderPromise
+  //   // .catch((e) => {
+  //   //   console.log("Рендер отменен!!!!");
+  //   //   console.log(this.currentRenderPromise);
+  //   //   console.log(e);
+  //   //   return Promise.reject(new ErrorRenderCancelled('Рендер был отменен!!!!'));
+  //   // })
+  //   // .finally(() => (this.currentRenderPromise = null));
+  
+  //   try {
+  //     // Ожидаем завершения рендера
+  //     await this.currentRenderPromise;
+  //   } finally {
+  //     console.log('finally');
+  //     this.currentRenderPromise = null;
+  //   }
+  
+  //   // this.isRendering = false;
+  // }
 
   /**
    * Finds a route matching the specified path
