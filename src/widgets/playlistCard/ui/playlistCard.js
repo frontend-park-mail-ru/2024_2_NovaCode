@@ -11,6 +11,8 @@ import subIcon from "../../../../public/images/icons/sub.svg";
 import playCircleIcon from "../../../../public/images/icons/play-circle.svg";
 import musicSquareRemoveIcon from "../../../../public/images/icons/music-square-remove.svg";
 import sendSquareWhiteIcon from "../../../../public/images/icons/send-square-white.svg";
+import { ImageUploaderView } from "../../imageUploader/index.js";
+import { playlistAPI } from "../../../entities/playlist/api/api.js";
 
 export class PlaylistCardView {
   /**
@@ -76,6 +78,15 @@ export class PlaylistCardView {
     if (userStore.storage.user.isAuthorized && isFavorite) {
       this.subscribeBtn.classList.add(styles["playlist__liked"]);
     }
+
+    this.imageUploaderView = new ImageUploaderView({
+			parent: document.querySelector(".image_uploader"),
+			uploadFunction: (formData) =>
+				playlistAPI.updateImage(playlist.id, formData),
+			onSuccessEvent: 'updatePlaylistImageSuccess',
+      navigateUrl: `/playlist/${playlist.id}`,
+		});
+		await this.imageUploaderView.render();
   }
 
   async getElements() {
