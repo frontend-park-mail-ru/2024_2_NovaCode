@@ -152,6 +152,14 @@
     }
 }
 
+.player_button {
+    cursor: pointer;
+  
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
 .carousel {
 	&__container {
 		position: relative;

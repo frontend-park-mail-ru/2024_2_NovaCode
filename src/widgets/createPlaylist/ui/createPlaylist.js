@@ -67,6 +67,7 @@ export class CreatePlaylistModal {
         }
 
         if (this.onClose) {
+            console.log('this.onClose');
             this.onClose();
         }
     }

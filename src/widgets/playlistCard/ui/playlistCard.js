@@ -7,7 +7,7 @@ import { UserPlaylistsAPI } from "../../userPlaylists/index.js";
 import { userStore } from "../../../entities/user/index.js";
 import { BASE_URL } from "../../../shared/config/api.js";
 import { ShareModal } from "../../shareModal/index.js";
-import subIcon from "../../../../public/images/icons/sub.svg";
+import heartIcon from "../../../../public/images/icons/heart.svg";
 import playCircleIcon from "../../../../public/images/icons/play-circle.svg";
 import musicSquareRemoveIcon from "../../../../public/images/icons/music-square-remove.svg";
 import sendSquareWhiteIcon from "../../../../public/images/icons/send-square-white.svg";
@@ -62,7 +62,7 @@ export class PlaylistCardView {
       styles,
       playlist,
       isMyPlaylist: this.isMyPlaylist,
-      subIcon,
+      heartIcon,
       playCircleIcon,
       musicSquareRemoveIcon,
       sendSquareWhiteIcon,

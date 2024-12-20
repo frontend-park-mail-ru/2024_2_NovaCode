@@ -70,6 +70,7 @@ $header-img-size: 45px;
   &__right_button {
     display: none;
     padding: 10px;
+    cursor: pointer;
 
     @media (max-width: 768px) {
       display: flex;

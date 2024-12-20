@@ -6,7 +6,7 @@ import { ShareModal } from "../../shareModal/index.js";
 import { BASE_URL } from "../../../shared/config/api.js";
 import { userStore } from "../../../entities/user/index.js";
 import * as styles from "./artistCard.scss";
-import subIcon from "../../../../public/images/icons/sub.svg";
+import heartIcon from "../../../../public/images/icons/heart.svg";
 import playCircleIcon from "../../../../public/images/icons/play-circle.svg";
 import sendSquareWhiteIcon from "../../../../public/images/icons/send-square-white.svg";
 
@@ -46,7 +46,7 @@ export class ArtistCardView {
       styles,
       artist,
       genres,
-      subIcon,
+      heartIcon,
       playCircleIcon,
       sendSquareWhiteIcon,
       artistLikesCount

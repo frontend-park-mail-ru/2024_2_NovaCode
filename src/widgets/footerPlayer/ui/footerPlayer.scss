@@ -73,18 +73,10 @@
     width: 100%;
   }
 
-  &__time_current,
+  /* &__time_current,
   &__time_total {
     font-size: 14px;
-  }
-}
-
-.player_button {
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.6;
-  }
+  } */
 }
 
 .player_details {
@@ -113,14 +105,14 @@
 
 .player {
   &__track_name {
-    font-size: 16px;
+    /* font-size: 16px; */
     text-overflow: inherit;
     white-space: inherit;
     overflow: inherit;
   }
 
   &__track_artist {
-    font-size: 16px;
+    /* font-size: 16px; */
     color: #636363;
     text-overflow: inherit;
     white-space: inherit;

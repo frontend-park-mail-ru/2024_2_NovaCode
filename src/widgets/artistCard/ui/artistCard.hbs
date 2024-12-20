@@ -15,15 +15,15 @@
           <div class="{{ styles.artist_info__likes }}"><h5>подписок: {{artistLikesCount}}</h5></div>
         </div>
         <div class="{{ styles.artist_info__buttons }} buttons">
-          <div class="buttons__subscribe buttons__button">
-            <img src="{{ subIcon }}" class="button icon" />
-            <h4>Подписаться</h4>
-          </div>
-          <div class="buttons__listen buttons__button">
+          <div class="buttons__listen buttons__button button-scale">
             <img src="{{ playCircleIcon }}" class="button icon" />
             <h4>Слушать</h4>
           </div>
-          <div class="buttons__share buttons__button">
+          <div class="buttons__subscribe buttons__button button-scale">
+            <img src="{{ heartIcon }}" class="button icon" />
+            <h4>Нравится</h4>
+          </div>
+          <div class="buttons__share buttons__button button-scale">
             <img src="{{ sendSquareWhiteIcon }}" class="button icon" />
             <h4>Поделиться</h4>
           </div>

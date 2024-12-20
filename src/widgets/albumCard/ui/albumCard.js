@@ -5,7 +5,7 @@ import template from "./albumCard.hbs";
 import { BASE_URL } from "../../../shared/config/api.js";
 import { ShareModal } from "../../shareModal/index.js";
 import * as styles from "./albumCard.scss";
-import subIcon from "../../../../public/images/icons/sub.svg";
+import heartIcon from "../../../../public/images/icons/heart.svg";
 import playCircleIcon from "../../../../public/images/icons/play-circle.svg";
 import sendSquareWhiteIcon from "../../../../public/images/icons/send-square-white.svg";
 import { userStore } from "../../../entities/user/index.js";
@@ -47,7 +47,7 @@ export class AlbumCardView {
     this.albumCardElement.innerHTML = template({
       styles,
       album,
-      subIcon,
+      heartIcon,
       playCircleIcon,
       sendSquareWhiteIcon,
       albumLikesCount
