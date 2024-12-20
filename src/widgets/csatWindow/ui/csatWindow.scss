@@ -24,11 +24,11 @@ input {
   //font-family: 'Sansation', sans-serif;
 
   &__container {
-    width: 80%;
+    width: 75%;
     height: 80%;
     max-width: 400px;
     max-height: 200px;
-    margin: auto;
+    margin: 10;
     padding: 20px;
     border: 1px solid colors.$white;
     border-radius: 10px;
