@@ -18,31 +18,44 @@ export class PlaylistCarouselView {
   constructor(parent, args) {
     this.parent = parent ?? document.querySelector("#root");
     this.position = 0;
+    this.api = new PlaylistCarouselAPI(args);
     this.favorite = args?.favorite ?? false;
+    this.userId = args?.userId;
   }
 
   /**
    * Renders the playlist view.
    */
-  async render(playlists) {
-    this.playlistCarouselElement = document.createElement("div");
-    this.playlistCarouselElement.classList.add("popular_playlists");
+  async render(needsShowMoreHref = true) {
 
     let titleText;
     let showMoreHref;
     if (this.favorite) {
-      showMoreHref = `/more_playlists/favorite`;
+      showMoreHref = `/more_playlists/favorite/${this.userId}`;
       titleText = "Любимые плейлисты";
+    } else if (this.userId) {
+      
     } else {
       showMoreHref = `/more_playlists/popular`;
       titleText = "Популярные плейлисты";
     }
 
-    this.playlistCarouselElement.innerHTML = template({ styles, showMoreHref });
+    this.playlists = await this.api.get();
+    if (!this.playlists) return;
+
+    this.playlistCarouselElement = document.createElement("div");
+    this.playlistCarouselElement.classList.add("playlists");
+
+    if (needsShowMoreHref) {
+      this.playlistCarouselElement.innerHTML = template({ styles, showMoreHref });
+    } else {
+      this.playlistCarouselElement.innerHTML = template({ styles });
+    }
+    
     this.parent.appendChild(this.playlistCarouselElement);
 
-    const playlistsBlock = document.getElementById("popular-playlists");
-    Array.from(playlists).forEach((playlist) => {
+    const playlistsBlock = document.getElementById("playlists");
+    Array.from(this.playlists).forEach((playlist) => {
       const playlistCarouselItem = document.createElement("div");
       playlistCarouselItem.classList.add("carousel__item");
       const playlistView = new PlaylistView(playlistCarouselItem);
@@ -76,6 +89,10 @@ export class PlaylistCarouselView {
     links.forEach((link) => {
       link.addEventListener("click", (event) => this.handleLink(event));
     });
+  }
+
+  getPlaylists() {
+    return this.playlists;
   }
 
   deleteEvents() {

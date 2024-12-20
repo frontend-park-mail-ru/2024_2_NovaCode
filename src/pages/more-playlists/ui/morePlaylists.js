@@ -13,12 +13,13 @@ export class MorePlaylistsPage {
     this.type = params["type"];
     this.entity = params["entity"];
     this.id = params["id"];
+    console.log(params);
   }
 
   async render() {
     this.parent.innerHTML = "";
 
-    if (this.type === "favorite") {
+    if (this.type === "favorite" || this.entity === "favorite") {
       this.favorite = true;
     }
 

@@ -60,9 +60,7 @@ export class FeedPage {
     const artists = await artistCarouselAPI.get();
     await artistCarouselView.render(artists);
 
-    const playlistCarouselAPI = new PlaylistCarouselAPI();
     const playlistCarouselView = new PlaylistCarouselView(this.pageContent);
-    const playlists = await playlistCarouselAPI.get();
-    await playlistCarouselView.render(playlists);
+    await playlistCarouselView.render();
   }
 }

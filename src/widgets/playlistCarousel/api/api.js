@@ -12,8 +12,16 @@ export class PlaylistCarouselAPI {
    * Initializes the PlaylistCarouselAPI.
    *
    */
-  constructor() {
-    this.url = API_ENDPOINTS.GET_POPULAR_PLAYLISTS;
+  constructor(args) {
+    this.favorite = args?.favorite;
+    this.userId = args?.userId;
+    if (this.favorite && this.userId) {
+      this.url = `${API_ENDPOINTS.GET_FAVORITE_PLAYLISTS}/byUser/${this.userId}`;
+    } else if (this.userId) {
+      this.url = API_ENDPOINTS.GET_USER_PLAYLISTS(this.userId)
+    } else {
+      this.url = API_ENDPOINTS.GET_POPULAR_PLAYLISTS;
+    }
   }
 
   async get() {
