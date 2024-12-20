@@ -30,6 +30,12 @@ $track-img-size-xl: 60px;
     align-items: center;
   }
 
+  &__duration {
+    width: 45px;
+    display: flex;
+    justify-content: center;
+  }
+
   &__img {
     border-radius: 5px;
     width: $track-img-size-xl;

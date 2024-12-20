@@ -3,22 +3,22 @@
     <div class="{{ styles.track__info }}">
         <div class="{{ styles.track__name }}">{{ track.name }} </div>
         <div class="{{ styles.track__artist }}">
-            <a class="{{ styles.track__artist__artist_link }} link"
-                href="/artist/{{ track.artistID }}">
+            <a class="{{ styles.track__artist__artist_link }} link" href="/artist/{{ track.artistID }}">
                 {{ track.artistName }}
-            </a> 
+            </a>
         </div>
     </div>
 </div>
 <div class="{{ styles.track__right_side }}">
     {{#if isMyPlaylist }}
-    <img src="{{ trashIcon }}" id="delete-from-playlist" class="{{ styles.track__delete-btn }}">
+    <img src="{{ trashIcon }}" id="delete-from-playlist" class="{{ styles.track__delete-btn }} icon">
     {{/if}}
     {{#if user.isAuthorized}}
-    <img src="{{ heartBlackIcon }}" id="like-track" class="{{ styles.track__like-btn }} icon {{#if isFavorite}} {{ styles.track__liked }} {{/if}}">
+    <img src="{{ heartBlackIcon }}" id="like-track"
+        class="{{ styles.track__like-btn }} icon {{#if isFavorite}} {{ styles.track__liked }} {{/if}}">
     <img src="{{ addIcon }}" id="add-to-playlist" class="{{ styles.track__add-btn }} icon">
     <img src="{{ sendSquareBlackIcon }}" id="share-track" class="{{ styles.track__share-btn }} icon">
 
     {{/if}}
-    {{ track.duration }}
+    <div class="{{ styles.track__duration }}">{{ track.duration }}</div>
 </div>
