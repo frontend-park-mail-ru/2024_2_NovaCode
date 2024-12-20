@@ -74,6 +74,7 @@ export class Header {
     eventBus.on('signUpSuccess', this.onSignUpSuccess);
     eventBus.on('signOutSuccess', this.onSignOutSuccess);
     eventBus.on('unauthorized', this.onSignOutSuccess);
+    eventBus.on('renderHeader', this.onSignInSuccess);
     eventBus.on('navigate', this.handleNavigation);
     eventBus.on('popstate', this.handleNavigation);
   }
@@ -83,6 +84,7 @@ export class Header {
     eventBus.off('signUpSuccess', this.onSignUpSuccess);
     eventBus.off('signOutSuccess', this.onSignOutSuccess);
     eventBus.off('unauthorized', this.onSignOutSuccess);
+    eventBus.off('renderHeader', this.onSignInSuccess);
     eventBus.off('navigate', this.handleNavigation);
     eventBus.off('popstate', this.handleNavigation);
   }

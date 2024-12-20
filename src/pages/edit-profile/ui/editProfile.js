@@ -1,4 +1,4 @@
-import { UploadAvatarView } from '../../../widgets/uploadAvatar/index.js';
+import { ImageUploaderView } from '../../../widgets/imageUploader/index.js';
 import { EditUserView } from '../../../widgets/editUser/index.js';
 import { userStore } from '../../../entities/user/index.js';
 import { PUBLIC_ERRORS } from '../../../shared/lib/index.js';
@@ -35,8 +35,18 @@ export class EditProfilePage {
 		this.pageContent.classList.add('page_content');
 		this.parent.appendChild(this.pageContent);
 
-		const uploadAvatarView = new UploadAvatarView(this.pageContent, user.id);
-		await uploadAvatarView.render();
+		const imageUploaderContainer = document.createElement('div');
+		imageUploaderContainer.classList.add('block');
+		this.pageContent.appendChild(imageUploaderContainer);
+
+		this.imageUploaderView = new ImageUploaderView({
+			parent: imageUploaderContainer,
+			uploadFunction: (formData) =>
+				userStore.updateAvatar(user.id, formData),
+			onSuccessEvent: 'updateAvatarSuccess',
+			navigateUrl: `/profiles/${user.username}`,
+		});
+		await this.imageUploaderView.render();
 
 		const editUserView = new EditUserView(this.pageContent, user.id);
 		await editUserView.render();
@@ -46,5 +56,12 @@ export class EditProfilePage {
 		} else {
 			eventBus.emit('hidePlayer');
 		}
+	}
+
+	destructor() {
+		if (this.imageUploaderView) {
+			this.imageUploaderView.destructor();
+		}
+		eventBus.off('avatarUploadSuccess');
 	}
 }

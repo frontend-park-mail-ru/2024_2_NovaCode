@@ -1,3 +1,4 @@
+import { userStore } from "../entities/user/index.js";
 import { Router } from "../shared/lib/router.js";
 import { LAYOUT, PAGES } from "./routes.js";
 
@@ -12,6 +13,7 @@ export class App {
    * Starts the application by making the router listen for path changes.
    */
   async run() {
+    await userStore.getCSRFToken();
     this.router.listen();
   }
 
