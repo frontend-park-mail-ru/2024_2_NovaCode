@@ -23,7 +23,6 @@ export class GenreTracksPage {
     this.parent.appendChild(this.pageContent);
 
     const tracks = await this.api.get(this.genreID);
-    console.log(tracks);
     if (tracks.length > 0) {
       const trackListView = new TrackListView(this.pageContent);
       await trackListView.render(tracks);
