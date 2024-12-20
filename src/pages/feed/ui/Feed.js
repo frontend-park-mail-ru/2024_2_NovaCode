@@ -30,7 +30,7 @@ export class FeedPage {
 
     this.parent.innerHTML = "";
 
-    if (!csatStore.submitted()) {
+    if (csatStore.shouldShow()) {
       const iframe = new CSATWindow();
       await iframe.render();
     }
