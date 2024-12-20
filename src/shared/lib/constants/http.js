@@ -55,6 +55,8 @@ export const API_ENDPOINTS = {
     `${API_PLAYLIST_URL}/api/v1/playlists/favorite/count/${userID}`,
   GET_PLAYLIST_LIKES_COUNT: (playlistID) =>
     `${API_PLAYLIST_URL}/api/v1/playlists/likes/${playlistID}`,
+  UPLOAD_PLAYLIST_IMAGE: (playlistID) =>
+    `${API_PLAYLIST_URL}/api/v1/playlists/${playlistID}/image`,
 
   GET_ALL_ALBUMS: `${API_ALBUM_URL}/api/v1/albums`,
   GET_ALBUM: (albumID) => `${API_ALBUM_URL}/api/v1/albums/${albumID}`,
