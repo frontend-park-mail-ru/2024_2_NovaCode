@@ -29,8 +29,9 @@ export const API_ENDPOINTS = {
   UPLOAD_AVATAR: (userID) => `${API_USER_URL}/api/v1/users/${userID}/image`,
 
   GET_ALL_TRACKS: `${API_TRACK_URL}/api/v1/tracks`,
+  GET_TRACKS_BY_GENRE: `${API_TRACK_URL}/api/v1/tracks/byGenre`,
   GET_FAVORITE_TRACKS: `${API_TRACK_URL}/api/v1/tracks/favorite`,
-  GET_FAVORITE_TRACKS_COUNT: (userID) => 
+  GET_FAVORITE_TRACKS_COUNT: (userID) =>
     `${API_TRACK_URL}/api/v1/tracks/favorite/count/${userID}`,
   GET_POPULAR_TRACKS: `${API_TRACK_URL}/api/v1/tracks/popular`,
   GET_TRACKS_BY_PLAYLIST: (playlistID) =>
@@ -51,7 +52,7 @@ export const API_ENDPOINTS = {
   GET_USER_PLAYLISTS: (userID) =>
     `${API_PLAYLIST_URL}/api/v1/playlists/${userID}/allPlaylists`,
   GET_FAVORITE_PLAYLISTS: `${API_PLAYLIST_URL}/api/v1/playlists/favorite`,
-  GET_FAVORITE_PLAYLISTS_COUNT: (userID) => 
+  GET_FAVORITE_PLAYLISTS_COUNT: (userID) =>
     `${API_PLAYLIST_URL}/api/v1/playlists/favorite/count/${userID}`,
   GET_PLAYLIST_LIKES_COUNT: (playlistID) =>
     `${API_PLAYLIST_URL}/api/v1/playlists/likes/${playlistID}`,
@@ -65,7 +66,7 @@ export const API_ENDPOINTS = {
   FIND_ALBUMS: (query) =>
     `${API_ALBUM_URL}/api/v1/albums/search?query=${query}`,
   GET_FAVORITE_ALBUMS: `${API_ALBUM_URL}/api/v1/albums/favorite`,
-  GET_FAVORITE_ALBUMS_COUNT: (userID) => 
+  GET_FAVORITE_ALBUMS_COUNT: (userID) =>
     `${API_ALBUM_URL}/api/v1/albums/favorite/count/${userID}`,
   GET_ALBUM_LIKES_COUNT: (albumID) =>
     `${API_ALBUM_URL}/api/v1/albums/likes/${albumID}`,
@@ -76,11 +77,12 @@ export const API_ENDPOINTS = {
   FIND_ARTISTS: (query) =>
     `${API_ARTIST_URL}/api/v1/artists/search?query=${query}`,
   GET_FAVORITE_ARTIST: `${API_ARTIST_URL}/api/v1/artists/favorite`,
-  GET_FAVORITE_ARTISTS_COUNT: (userID) => 
+  GET_FAVORITE_ARTISTS_COUNT: (userID) =>
     `${API_ARTIST_URL}/api/v1/artists/favorite/count/${userID}`,
   GET_ARTIST_LIKES_COUNT: (artistID) =>
     `${API_ARTIST_URL}/api/v1/artists/likes/${artistID}`,
 
+  GET_GENRES: `${API_GENRE_URL}/api/v1/genres`,
   GET_GENRES_BY_ARTIST: (artistID) =>
     `${API_GENRE_URL}/api/v1/genres/byArtistId/${artistID}`,
 
@@ -94,6 +96,7 @@ export const S3_BUCKETS = {
   PLAYLIST_IMAGES: `${S3_URL}/playlists`,
   TRACK_IMAGES: `${S3_URL}/images/tracks`,
   TRACK_FILES: `${S3_URL}/tracks`,
+  GENRE_IMAGES: `${S3_URL}/genres`,
 };
 
 export const HEADERS = {

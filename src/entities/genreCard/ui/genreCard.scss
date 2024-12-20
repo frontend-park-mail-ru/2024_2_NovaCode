@@ -1,0 +1,9 @@
+.genre_card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  &__img {
+    display: block;
+  }
+}
