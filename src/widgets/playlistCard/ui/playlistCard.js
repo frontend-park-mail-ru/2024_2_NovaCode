@@ -79,14 +79,16 @@ export class PlaylistCardView {
       this.subscribeBtn.classList.add(styles["playlist__liked"]);
     }
 
-    this.imageUploaderView = new ImageUploaderView({
-			parent: document.querySelector(".image_uploader"),
-			uploadFunction: (formData) =>
-				playlistAPI.updateImage(playlist.id, formData),
-			onSuccessEvent: 'updatePlaylistImageSuccess',
-      navigateUrl: `/playlist/${playlist.id}`,
-		});
-		await this.imageUploaderView.render();
+    if (this.isMyPlaylist) {
+      this.imageUploaderView = new ImageUploaderView({
+        parent: document.querySelector(".image_uploader"),
+        uploadFunction: (formData) =>
+          playlistAPI.updateImage(playlist.id, formData),
+        onSuccessEvent: 'updatePlaylistImageSuccess',
+        navigateUrl: `/playlist/${playlist.id}`,
+      });
+      await this.imageUploaderView.render();
+    }
   }
 
   async getElements() {
