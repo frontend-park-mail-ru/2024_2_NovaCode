@@ -92,7 +92,6 @@ export class SideMenu {
   };
 
   onSignOutSuccess = () => {
-    console.log('onSignOutSuccess');
     this.render();
   };
 
