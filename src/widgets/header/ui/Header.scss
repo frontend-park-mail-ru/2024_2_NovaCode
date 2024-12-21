@@ -112,31 +112,40 @@ $header-img-size: 45px;
   }
 
   &__profile_img {
-    height: $header-img-size;
-    width: $header-img-size;
+    height: 40px;
+    width: 40px;
     border-radius: 100%;
     cursor: pointer;
 
     @media (max-width: 1023px) {
-      height: 40px;
-      width: 40px;
+      height: 32px;
+      width: 32px;
     }
 
     @media (max-width: 768px) {
-      height: 35px;
-      width: 35px;
+      height: 27px;
+      width: 27px;
+    }
+
+    @media (max-width: 480px) {
+      height: 21px;
+      width: 21px;
     }
   }
 
   &__img_logo {
-    height: $header-img-size;
+    height: 40px;
 
     @media (max-width: 1023px) {
-      height: 40px;
+      height: 32px;
     }
 
     @media (max-width: 768px) {
-      height: 35px;
+      height: 27px;
+    }
+
+    @media (max-width: 480px) {
+      height: 21px;
     }
   }
 

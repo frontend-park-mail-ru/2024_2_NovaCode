@@ -1,18 +1,22 @@
 <div class="{{ styles.artist_card__container }} container">
   <div class="{{ styles.artist_card__block }} block">
-    <div class="{{ styles.artist_card__text }}"><h4>Исполнитель</h4></div>
+    <div class="{{ styles.artist_card__text }}">
+      <h4>Исполнитель</h4>
+    </div>
     <div class="{{ styles.artist_card__wrapper }}">
       <img src="{{artist.image}}" class="{{ styles.artist_card__img }} card-img" />
       <div class="{{ styles.artist_card__aside }}">
-        <div class="{{ styles.artist_card__info }} {{ styles.artist_info }}">
-          <div class="{{ styles.artist_info__name }}"><h3>{{ artist.name }}</h3></div>
-          <div class="{{ styles.artist_info__genres }}">
-            {{!-- <h4>Жанры: </h4> --}}
-            {{#each genres}}
-              <h4>{{ this.rusName}}</h4>
-            {{/each}}
-          </div>
-          <div class="{{ styles.artist_info__likes }}"><h5>подписок: {{artistLikesCount}}</h5></div>
+        <div class="{{ styles.artist_info__name }}">
+          <h3>{{ artist.name }}</h3>
+        </div>
+        <div class="{{ styles.artist_info__genres }}">
+          {{!-- <h4>Жанры: </h4> --}}
+          {{#each genres}}
+          <h4>{{ this.rusName}}</h4>
+          {{/each}}
+        </div>
+        <div class="{{ styles.artist_info__likes }}">
+          <h5>подписок: {{artistLikesCount}}</h5>
         </div>
         <div class="{{ styles.artist_info__buttons }} buttons">
           <div class="buttons__listen buttons__button button-scale">
@@ -32,4 +36,3 @@
     </div>
   </div>
 </div>
-
