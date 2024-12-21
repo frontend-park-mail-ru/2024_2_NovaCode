@@ -1,122 +1,121 @@
-@use "/src/colors.scss";
+@use '/src/colors.scss';
 
 .login {
+	&__intro {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 
-  &__intro {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+	&__title {
+		padding-top: 10px;
+		color: colors.$white;
+		text-align: center;
+	}
 
-  &__title {
-    padding-top: 10px;
-    color: colors.$white;
-    text-align: center;
-  }
+	&__subtitle {
+		margin-bottom: 10px;
+		color: colors.$white;
+		text-align: center;
+	}
 
-  &__subtitle {
-    margin-bottom: 10px;
-    color: colors.$white;
-    text-align: center;
-  }
+	&__info {
+		color: colors.$white;
+		text-align: center;
+	}
 
-  &__info {
-    color: colors.$white;
-    text-align: center;
-  }
+	&__form {
+		margin-top: 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		width: auto;
+	}
 
-  &__form {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: auto;
-  }
+	&__input {
+		display: block;
+		width: 430px;
+		//height: 30px;
+		padding: 10px;
+		margin-top: 30px;
+		background: colors.$white;
+		//border-radius: 9px;
+		border: none;
+		color: colors.$black;
 
-  &__input {
-    display: block;
-    width: 430px;
-    //height: 30px;
-    padding: 10px;
-    margin-top: 30px;
-    background: colors.$white;
-    //border-radius: 9px;
-    border: none;
-    color: colors.$black;
+		&:first-child {
+			margin-top: 0px;
+		}
 
-    &:first-child {
-      margin-top: 0px;
-    }
+		&_error {
+			border: 3px solid colors.$red;
+		}
 
-    &_error {
-      border: 3px solid colors.$red;
-    }
+		@media (max-width: 600px) {
+			width: 100%;
+			box-sizing: border-box;
+		}
+	}
 
-    @media (max-width: 600px) {
-      width: 100%;
-      box-sizing: border-box;
-    }
-  }
+	&__input-error {
+		width: 430px;
+		color: colors.$red;
+		margin-top: 5px;
 
-  &__input-error {
-    width: 430px;
-    color: colors.$red;
-    margin-top: 5px;
+		@media (max-width: 600px) {
+			width: 100%;
+			box-sizing: border-box;
+		}
+	}
 
-    @media (max-width: 600px) {
-      width: 100%;
-      box-sizing: border-box;
-    }
-  }
+	&__general-error {
+		width: 430px;
+		color: colors.$red;
+		margin-top: 15px;
+		text-align: center;
 
-  &__general-error {
-    width: 430px;
-    color: colors.$red;
-    margin-top: 15px;
-    text-align: center;
+		@media (max-width: 600px) {
+			width: 100%;
+			box-sizing: border-box;
+		}
+	}
 
-    @media (max-width: 600px) {
-      width: 100%;
-      box-sizing: border-box;
-    }
-  }
+	&__submit_btn {
+		margin-top: 25px;
+		width: 450px;
+		//height: 50px;
+		padding: 10px;
+		background: colors.$orange;
+		border-radius: 9px;
+		border: none;
+		color: colors.$white;
+		text-align: center;
 
-  &__submit_btn {
-    margin-top: 25px;
-    width: 450px;
-    //height: 50px;
-    padding: 10px;
-    background: colors.$orange;
-    border-radius: 9px;
-    border: none;
-    color: colors.$white;
-    text-align: center;
+		@media (max-width: 600px) {
+			width: 100%;
+			box-sizing: border-box;
+		}
+	}
 
-    @media (max-width: 600px) {
-      width: 100%;
-      box-sizing: border-box;
-    }
-  }
+	&__additional {
+		margin-top: 10px;
+		color: colors.$white;
+		padding: 0px 10px;
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		align-items: center;
 
-  &__additional {
-    margin-top: 10px;
-    color: colors.$white;
-    padding: 0px 10px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    align-items: center;
+		@media (max-width: 600px) {
+			width: 100%;
+			box-sizing: border-box;
+			flex-direction: column;
+		}
+	}
 
-    @media (max-width: 600px) {
-      width: 100%;
-      box-sizing: border-box;
-      flex-direction: column;
-    }
-  }
-
-  /* @media (pointer: coarse) {
+	/* @media (pointer: coarse) {
     &__enter_account {
       text-decoration: underline;
     }

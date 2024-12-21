@@ -1,48 +1,52 @@
-@use "/src/colors.scss";
+@use '/src/colors.scss';
 
 .edit_user {
+	&__text {
+		color: colors.$white;
+		margin-bottom: 10px;
+	}
 
-  &__text {
-    color: colors.$white;
-    margin-bottom: 10px;
-  }
+	&__form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 
-  &__form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+	&__input {
+		display: block;
+		width: 430px;
+		height: 30px;
+		//padding: 10px;
+		margin-top: 15px;
+		background: colors.$white;
+		//border-radius: 9px;
+		border: none;
+		color: colors.$black;
 
-  &__input {
-    display: block;
-    width: 430px;
-    height: 30px;
-    //padding: 10px;
-    margin-top: 15px;
-    background: colors.$white;
-    //border-radius: 9px;
-    border: none;
-    color: colors.$black;
+		&:first-child {
+			margin-top: 0px;
+		}
 
-    &:first-child {
-      margin-top: 0px;
-    }
+		&_error {
+			color: colors.$red;
+		}
 
-    &_error {
-      color: colors.$red;
-    }
-  }
+		@media (max-width: 600px) {
+			width: 100%;
+			box-sizing: border-box;
+		}
+	}
 
-  &__submit_btn {
-    margin-top: 20px;
-    padding: 10px;
-    background: colors.$orange;
-    border-radius: 9px;
-    border: none;
-    color: colors.$white;
-    text-align: center;
-    cursor: pointer;
-  }
+	&__submit_btn {
+		margin-top: 20px;
+		padding: 10px;
+		background: colors.$orange;
+		border-radius: 9px;
+		border: none;
+		color: colors.$white;
+		text-align: center;
+		cursor: pointer;
+	}
 }
 
 /* @media (max-width: 1380px) {
