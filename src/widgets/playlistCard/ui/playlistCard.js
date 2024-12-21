@@ -13,6 +13,7 @@ import musicSquareRemoveIcon from "../../../../public/images/icons/music-square-
 import sendSquareWhiteIcon from "../../../../public/images/icons/send-square-white.svg";
 import { ImageUploaderView } from "../../imageUploader/index.js";
 import { playlistAPI } from "../../../entities/playlist/api/api.js";
+import { player } from "../../../shared/player/model/store.js";
 
 export class PlaylistCardView {
   /**
@@ -45,7 +46,9 @@ export class PlaylistCardView {
       playlist.image = `${S3_BUCKETS.PLAYLIST_IMAGES}/default.webp`;
     }
 
-    const playlistLikesCount = (await playlistCardAPI.GetPlaylistLikesCount(this.playlistId))?.count;
+    const playlistLikesCount = (
+      await playlistCardAPI.GetPlaylistLikesCount(this.playlistId)
+    )?.count;
 
     const playlistCardElement = document.createElement("div");
     playlistCardElement.classList.add("playlist_card");
@@ -66,7 +69,7 @@ export class PlaylistCardView {
       playCircleIcon,
       musicSquareRemoveIcon,
       sendSquareWhiteIcon,
-      playlistLikesCount
+      playlistLikesCount,
     });
     this.parent.appendChild(playlistCardElement);
 
@@ -84,7 +87,7 @@ export class PlaylistCardView {
         parent: document.querySelector(".image_uploader"),
         uploadFunction: (formData) =>
           playlistAPI.updateImage(playlist.id, formData),
-        onSuccessEvent: 'updatePlaylistImageSuccess',
+        onSuccessEvent: "updatePlaylistImageSuccess",
         navigateUrl: `/playlist/${playlist.id}`,
       });
       await this.imageUploaderView.render();
@@ -128,7 +131,12 @@ export class PlaylistCardView {
   };
 
   handlePlayPauseBtn() {
-    eventBus.emit("playPauseTrack");
+    if (player.queue.length > 0) {
+      eventBus.emit("reloadTracks");
+      eventBus.emit("playById", 0);
+    } else {
+      eventBus.emit("playPauseTrack");
+    }
   }
 
   handleShareBtn = () => {

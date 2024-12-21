@@ -9,6 +9,7 @@ import * as styles from "./artistCard.scss";
 import heartIcon from "../../../../public/images/icons/heart.svg";
 import playCircleIcon from "../../../../public/images/icons/play-circle.svg";
 import sendSquareWhiteIcon from "../../../../public/images/icons/send-square-white.svg";
+import { player } from "../../../shared/player/model/store.js";
 
 export class ArtistCardView {
   /**
@@ -38,7 +39,9 @@ export class ArtistCardView {
       artist.image = `${S3_BUCKETS.ARTIST_IMAGES}/${artist.image}`;
     }
 
-    const artistLikesCount = (await artistCardAPI.GetArtistLikesCount(this.artistId))?.count;
+    const artistLikesCount = (
+      await artistCardAPI.GetArtistLikesCount(this.artistId)
+    )?.count;
 
     const artistCardElement = document.createElement("div");
     artistCardElement.classList.add("artist_card");
@@ -49,7 +52,7 @@ export class ArtistCardView {
       heartIcon,
       playCircleIcon,
       sendSquareWhiteIcon,
-      artistLikesCount
+      artistLikesCount,
     });
     this.parent.appendChild(artistCardElement);
 
@@ -81,7 +84,12 @@ export class ArtistCardView {
   }
 
   handlePlayPauseBtn() {
-    eventBus.emit("playPauseTrack");
+    if (player.queue.length > 0) {
+      eventBus.emit("reloadTracks");
+      eventBus.emit("playById", 0);
+    } else {
+      eventBus.emit("playPauseTrack");
+    }
   }
 
   handleShareBtn = () => {
