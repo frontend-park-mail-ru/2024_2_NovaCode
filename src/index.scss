@@ -9,17 +9,17 @@ body {
 	background: linear-gradient(180deg, #172b7b 0%, #020718 100%);
 	background-attachment: fixed;
 	font-family: 'Comfortaa', sans-serif;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 300;
 	margin: 0;
 	padding: 0;
 
 	@media (max-width: 1024px) {
-		font-size: 16px;
+		font-size: 14px;
 	}
 
 	@media (max-width: 768px) {
-		font-size: 14px;
+		font-size: 12px;
 	}
 }
 

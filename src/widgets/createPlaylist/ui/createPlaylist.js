@@ -14,8 +14,9 @@ export class CreatePlaylistModal {
 	 * Initializes the CreatePlaylistModal.
 	 *
 	 */
-	constructor(parent) {
+	constructor(parent, onClose=null) {
 		this.parent = parent ?? document.querySelector('#root');
+        this.onClose = onClose;
 	}
 
     async render() {
@@ -31,18 +32,21 @@ export class CreatePlaylistModal {
         const form = this.createPlaylistModal.querySelector('#create-playlist-modal__form');
         const cancelButton = this.createPlaylistModal.querySelector(`.${styles['create-playlist-modal__cancel']}`);
 
-        form.addEventListener('submit', this.handleFormSubmit.bind(this));
-        cancelButton.addEventListener('click', this.handleClose.bind(this));
+        form.addEventListener('submit', this.handleFormSubmit);
+        cancelButton.addEventListener('click', this.handleClose);
 
         const closeButton = this.createPlaylistModal.querySelector(`.${styles['create-playlist-modal__close-btn']}`);
-        closeButton.addEventListener('click', this.handleClose.bind(this));
+        closeButton.addEventListener('click', this.handleClose);
     }
 
-    handleClose() {
+    handleClose = () => {
         this.createPlaylistModal.remove();
+        if (this.onClose) {
+            this.onClose();
+        }
     }
 
-    async handleFormSubmit(event) {
+    handleFormSubmit = async (event) => {
         event.preventDefault();
         const playlistNameInput = event.target.querySelector('#playlist-name');
         const playlistName = playlistNameInput.value.trim();
@@ -60,6 +64,11 @@ export class CreatePlaylistModal {
             this.createPlaylistModal.remove();
         } catch (error) {
             eventBus.emit('notification', { type: 'error', message: `Failed to create playlist: ${error.message}` });
+        }
+
+        if (this.onClose) {
+            console.log('this.onClose');
+            this.onClose();
         }
     }
 }

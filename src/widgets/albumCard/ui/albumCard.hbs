@@ -1,26 +1,31 @@
 <div class="{{ styles.album_card__container }} container">
   <div class="{{ styles.album_card__block }} block">
-    <div class="{{ styles.album_card__text }}"><h4>Альбом</h4></div>
+    <div class="{{ styles.album_card__text }}">
+      <h4>Альбом</h4>
+    </div>
     <div class="{{ styles.album_card__wrapper }}">
       <img src="{{ album.image }}" class="{{ styles.album_card__img }} card-img" />
       <div class="{{ styles.album_card__aside }}">
-        <div class="{{ styles.album_card__info }} {{ styles.album_info }}">
-          <div class="{{ styles.album_info__name }}"> <h3>{{ album.name }}</h3> </div>
-          <div class="{{ styles.album_info__artist_release }}">
-            <h4><a class="{{ styles.album_info__artist_release__artist_link }} link" href="/artist/{{ album.artistID }}">{{ album.artistName }}</a>  · {{ album.release }}</h4>
-          </div>
-          <div class="{{ styles.album_info__likes }}"><h5>подписок: {{albumLikesCount}}</h5></div>
+        <div class="{{ styles.album_info__name }}">
+          <h3>{{ album.name }}</h3>
+        </div>
+        <div class="{{ styles.album_info__artist_release }}">
+          <h4><a class="{{ styles.album_info__artist_release__artist_link }} link"
+              href="/artist/{{ album.artistID }}">{{ album.artistName }}</a> · {{ album.release }}</h4>
+        </div>
+        <div class="{{ styles.album_info__likes }}">
+          <h5>подписок: {{albumLikesCount}}</h5>
         </div>
         <div class="{{ styles.album_info__buttons }} buttons">
-          <div class="buttons__subscribe buttons__button">
-            <img src="{{ subIcon }}" class="button icon" />
-            <h4>Подписаться</h4>
-          </div>
-          <div class="buttons__listen buttons__button">
+          <div class="buttons__listen buttons__button button-scale">
             <img src="{{ playCircleIcon }}" class="button icon" />
             <h4>Слушать</h4>
           </div>
-          <div class="buttons__share buttons__button">
+          <div class="buttons__subscribe buttons__button button-scale">
+            <img src="{{ heartIcon }}" class="button icon" />
+            <h4>Нравится</h4>
+          </div>
+          <div class="buttons__share buttons__button button-scale">
             <img src="{{ sendSquareWhiteIcon }}" class="button icon" />
             <h4>Поделиться</h4>
           </div>

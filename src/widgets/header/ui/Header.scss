@@ -13,14 +13,15 @@ $header-img-size: 45px;
   &__container {
     max-width: 1280px;
     margin: 0 auto;
+    padding: 10px;
 
     @media (max-width: 1380px) {
       width: 90%;
     }
 
-    @media (max-width: 768px) {
+    /* @media (max-width: 768px) {
       padding: 0 10px;
-    }
+    } */
   }
 
   &__row {
@@ -35,31 +36,67 @@ $header-img-size: 45px;
     }
   }
 
+  &__grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: min-content min-content 1fr min-content;
+    column-gap: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: min-content 1fr min-content;
+    }
+  }
+
   &__left_block {
     display: flex;
+    grid-column: 2/3;
     align-items: center;
     gap: $header-gap;
 
     @media (max-width: 768px) {
-      justify-content: center;
-      width: 100%;
+      /* justify-content: center;
+      width: 100%; */
+      display: none;
     }
   }
 
   &__logo_block {
     display: flex;
+    grid-column: 1/2;
     align-items: center;
     gap: 5px;
   }
 
+  &__right_button {
+    display: none;
+    padding: 10px;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      display: flex;
+      grid-column: 3/4;
+    }
+  }
+
+  &__spacer {
+    display: flex;
+    grid-column: 3/4;
+
+    @media (max-width: 768px) {
+      grid-column: 2/3;
+    }
+  }
+
   &__right_block {
     display: flex;
+    grid-column: 4/5;
     align-items: center;
     gap: $header-gap;
 
     @media (max-width: 768px) {
-      justify-content: center;
-      width: 100%;
+      /* justify-content: center;
+      width: 100%; */
+      display: none;
     }
   }
 
@@ -75,31 +112,40 @@ $header-img-size: 45px;
   }
 
   &__profile_img {
-    height: $header-img-size;
-    width: $header-img-size;
+    height: 40px;
+    width: 40px;
     border-radius: 100%;
     cursor: pointer;
 
     @media (max-width: 1023px) {
-      height: 40px;
-      width: 40px;
+      height: 32px;
+      width: 32px;
     }
 
     @media (max-width: 768px) {
-      height: 35px;
-      width: 35px;
+      height: 27px;
+      width: 27px;
+    }
+
+    @media (max-width: 480px) {
+      height: 21px;
+      width: 21px;
     }
   }
 
   &__img_logo {
-    height: $header-img-size;
+    height: 40px;
 
     @media (max-width: 1023px) {
-      height: 40px;
+      height: 32px;
     }
 
     @media (max-width: 768px) {
-      height: 35px;
+      height: 27px;
+    }
+
+    @media (max-width: 480px) {
+      height: 21px;
     }
   }
 
@@ -120,7 +166,6 @@ $header-img-size: 45px;
     }
   }
 
-  &__link,
   &__link {
     display: block;
     color: colors.$white;

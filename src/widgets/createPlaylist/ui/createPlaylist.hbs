@@ -1,23 +1,25 @@
-<div class="{{ styles.create-playlist-modal__container }}">
-    <div class="{{ styles.create-playlist-modal__header }}">
-        <h4 class="{{ styles.create-playlist-modal__title }}">Создать плейлист</h4>
-        <button class="{{ styles.create-playlist-modal__close-btn }}">×</button>
-    </div>
-    <div class="{{ styles.create-playlist-modal__body }}">
-        <form id="create-playlist-modal__form">
-            <label for="playlist-name" class="{{ styles.create-playlist-modal__label }}">
-                <h5>Имя плейлиста</h5>
-            </label>
-            <input type="text" id="playlist-name" name="playlist-name" class="{{ styles.create-playlist-modal__input }}"
-                placeholder="Введите имя плейлиста" required />
-            <div class="{{ styles.create-playlist-modal__actions }}">
-                <button type="submit" class="{{ styles.create-playlist-modal__submit }}">
-                    <h4>Создать</h4>
-                </button>
-                <button type="button" class="{{ styles.create-playlist-modal__cancel }}">
-                    <h4>Отмена</h4>
-                </button>
-            </div>
-        </form>
+<div class="{{ styles.create-playlist-modal__fade}}">
+    <div class="{{ styles.create-playlist-modal__container }}">
+        <div class="{{ styles.create-playlist-modal__header }}">
+            <h4 class="{{ styles.create-playlist-modal__title }}">Создать плейлист</h4>
+            <button class="{{ styles.create-playlist-modal__close-btn }}"><h4>&times</h4></button>
+        </div>
+        <div class="{{ styles.create-playlist-modal__body }}">
+            <form id="create-playlist-modal__form">
+                <label for="playlist-name" class="{{ styles.create-playlist-modal__label }}">
+                    <h5>Имя плейлиста</h5>
+                </label>
+                <input type="text" id="playlist-name" name="playlist-name"
+                    class="{{ styles.create-playlist-modal__input }}" placeholder="Введите имя плейлиста" required />
+                <div class="{{ styles.create-playlist-modal__actions }}">
+                    <button type="submit" class="{{ styles.create-playlist-modal__submit }}">
+                        <h4>Создать</h4>
+                    </button>
+                    <button type="button" class="{{ styles.create-playlist-modal__cancel }}">
+                        <h4>Отмена</h4>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

@@ -1,11 +1,5 @@
 @use "/src/colors.scss";
 
-html,
-body {
-  font-family: "Comfortaa", sans-serif;
-  font-size: 16px;
-}
-
 button,
 input {
   font-family: inherit;
@@ -21,9 +15,10 @@ input {
 }
 
 .csat_window {
-  //font-family: 'Sansation', sans-serif;
 
   &__container {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 16px;
     width: 75%;
     height: 80%;
     max-width: 400px;
@@ -37,7 +32,6 @@ input {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
   &__btn_close {
@@ -53,7 +47,6 @@ input {
 
     &:hover {
       color: colors.$orange;
-      transform: scale(1.1);
     }
   }
 
