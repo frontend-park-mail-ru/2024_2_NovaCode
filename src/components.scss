@@ -11,6 +11,11 @@
     @media (max-width: 1380px) {
         width: 90%;
     }
+
+    @media (max-width: 768px) {
+        gap: 5px;
+        margin: 5px auto;
+    }
 }
 
 .container {
@@ -93,24 +98,52 @@
     width: 180px;
     height: 180px;
 
+    @media (max-width: 1380px) {
+        width: 170px;
+        height: 170px;
+    }
+
     @media (max-width: 1024px) {
-        width: 160px;
-        height: 160px;
+        width: 150px;
+        height: 150px;
     }
 
     @media (max-width: 760px) {
-        width: 140px;
-        height: 140px;
+        width: 120px;
+        height: 120px;
     }
 
     @media (max-width: 600px) {
-        width: 130px;
-        height: 130px;
+        width: 100px;
+        height: 100px;
     }
 
     @media (max-width: 480px) {
-        width: 120px;
-        height: 120px;
+        width: 85px;
+        height: 85px;
+    }
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    margin-top: 10px;
+    row-gap: 10px;
+
+    &>* {
+        justify-self: center;
+    }
+
+    @media (max-width: 1380px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -124,18 +157,18 @@
     }
 
     @media (max-width: 760px) {
-        width: 160px;
-        height: 160px;
-    }
-
-    @media (max-width: 600px) {
         width: 150px;
         height: 150px;
     }
 
+    @media (max-width: 600px) {
+        width: 130px;
+        height: 130px;
+    }
+
     @media (max-width: 480px) {
-        width: 140px;
-        height: 140px;
+        width: 110px;
+        height: 110px;
     }
 }
 
@@ -162,106 +195,114 @@
     }
 }
 
+.player_button {
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
 .carousel {
-	&__container {
-		position: relative;
-		width: 100%;
-		padding: 10px 60px;
-		/* background-color: #eee; */
-		/* border: 2px solid #ccc; */
-		border-radius: 10px;
-		overflow: hidden;
-		box-sizing: border-box;
-	}
+    &__container {
+        position: relative;
+        width: 100%;
+        padding: 10px 60px;
+        /* background-color: #eee; */
+        /* border: 2px solid #ccc; */
+        border-radius: 10px;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
 
-	&__area {
-		width: 100%;
-		overflow: hidden;
-		border-radius: 10px;
-		display: flex;
-		justify-content: start;
-	}
+    &__area {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 10px;
+        display: flex;
+        justify-content: start;
+    }
 
-	&__inner {
-		display: flex;
-		/* gap: 10px; */
-		transition: transform 0.5s ease;
-		text-align: left;
-	}
+    &__inner {
+        display: flex;
+        /* gap: 10px; */
+        transition: transform 0.5s ease;
+        text-align: left;
+    }
 
-	&__item {
-		display: flex;
-		padding: 10px;
-		flex-direction: column;
-		align-items: center;
-		/* width: 210px; */
-		height: fit-content;
-		flex-shrink: 0;
-	}
+    &__item {
+        display: flex;
+        padding: 10px;
+        flex-direction: column;
+        align-items: center;
+        /* width: 210px; */
+        height: fit-content;
+        flex-shrink: 0;
+    }
 
-	&__button {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		background-color: rgba(0, 0, 0, 0.5);
-		color: #fff;
-		border: none;
-		cursor: pointer;
-		border-radius: 50%;
-		width: 35px;
-		height: 35px;
-		font-size: 18px;
+    &__button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
 
-		&_prev {
-			left: 10px;
-		}
+        &_prev {
+            left: 10px;
+        }
 
-		&_next {
-			right: 10px;
-		}
-	}
+        &_next {
+            right: 10px;
+        }
+    }
 
     @media (max-width: 768px) {
         &__container {
-			padding: 0 45px 0 35px;
-		}
+            padding: 0 45px 0 35px;
+        }
 
-		&__button {
-			width: 28px;
-			height: 28px;
-			font-size: 16px;
+        &__button {
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
 
-			&_prev {
-				left: 5px;
-			}
+            &_prev {
+                left: 5px;
+            }
 
-			&_next {
-				right: 5px;
-			}
-		}
+            &_next {
+                right: 5px;
+            }
+        }
     }
 
     @media (max-width: 480px) {
         &__container {
-			padding: 0 27px 0 22px;
-		}
+            padding: 0 27px 0 22px;
+        }
 
-		&__item {
-			padding: 4px;
-		}
+        &__item {
+            padding: 4px;
+        }
 
-		&__button {
-			width: 22px;
-			height: 22px;
-			font-size: 12px;
+        &__button {
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
 
-			&_prev {
-				left: 0px;
-			}
+            &_prev {
+                left: 0px;
+            }
 
-			&_next {
-				right: 0px;
-			}
-		}
+            &_next {
+                right: 0px;
+            }
+        }
     }
 }

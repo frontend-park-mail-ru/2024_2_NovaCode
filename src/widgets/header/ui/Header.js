@@ -5,6 +5,8 @@ import { ModalConfirmView } from '../../../widgets/modalConfirm/index.js';
 import template from './Header.hbs';
 import * as styles from './Header.scss';
 import logoLightIcon from '../../../../public/images/icons/logo_light.svg';
+import sideBarLeftIcon from '../../../../public/images/icons/sidebar-left.svg';
+import { SideMenu } from '../../sideMenu/ui/sideMenu.js';
 
 export class Header {
   parent;
@@ -22,7 +24,10 @@ export class Header {
       user.image = `${S3_BUCKETS.AVATAR_IMAGES}/${user.image}`;
     }
 
-    this.parent.innerHTML = template({ styles, user, logoLightIcon });
+    this.parent.innerHTML = template({ styles, user, logoLightIcon, sideBarLeftIcon });
+
+    this.sideMenu = new SideMenu()
+    this.sideMenu.render()
 
 		this.getElements();
 		this.bindEvents();
@@ -47,6 +52,13 @@ export class Header {
     links.forEach((link) => {
       link.addEventListener('click', handleLink);
     });
+
+    eventBus.on('navigate', this.handleNavigation.bind(this));
+
+    const icon = this.parent.querySelector(".icon");
+    if (icon) {
+      icon.addEventListener("click", this.sideMenu.open);
+    }
   }
 
   handleSignOutBtn(event) {

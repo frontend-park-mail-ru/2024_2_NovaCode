@@ -14,6 +14,7 @@ import {
   PlaylistListAPI,
   PlaylistListView,
 } from "../../../widgets/playlistList/index.js";
+import { PlaylistCarouselView } from "../../../widgets/playlistCarousel/index.js";
 
 export class SubscriptionsPage {
   /**
@@ -59,17 +60,9 @@ export class SubscriptionsPage {
       await albumCarouselView.render(albums);
     }
 
-    const playlistListAPI = new PlaylistListAPI();
-    const playlistListView = new PlaylistListView(this.pageContent);
-    const playlists = await playlistListAPI.getFavorite(this.user.id);
-    if (playlists) {
-      await playlistListView.render(
-        playlists.slice(0, 5),
-        true,
-        true,
-        this.user.id,
-      );
-    }
+    const playlistCarouselView = new PlaylistCarouselView(this.pageContent, {favorite: true, userId: this.user.id});
+    await playlistCarouselView.render();
+    const playlists = playlistCarouselView.getPlaylists();
 
     if (!artists && !albums && !playlists) {
       const errorView = new ErrorView(

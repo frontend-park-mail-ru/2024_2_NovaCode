@@ -1,0 +1,48 @@
+@use "/src/colors.scss";
+
+.popular_playlists {
+    &__upper_wrapper {
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: colors.$white;
+    }
+
+    &__list {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+// @media (max-width: 1380px) {
+//   .popular_artists {
+//     &__block {
+//       width: 90%;
+//     }
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .popular_artists {
+//     &__show_more,
+//     &__text {
+//       font-size: 19px;
+//     }
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .popular_artists {
+//     &__show_more,
+//     &__text {
+//       font-size: 16px;
+//     }
+//   }
+// }

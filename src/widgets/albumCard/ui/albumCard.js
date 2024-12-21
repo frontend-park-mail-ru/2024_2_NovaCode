@@ -5,10 +5,11 @@ import template from "./albumCard.hbs";
 import { BASE_URL } from "../../../shared/config/api.js";
 import { ShareModal } from "../../shareModal/index.js";
 import * as styles from "./albumCard.scss";
-import subIcon from "../../../../public/images/icons/sub.svg";
+import heartIcon from "../../../../public/images/icons/heart.svg";
 import playCircleIcon from "../../../../public/images/icons/play-circle.svg";
 import sendSquareWhiteIcon from "../../../../public/images/icons/send-square-white.svg";
 import { userStore } from "../../../entities/user/index.js";
+import { player } from "../../../shared/player/model/store.js";
 
 export class AlbumCardView {
   /**
@@ -40,17 +41,19 @@ export class AlbumCardView {
       album.image = `${S3_BUCKETS.ALBUM_IMAGES}/${album.image}`;
     }
 
-    const albumLikesCount = (await albumCardAPI.GetAlbumLikesCount(this.albumId))?.count;
+    const albumLikesCount = (
+      await albumCardAPI.GetAlbumLikesCount(this.albumId)
+    )?.count;
 
     this.albumCardElement = document.createElement("div");
     this.albumCardElement.classList.add("album_card");
     this.albumCardElement.innerHTML = template({
       styles,
       album,
-      subIcon,
+      heartIcon,
       playCircleIcon,
       sendSquareWhiteIcon,
-      albumLikesCount
+      albumLikesCount,
     });
     this.parent.appendChild(this.albumCardElement);
 
@@ -92,7 +95,12 @@ export class AlbumCardView {
   }
 
   handlePlayPauseBtn() {
-    eventBus.emit("playPauseTrack");
+    if (player.queue.length > 0) {
+      eventBus.emit("reloadTracks");
+      eventBus.emit("playById", 0);
+    } else {
+      eventBus.emit("playPauseTrack");
+    }
   }
 
   handleShareBtn = () => {

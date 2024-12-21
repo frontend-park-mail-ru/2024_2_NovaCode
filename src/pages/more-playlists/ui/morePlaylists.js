@@ -18,7 +18,7 @@ export class MorePlaylistsPage {
   async render() {
     this.parent.innerHTML = "";
 
-    if (this.type === "favorite") {
+    if (this.type === "favorite" || this.entity === "favorite") {
       this.favorite = true;
     }
 

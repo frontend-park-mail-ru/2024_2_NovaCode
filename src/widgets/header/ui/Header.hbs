@@ -1,53 +1,40 @@
 <div class="{{ styles.header }}">
   <div class="{{ styles.header__container }}">
-    <div class="{{ styles.header__row }}">
+    <div class="{{ styles.header__grid }}">
+      <div class="{{ styles.header__logo_block }}">
+        <img class="{{ styles.header__img_logo }}" src="{{ logoLightIcon }}">
+        <h1><a class="{{ styles.header__link_logo }} {{ styles.header__link }} navlink" id="header_logo_link" {{#if
+            user.isAuthorized}} href="/" {{else}} href="/signin" {{/if}}>NovaMusic</a></h1>
+      </div>
       <div class="{{ styles.header__left_block }}">
-        <div class="{{ styles.header__logo_block }}">
-          <img class="{{ styles.header__img_logo }}" src="{{ logoLightIcon }}">
-          <h1><a
-          class="{{ styles.header__link_logo }} {{ styles.header__link }} navlink"
-            id="header_logo_link"
-            {{#if user.isAuthorized}} 
-            href="/"
-            {{else}}
-            href="/signin"
-            {{/if}}
-          >NovaMusic</a></h1>
-        </div>
         {{#if user.isAuthorized}}
-        <h2><a
-          class="{{ styles.header__link_main }} {{ styles.header__link }} navlink navlink_switch"
-          href="/"
-        >Главная</a></h2>
-        <h2><a
-          class="{{styles.header__link_search }} {{ styles.header__link }} navlink navlink_switch"
-          href="/search"
-        >Поиск</a></h2>
+        <h2><a class="{{ styles.header__link_main }} {{ styles.header__link }} navlink navlink_switch"
+            href="/">Главная</a></h2>
+        <h2><a class="{{styles.header__link_search }} {{ styles.header__link }} navlink navlink_switch"
+            href="/search">Поиск</a></h2>
         {{/if}}
       </div>
+      <div class="header__spacer"></div>
       <div class="{{ styles.header__right_block }}" id="header_signin_menu">
         {{#if user.isAuthorized}}
-          <div class="{{ styles.header__signed_block }}">
-            <img src="{{user.image}}" href="/profiles/{{user.username}}" class="{{ styles.header__profile_img }} {{ styles.header__link }} navlink">
-            <h2><a
-              class="{{ styles.header__link_logout }} {{ styles.header__link }}"
-              id="header_logout_link"
-              href="/signin"
-            >Выход</a></h2>
-          </div>
+        <div class="{{ styles.header__signed_block }}">
+          <img src="{{user.image}}" href="/profiles/{{user.username}}"
+            class="{{ styles.header__profile_img }} {{ styles.header__link }} navlink">
+          <h2><a class="{{ styles.header__link_logout }} {{ styles.header__link }}" id="header_logout_link"
+              href="/signin">Выход</a></h2>
+        </div>
         {{else}}
-          <h2><a
-            class="{{ styles.header__link_signin }} {{styles.header__link }} navlink navlink_switch"
-            id="header_signin_link"
-            href="/signin"
-          >Войти</a></h2>
-          <h2><a
-            class="{{ styles.header__link_signup }} {{ styles.header__link }} navlink navlink_switch"
-            id="header_signup_link"
-            href="/signup"
-          >Регистрация</a></h2>
+        <h2><a class="{{ styles.header__link_signin }} {{styles.header__link }} navlink navlink_switch"
+            id="header_signin_link" href="/signin">Войти</a></h2>
+        <h2><a class="{{ styles.header__link_signup }} {{ styles.header__link }} navlink navlink_switch"
+            id="header_signup_link" href="/signup">Регистрация</a></h2>
         {{/if}}
       </div>
+      <div class="{{ styles.header__right_button }}">
+        <img src="{{ sideBarLeftIcon }}" alt="add_track" class="icon">
+      </div>
     </div>
+
   </div>
+</div>
 </div>

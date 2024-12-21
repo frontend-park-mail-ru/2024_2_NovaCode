@@ -14,6 +14,7 @@ import { CSATWindow } from "../../../widgets/csatWindow/ui/csatWindow.js";
 import { userStore } from "../../../entities/user/index.js";
 import { eventBus } from "../../../shared/lib/eventbus.js";
 import { csatStore } from "../../../entities/csat/index.js";
+import { PlaylistCarouselAPI, PlaylistCarouselView } from "../../../widgets/playlistCarousel/index.js";
 
 export class FeedPage {
   /**
@@ -63,9 +64,7 @@ export class FeedPage {
     const artists = await artistCarouselAPI.get();
     await artistCarouselView.render(artists);
 
-    const playlistListAPI = new PlaylistListAPI();
-    const playlistListView = new PlaylistListView(this.pageContent);
-    const playlists = await playlistListAPI.get();
-    await playlistListView.render(playlists.slice(0, 5));
+    const playlistCarouselView = new PlaylistCarouselView(this.pageContent);
+    await playlistCarouselView.render();
   }
 }

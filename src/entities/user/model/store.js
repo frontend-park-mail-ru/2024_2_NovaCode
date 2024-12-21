@@ -222,6 +222,8 @@ class UserStore {
 					Storage.save('user', this.storage.user);
 
 					eventBus.emit('updateAvatarSuccess', this.storage.user);
+					eventBus.emit('renderHeader');
+					eventBus.emit('navigate', `/profiles/${this.storage.user.username}`);
 					break;
 
 				default:
@@ -257,6 +259,8 @@ class UserStore {
 					Storage.save('user', this.storage.user);
 
 					eventBus.emit('updateUserSuccess', this.storage.user);
+					eventBus.emit('renderHeader');
+					eventBus.emit('navigate', `/profiles/${this.storage.user.username}`);
 					break;
 
 				default:
