@@ -20,13 +20,15 @@ export class ArtistListView {
 	/**
 	 * Renders the playlist view.
 	 */
-	async render(artists, favorite = false) {
+	async render(artists, favorite = false, search = false) {
 		const artistListElement = document.createElement('div');
 		artistListElement.classList.add('artists');
 
 		let titleText;
 		if (favorite) {
 			titleText = "Любимые артисты";
+		} else if (search) {
+			titleText = "Артисты";
 		} else {
 			titleText = "Популярные артисты";
 		}

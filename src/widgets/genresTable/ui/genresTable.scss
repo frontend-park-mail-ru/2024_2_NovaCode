@@ -1,0 +1,16 @@
+@use "/src/colors.scss";
+
+.genres {
+  &__block {
+    color: colors.$white;
+  }
+
+  &__table {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}

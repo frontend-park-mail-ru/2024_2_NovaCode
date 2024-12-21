@@ -15,6 +15,7 @@ import { MorePlaylistsPage } from "../pages/more-playlists/index.js";
 import { PlaylistPage } from "../pages/playlist/index.js";
 import { FooterPlayerView } from "../widgets/footerPlayer/index.js";
 import { SubscriptionsPage } from "../pages/subscriptions/ui/subscriptions.js";
+import { GenreTracksPage } from "../pages/genreTracks/ui/genreTracks.js";
 
 export const LAYOUT = [Header, FooterPlayerView];
 
@@ -101,5 +102,9 @@ export const PAGES = [
   {
     path: "/album/{albumId}/track/{trackId}",
     view: AlbumPage,
+  },
+  {
+    path: "/genre/{genreID}",
+    view: GenreTracksPage,
   },
 ];
