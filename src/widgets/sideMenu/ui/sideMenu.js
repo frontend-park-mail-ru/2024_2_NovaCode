@@ -6,7 +6,7 @@ import * as styles from "./sideMenu.scss"
 
 export class SideMenu {
   constructor() {
-    this.root = document.querySelector("#root"); // Ensure this targets the correct container
+    this.root = document.querySelector("#root");
   }
 
   render() {
@@ -15,7 +15,6 @@ export class SideMenu {
 
     const user = userStore.storage.user;
 
-    // Create and append the side menu
     this.sideMenuElement = document.createElement("div");
     this.sideMenuElement.classList.add(`${styles["side_menu"]}`);
     this.sideMenuElement.innerHTML = template({ styles, user });
@@ -93,6 +92,7 @@ export class SideMenu {
   };
 
   onSignOutSuccess = () => {
+    console.log('onSignOutSuccess');
     this.render();
   };
 

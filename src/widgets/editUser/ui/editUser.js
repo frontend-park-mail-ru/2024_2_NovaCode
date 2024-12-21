@@ -79,9 +79,8 @@ export class EditUserView {
   }
 
   handleSuccess() {
-    const user = userStore.storage.user;
-    eventBus.emit("navigate", `/profiles/${user.username}`);
-  }
+    // eventBus.emit("navigate", `/profiles/${userStore.storage.user.username}`);
+  } 
 
   handleError(error) {
     document.querySelector("#edit-user__username-error").querySelector('h4').textContent = "";

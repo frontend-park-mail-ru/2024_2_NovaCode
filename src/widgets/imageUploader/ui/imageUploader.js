@@ -51,7 +51,7 @@ export class ImageUploaderView {
     if (this.onSuccessEvent) {
       eventBus.on(this.onSuccessEvent, () => {
         if (this.navigateUrl) {
-          window.location.href = this.navigateUrl;
+          // window.location.href = this.navigateUrl;
         }
       });
     }

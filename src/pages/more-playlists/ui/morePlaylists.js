@@ -13,7 +13,6 @@ export class MorePlaylistsPage {
     this.type = params["type"];
     this.entity = params["entity"];
     this.id = params["id"];
-    console.log(params);
   }
 
   async render() {
