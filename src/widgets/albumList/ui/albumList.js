@@ -21,7 +21,7 @@ export class AlbumListView {
 	/**
 	 * Renders the album view.
 	 */
-	async render(albums, favorite = false) {
+	async render(albums, favorite = false, search = false) {
 		const albumListElement = document.createElement('div');
 		albumListElement.classList.add('albums');
 
@@ -30,6 +30,8 @@ export class AlbumListView {
 			titleText = "Альбомы исполнителя";
 		} else if (favorite) {
 			titleText = "Любимые альбомы";
+		} else if (search) {
+			titleText = "Альбомы";
 		} else {
 			titleText = "Популярные альбомы";
 		}

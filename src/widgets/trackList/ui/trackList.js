@@ -24,6 +24,7 @@ export class TrackListView {
     this.albumId = args.albumId ?? null;
     this.userID = args.userID ?? null;
     this.favorite = args.favorite ?? null;
+    this.search = args.search ?? false;
     this.myPlaylistId = args.myPlaylistId ?? false;
   }
 
@@ -54,7 +55,9 @@ export class TrackListView {
     } else if (this.favorite) {
       showMoreHref = `/more_tracks/favorite/${this.userID}`;
       titleText = "Любимые треки";
-    } else {
+    } else if (this.search) {
+			titleText = "Треки";
+		} else {
       showMoreHref = `/more_tracks/popular`;
       titleText = "Популярные треки";
     }
