@@ -7,6 +7,7 @@ export class Router {
     this.routes = [];
     this.currentView = null;
     this.isRendering = false;
+    this.waitingRender = null; 
 
     this.onPopState = this.onPopState.bind(this);
     this.onNavigate = this.onNavigate.bind(this);
@@ -96,6 +97,8 @@ export class Router {
    */
   async goTo(path) {
     if (this.isRendering) {
+      this.waitingRender = path;
+      this.toggleFade(true);
       return;
     }
     window.history.pushState({}, "", path);
@@ -127,6 +130,13 @@ export class Router {
       await this.currentView.render();
     }
     this.isRendering = false;
+    this.toggleFade(false);
+
+    if (this.waitingRender && this.waitingRander !== currentPath) {
+      const nextPath = this.waitingRender;
+      this.waitingRender = null;
+      await this.goTo(nextPath);
+    }
   }
 
   /**
@@ -152,5 +162,30 @@ export class Router {
       }
     }
     return null;
+  }
+
+  /**
+ * Toggles the visibility of a "fade" element within the container with the ID "root".
+ * The fade element is used to visually indicate the current state of the rendering process.
+ *
+ * @param {boolean} state - Indicates the current rendering state. 
+ * `true` means that calling rendering is blocked, `false` means that calling rendering is permitted.
+ */
+  toggleFade(state) {
+    const container = document.querySelector("#root");
+    if (state) {
+      // Если рендер заблокирован, добавляем fade
+      if (container) {
+        const fade = document.createElement('div');
+        fade.classList.add('container__fade');
+        container.appendChild(fade);
+      }
+    } else {
+      // Если рендер завершился, удаляем fade
+      const fade = container?.querySelector('.container__fade');
+      if (fade) {
+        fade.remove();
+      }
+    }
   }
 }
